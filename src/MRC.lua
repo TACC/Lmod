@@ -128,6 +128,32 @@ function M.singleton(self, fnA)
    return s_MRC
 end
 
+local s_tmTransT = {
+   is_dst   = true,
+   tm_hour  = "hour",
+   tm_isdst = "is_dst",
+   tm_mday  = "monthDay",
+   tm_min   = "min",
+   tm_mon   = "month",
+   tm_sec   = "sec",
+   tm_wday  = "weekday",
+   tm_yday  = "yearday",
+   tm_year  = "year",
+}
+   
+local function l_convertOldtm(tm)
+   if (tm.tm_mon) then
+      for k, v in pairs(tm) do
+         local key = s_tmTransT[k]
+         if (key) then
+            tm[key] = v
+         end
+      end
+      tm.year = 1900 + tm.year
+   end
+   return tm
+end
+
 local function l_convertStr2TM(tStr, tm, is_dst)
    if (not tStr:find("T")) then
       tStr = tStr .. "T00:00"
@@ -149,6 +175,7 @@ local function l_convertTimeStr_to_epoch(tStr)
    if (not ok) then
       LmodError{msg="e_Malformed_time",tStr = tStr}
    end
+   tm = l_convertOldtm(tm)
    return posix.mktime(tm)
 end
 
