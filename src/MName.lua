@@ -68,7 +68,13 @@ local s_rangeFuncT = { ["<="] = {func = l_lessthan_equal, name = "<="},
 
 
 function M.new(self, sType, name, action, is, ie)
-   dbg.start{"Mname:new(",sType,", name: ",name,", action: ", action,")"}
+   if (dbg.active()) then
+      local n = name
+      if (sType == "entryT") then
+         n = name.userName
+      end
+      dbg.start{"MName:new(",sType,", name: ",n,", action: ", action,")"}
+   end
    local exact_match = cosmic:value("LMOD_EXACT_MATCH")
 
    if (not s_findT) then
