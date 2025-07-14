@@ -151,7 +151,8 @@ local function l_convertOldtm(tm)
             t[key] = v
          end
       end
-      t.year = 1900 + t.year
+      t.year  = 1900 + t.year
+      t.month = t.month
    else
       t = tm
    end
@@ -179,9 +180,7 @@ local function l_convertTimeStr_to_epoch(tStr)
    if (not ok) then
       LmodError{msg="e_Malformed_time",tStr = tStr}
    end
-   dbg.print{"tStr: ",tStr,",tm.is_dst: ",tm.is_dst,"\n"}
    tm = l_convertOldtm(tm)
-   dbg.printT("tm", tm)
    return posix.mktime(tm)
 end
 
