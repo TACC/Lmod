@@ -130,7 +130,6 @@ end
 
 local s_tmTransT = {
    tm_hour  = "hour",
-   tm_isdst = "is_dst",
    tm_mday  = "monthDay",
    tm_min   = "min",
    tm_mon   = "month",
