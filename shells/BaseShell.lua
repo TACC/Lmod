@@ -130,16 +130,77 @@ function M.report_success(self)
    -- No output for normal shells
 end
 
+
+function M.set_var(self, k, t)
+   local vstr = t.vstr
+   if (not vstr) then
+      self:unset(k)
+   elseif (k == "_ModuleTable_") then
+      self:expandMT(vstr)
+   else
+      if (not QuarantineT[k]) then
+         self:expandVar(k, vstr, t.vType)
+      end
+   end
+end
+
+local s_delayT = {}
+
+function M.set_complete_delay(self, k, t)
+   s_delayT[k] = { vType = t.vType, vstr = t.vstr }
+end
+
+M.set_export_shell_function_delay = M.set_complete_delay
+
+function M.set_alias(self, k, t)
+   -- Nothing
+end
+
+function M.set_shell_function(self, k, t)
+   -- Nothing
+end
+
+function M.set_complete(self, k, t)
+   -- Nothing
+end
+function M.set_export_shell_function(self, k, t)
+   -- Nothing
+end
+
+
+
+function M.set_path(self, k, t)
+   if (next(t.priorityStrT) ~= nil) then
+      for prtyKey,prtyStr in pairs(t.priorityStrT) do
+         if (prtyStr) then
+            self:expandVar(prtyKey,prtyStr,"path")
+         else
+            self:unset(prtyKey,"path")
+         end
+      end
+   end
+   if (next(t.refCountT) ~= nil) then
+      for key,value in pairs(t.refCountT) do
+         if (value) then
+            self:expandVar(key, value, "path")
+         else
+            self:unset(key,"path")
+         end
+      end
+   end
+   self:set_var(k, t)
+end
+
 --------------------------------------------------------------------------
 -- BaseShell:expand(): This base class function is what converts the
 --                     environment variables stored internally into
 --                     strings.  Each variable knows its type, so this
---                     routine does a big switch on each type and calls
+--                     routine calls 
 --                     the derived shell class member function to do the
 --                     actual expansion to standard out (io.stdout).
 
-function M.expand(self, tbl)
-   dbg.start{"BaseShell:expand(tbl)"}
+function M.expand(self, varT)
+   dbg.start{"BaseShell:expand(varT)"}
 
    if ( not self._active) then
       dbg.print{"expand is not active\n"}
@@ -149,57 +210,42 @@ function M.expand(self, tbl)
 
    local init = false
 
-   local delayT = {}
-
-
-   for k,v in pairsByKeys(tbl) do
-      if (not init) then
-         self:initialize()
-         init = true
-      end
-
-      local vstr, vType, priorityStrT, refCountT = v:expand()
-      if (next(priorityStrT) ~= nil) then
-         for prtyKey,prtyStr in pairs(priorityStrT) do
-            if (prtyStr) then
-               self:expandVar(prtyKey,prtyStr,"path")
-            else
-               self:unset(prtyKey,"path")
-            end
-         end
-      end
-      if (next(refCountT) ~= nil) then
-         for key,value in pairs(refCountT) do
-            if (value) then
-               self:expandVar(key, value, "path")
-            else
-               self:unset(key,"path")
-            end
-         end
-      end
-      if (vType == "alias") then
-         self:alias(k,vstr)
-      elseif (vType == "shell_function") then
-         self:shellFunc(k,vstr)
-      elseif (vType == "complete" or vType == "export_shell_function") then
-         delayT[k] = { vType = vType, vstr = vstr }
-      elseif (not vstr) then
-         self:unset(k, vType)
-      elseif (k == "_ModuleTable_") then
-         self:expandMT(vstr)
-      else
-         if (not QuarantineT[k]) then
-            self:expandVar(k,vstr,vType)
-         end
-      end
+   if (next(varT) ~= nil ) then
+      self:initialize()
+      init = true
    end
-   if (next(delayT) ~= nil) then
-      for k, v in pairsByKeys(delayT) do
+
+   ------------------------------------------------------------
+   -- This loop is kinda magical.  It replaces a big if-elseif-else
+   -- block with a table look-up into the shell object: self
+   -- The t.funcName values are:
+   --   set_var
+   --   set_path
+   --   set_complete_delay
+   --   set_export_shell_function_delay
+   --   set_shell_function
+   -- 
+   -- The stmt:
+   --    self[t.funcName](self, k, t)
+   -- when t.funcName is "set_var" then above stmt is the same as:
+   --    self:set_var(k,t)
+
+   for k,var in pairsByKeys(varT) do
+      local t = var:expandT()
+      self[t.funcName](self, k, t)
+   end
+
+   ------------------------------------------------------------
+   -- copy the complete and export shell commands after all the 
+   -- 
+
+   if (next(s_delayT) ~= nil) then
+      for k, v in pairsByKeys(s_delayT) do
          local vType = v.vType
          if (vType == "complete") then
-            self:complete(k,v.vstr)
+            self:set_complete(k,v.vstr)
          elseif (vType == "export_shell_function") then
-            self:export_shell_function(k,v.vstr)
+            self:set_export_shell_function(k,v.vstr)
          end
       end
    end

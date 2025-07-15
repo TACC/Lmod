@@ -1,6 +1,10 @@
 New Features in Lmod
 ====================
 
+**Using luaposix's syslog interface**
+  (Lmod 8.8+)  See :ref:`tracking_usage` for more details. In
+  particular please see the **l_report_loads** () function.
+
 **Irreversible module actions**
   (Lmod 8.8) You can now set environment variable or load modules when
   unloading. See :ref:`mode_select-label` for more details.

@@ -47,14 +47,6 @@ local stdout    = io.stdout
 Perl.my_name    = "perl"
 Perl.myType     = Perl.my_name
 
-function Perl.alias(self, k, v)
-   -- do nothing: alias do not make sense in a perl script.
-end
-
-function Perl.shellFunc(self, k, v)
-   -- do nothing: shell functions do not make sense in a perl script.
-end
-
 function Perl.echo(self,...)
    self:_echo(...)
 end
@@ -73,7 +65,7 @@ function Perl.expandVar(self, k, v, vType)
    dbg.print{   line}
 end
 
-function Perl.unset(self, k, vType)
+function Perl.unset(self, k)
    stdout:write("delete $ENV{",k,"};\n")
    dbg.print{   "delete $ENV{",k,"};\n"}
 end

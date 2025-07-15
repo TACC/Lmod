@@ -28,6 +28,7 @@ testdescript = {
      ORIG_LD=${LD_LIBRARY_PATH}
      export LD_LIBRARY_PATH="/df/gh${ORIG_LD:+:}${ORIG_LD}"
      export FOO_ESC='\['
+     export CI_RUNNER_TAGS = '["ansible", "yaml"]',
      runSh2MF             $(testDir)/tstScript.sh                 # 2
      runSh2MF  --to TCL   $(testDir)/tstScript.sh                 # 3 
      runSh2MF             $(testDir)/path_both_ends.sh            # 4        

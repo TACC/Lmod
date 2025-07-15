@@ -49,14 +49,6 @@ local stdout    = io.stdout
 CMake.my_name   = "cmake"
 CMake.myType    = "cmake"
 
-function CMake.alias(self, k, v)
-   -- do nothing: alias do not make sense in a cmake script
-end
-
-function CMake.shellFunc(self, k, v)
-   -- do nothing: shell functions do not make sense in a cmake script
-end
-
 function CMake.echo(self,...)
    self:_echo(...)
 end
@@ -73,7 +65,7 @@ function CMake.expandVar(self, k, v, vType)
    dbg.print{   line}
 end
 
-function CMake.unset(self, k, vType)
+function CMake.unset(self, k)
    local lineA = {}
    lineA[#lineA + 1] = 'unset(ENV{'
    lineA[#lineA + 1] = k

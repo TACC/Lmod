@@ -69,17 +69,37 @@ end
 hook.register("load",load_hook)
 
 
-function report_loads()
+local function l_report_loads()
+   local openlog
+   local syslog
+   local closelog
+   local logInfo
+   if (posix.syslog) then
+      if (type(posix.syslog) == "table" ) then
+         -- Support new style posix.syslog table
+         openlog  = posix.syslog.openlog
+         syslog   = posix.syslog.syslog
+         closelog = posix.syslog.closelog
+         logInfo  = posix.syslog.LOG_INFO
+      else
+         -- Support original style posix.syslog functions
+         openlog  = posix.openlog
+         syslog   = posix.syslog
+         closelog = posix.closelog
+         logInfo  = 6
+      end
 
-   local sys         = os.getenv("LMOD_sys") or "Linux"
-   if (sys == "Linux") then
-      local a = s_msgA
-      for i = 1,#a do
-         local msg = a[i]
-         os.execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
+      openlog("ModuleUsageTracking")
+      for k,msg in pairs(s_msgT) do
+         syslog(logInfo, msg)
+      end
+      closelog()
+   else
+      for k,msg in pairs(s_msgT) do
+         lmod_system_execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
       end
    end
 end
 
 
-ExitHookA.register(report_loads)
+ExitHookA.register(l_report_loads)

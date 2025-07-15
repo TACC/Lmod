@@ -59,7 +59,8 @@ Rc.myType          = 'rc'
 --             in.  This way there is one and only one semicolon at the
 --             end.
 
-function Rc.alias(self, k, v)
+function Rc.set_alias(self, k, t)
+  local vstr  = t.vstr
   local lineA = {}
   lineA[#lineA + 1] = "fn "
   lineA[#lineA + 1] = k
@@ -68,30 +69,11 @@ function Rc.alias(self, k, v)
     -- detect whether k is an alias for k itself
     lineA[#lineA + 1] = "builtin "
   end
-  lineA[#lineA + 1] = v
+  lineA[#lineA + 1] = vstr
   lineA[#lineA + 1] = " $* }\n"
   local line = concatTbl(lineA,"")
   stdout:write(line)
   dbg.print{   line}
-end
-
---------------------------------------------------------------------------
--- Rc:shellFunc(): Modify module definition of function truncating
---                 everything after first semicolon.
---                 [copied from bash behavior]
-function Rc.shellFunc(self,k,v)
-   if (not v) then
-      stdout:write("fn ",k,"\n")
-      dbg.print{   "fn ",k,"\n"}
-   else
-      --local func = v[1]:gsub(";%s*$","")
-      --stdout:write("fn ",k," { ",func," }\n")
-      --dbg.print{   "fn ",k," { ",func," }\n"}
-      -- Unfortunately, shell functions come only in bash and csh
-      -- types.  They contain $() and "", so are
-      -- unsuitable for execution by rc.
-      -- Neither can they be translated automatically.
-   end
 end
 
 --------------------------------------------------------------------------
@@ -139,7 +121,7 @@ end
 --------------------------------------------------------------------------
 -- Rc:unset(): unset a local or env. variable.
 
-function Rc.unset(self, k, vType)
+function Rc.unset(self, k)
    if (k:find("%.")) then
       return
    end

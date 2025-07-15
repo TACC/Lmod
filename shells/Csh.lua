@@ -57,26 +57,29 @@ Csh.myType         = 'csh'
 --              in.  This way there is one and only one semicolon at the
 --              end.
 
-function Csh.alias(self, k, v)
-   if (not v ) then
+function Csh.set_alias(self, k, t)
+   local vstr = t.vstr
+   if (not vstr ) then
       stdout:write("unalias ",k,";\n")
       dbg.print{   "unalias ",k,";\n"}
    else
-      v = v:gsub("%$%*","\\!*")
-      v = v:gsub("%$([0-9])", "\\!:%1")
-      v = v:gsub(";%s$","")
-      stdout:write("alias ",k," '",v,"';\n")
-      dbg.print{   "alias ",k," '",v,"';\n"}
+      vstr = vstr:gsub("%$%*","\\!*")
+      vstr = vstr:gsub("%$([0-9])", "\\!:%1")
+      vstr = vstr:gsub(";%s$","")
+      stdout:write("alias ",k," '",vstr,"';\n")
+      dbg.print{   "alias ",k," '",vstr,"';\n"}
    end
 end
 
 --------------------------------------------------------------------------
--- Csh:shellFunc(): reuse the Csh:alias function after deciding if is
---                  a set or unset of the alias.
+-- Csh:set_shell_function(): reuse the Csh:alias function after deciding if is
+--                       a set or unset of the alias.
 
-function Csh.shellFunc(self,k,v)
-   local vv = (type(v) == "table") and v[2] or ""
-   self:alias(k,vv)
+function Csh.set_shell_function(self,k,t)
+   local vstr  = t.vstr
+   local vv    = (type(vstr) == "table") and vstr[2] or ""
+   t.vstr      = vv
+   self:set_alias(k,t)
 end
 
 --------------------------------------------------------------------------
@@ -90,12 +93,7 @@ function Csh.expandVar(self, k, v, vType)
    local middle      = ' '
    v                 = tostring(v):gsub("!","\\!")
    v                 = v:multiEscaped()
-   if (vType == "local_var") then
-      lineA[#lineA + 1] = "set "
-      middle            = "="
-   else
-      lineA[#lineA + 1] = "setenv "
-   end
+   lineA[#lineA + 1] = "setenv "
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = middle
    lineA[#lineA + 1] = v
@@ -114,16 +112,12 @@ end
 --------------------------------------------------------------------------
 -- Csh:unset(): unset a local or env. variable.
 
-function Csh.unset(self, k, vType)
+function Csh.unset(self, k)
    if (k:find("%.")) then
       return
    end
    local lineA       = {}
-   if (vType == "local_var") then
-      lineA[#lineA + 1] = "unset "
-   else
-      lineA[#lineA + 1] = "unsetenv "
-   end
+   lineA[#lineA + 1] = "unsetenv "
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = ";\n"
    local line = concatTbl(lineA,"")
@@ -131,7 +125,7 @@ function Csh.unset(self, k, vType)
    dbg.print{   line}
 end
 
-function Csh.complete(self, name, value)
+function Csh.set_complete(self, name, value)
    local lineA = {}
    local n     = unwrap_kind("complete", name)
    if (value) then

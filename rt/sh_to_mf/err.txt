@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.62 2025-06-25 16:44 -05:00
+Modules based on Lua: Version 8.7.63 2025-06-27 15:32 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -159,18 +159,18 @@ _ModuleTable_ = {
           [[setenv("SECOND","FOO_BAR")]],
         },
         ["ProjectDIR/rt/sh_to_mf/tstScript.sh"] = {
-          [[append_path("LD_LIBRARY_PATH","/abc/def")]], [[append_path("LD_LIBRARY_PATH","/def/qrst")]], [[setenv("MY_NAME","tstScript.sh")]], [[setenv("PTH","ProjectDIR/rt/sh_to_mf/bin:ProjectDIR/proj_mgmt:PATH_to_TM:ProjectDIR/rt/sh_to_mf/sbin")]], [[setenv("TST_SCRIPT","1")]], [[set_alias("fooAlias","foobin -q -l")]], [[set_shell_function("banner"," \
+          [[append_path("LD_LIBRARY_PATH","/abc/def")]], [[append_path("LD_LIBRARY_PATH","/def/qrst")]], [[setenv("MY_NAME","tstScript.sh")]], [[setenv("PTH","ProjectDIR/rt/sh_to_mf/bin:ProjectDIR/proj_mgmt:PATH_to_TM:ProjectDIR/rt/sh_to_mf/sbin")]], [[setenv("TST_SCRIPT","1")]], [[set_alias("fooAlias","foobin -q -l")]], [=[set_shell_function("banner"," \
     local str=\"$1\";\
     local RED='\\033[1;31m';\
     local NONE='\\033[0m';\
     echo \"${RED}${str}${NONE}\"\
-","")]], [[set_shell_function("fooFunc"," \
+","")]=], [[set_shell_function("fooFunc"," \
     echo \"arg1: $1\"\
-","")]], [[set_shell_function("junk"," \
+","")]], [=[set_shell_function("junk"," \
     if [ -n \"${ZSH_VERSION:-}\" ]; then\
         \\echo \"junk\";\
     fi\
-","")]], [[set_shell_function("my_help"," \
+","")]=], [[set_shell_function("my_help"," \
     echo \"do not forget \\\"foo\\\"\"\
 ","")]], [[set_shell_function("save_args"," \
     for arg in \"$@\";\
@@ -247,18 +247,18 @@ _ModuleTable_ = {
           [[setenv("SECOND","FOO_BAR")]],
         },
         ["ProjectDIR/rt/sh_to_mf/tstScript.sh"] = {
-          [[append_path("LD_LIBRARY_PATH","/abc/def")]], [[append_path("LD_LIBRARY_PATH","/def/qrst")]], [[setenv("MY_NAME","tstScript.sh")]], [[setenv("PTH","ProjectDIR/rt/sh_to_mf/bin:ProjectDIR/proj_mgmt:PATH_to_TM:ProjectDIR/rt/sh_to_mf/sbin")]], [[setenv("TST_SCRIPT","1")]], [[set_alias("fooAlias","foobin -q -l")]], [[set_shell_function("banner"," \
+          [[append_path("LD_LIBRARY_PATH","/abc/def")]], [[append_path("LD_LIBRARY_PATH","/def/qrst")]], [[setenv("MY_NAME","tstScript.sh")]], [[setenv("PTH","ProjectDIR/rt/sh_to_mf/bin:ProjectDIR/proj_mgmt:PATH_to_TM:ProjectDIR/rt/sh_to_mf/sbin")]], [[setenv("TST_SCRIPT","1")]], [[set_alias("fooAlias","foobin -q -l")]], [=[set_shell_function("banner"," \
     local str=\"$1\";\
     local RED='\\033[1;31m';\
     local NONE='\\033[0m';\
     echo \"${RED}${str}${NONE}\"\
-","")]], [[set_shell_function("fooFunc"," \
+","")]=], [[set_shell_function("fooFunc"," \
     echo \"arg1: $1\"\
-","")]], [[set_shell_function("junk"," \
+","")]], [=[set_shell_function("junk"," \
     if [ -n \"${ZSH_VERSION:-}\" ]; then\
         \\echo \"junk\";\
     fi\
-","")]], [[set_shell_function("my_help"," \
+","")]=], [[set_shell_function("my_help"," \
     echo \"do not forget \\\"foo\\\"\"\
 ","")]], [[set_shell_function("save_args"," \
     for arg in \"$@\";\

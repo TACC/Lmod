@@ -219,6 +219,7 @@ local function l_extract(self, nodups)
    self.nodups    = nodups
    self.value     = myValue
    self.type      = 'path'
+   self.funcName  = 'set_path'
    self.tbl       = pathTbl
    self.imin      = imin
    self.imax      = imax
@@ -398,6 +399,7 @@ function M.prepend(self, value, nodups, priority)
       nodups = true
    end
    self.type           = 'path'
+   self.funcName       = 'set_path'
    priority            = priority or 0
    local name          = self.name
    local clearDblSlash = name == "MODULEPATH"
@@ -448,6 +450,7 @@ function M.append(self, value, nodups, priority)
    end
 
    self.type           = 'path'
+   self.funcName       = 'set_path'
    priority            = tonumber(priority or "0")
    local name          = self.name
    local clearDblSlash = name == "MODULEPATH"
@@ -484,22 +487,26 @@ end
 function M.complete(self, args)
    if (not args) then value = false end
    self.type      = "complete"
+   self.funcName  = "set_complete_delay"
    self.value     = args
 end
 
 function M.uncomplete(self)
    self.type      = "complete"
+   self.funcName  = "set_complete_delay"
    self.value     = false
 end
 
 
 function M.export_shell_function(self)
    self.type      = "export_shell_function"
+   self.funcName  = "set_export_shell_function_delay"
    self.value     = true
 end
 
 function M.unset_shell_function(self)
    self.type      = "export_shell_function"
+   self.funcName  = "set_export_shell_function_delay"
    self.value     = false
 end
 
@@ -510,8 +517,9 @@ end
 -- @param value the value to set.
 function M.set(self,value)
    if (not value) then value = false end
-   self.value = value
-   self.type  = 'var'
+   self.value    = value
+   self.type     = 'var'
+   self.funcName = "set_var"
    if (not value) then value = nil end
    setenv_posix(self.name, value, true)
    local adding = true
@@ -523,10 +531,11 @@ end
 -- @param self A Var object.
 function M.pop(self)
    dbg.start{"Var.pop(self)"}
-   self.type    = 'path'
-   local imin   = self.imin
-   local min2   = huge
-   local result = nil
+   self.type     = 'path'
+   self.funcName = 'set_path'
+   local imin    = self.imin
+   local min2    = huge
+   local result  = nil
 
    if (dbg.active()) then
       self:prt("(1) Var:pop()")
@@ -629,14 +638,22 @@ end
 -- Unset the environment variable.
 -- @param self A Var object
 function M.unset(self)
-   self.value = false
-   self.type  = 'var'
+   self.value    = false
+   self.type     = 'var'
+   self.funcName = "set_var"
    setenv_posix(self.name, nil, true)
-   local adding = false
+   local adding  = false
    l_processDynamicVars(self.name, nil, nil, "unsetenv")
 end
 
 
+
+
+function M.expandT(self)
+   local vstr, vType, priorityStrT, refCountT = self:expand()
+   return {vstr = vstr, vType = vType, funcName = self.funcName,
+           priorityStrT = priorityStrT, refCountT = refCountT}
+end
 
 
 --------------------------------------------------------------------------
@@ -784,16 +801,18 @@ end
 -- @param value the text of the alias.
 function M.setAlias(self,value)
    if (not value) then value = false end
-   self.value = value
-   self.type  = 'alias'
+   self.value    = value
+   self.type     = 'alias'
+   self.funcName = "set_alias"
 end
 
 --------------------------------------------------------------------------
 -- unset the alias.
 -- @param self A Var object.
 function M.unsetAlias(self)
-   self.value = false
-   self.type  = 'alias'
+   self.value    = false
+   self.type     = 'alias'
+   self.funcName = "set_alias"
 end
 
 --------------------------------------------------------------------------
@@ -802,16 +821,18 @@ end
 -- @param bash_func A bash function string.
 -- @param csh_func A C-shell function string.
 function M.setShellFunction(self,bash_func,csh_func)
-   self.value = {bash_func,csh_func}
-   self.type  = 'shell_function'
+   self.value    = {bash_func,csh_func}
+   self.type     = 'shell_function'
+   self.funcName = "set_shell_function"
 end
 
 --------------------------------------------------------------------------
 -- Unset a shell function for Bash and C-shell
 -- @param self A Var object.
 function M.unsetShellFunction(self)
-   self.value = false
-   self.type  = 'shell_function'
+   self.value    = false
+   self.type     = 'shell_function'
+   self.funcName = "set_shell_function"
 end
 
 

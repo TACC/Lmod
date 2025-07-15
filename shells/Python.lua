@@ -48,14 +48,6 @@ local stdout    = io.stdout
 Python.my_name  = "python"
 Python.myType   = Python.my_name
 
-function Python.alias(self, k, v)
-   -- do nothing: alias do not make sense in a python script
-end
-
-function Python.shellFunc(self, k, v)
-   -- do nothing: shell functions do not make sense in a python script
-end
-
 function Python.echo(self,...)
    self:_echo(...)
 end
@@ -73,7 +65,7 @@ function Python.expandVar(self, k, v, vType)
    dbg.print{   line}
 end
 
-function Python.unset(self, k, vType)
+function Python.unset(self, k)
    local lineA = {}
    -- We set environment key first to avoid Python key error
    -- in case key isn't set.

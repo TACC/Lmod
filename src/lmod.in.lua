@@ -579,7 +579,9 @@ function main()
    dbg.fini("lmod")
 
    -- Output all newly created path and variables.
+   local expandT1 = epoch()
    Shell:expand(varT)
+   timer:deltaT("shell:expand", epoch() - expandT1)
 
    -- Expand any execute\{\} cmds
    if (Shell:real_shell())then

@@ -55,13 +55,13 @@ Bash.myType     = "sh"
 --               Modify module definition of function so that there is
 --               one and only one semicolon at the end.
 
-function Bash.alias(self, k, v)
-   if (not v) then
+function Bash.set_alias(self, k, t)
+   local vstr = t.vstr
+   if (not vstr) then
       stdout:write("unalias ",k," 2> /dev/null || true;\n")
       dbg.print{   "unalias ",k," 2> /dev/null || true;\n"}
    else
-      v = v:gsub(";%s*$",""):multiEscaped()
-
+      local v = vstr:gsub(";%s*$",""):multiEscaped()
       stdout:write("alias ",k,"=",v,";\n")
       dbg.print{   "alias ",k,"=",v,";\n"}
    end
@@ -81,23 +81,22 @@ end
 --                   Modify module definition of function so that there is
 --                   one and only one semicolon at the end.
 
-function Bash.shellFunc(self, k, v)
-   dbg.print{"Bash.shellFunc: k: \"",k,"\", v: ",v,"\n"}
-   if (not v) then
+function Bash.set_shell_function(self, k, t)
+   dbg.print{"Bash.set_shell_function: k: \"",k,"\"\n"}
+   local vstr = t.vstr
+   if (not vstr) then
       stdout:write("unset -f ",k," 2> /dev/null || true;\n")
       dbg.print{   "unset -f ",k," 2> /dev/null || true;\n"}
    else
-      local func = v[1]:gsub(";%s*$","")
+      local func = vstr[1]:gsub(";%s*$","")
       local str  = l_build_shell_func(k, func);
       stdout:write(str)
       dbg.print{   str}
    end
 end
 
-
 --------------------------------------------------------------------------
--- Bash:expandVar(): Define either a global or local variable in bash
---                   syntax
+-- Bash:expandVar(): Define a global variable in bash syntax
 
 function Bash.expandVar(self, k, v, vType)
    local lineA       = {}
@@ -114,11 +113,9 @@ function Bash.expandVar(self, k, v, vType)
    lineA[#lineA + 1] = "="
    lineA[#lineA + 1] = v
    lineA[#lineA + 1] = ";\n"
-   if (vType ~= "local_var") then
-      lineA[#lineA + 1] = "export "
-      lineA[#lineA + 1] = k
-      lineA[#lineA + 1] = ";\n"
-   end
+   lineA[#lineA + 1] = "export "
+   lineA[#lineA + 1] = k
+   lineA[#lineA + 1] = ";\n"
    local line = concatTbl(lineA,"")
    stdout:write(line)
    if (k:find('^_ModuleTable') == nil) then
@@ -129,7 +126,7 @@ end
 --------------------------------------------------------------------------
 -- Bash:unset() unset an environment variable.
 
-function Bash.unset(self, k, vType)
+function Bash.unset(self, k)
    if (k:find("%.")) then
       return
    end
@@ -137,7 +134,7 @@ function Bash.unset(self, k, vType)
    dbg.print{   "unset ",k,";\n"}
 end
 
-function Bash.complete(self, n, value)
+function Bash.set_complete(self, n, value)
    local lineA = {}
    local name  = unwrap_kind("complete", n)
    if (value) then
@@ -156,7 +153,7 @@ function Bash.complete(self, n, value)
    dbg.print{   line}
 end
 
-function Bash.export_shell_function(self, n, value)
+function Bash.set_export_shell_function(self, n, value)
    local lineA = {}
    local name  = unwrap_kind("export_shell_function", n)
    if (value) then
