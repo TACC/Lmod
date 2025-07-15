@@ -122,13 +122,19 @@ function Nushell.expandVar(self, k, v, vType)
       
       -- Split on colons and create a nushell list
       local pathA  = path2pathA(v)
-      local qpathA = {}
+      local qpathA = nil
 
-      for i = 1,#pathA do
-         local path = pathA[i]
-         local left, rght = l_quoteValue(path)
-         qpathA[i] = left .. path .. rght
+      if (k:match("^__LMOD_STACK_")) then
+         qpathA = pathA
+      else
+         qpathA = {}
+         for i = 1,#pathA do
+            local path = pathA[i]
+            local left, rght = l_quoteValue(path)
+            qpathA[i] = left .. path .. rght
+         end
       end
+
       lineA[#lineA + 1] = concatTbl(qpathA, ", ")
       lineA[#lineA + 1] = ",];\n"
    else
