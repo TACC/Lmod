@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.60 2025-04-30 12:50 -05:00
+Modules based on Lua: Version 8.7.64 2025-07-08 12:40 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -216,3 +216,20 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load qiime/2-2024.10/m
 ===========================
 The following have been reloaded with a version change:
   1) qiime/2-2024.10/amplicon => qiime/2-2024.10/metagenome
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/1
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "foo/1"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "foo/1"
+Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/1.0
+===========================
