@@ -130,7 +130,7 @@ end
 
 local s_tmTransT = {
    tm_hour  = "hour",
-   tm_mday  = "monthDay",
+   tm_mday  = "monthday",
    tm_min   = "min",
    tm_mon   = "month",
    tm_sec   = "sec",
@@ -149,9 +149,12 @@ local function l_convertOldtm(tm)
             t[key] = v
          end
       end
-      t.year  = 1900 + t.year
-      t.month = t.month + 1
-      t.is_dst = tm.is_dst
+      t.year     = 1900 + t.year
+      t.month    = t.month + 1
+      t.is_dst   = tm.is_dst
+      t.tm_isdst = tm.is_dst and 1 or 0
+      t.day      = t.monthday
+      t.gmtoff   = 0
    else
       t = tm
    end
