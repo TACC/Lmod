@@ -143,7 +143,6 @@ local function l_convertOldtm(tm)
    local t = {}
    if (tm.tm_mon) then
       for k, v in pairs(tm) do
-         --t[k] = v
          local key = s_tmTransT[k]
          if (key) then
             t[key] = v
