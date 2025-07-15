@@ -28,6 +28,7 @@ testdescript = {
 
 
      runNushell --version                # 1
+     export CC=gcc
      runNushell load intel               # 2
 
 

@@ -32,6 +32,8 @@ prepend_path('LD_LIBRARY_PATH','/vol/local/intel/mkl/mkl/lib/lib')
 
 family("compiler")
 
+pushenv( "CC", "icc")
+
 local pkgVersion      = "10.1"
 local pkgName         = "intel"
 local pkgNameVer      = pathJoin(pkgName,pkgVersion)

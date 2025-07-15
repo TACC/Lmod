@@ -320,7 +320,7 @@ function lmod_stack(shell, whole)
          csh     = {"^(setenv __LMOD_STACK[^ ]*)%s+([^;]*);?",        " "},
          bash    = {"^(__LMOD_STACK[^=]*)=([^;]*);",                  "="},
          fish    = {"^(set -x -g __LMOD_STACK[^ ]*)%s+\"(.*)\"",      " "},
-         nushell = {"^(%$env.__LMOD_STACK[^ ]*)%s+=%s+r#'([^']*)'#;", " "},
+         nushell = {"^(%$env.__LMOD_STACK[^ ]*)%s+=%s+r#'([^']*)'#;", "%s*,"},
       }
    local a = {}
    local patt = pattT[shell][1]
