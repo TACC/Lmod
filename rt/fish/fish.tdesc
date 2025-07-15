@@ -29,6 +29,7 @@ testdescript = {
 
 
      runFish --version                # 1
+     export CC=gcc
      runFish load intel               # 2
 
 

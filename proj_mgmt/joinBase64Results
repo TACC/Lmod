@@ -314,13 +314,63 @@ function joinB64_csh(name, whole)
    return A
 end
 
+local function l_stackVar_common(name, str, sep, a)
+   local b = {}
+   b[#b+1] = name
+   b[#b+1] = sep
+   for v in str:split(":") do
+      v = (v ~= "false") and decode64(v) or "false"
+      b[#b+1] = v:multiEscaped()
+      b[#b+1] = ":"
+   end
+   b[#b] = ";"
+   a[#a+1] = concatTbl(b,"")
+   return a
+end
+
+local function l_stackVar_fish(name, str, sep, a)
+   local b = {}
+   b[#b+1] = name
+   b[#b+1] = sep
+   for v in str:split(sep) do
+      v = (v ~= "false") and decode64(v) or "false"
+      b[#b+1] = v:multiEscaped()
+      b[#b+1] = " "
+   end
+   b[#b] = ";"
+   a[#a+1] = concatTbl(b,"")
+   return a
+end
+
+local function l_stackVar_nushell(name, str, sep, a)
+   local b = {}
+   b[#b+1] = name
+   b[#b+1] = " = ["
+   for v in str:split(sep) do
+      v = (v ~= "false") and decode64(v) or "false"
+      b[#b+1] = v:multiEscaped()
+      b[#b+1] = ","
+   end
+   b[#b] = "];"
+   a[#a+1] = concatTbl(b,"")
+   return a
+end
+
+local s_stackFnA = {
+   bash    = l_stackVar_common,
+   csh     = l_stackVar_common,
+   fish    = l_stackVar_fish,
+   nushell = l_stackVar_nushell,
+}      
+
+
 function lmod_stack(shell, whole)
    local pattT =
       { 
-         csh     = {"^(setenv __LMOD_STACK[^ ]*)%s+([^;]*);?",        " "},
-         bash    = {"^(__LMOD_STACK[^=]*)=([^;]*);",                  "="},
-         fish    = {"^(set -x -g __LMOD_STACK[^ ]*)%s+\"(.*)\"",      " "},
-         nushell = {"^(%$env.__LMOD_STACK[^ ]*)%s+=%s+r#'([^']*)'#;", "%s*,"},
+         csh     = {"^(setenv __LMOD_STACK[^ ]*)%s+([^;]*);?",        " "   },
+         bash    = {"^(__LMOD_STACK[^=]*)=([^;]*);",                  "="   },
+         fish    = {"^(set %-x %-g __LMOD_STACK[^ ]*)%s+(.*);",       " "   },
+         nushell = {"^(%$env.__LMOD_STACK_[^ ]*)%s+=%s+[[](.*)[]];",  ",%s*"},
       }
    local a = {}
    local patt = pattT[shell][1]
@@ -330,16 +380,7 @@ function lmod_stack(shell, whole)
       if (not i) then
          a[#a + 1] = s
       else
-         local b = {}
-         b[#b+1] = name
-         b[#b+1] = sep
-         for v in str:split(":") do
-            v = (v ~= "false") and decode64(v) or "false"
-            b[#b+1] = v:multiEscaped()
-            b[#b+1] = ":"
-         end
-         b[#b] = ";"
-         a[#a+1] = concatTbl(b,"")
+        a = s_stackFnA[shell](name, str, sep, a)
       end
    end
    return concatTbl(a,"\n")
