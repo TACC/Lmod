@@ -26,7 +26,7 @@ cleanUp ()
   export PATH_TO_SED
 
 
-  $projectDir/proj_mgmt/clean_gold_files/cleanup.lua $shellName $1 $2
+  $projectDir/proj_mgmt/clean_gold_files/regularize $shellName $1 $2
 }
 
 
