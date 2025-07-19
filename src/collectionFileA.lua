@@ -39,10 +39,12 @@ require("utils")
 local dbg    = require("Dbg"):dbg()
 function collectFileA(sn, versionStr, extended_default, v, fileA)
    dbg.start{"collectFileA(",sn,",", versionStr,",v,fileA)"}
+   dbg.printT("v",v)
    if (v.fileT and next(v.fileT) ~= nil ) then
       local found  = false
       if (versionStr) then
          local k  = pathJoin(sn, versionStr)
+         dbg.print{"k: ",k,"\n"}
          local vv = v.fileT[k]
          if (vv) then
             fileA[#fileA+1] = { sn = sn, fullName = build_fullName(sn, versionStr),
@@ -69,8 +71,9 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
             end
          end
 
-         if (found or versionStr ~= "default") then
-            -- We can return if we found something or the version string is not /default
+         if (found or (versionStr ~= "default") and (not (v.dirT and next(v.dirT) ~= nil))) then
+            -- We can return if we found something or the version string is not /default 
+            -- and there are no entries in v.dirT
             dbg.fini("collectFileA via found or versionStr ~= \"default\"")
             return
          end
