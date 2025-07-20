@@ -174,6 +174,21 @@ local function l_check_depth(searchA, idx, fileT, dirT)
       return true, idx, nil
    end
 
+   local extra = ""
+   local bndPat = "[-+_.=a-zA-Z]"
+   if (not name:sub(-1):find(bndPat)) then
+      extra = "[-+_.=]"
+   end
+   local keyPat = name:escape() .. extra .. ".*"
+   dbg.print{"keyPat: ", keyPat,"\n"}
+   for k, v in pairs(fileT) do
+      dbg.print{"k: ", k,", name:",name,"\n"}
+      if (k:find(keyPat)) then
+         dbg.print{"ModuleA l_check_depth: found fileT[name]: ",name,"\n"}
+         return true, idx, nil
+      end
+   end
+
    dbg.print{"ModuleA l_check_depth: did not find name: ",name,"\n"}
    -- Did not find name so return false
    return false, idx, nil

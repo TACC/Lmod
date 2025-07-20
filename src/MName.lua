@@ -465,7 +465,7 @@ end
 
 
 local function l_find_exact_match(self, must_have_version, fileA)
-   --dbg.start{"MName l_find_exact_match(must_have_version:,",must_have_version,",fileA)"}
+   dbg.start{"MName l_find_exact_match(must_have_version:,",must_have_version,",fileA)"}
    local versionStr  = self.__versionStr
    local mrc         = MRC:singleton()
    local fn          = false
@@ -483,11 +483,11 @@ local function l_find_exact_match(self, must_have_version, fileA)
       local blockA = fileA[j]
       for i = 1, #blockA do
          local entry   = blockA[i]
-         --dbg.print{"entry.fullName: ",entry.fullName,", entry.fn: ",entry.fn,"\n"}
+         dbg.print{"entry.fullName: ",entry.fullName,", entry.fn: ",entry.fn,"\n"}
          if (entry.version == versionStr and entry.pV > pV ) then
             local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, mpath=entry.mpath,
                                           visibleT = {soft = true, hidden = true}}
-            --dbg.printT("resultT",resultT)
+            dbg.printT("resultT",resultT)
             if (resultT.isVisible)  then
                pV          = entry.pV
                wV          = entry.wV
@@ -504,9 +504,9 @@ local function l_find_exact_match(self, must_have_version, fileA)
       if (found) then break end
    end
 
-   --dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,
-   --         ", kind: ",moduleKindT.kind,"\n"}
-   --dbg.fini("MName l_find_exact_match")
+   dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,
+            ", kind: ",moduleKindT.kind,"\n"}
+   dbg.fini("MName l_find_exact_match")
    return found, fn, version, wV, moduleKindT, mpath
 end
 
@@ -540,7 +540,7 @@ function M.find_exact_match_meta_module(self, fileA)
 end
 
 local function l_find_highest_by_key(self, key, fileA)
-   --dbg.start{"MName: l_find_highest_by_key(key:\"",key,"\",fileA)"}
+   dbg.start{"MName: l_find_highest_by_key(key:\"",key,"\",fileA)"}
    local mrc         = MRC:singleton()
    local idx         = nil
    local fn          = false
@@ -550,6 +550,7 @@ local function l_find_highest_by_key(self, key, fileA)
    local pV          = false
    local wV          = false
    local mpath       = false
+   local versionStr  = self.__versionStr
    fileA             = fileA or {}
    local blockA
 
@@ -594,9 +595,16 @@ local function l_find_highest_by_key(self, key, fileA)
       found        = true
       self.__range = { pV, pV }
    end
-   --dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,
-   --          ", kind: ",moduleKindT.kind,"\n"}
-   --dbg.fini("MName: l_find_highest_by_key")
+   if (found and versionStr and versionStr ~= "") then
+      if (version ~= versionStr and not version:find(versionStr:escape())) then
+         found = false
+      end
+   end
+
+
+   dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,", versionStr: ",versionStr,
+             ", kind: ",moduleKindT.kind,"\n"}
+   dbg.fini("MName: l_find_highest_by_key")
    return found, fn, version, wV, moduleKindT, mpath, "l_find_highest_by_key("..key..")"
 end
 
