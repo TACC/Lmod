@@ -30,12 +30,13 @@ class CmdLineOptions(object):
   def execute(self):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dbname",       dest='dbname',       action="store", default = "lmodV2",  help="lmod db name")
-    parser.add_argument("--syshost",      dest='syshost',      action="store", default = "%",       help="system host name")
-    parser.add_argument("--start",        dest='startDate',    action="store", default = "unknown", help="start date")
-    parser.add_argument("--end",          dest='endDate',      action="store", default = "unknown", help="end date")
-    parser.add_argument("--allmodulesFn", dest='allmodulesFn', action="store", default = None,      help="File containing all modules")
-    parser.add_argument("--sqlPattern",   dest='sqlPattern',   action="store", default = "/opt/%",  help="sql pattern for matching")
+    parser.add_argument("--dbname",       dest='dbname',       action="store",  default = "lmodV2",  help="lmod db name")
+    parser.add_argument("--confFn",       dest='confFile',     action="store",  default = "",        help="lmod db configuration file")
+    parser.add_argument("--syshost",      dest='syshost',      action="append", default = [],        help="system host name")
+    parser.add_argument("--start",        dest='startDate',    action="store",  default = "unknown", help="start date")
+    parser.add_argument("--end",          dest='endDate',      action="store",  default = "unknown", help="end date")
+    parser.add_argument("--allmodulesFn", dest='allmodulesFn', action="store",  default = None,      help="File containing all modules")
+    parser.add_argument("--sqlPattern",   dest='sqlPattern',   action="append", default = [],        help="sql pattern for matching")
     parser.add_argument("cmdA",           nargs="+",           help="commands: counts, usernames, modules_used_by")
 
     args = parser.parse_args()
@@ -51,8 +52,11 @@ def dbConfigFn(dbname):
 def main():
   start    = time.time()
   args     = CmdLineOptions().execute()
-  configFn = dbConfigFn(args.dbname)
-  lmod     = LMODdb(configFn)
+  if os.path.isfile(args.confFile):
+      lmod = LMODdb(args.confFile)
+  else:
+      configFn = dbConfigFn(args.dbname)
+      lmod     = LMODdb(configFn)
   cmdFnd   = False
 
   if (args.cmdA[0] == "counts"):
