@@ -106,6 +106,9 @@ testdescript = {
      runLmod load oo/variant/anotherzzz/2.0    #41
      runLmod load bar/a/b                      #42
      runLmod load bar/a/b/1.0                  #43
+     runLmod load baz/a1                       #44
+     runLmod load baz/a1/d/e/f                 #45
+
 
 
      HOME=$ORIG_HOME

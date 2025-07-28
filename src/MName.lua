@@ -595,7 +595,7 @@ local function l_find_highest_by_key(self, key, fileA)
       found        = true
       self.__range = { pV, pV }
    end
-   if (found and versionStr and versionStr ~= "") then
+   if (found and versionStr and versionStr ~= "" and versionStr ~= "default") then
       if (version ~= versionStr and not version:find(versionStr:escape())) then
          found = false
       end

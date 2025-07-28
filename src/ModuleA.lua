@@ -270,9 +270,12 @@ local function l_find_vA(name, moduleA)
 end
 
 local function l_find_vB(sn, versionStr, vA)
+   dbg.start{"l_find_vB(sn: ",sn,", versionStr: ",versionStr,", vA"}
    local fullStr = versionStr
    local vB      = {}
 
+   dbg.print{"l_find_vB: #vA: ",type(vA) == "table" and #vA or 0,"\n"}
+   dbg.printT("vA", vA)
    for i = 1,#vA do
       local v
       local vv   = vA[i]
@@ -291,11 +294,12 @@ local function l_find_vB(sn, versionStr, vA)
          end
          local key   = pathJoin(sn, vStr)
          local value = vv.dirT[key]
+         dbg.print{"key: ",key,", has value: ", (not (not value)),"\n"}
          if (value) then
             v = value
-            if (vStr == versionStr) then
-               fullStr = nil
-            end
+            --if (vStr == versionStr) then
+            --   fullStr = nil
+            --end
          else
             done = true
          end
@@ -306,7 +310,9 @@ local function l_find_vB(sn, versionStr, vA)
          vB[#vB + 1] = v
       end
    end
+   dbg.print{"fullStr: ",fullStr,"\n"}
    dbg.printT("l_find_vB: vB",vB)
+   dbg.fini("l_find_vB")
    return fullStr, vB
 end
 
