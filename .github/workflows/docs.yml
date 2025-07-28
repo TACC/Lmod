@@ -12,7 +12,9 @@ jobs:
         with:
           python-version: 3.8
       - name: install sphinx
-        run: pip install sphinx
+        run: |
+          cd docs
+          pip install requirements.txt
       - name: Build documentation
         run: |
           cd docs
