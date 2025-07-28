@@ -17,11 +17,43 @@ executing core logic to determine necessary environment changes, loading and
 evaluating modulefiles in a controlled sandbox, managing environment variables,
 and finally formatting the output as shell commands.
 
-.. figure:: /_static/Lmod_Architecture.png
-   :alt: Lmod High-Level Architecture Diagram
+.. mermaid::
    :align: center
+   :alt: Lmod High-Level Architecture Diagram
 
-   (Conceptual Diagram - A real diagram would be created and referenced here)
+   graph TD
+       subgraph "User's Shell"
+           A["User Command<br/>(e.g., 'module load gcc')"]
+       end
+       
+       A --> B["1. Command Line Parser<br/>'lmod.in.lua'<br/>Interprets the command and its arguments"];
+       
+       B --> C["2. Core Logic (MCP)<br/>'MainControl.lua'<br/>Orchestrates the loading process"];
+       
+       C -- "Request to find module" --> D["3. Module File Loader<br/>'Hub.lua'<br/>Resolves module name to a file path"];
+       
+       D -- "Located at" --> E["Modulefile<br/>(e.g., '/path/to/gcc.lua')"];
+       
+       E -- "Passes Lua code to" --> F;
+       
+       subgraph "4. Sandbox Environment ('sandbox.lua')"
+         direction LR
+         F["Modulefile Code<br/>(e.g., 'prepend_path(...)')"] --> G["Lmod API<br/>'modfuncs.lua'"];
+       end
+   
+       G -- "Instructs MCP to record changes" --> H;
+   
+       subgraph "5. Environment Variable Manager"
+         H["'varT' (Variable Table)<br/>A list of all proposed environment<br/>changes is built and managed by the MCP"];
+       end
+       
+       H -- "Final list of changes (varT) passed to" --> I["6. Output Formatter<br/>'shells/*.lua'<br/>Translates 'varT' into shell-specific code"];
+       
+       I -- "Generates" --> J;
+   
+       subgraph "User's Shell"
+           J["Shell Commands<br/>(e.g., 'export PATH=...')<br/>Printed to standard output"];
+       end
 
 Key Architectural Components:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
