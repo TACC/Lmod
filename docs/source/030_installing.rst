@@ -503,7 +503,8 @@ For example, a user might add to their ``config.nu`` file::
 
     overlay use /opt/apps/lmod/lmod/init/nushell
 
-Note that nushell requires using ``overlay use`` instead of ``source`` due to
+This provides the ``lmod-module``, ``lmod-ml``, ``lmod-clear-mt``, and ``lmod-clear``
+commands. Note that nushell requires using ``overlay use`` instead of ``source`` due to
 its module system and parse-time command resolution requirements.
 
 .. _issues-with-bash:

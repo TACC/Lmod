@@ -124,19 +124,16 @@ function Nushell.expandVar(self, k, v, vType)
       local pathA  = path2pathA(v)
       local qpathA = nil
 
-      if (k:match("^__LMOD_STACK_")) then
-         qpathA = pathA
-      else
-         qpathA = {}
-         for i = 1,#pathA do
-            local path = pathA[i]
-            local left, rght = l_quoteValue(path)
-            qpathA[i] = left .. path .. rght
-         end
+      -- Always quote all values in nushell arrays
+      qpathA = {}
+      for i = 1,#pathA do
+         local path = pathA[i]
+         local left, rght = l_quoteValue(path)
+         qpathA[i] = left .. path .. rght
       end
 
       lineA[#lineA + 1] = concatTbl(qpathA, ", ")
-      lineA[#lineA + 1] = ",];\n"
+      lineA[#lineA + 1] = "];\n"
    else
       -- Regular environment variable
       lineA[#lineA + 1] = "$env."
