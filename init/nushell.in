@@ -1,0 +1,56 @@
+export-env {
+  $env.LMOD_ROOT = "@lmod_root@"
+  $env.LMOD_PKG = "@PKG@"
+  $env.LMOD_DIR = "@PKG@/libexec"
+  $env.LMOD_CMD = "@PKG@/libexec/lmod"
+  $env.MODULESHOME = "@PKG@"
+  $env.LMOD_SETTARG_FULL_SUPPORT = "@lmod_settarg_full_support@"
+  $env.LMOD_VERSION = "@lmod_version@"
+}
+
+def myeval [script: string] {
+  let lines = ($script | lines)
+  for line in $lines {
+    if ($line | str trim | is-empty) {
+      continue
+    }
+    
+    if ($line | str starts-with '$env.') {
+      try {
+        nu -c $line
+      } catch {
+        let parts = ($line | parse --regex '\$env\.(?P<name>\w+)\s*=\s*(?P<value>.*)')
+        if ($parts | length) > 0 {
+          let var_name = $parts.0.name
+          let var_value = $parts.0.value
+          load-env {$var_name: $var_value}
+        }
+      }
+    }
+  }
+}
+export def --env module [...args] {
+  myeval (^$env.LMOD_CMD nushell ...$args)
+  if ($env.LMOD_SETTARG_CMD? | default ":") != ":" {
+    myeval (^$env.LMOD_SETTARG_CMD -s nushell)
+  }
+}
+
+export def --env ml [...args] {
+  myeval (^$env.LMOD_DIR/ml_cmd ...$args)
+}
+
+export def --env clearMT [] {
+  myeval (^$env.LMOD_DIR/clearLMOD_cmd --shell nushell --simple)
+}
+
+export def --env clearLmod [...args] {
+  myeval (^$env.LMOD_CMD nushell --force purge)
+  myeval (^$env.LMOD_DIR/clearLMOD_cmd --shell nushell --full ...$args)
+}
+
+export def --env settarg [...args] {
+  if ($env.LMOD_SETTARG_CMD? | default ":") != ":" {
+    myeval (^$env.LMOD_SETTARG_CMD -s nushell ...$args)
+  }
+}
