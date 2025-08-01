@@ -50,14 +50,14 @@ def --env lmod-eval [script: string] {
   }
 }
 
-export def --env lmod-module [...args] {
+export def --wrapped --env lmod-module [...args] {
   lmod-eval (^@PKG@/libexec/lmod nushell ...$args)
   if ($env.LMOD_SETTARG_CMD? | default ":") != ":" {
     lmod-eval (^$env.LMOD_SETTARG_CMD -s nushell)
   }
 }
 
-export def --env lmod-ml [...args] {
+export def --wrapped --env lmod-ml [...args] {
   lmod-eval (^@PKG@/libexec/ml_cmd ...$args)
 }
 
@@ -65,12 +65,12 @@ export def --env lmod-clear-mt [] {
   lmod-eval (^@PKG@/libexec/clearLMOD_cmd --shell nushell --simple)
 }
 
-export def --env lmod-clear [...args] {
+export def --wrapped --env lmod-clear [...args] {
   lmod-eval (^@PKG@/libexec/lmod nushell --force purge)
   lmod-eval (^@PKG@/libexec/clearLMOD_cmd --shell nushell --full ...$args)
 }
 
-export def --env lmod-settarg [...args] {
+export def --wrapped --env lmod-settarg [...args] {
   if ($env.LMOD_SETTARG_CMD? | default ":") != ":" {
     lmod-eval (^$env.LMOD_SETTARG_CMD -s nushell ...$args)
   }
