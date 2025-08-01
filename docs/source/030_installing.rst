@@ -310,9 +310,11 @@ it must be defined before the z00_lmod.\* file is source.
    will be when z00_lmod.\* is run.
 
 The ``profile`` file is the Lmod initialization script for the bash and zsh
-shells, the ``cshrc`` file is for tcsh and csh shells, and the ``profile.fish``
-file is for the fish shell, etc. Please copy or link the ``profile`` and ``cshrc``
-files to ``/etc/profile.d``, and optionally the fish file to ``/etc/fish/conf.d``::
+shells, the ``cshrc`` file is for tcsh and csh shells, the ``profile.fish``
+file is for the fish shell, and the ``nushell`` file is for the nushell shell.
+Please copy or link the ``profile`` and ``cshrc`` files to ``/etc/profile.d``,
+and optionally the fish file to ``/etc/fish/conf.d`` and the nushell file to
+the appropriate nushell configuration directory::
 
     $ ln -s /opt/apps/lmod/lmod/init/profile        /etc/profile.d/z00_lmod.sh
     $ ln -s /opt/apps/lmod/lmod/init/cshrc          /etc/profile.d/z00_lmod.csh
@@ -491,6 +493,19 @@ A site might set::
 
     $ ln -s /opt/apps/lmod/lmod/init/profile.fish /etc/fish/conf.d/z00_lmod.fish
 
+Nushell:
+~~~~~~~~
+
+Nushell users can use the special nushell module
+``init/nushell`` that can be loaded using nushell's overlay system.
+The nushell configuration file can be found at ``$nu.config-path``.
+For example, a user might add to their ``config.nu`` file::
+
+    overlay use /opt/apps/lmod/lmod/init/nushell
+
+This provides the ``lmod-module``, ``lmod-ml``, ``lmod-clear-mt``, and ``lmod-clear``
+commands. Note that nushell requires using ``overlay use`` instead of ``source`` due to
+its module system and parse-time command resolution requirements.
 
 .. _issues-with-bash:
 
