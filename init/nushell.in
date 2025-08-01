@@ -8,7 +8,7 @@ export-env {
   $env.LMOD_VERSION = "@lmod_version@"
 }
 
-def myeval [script: string] {
+def lmod-eval [script: string] {
   let lines = ($script | lines)
   for line in $lines {
     if ($line | str trim | is-empty) {
@@ -29,28 +29,29 @@ def myeval [script: string] {
     }
   }
 }
-export def --env module [...args] {
-  myeval (^$env.LMOD_CMD nushell ...$args)
+
+export def --env lmod-module [...args] {
+  lmod-eval (^$env.LMOD_CMD nushell ...$args)
   if ($env.LMOD_SETTARG_CMD? | default ":") != ":" {
-    myeval (^$env.LMOD_SETTARG_CMD -s nushell)
+    lmod-eval (^$env.LMOD_SETTARG_CMD -s nushell)
   }
 }
 
-export def --env ml [...args] {
-  myeval (^$env.LMOD_DIR/ml_cmd ...$args)
+export def --env lmod-ml [...args] {
+  lmod-eval (^$env.LMOD_DIR/ml_cmd ...$args)
 }
 
-export def --env clearMT [] {
-  myeval (^$env.LMOD_DIR/clearLMOD_cmd --shell nushell --simple)
+export def --env lmod-clear-mt [] {
+  lmod-eval (^$env.LMOD_DIR/clearLMOD_cmd --shell nushell --simple)
 }
 
-export def --env clearLmod [...args] {
-  myeval (^$env.LMOD_CMD nushell --force purge)
-  myeval (^$env.LMOD_DIR/clearLMOD_cmd --shell nushell --full ...$args)
+export def --env lmod-clear [...args] {
+  lmod-eval (^$env.LMOD_CMD nushell --force purge)
+  lmod-eval (^$env.LMOD_DIR/clearLMOD_cmd --shell nushell --full ...$args)
 }
 
-export def --env settarg [...args] {
+export def --env lmod-settarg [...args] {
   if ($env.LMOD_SETTARG_CMD? | default ":") != ":" {
-    myeval (^$env.LMOD_SETTARG_CMD -s nushell ...$args)
+    lmod-eval (^$env.LMOD_SETTARG_CMD -s nushell ...$args)
   }
 }
