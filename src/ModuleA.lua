@@ -594,12 +594,13 @@ local function l_build_from_spiderT(spiderT)
    local mpathA     = mt:modulePathA()
    local moduleA    = {}
    local isNV       = find_first == "no"
+   
    for i = 1, #mpathA do
       local mpath = mpathA[i]
       if (isDir(mpath)) then
-         dbg.print{"pulling mpath: ",mpath," into moduleA\n"}
          local T = spiderT[mpath]
          if (T and next(T) ~= nil) then
+            dbg.print{"found mpath: ", mpath, "in spiderT\n"}
             moduleA[#moduleA+1] = { mpath = mpath, T = deepcopy(T) }
             if (isNV) then
                isNV = l_checkforNV(T)
@@ -662,7 +663,18 @@ function M.update(self, t)
             end
             local mA_obj = self:__new( {mpath}, mt:maxDepthT(), getModuleRCT(), spiderT)
             local mA     = mA_obj:moduleA()
-            moduleA[#moduleA + 1] = { mpath = mA[1].mpath, T = mA[1].T}
+            local idx = false
+            for i = 1,#mA do
+               if (mA[i].mpath == mpath) then
+                  idx = i
+                  break;
+               end
+            end
+            --dbg.print{"idx: ",idx,", mA[idx].mpath: ", mA[idx].mpath,"\n"}
+            --dbg.printT("mA",mA)
+
+            assert(idx,"Did not find mpath in mA\n")
+            moduleA[#moduleA + 1] = { mpath = mA[idx].mpath, T = mA[idx].T}
 
             ------------------------------------------------------------------
             -- must transfer isNVV state over from new mpath entry.
@@ -693,7 +705,6 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
    if (next(spiderT) ~= nil) then
       o.__spiderBuilt        = true
       dbg.print{"calling l_build_from_spiderT()\n"}
-      --dbg.printT("spiderT",spiderT)
       o.__moduleA, o.__isNVV = l_build_from_spiderT(spiderT)
    else
       dbg.print{"calling DirTree:new()\n"}
@@ -753,8 +764,9 @@ end
 
 function M.singleton(self, t)
    dbg.start{"ModuleA:singleton(t)"}
-   local resetFlag = false
    t               = t or {}
+   local resetFlag = t.resetFlag or false
+   dbg.print{"resetFlag: ",resetFlag,"\n"}
    if (t.reset or (s_moduleA and s_moduleA:spiderBuilt())) then
       dbg.print{"Wiping out old value of s_moduleA, t.reset: ",t.reset,", s_moduleA:spiderBuilt(): ",(s_moduleA and s_moduleA:spiderBuilt()),"\n"}
       resetFlag = true

@@ -88,7 +88,7 @@ local function l_booleanCk(value)
 end
 
 local function l_valid_nameCk(name)
-   if (not type(name) == "string") then
+   if (not (type(name) == "string")) then
       return false, "string"
    end
    local l    = name:len()
