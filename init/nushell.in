@@ -1,0 +1,77 @@
+export-env {
+  $env.LMOD_ROOT = "@lmod_root@"
+  $env.LMOD_PKG = "@PKG@"
+  $env.LMOD_DIR = "@PKG@/libexec"
+  $env.LMOD_CMD = "@PKG@/libexec/lmod"
+  $env.MODULESHOME = "@PKG@"
+  $env.LMOD_SETTARG_FULL_SUPPORT = "@lmod_settarg_full_support@"
+  $env.LMOD_VERSION = "@lmod_version@"
+}
+
+def --env lmod-eval [script: string] {
+  # Split the lmod output into environment assignments and regular output
+  let lines = ($script | lines)
+  
+  # Filter out environment variable assignments and regular output
+  let env_lines = ($lines | where { |line| $line starts-with '$env.' })
+  let output_lines = ($lines | where { |line| not ($line starts-with '$env.') })
+  
+  # Show regular output to user
+  $output_lines | each { |line| print $line }
+  
+  # Execute environment assignments by parsing and applying them manually
+  for env_line in $env_lines {
+    if ($env_line | str contains " = ") {
+      let split_result = ($env_line | split column " = " var_name var_value)
+      let var_name = ($split_result.var_name.0 | str replace '$env.' '')
+      let var_value = ($split_result.var_value.0 | str trim --char ';' | str trim)
+      
+      # Handle different value types
+      if ($var_value | str starts-with 'r#') and ($var_value | str ends-with '#') {
+        # Raw string value - extract the content
+        let content = ($var_value | str substring 3..(-2))
+        load-env {$var_name: $content}
+      } else if ($var_value | str starts-with '[') and ($var_value | str ends-with ']') {
+        # Array/list value - convert raw strings to regular strings then parse
+        let clean_array = ($var_value | str replace --all "r#'" "'" | str replace --all "'#" "'")
+        try {
+          let array_val = ($clean_array | from nuon)
+          load-env {$var_name: $array_val}
+        } catch {
+          # If NUON parsing fails, treat as a simple string
+          load-env {$var_name: $var_value}
+        }
+      } else {
+        # Regular value - might be quoted string
+        let clean_value = ($var_value | str trim --char "'" | str trim --char '"')
+        load-env {$var_name: $clean_value}
+      }
+    }
+  }
+}
+
+export def --wrapped --env lmod-module [...args] {
+  lmod-eval (^@PKG@/libexec/lmod nushell ...$args)
+  if ($env.LMOD_SETTARG_CMD? | default ":") != ":" {
+    lmod-eval (^$env.LMOD_SETTARG_CMD -s nushell)
+  }
+}
+
+export def --wrapped --env lmod-ml [...args] {
+  lmod-eval (^@PKG@/libexec/ml_cmd ...$args)
+}
+
+export def --env lmod-clear-mt [] {
+  lmod-eval (^@PKG@/libexec/clearLMOD_cmd --shell nushell --simple)
+}
+
+export def --wrapped --env lmod-clear [...args] {
+  lmod-eval (^@PKG@/libexec/lmod nushell --force purge)
+  lmod-eval (^@PKG@/libexec/clearLMOD_cmd --shell nushell --full ...$args)
+}
+
+export def --wrapped --env lmod-settarg [...args] {
+  if ($env.LMOD_SETTARG_CMD? | default ":") != ":" {
+    lmod-eval (^$env.LMOD_SETTARG_CMD -s nushell ...$args)
+  }
+}
