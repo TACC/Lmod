@@ -24,7 +24,7 @@ Function Naming and location
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Functions named ``l_something`` () like ``l_lazyEval`` () are local functions 
-and can only be called from inside that *.lua file.  This helps in tracking 
+and can only be called from inside that \*.lua file.  This helps in tracking 
 where changes to a function.  Names without a leading ``l_`` are global in scope.
 If they are not in a separate file like collectFileA.lua or loadModuleFile.lua 
 they are typically found in src/util.lua
