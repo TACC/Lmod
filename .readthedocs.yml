@@ -11,10 +11,16 @@ build:
   tools:
     python: "3.12"
 
+# Declare the Python requirements required to build your docs
+python:
+  install:
+    - requirements: docs/requirements.txt
+
 # Build from the docs/ directory with Sphinx
 sphinx:
   configuration: docs/source/conf.py
 
 # also build docs in PDF format
 formats: [pdf]
+
 
