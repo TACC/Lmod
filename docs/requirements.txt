@@ -1,2 +1,3 @@
-docutils<0.18
-sphinx==1.8.5
+docutils
+sphinx
+sphinxcontrib-mermaid

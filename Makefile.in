@@ -150,7 +150,7 @@ STANDALONE_PRGM           := src/lmod.in.lua src/addto.in.lua                   
 STANDALONE_PRGM           := $(patsubst %, $(srcdir)/%, $(STANDALONE_PRGM))
 SHELL_INIT                := bash.in cmake csh.in ksh.in tcsh.in zsh.in sh.in perl R \
                              env_modules_python.py.in lmod_bash_completions fish.in  \
-                             lisp env_modules_ruby.rb.in rc.in
+                             lisp env_modules_ruby.rb.in rc.in nushell.in
 SHELL_INIT                := $(patsubst %, $(srcdir)/init/%, $(SHELL_INIT))
 LMODRC_INIT               := $(patsubst %, $(srcdir)/init/%, lmodrc.lua)
 
