@@ -439,3 +439,28 @@ Why can't Lmod find this module in $MODULEPATH?
    modulefile without the .lua extension is assumed to be written in
    TCL. However all TCL modulefiles must start with **#%Module** at
    the at the very top of the file. Otherwise they are silently ignored.
+
+Why should you use Lua variables instead of environment variables to build other variables?
+
+   Building new environment variable based on other environment
+   variables defined in the current module (or other modules) will
+   cause problems when unloading::
+
+      setenv("ACME_DIR", "/path/to/acme")
+      setenv("ACME_BIN", pathJoin(os.getenv("ACME_DIR"),"bin"))
+
+   The above module code works correctly when loading but will fail
+   when unloading because "ACME_DIR" is nolonger defined when the
+   second setenv statement is evaluated.
+
+   You should instead use Lua variables::
+   
+      local acme_dir = "/path/to/acme"
+      setenv("ACME_DIR", acme_dir)
+      setenv("ACME_BIN", pathJoin(acme_dir,"bin"))
+
+   You can use an environment variable to set other environment
+   variables.  You just have to be sure that variable is defined when
+   the current module is being unloaded.
+   
+            
