@@ -296,3 +296,30 @@ local disk.  So each node has to run::
 Again if any new modulefiles are added or changed, then the
 appropriate caches must be updated.
 
+Filtering Spider Caches by MODULEPATH
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Some sites may wish to have separate module trees for production and
+testing, each with its own spider cache. By default, Lmod will use all
+spider caches defined in ``scDescriptT``, which can lead to test modules
+appearing in production environments.
+
+To solve this, you can enable the ``filter_spider_cache_by_modulepath``
+option in your ``lmodrc.lua`` file. When this option is enabled, Lmod will
+only use spider caches from directories that are part of the current
+``MODULEPATH``.
+
+To enable this feature, add the following line to your ``lmodrc.lua`` file:
+
+.. code-block:: lua
+
+   filter_spider_cache_by_modulepath = true
+
+For example, if you have a production tree at ``/apps/prod`` and a testing
+tree at ``/apps/test``, you can configure your ``scDescriptT`` to include
+both caches. With ``filter_spider_cache_by_modulepath`` enabled, Lmod will
+only use the ``/apps/test`` cache when ``/apps/test/modules/all`` is part of
+the ``MODULEPATH``. This allows users to opt-in to the testing environment
+without seeing test modules by default.
+
+

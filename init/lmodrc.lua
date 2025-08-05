@@ -1,4 +1,8 @@
 # -*- lua -*-
+--
+-- To filter spider cache by MODULEPATH, uncomment the following line
+-- filter_spider_cache_by_modulepath = true
+
 local i18n = require("i18n")
 propT = {
    state = {

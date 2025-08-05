@@ -57,8 +57,10 @@ local function l_buildRC(self)
 
    declare("propT",       false)
    declare("scDescriptT", false)
+   declare("filter_spider_cache_by_modulepath", false)
    local s_propT       = {}
    local s_scDescriptT = {}
+   local s_rcVarT      = {}
    local s_rcFileA     = {}
    local configDir     = cosmic:value("LMOD_CONFIG_DIR")
    local RCFileA       = {
@@ -88,6 +90,9 @@ local function l_buildRC(self)
 
          local propT       = _G.propT or {}
          local scDescriptT = _G.scDescriptT   or {}
+         if (_G.filter_spider_cache_by_modulepath) then
+            s_rcVarT.filter_spider_cache_by_modulepath = true
+         end
          for k,v in pairs(propT) do
             s_propT[k] = v
          end
@@ -100,6 +105,7 @@ local function l_buildRC(self)
    self.__propT       = s_propT
    self.__scDescriptT = s_scDescriptT
    self.__rcFileA     = s_rcFileA
+   self.__rcVarT      = s_rcVarT
 
    dbg.fini("l_buildRC")
 end
@@ -159,6 +165,10 @@ end
 
 function M.rcFileA(self)
    return self.__rcFileA
+end
+
+function M.value(self, key)
+   return self.__rcVarT[key]
 end
 
 return M

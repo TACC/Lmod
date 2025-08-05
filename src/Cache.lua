@@ -118,6 +118,25 @@ local function l_new(self, t)
    local readLmodRC  = ReadLmodRC:singleton()
    local scDescriptT = readLmodRC:scDescriptT()
 
+   if (readLmodRC:value("filter_spider_cache_by_modulepath")) then
+      local modulePath = os.getenv("MODULEPATH") or ""
+      local modulePathA = {}
+      for path in modulePath:gmatch("[^:]+") do
+         table.insert(modulePathA, path)
+      end
+
+      local filteredScDescriptT = {}
+      for i, entry in ipairs(scDescriptT) do
+         for _, mpath in ipairs(modulePathA) do
+            if (mpath:find(entry.dir, 1, true) == 1) then
+               table.insert(filteredScDescriptT, entry)
+               break
+            end
+         end
+      end
+      scDescriptT = filteredScDescriptT
+   end
+
    local scDirA = {}
 
    local systemEpoch = epoch() - ancient
