@@ -102,6 +102,14 @@ local function l_grabFish(line,b)
    b[#b+1] = a[5]:gsub(";","")
 end   
 
+local function l_grabNushell(line,b)
+   local a = {}
+   for v in line:split(' ') do
+      a[#a + 1] = v
+   end
+   b[#b+1] = a[3]:gsub("r#'([^']*)'#;","%1")
+end   
+
 
 
 declare("_ModuleTable_",false)
@@ -165,6 +173,8 @@ function sectionEnd(sType, name, A, a1, a2, a3)
          b[1] = "setenv " .. name .. " '" .. v .. "';"
       elseif (sType == "fish") then
          b[1] = "set -x -g " .. name .. " '" .. v .. "';"
+      elseif (sType == "nushell") then
+         b[1] = "$env." .. name .. " = \"" .. v .. "\""
       end
    end
    joinArrays(A, a1, b, a3)
@@ -208,6 +218,37 @@ function joinB64_fish(name, whole)
       end
    end
    sectionEnd("fish",name.."_",A,a1,a2,a3)
+   return A
+end
+
+function joinB64_nushell(name, whole)
+   local A  = {}
+   local a1 = {}
+   local a2 = {}
+   local a3 = {}
+   local a  = a1
+   local haveMT = false
+   for s in whole:split("\n") do
+      local state = "init"
+      if (s:find("^.env." .. name .."%d%d%d_ = ")) then
+         if (state == "init") then
+            state = "mt"
+         end
+         a = a3
+         l_grabNushell(s,a2)
+         haveMT = true
+      elseif (s:find("^.env." .. name .. "_Sz")) then
+         state = "ignore"
+      elseif (haveMT and s:find("^===========================")) then
+         a1, a2, a3 = sectionEnd("nushell", name.."_", A, a1, a2, a3)
+         state   = "init"
+         a       = a1
+         haveMT  = false
+      elseif (state == "init") then
+         a[#a + 1] = s
+      end
+   end
+   sectionEnd("nushell", name.."_", A, a1, a2, a3)
    return A
 end
 
@@ -273,12 +314,63 @@ function joinB64_csh(name, whole)
    return A
 end
 
+local function l_stackVar_common(name, str, sep, a)
+   local b = {}
+   b[#b+1] = name
+   b[#b+1] = sep
+   for v in str:split(":") do
+      v = (v ~= "false") and decode64(v) or "false"
+      b[#b+1] = v:multiEscaped()
+      b[#b+1] = ":"
+   end
+   b[#b] = ";"
+   a[#a+1] = concatTbl(b,"")
+   return a
+end
+
+local function l_stackVar_fish(name, str, sep, a)
+   local b = {}
+   b[#b+1] = name
+   b[#b+1] = sep
+   for v in str:split(sep) do
+      v = (v ~= "false") and decode64(v) or "false"
+      b[#b+1] = v:multiEscaped()
+      b[#b+1] = " "
+   end
+   b[#b] = ";"
+   a[#a+1] = concatTbl(b,"")
+   return a
+end
+
+local function l_stackVar_nushell(name, str, sep, a)
+   local b = {}
+   b[#b+1] = name
+   b[#b+1] = " = ["
+   for v in str:split(sep) do
+      v = (v ~= "false") and decode64(v) or "false"
+      b[#b+1] = v:multiEscaped()
+      b[#b+1] = ","
+   end
+   b[#b] = "];"
+   a[#a+1] = concatTbl(b,"")
+   return a
+end
+
+local s_stackFnA = {
+   bash    = l_stackVar_common,
+   csh     = l_stackVar_common,
+   fish    = l_stackVar_fish,
+   nushell = l_stackVar_nushell,
+}      
+
+
 function lmod_stack(shell, whole)
    local pattT =
       { 
-         csh  = {"^(setenv __LMOD_STACK[^ ]*)%s+([^;]*);?",   " "},
-         bash = {"^(__LMOD_STACK[^=]*)=([^;]*);",             "="},
-         fish = {"^(set -x -g __LMOD_STACK[^ ]*)%s+\"(.*)\"", " "},
+         csh     = {"^(setenv __LMOD_STACK[^ ]*)%s+([^;]*);?",        " "   },
+         bash    = {"^(__LMOD_STACK[^=]*)=([^;]*);",                  "="   },
+         fish    = {"^(set %-x %-g __LMOD_STACK[^ ]*)%s+(.*);",       " "   },
+         nushell = {"^(%$env.__LMOD_STACK_[^ ]*)%s+=%s+[[](.*)[]];",  ",%s*"},
       }
    local a = {}
    local patt = pattT[shell][1]
@@ -288,16 +380,7 @@ function lmod_stack(shell, whole)
       if (not i) then
          a[#a + 1] = s
       else
-         local b = {}
-         b[#b+1] = name
-         b[#b+1] = sep
-         for v in str:split(":") do
-            v = (v ~= "false") and decode64(v) or "false"
-            b[#b+1] = v:multiEscaped()
-            b[#b+1] = ":"
-         end
-         b[#b] = ";"
-         a[#a+1] = concatTbl(b,"")
+        a = s_stackFnA[shell](name, str, sep, a)
       end
    end
    return concatTbl(a,"\n")
@@ -312,10 +395,12 @@ function main()
       if (arg[1] == "-bash") then
          joinB64 = joinB64_bash
          shell   = "bash"
-      end
-      if (arg[1] == "-fish") then
+      elseif (arg[1] == "-fish") then
          joinB64 = joinB64_fish
          shell   = "fish"
+      elseif (arg[1] == "-nushell") then
+         joinB64 = joinB64_nushell
+         shell   = "nushell"
       end
       table.remove(arg,1)
    end
@@ -338,7 +423,6 @@ function main()
       end
       f:close()
    end
-
 end
 
 main()

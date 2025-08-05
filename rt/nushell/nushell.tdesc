@@ -1,0 +1,59 @@
+-- -*- lua -*-
+local testName = "nushell"
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test initial module load
+   ]],
+   keywords = {testName },
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+     unsetMT
+     initStdEnvVars
+     export LMOD_TERM_WIDTH=150
+     MODULEPATH_ROOT=$(testDir)/mf;  export MODULEPATH_ROOT
+     MODULEPATH=$(testDir)/mf/Core
+     export MODULEPATH
+     unset TERM
+
+     remove_generated_lmod_files
+     cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
+
+
+     runNushell --version                # 1
+     export CC=gcc
+     runNushell load intel               # 2
+
+
+     HOME=$ORIG_HOME
+
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results -nushell  _stdout.orig _stdout.new
+     cleanUp --nushell _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp --nushell _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

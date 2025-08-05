@@ -116,6 +116,7 @@ local function l_dynamicMP(name, value, totalValue, action)
    -- Check to see if there are any currently loaded or pending modules
    -- before looking to rebuild the caches.
    if (not mt:empty()) then
+      dbg.print{"Updating moduleA\n"}
       local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
       local spider_cache = (cached_loads ~= 'no')
       local moduleA      = require("ModuleA"):singleton{spider_cache = spider_cache}

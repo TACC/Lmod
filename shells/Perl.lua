@@ -51,7 +51,7 @@ function Perl.echo(self,...)
    self:_echo(...)
 end
 
-function Perl.expandVar(self, k, v)
+function Perl.expandVar(self, k, v, vType)
    local lineA = {}
    v = v:doubleQuoteString():atSymbolEscaped()
 

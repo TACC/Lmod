@@ -61,6 +61,7 @@ local getenv       = os.getenv
 local hook         = require("Hook")
 local i18n         = require("i18n")
 local lfs          = require("lfs")
+local Pairs        = dbg.active() and pairsByKeys or pairs
 local access       = posix.access
 local sort         = table.sort
 
@@ -193,7 +194,7 @@ local function l_findModules(mpath, mt, mList, sn, v, moduleT)
    local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
    if (next(v.fileT) ~= nil) then
-      for fullName, vv in pairs(v.fileT) do
+      for fullName, vv in Pairs(v.fileT) do
          vv.Version = extractVersion(fullName, sn)
          entryT   = { fn = vv.fn, sn = sn, userName = fullName, fullName = fullName,
                       version = vv.Version }
@@ -201,7 +202,7 @@ local function l_findModules(mpath, mt, mList, sn, v, moduleT)
       end
    end
    if (next(v.dirT) ~= nil) then
-      for name, vv in pairs(v.dirT) do
+      for name, vv in Pairs(v.dirT) do
          l_findModules(mpath, mt, mList, sn, vv)
       end
    end
@@ -302,6 +303,7 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
    optionTbl.dirStk      = {}
    optionTbl.mpathMapT   = {}
 
+
    local mList           = ""
    local exit            = os.exit
    os.exit               = l_nothing
@@ -365,7 +367,7 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
 
             local moduleA     = ModuleA:__new({mpath}, maxdepthT):moduleA()
             local T           = moduleA[1].T
-            for sn, v in pairs(T) do
+            for sn, v in Pairs(T) do
                l_findModules(mpath, mt, mList, sn, v)
             end
             spiderT[mpath] = moduleA[1].T

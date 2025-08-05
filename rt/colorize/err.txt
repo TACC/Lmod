@@ -2,20 +2,20 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.63 2025-06-27 15:32 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/colorize/mf
-   StdEnv                    apps/m4/1.4.17         (\033[1;31mt\033[0m)
-   apps/autoconf/2.69 (\033[1;31mt\033[0m)    apps/make/3.82         (\033[1;31mt\033[0m)
-   apps/automake/1.14 (\033[1;31mt\033[0m)    compilers/gcc/4.8.1    (\033[1;31mt\033[0m)
-   apps/devtools/1.0  (\033[1;31mt\033[0m)    compilers/intel/14.0.0 (\033[1;31mt\033[0m)
-   apps/git/1.8.4.1   (\033[1;31mt\033[0m)    libs/gcc/4.8.1         (\033[1;31mt\033[0m)
+   StdEnv                    apps/m4/1.4.17         (\\033[1;31mt\\033[0m)
+   apps/autoconf/2.69 (\\033[1;31mt\\033[0m)    apps/make/3.82         (\\033[1;31mt\\033[0m)
+   apps/automake/1.14 (\\033[1;31mt\\033[0m)    compilers/gcc/4.8.1    (\\033[1;31mt\\033[0m)
+   apps/devtools/1.0  (\\033[1;31mt\\033[0m)    compilers/intel/14.0.0 (\\033[1;31mt\\033[0m)
+   apps/git/1.8.4.1   (\\033[1;31mt\\033[0m)    libs/gcc/4.8.1         (\\033[1;31mt\\033[0m)
   Where:
-   \033[1;31mt\033[0m:  Tools for development
+   \\033[1;31mt\\033[0m:  Tools for development
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the
 default modules.
@@ -30,13 +30,13 @@ step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/colorize/mf
-   StdEnv                    apps/m4/1.4.17         (\033[1;31mt\033[0m)
-   apps/autoconf/2.69 (\033[1;31mt\033[0m)    apps/make/3.82         (\033[1;31mt\033[0m)
-   apps/automake/1.14 (\033[1;31mt\033[0m)    compilers/gcc/4.8.1    (\033[1;31mt\033[0m)
-   apps/devtools/1.0  (\033[1;31mt\033[0m)    compilers/intel/14.0.0 (\033[1;31mt\033[0m)
-   apps/git/1.8.4.1   (\033[1;31mt\033[0m)    libs/gcc/4.8.1         (\033[1;31mt\033[0m)
+   StdEnv                    apps/m4/1.4.17         (\\033[1;31mt\\033[0m)
+   apps/autoconf/2.69 (\\033[1;31mt\\033[0m)    apps/make/3.82         (\\033[1;31mt\\033[0m)
+   apps/automake/1.14 (\\033[1;31mt\\033[0m)    compilers/gcc/4.8.1    (\\033[1;31mt\\033[0m)
+   apps/devtools/1.0  (\\033[1;31mt\\033[0m)    compilers/intel/14.0.0 (\\033[1;31mt\\033[0m)
+   apps/git/1.8.4.1   (\\033[1;31mt\\033[0m)    libs/gcc/4.8.1         (\\033[1;31mt\\033[0m)
   Where:
-   \033[1;31mt\033[0m:  Tools for development
+   \\033[1;31mt\\033[0m:  Tools for development
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default
 modules.
@@ -50,13 +50,13 @@ step 4
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/colorize/mf
-   StdEnv                    apps/m4/1.4.17         (\033[1;31mt\033[0m)
-   apps/autoconf/2.69 (\033[1;31mt\033[0m)    apps/make/3.82         (\033[1;31mt\033[0m)
-   apps/automake/1.14 (\033[1;31mt\033[0m)    compilers/gcc/4.8.1    (\033[1;31mt\033[0m)
-   apps/devtools/1.0  (\033[1;31mt\033[0m)    compilers/intel/14.0.0 (\033[1;31mt\033[0m)
-   apps/git/1.8.4.1   (\033[1;31mt\033[0m)    libs/gcc/4.8.1         (\033[1;31mt\033[0m)
+   StdEnv                    apps/m4/1.4.17         (\\033[1;31mt\\033[0m)
+   apps/autoconf/2.69 (\\033[1;31mt\\033[0m)    apps/make/3.82         (\\033[1;31mt\\033[0m)
+   apps/automake/1.14 (\\033[1;31mt\\033[0m)    compilers/gcc/4.8.1    (\\033[1;31mt\\033[0m)
+   apps/devtools/1.0  (\\033[1;31mt\\033[0m)    compilers/intel/14.0.0 (\\033[1;31mt\\033[0m)
+   apps/git/1.8.4.1   (\\033[1;31mt\\033[0m)    libs/gcc/4.8.1         (\\033[1;31mt\\033[0m)
   Where:
-   \033[1;31mt\033[0m:  Tools for development
+   \\033[1;31mt\\033[0m:  Tools for development
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each
@@ -69,13 +69,13 @@ step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/colorize/mf
-   StdEnv                    apps/m4/1.4.17         (\033[1;31mt\033[0m)
-   apps/autoconf/2.69 (\033[1;31mt\033[0m)    apps/make/3.82         (\033[1;31mt\033[0m)
-   apps/automake/1.14 (\033[1;31mt\033[0m)    compilers/gcc/4.8.1    (\033[1;31mt\033[0m)
-   apps/devtools/1.0  (\033[1;31mt\033[0m)    compilers/intel/14.0.0 (\033[1;31mt\033[0m)
-   apps/git/1.8.4.1   (\033[1;31mt\033[0m)    libs/gcc/4.8.1         (\033[1;31mt\033[0m)
+   StdEnv                    apps/m4/1.4.17         (\\033[1;31mt\\033[0m)
+   apps/autoconf/2.69 (\\033[1;31mt\\033[0m)    apps/make/3.82         (\\033[1;31mt\\033[0m)
+   apps/automake/1.14 (\\033[1;31mt\\033[0m)    compilers/gcc/4.8.1    (\\033[1;31mt\\033[0m)
+   apps/devtools/1.0  (\\033[1;31mt\\033[0m)    compilers/intel/14.0.0 (\\033[1;31mt\\033[0m)
+   apps/git/1.8.4.1   (\\033[1;31mt\\033[0m)    libs/gcc/4.8.1         (\\033[1;31mt\\033[0m)
   Where:
-   \033[1;31mt\033[0m:  Tools for development
+   \\033[1;31mt\\033[0m:  Tools for development
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
@@ -87,13 +87,13 @@ step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/colorize/mf
-   StdEnv                    apps/m4/1.4.17         (\033[1;31mt\033[0m)
-   apps/autoconf/2.69 (\033[1;31mt\033[0m)    apps/make/3.82         (\033[1;31mt\033[0m)
-   apps/automake/1.14 (\033[1;31mt\033[0m)    compilers/gcc/4.8.1    (\033[1;31mt\033[0m)
-   apps/devtools/1.0  (\033[1;31mt\033[0m)    compilers/intel/14.0.0 (\033[1;31mt\033[0m)
-   apps/git/1.8.4.1   (\033[1;31mt\033[0m)    libs/gcc/4.8.1         (\033[1;31mt\033[0m)
+   StdEnv                    apps/m4/1.4.17         (\\033[1;31mt\\033[0m)
+   apps/autoconf/2.69 (\\033[1;31mt\\033[0m)    apps/make/3.82         (\\033[1;31mt\\033[0m)
+   apps/automake/1.14 (\\033[1;31mt\\033[0m)    compilers/gcc/4.8.1    (\\033[1;31mt\\033[0m)
+   apps/devtools/1.0  (\\033[1;31mt\\033[0m)    compilers/intel/14.0.0 (\\033[1;31mt\\033[0m)
+   apps/git/1.8.4.1   (\\033[1;31mt\\033[0m)    libs/gcc/4.8.1         (\\033[1;31mt\\033[0m)
   Where:
-   \033[1;31mt\033[0m:  Tools for development
+   \\033[1;31mt\\033[0m:  Tools for development
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
@@ -105,13 +105,13 @@ step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/colorize/mf
-   StdEnv                    apps/m4/1.4.17         (\033[1;31mt\033[0m)
-   apps/autoconf/2.69 (\033[1;31mt\033[0m)    apps/make/3.82         (\033[1;31mt\033[0m)
-   apps/automake/1.14 (\033[1;31mt\033[0m)    compilers/gcc/4.8.1    (\033[1;31mt\033[0m)
-   apps/devtools/1.0  (\033[1;31mt\033[0m)    compilers/intel/14.0.0 (\033[1;31mt\033[0m)
-   apps/git/1.8.4.1   (\033[1;31mt\033[0m)    libs/gcc/4.8.1         (\033[1;31mt\033[0m)
+   StdEnv                    apps/m4/1.4.17         (\\033[1;31mt\\033[0m)
+   apps/autoconf/2.69 (\\033[1;31mt\\033[0m)    apps/make/3.82         (\\033[1;31mt\\033[0m)
+   apps/automake/1.14 (\\033[1;31mt\\033[0m)    compilers/gcc/4.8.1    (\\033[1;31mt\\033[0m)
+   apps/devtools/1.0  (\\033[1;31mt\\033[0m)    compilers/intel/14.0.0 (\\033[1;31mt\\033[0m)
+   apps/git/1.8.4.1   (\\033[1;31mt\\033[0m)    libs/gcc/4.8.1         (\\033[1;31mt\\033[0m)
   Where:
-   \033[1;31mt\033[0m:  Tools for development
+   \\033[1;31mt\\033[0m:  Tools for development
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
@@ -122,13 +122,13 @@ step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/colorize/mf
-   StdEnv                    apps/m4/1.4.17         (\033[1;31mt\033[0m)
-   apps/autoconf/2.69 (\033[1;31mt\033[0m)    apps/make/3.82         (\033[1;31mt\033[0m)
-   apps/automake/1.14 (\033[1;31mt\033[0m)    compilers/gcc/4.8.1    (\033[1;31mt\033[0m)
-   apps/devtools/1.0  (\033[1;31mt\033[0m)    compilers/intel/14.0.0 (\033[1;31mt\033[0m)
-   apps/git/1.8.4.1   (\033[1;31mt\033[0m)    libs/gcc/4.8.1         (\033[1;31mt\033[0m)
+   StdEnv                    apps/m4/1.4.17         (\\033[1;31mt\\033[0m)
+   apps/autoconf/2.69 (\\033[1;31mt\\033[0m)    apps/make/3.82         (\\033[1;31mt\\033[0m)
+   apps/automake/1.14 (\\033[1;31mt\\033[0m)    compilers/gcc/4.8.1    (\\033[1;31mt\\033[0m)
+   apps/devtools/1.0  (\\033[1;31mt\\033[0m)    compilers/intel/14.0.0 (\\033[1;31mt\\033[0m)
+   apps/git/1.8.4.1   (\\033[1;31mt\\033[0m)    libs/gcc/4.8.1         (\\033[1;31mt\\033[0m)
   Where:
-   \033[1;31mt\033[0m:  Tools for development
+   \\033[1;31mt\\033[0m:  Tools for development
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.

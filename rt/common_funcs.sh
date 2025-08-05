@@ -13,6 +13,25 @@ pathmunge () {
 
 cleanUp ()
 {
+  shellName=--bash
+  if [[ "$1" =~ ^-- ]]; then
+     shellName=$1
+     shift
+  fi
+  export gitV=$(git describe --always)
+  export old="Lmod Warning: Syntax error in file: ProjectDIR"
+  export new="Lmod Warning: Syntax error in file:\nProjectDIR"
+
+  export PATH_to_LUA PATH_to_SHA1 PATH_to_TM  SHA1SUM
+  export PATH_TO_SED
+
+
+  $projectDir/proj_mgmt/clean_gold_files/regularize $shellName $1 $2
+}
+
+
+old_cleanUp ()
+{
    gitV=$(git describe --always)
    local old
    local new
@@ -146,6 +165,11 @@ printErr ()
 runFish ()
 {
   runBase $LUA_EXEC $projectDir/src/lmod.in.lua fish --regression_testing "$@"
+}
+
+runNushell ()
+{
+  runBase $LUA_EXEC $projectDir/src/lmod.in.lua nushell --regression_testing "$@"
 }
 
 runJson ()

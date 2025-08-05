@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.60 2025-04-30 12:50 -05:00
+Modules based on Lua: Version 8.7.64 2025-07-08 12:40 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -216,3 +216,92 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load qiime/2-2024.10/m
 ===========================
 The following have been reloaded with a version change:
   1) qiime/2-2024.10/amplicon => qiime/2-2024.10/metagenome
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/1
+===========================
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/1.0
+===========================
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/2.0
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "foo/2.0"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "foo/2.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/variant/2.0
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "foo/variant/2.0"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "foo/variant/2.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/variant/1
+===========================
+The following have been reloaded with a version change:
+  1) foo/1.0 => foo/variant/1.0
+===========================
+step 37
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/variantZ/1.0
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "foo/variantZ/1.0"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "foo/variantZ/1.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/variant/another/1
+===========================
+The following have been reloaded with a version change:
+  1) foo/variant/1.0 => foo/variant/another/1.0
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/variant/another/2.0
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "foo/variant/another/2.0"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "foo/variant/another/2.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/variant/anotherzzz/2.0
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "foo/variant/anotherzzz/2.0"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "foo/variant/anotherzzz/2.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bar/a/b
+===========================
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bar/a/b/1.0
+===========================
+The following have been reloaded with a version change:
+  1) bar/a/b/2.0 => bar/a/b/1.0
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load baz/a1
+===========================
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load baz/a1/d/e/f
+===========================
+The following have been reloaded with a version change:
+  1) baz/a1/d/3.0 => baz/a1/d/e/f/6.0

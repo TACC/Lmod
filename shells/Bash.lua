@@ -98,7 +98,7 @@ end
 --------------------------------------------------------------------------
 -- Bash:expandVar(): Define a global variable in bash syntax
 
-function Bash.expandVar(self, k, v)
+function Bash.expandVar(self, k, v, vType)
    local lineA       = {}
    local nl          = [["
 "]]

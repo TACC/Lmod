@@ -52,7 +52,7 @@ function Ruby.echo(self,...)
    self:_echo(...)
 end
 
-function Ruby.expandVar(self, k, v)
+function Ruby.expandVar(self, k, v, vType)
    local lineA = {}
    v                 = tostring(v):doubleQuoteString()
    lineA[#lineA + 1] = 'ENV['

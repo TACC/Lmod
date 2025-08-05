@@ -79,7 +79,7 @@ end
 --------------------------------------------------------------------------
 -- Rc:expandVar(): expand a single key-value pair into Rc syntax.
 
-function Rc.expandVar(self, k, v)
+function Rc.expandVar(self, k, v, vType)
    if (k:find("%.")) then
       return
    end

@@ -85,7 +85,7 @@ end
 --------------------------------------------------------------------------
 -- Csh:expandVar(): expand a single key-value pair into Csh syntax.
 
-function Csh.expandVar(self, k, v)
+function Csh.expandVar(self, k, v, vType)
    if (k:find("%.")) then
       return
    end

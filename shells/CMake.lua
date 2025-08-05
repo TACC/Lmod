@@ -53,7 +53,7 @@ function CMake.echo(self,...)
    self:_echo(...)
 end
 
-function CMake.expandVar(self, k, v)
+function CMake.expandVar(self, k, v, vType)
    local lineA = {}
    lineA[#lineA + 1] = 'set(ENV{'
    lineA[#lineA + 1] = k

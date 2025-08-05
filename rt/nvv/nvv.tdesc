@@ -88,6 +88,26 @@ testdescript = {
      runLmod load qiime/2-2024.10              #29
      runLmod load qiime/2-2024.10/metagenome   #30
 
+     #----------------------------------------
+     # Issue 778
+     runLmod purge                             #31
+     unsetMT
+
+     MODULEPATH=$(testDir)/mf9/Core
+     runLmod load foo/1                        #32
+     runLmod load foo/1.0                      #33
+     runLmod load foo/2.0                      #34
+     runLmod load foo/variant/2.0              #35
+     runLmod load foo/variant/1                #36
+     runLmod load foo/variantZ/1.0             #37
+     runLmod load foo/variant/another/1        #38
+     runLmod load foo/variant/another/2.0      #39
+     runLmod load foo/variant/anotherzzz/2.0   #40
+     runLmod load bar/a/b                      #41
+     runLmod load bar/a/b/1.0                  #42
+     runLmod load baz/a1                       #43
+     runLmod load baz/a1/d/e/f                 #44
+
 
 
      HOME=$ORIG_HOME

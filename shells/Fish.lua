@@ -86,10 +86,10 @@ end
 --------------------------------------------------------------------------
 -- Fish:expandVar(): Define a global variable in Fish syntax
 
-function Fish.expandVar(self, k, v)
+function Fish.expandVar(self, k, v, vType)
    local lineA       = {}
    v                 = tostring(v):multiEscaped()
-   if (k == "PATH" or k == "INFOPATH") then
+   if (vType == "path" and not k:match("^__LMOD_REF_COUNT_")) then
       v = v:gsub(":",' ')
    end
    lineA[#lineA + 1] = "set "

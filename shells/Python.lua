@@ -52,7 +52,7 @@ function Python.echo(self,...)
    self:_echo(...)
 end
 
-function Python.expandVar(self, k, v)
+function Python.expandVar(self, k, v, vType)
    local lineA = {}
    v                 = tostring(v):doubleQuoteString()
    lineA[#lineA + 1] = 'os.environ['

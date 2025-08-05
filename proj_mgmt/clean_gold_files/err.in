@@ -1,0 +1,30 @@
+--%%-- Avail RT: .0545
+--%%-- Load W/O cache RT: .1466
+--%%-- Load RT: .0741
+   apps/autoconf/2.69 ([1;31mt[0m)    apps/make/3.82         ([1;31mt[0m)
+   T="2025-07-10T13:13"
+   T="2025-07-10"
+TARG_HOST="vato"
+TARG_OS_FAMILY="Linux"
+TARG_OS="Linux"
+TARG_MACH_DESCRIPT="aljkslkjas"
+User shell: zsh
+Lua Version: 5.4.0.1-rtm
+Lmod Version: 8.7.64
+Lmod branch: IS704
+LMOD BRANCH: IS704
+LuaFileSystem version 5.3.4
+
+  Lmod version: 8.7.64
+
+  This attempt to call laksdj WTF laksdj  
+attempt to call laksdj WTF laksdj  
+Sys.setenv(__ModuleTable001_, "lkajsdflk")
+Sys.setenv(._ModuleTable_Sz_, 2\)
+unsetenv _ModuleTable021_;
+unset _ModuleTable001_;
+   
+$env.__LMOD_REF_COUNT_PATH = r#'/a/b:1;/opt/apps/lua/lua/bin:1;/home/mclay/w/hermes/bin:1;/usr/bin:1;/bin:1'#;
+$env.PATH = [r#'/a/b'#, r#'/opt/apps/lua/lua/bin'#, r#'/home/mclay/w/hermes/bin'#, r#'/usr/bin'#, r#'/bin'#,]
+
+last

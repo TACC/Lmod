@@ -51,7 +51,7 @@ function R.echo(self,...)
    self:_echo(...)
 end
 
-function R.expandVar(self, k, v)
+function R.expandVar(self, k, v, vType)
    local lineA = {}
    v = tostring(v):doubleQuoteString()
    lineA[#lineA + 1] = 'Sys.setenv("'

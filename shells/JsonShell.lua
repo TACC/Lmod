@@ -73,7 +73,7 @@ function Json.set_shell_function(self, k, t)
 end
 
 
-function Json.expandVar(self, k, v)
+function Json.expandVar(self, k, v, vType)
    local tbl = js.decode(self.js)
    tbl["env"][k] = v
    self.js = js.encode(tbl)

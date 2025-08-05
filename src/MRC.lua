@@ -117,7 +117,7 @@ function M.singleton(self, fnA)
    if (not s_Epoch) then
       s_Epoch  = math.floor(epoch())
       local tm = posix.localtime(s_Epoch)
-      s_Is_dst = tm.is_dst
+      s_Is_dst = tm.is_dst or (tm.tm_isdst and tm.tm_isdst ~= 0)
    end
 
    if (not s_Show_HiddenT) then
@@ -126,6 +126,38 @@ function M.singleton(self, fnA)
 
    dbg.fini("MRC:singleton")
    return s_MRC
+end
+
+local s_tmTransT = {
+   tm_hour  = "hour",
+   tm_mday  = "monthday",
+   tm_min   = "min",
+   tm_mon   = "month",
+   tm_sec   = "sec",
+   tm_wday  = "weekday",
+   tm_yday  = "yearday",
+   tm_year  = "year",
+}
+   
+local function l_convertOldtm(tm)
+   local t = {}
+   if (tm.tm_mon) then
+      for k, v in pairs(tm) do
+         local key = s_tmTransT[k]
+         if (key) then
+            t[key] = v
+         end
+      end
+      t.year     = 1900 + t.year
+      t.month    = t.month + 1
+      t.is_dst   = tm.is_dst
+      t.tm_isdst = tm.is_dst and 1 or 0
+      t.day      = t.monthday
+      t.gmtoff   = 0
+   else
+      t = tm
+   end
+   return t
 end
 
 local function l_convertStr2TM(tStr, tm, is_dst)
@@ -137,6 +169,7 @@ local function l_convertStr2TM(tStr, tm, is_dst)
       tm[k] = v
    end
    tm.is_dst = is_dst
+   tm.tm_isdst = is_dst and 1 or 0
 end
 
 local function l_convertTimeStr_to_epoch(tStr)
@@ -149,6 +182,8 @@ local function l_convertTimeStr_to_epoch(tStr)
    if (not ok) then
       LmodError{msg="e_Malformed_time",tStr = tStr}
    end
+   tm = l_convertOldtm(tm)
+   dbg.printT("tm",tm)
    return posix.mktime(tm)
 end
 
@@ -482,7 +517,7 @@ function M.export(self)
 end
 
 local function l_find_resultT(self, tbl_kind, replaceT, mpath, wantedA)
-   dbg.start{"MRC:l_find_resultT( tbl_kind, replaceT, mpath, wantedA)"}
+   --dbg.start{"MRC:l_find_resultT( tbl_kind, replaceT, mpath, wantedA)"}
    local resultT = false
    local Tkind   = "__" .. tbl_kind
    local tt      = {}
@@ -491,11 +526,11 @@ local function l_find_resultT(self, tbl_kind, replaceT, mpath, wantedA)
    if (self.__mpathT[mpath] and self.__mpathT[mpath][tbl_kind]) then
       tt  = self.__mpathT[mpath][tbl_kind]
    end
-   dbg.print{"mpath: ",mpath,"\n"}
-   dbg.printT("wantedA",wantedA)
-   dbg.printT("ttt", ttt)
-   dbg.printT("tt", tt)
-   dbg.printT("mpathT", self.__mpathT)
+   --dbg.print{"mpath: ",mpath,"\n"}
+   --dbg.printT("wantedA",wantedA)
+   --dbg.printT("ttt", ttt)
+   --dbg.printT("tt", tt)
+   --dbg.printT("mpathT", self.__mpathT)
 
    local mpathA = {mpath}
    for i = 1,#wantedA do
@@ -508,17 +543,17 @@ local function l_find_resultT(self, tbl_kind, replaceT, mpath, wantedA)
          else
             resultT = replaceT
          end
-         dbg.printT("resultT",resultT)
-         dbg.fini("MRC:l_find_resultT")
+         --dbg.printT("resultT",resultT)
+         --dbg.fini("MRC:l_find_resultT")
          return resultT
       end
    end
-   dbg.fini("MRC:l_find_resultT (false)")
+   --dbg.fini("MRC:l_find_resultT (false)")
    return resultT
 end
 
 local function l_findHiddenState(self, modT)
-   dbg.start{"l_findHiddenState(self, modT)"}
+   --dbg.start{"l_findHiddenState(self, modT)"}
    local fn      = modT.fn
    local sn      = modT.sn
    local wantedA = { modT.sn, modT.fullName, fn, ((fn or ""):gsub("%.lua$","")) }
@@ -542,7 +577,7 @@ local function l_findHiddenState(self, modT)
       end
    end
 
-   dbg.fini("MRC:l_findHiddenState")
+   --dbg.fini("MRC:l_findHiddenState")
    return resultT
 end
 
@@ -595,13 +630,15 @@ local function l_check_time_range(resultT, nearlyDays)
    local T_before = (resultT.before) and l_convertTimeStr_to_epoch(resultT.before) or T_end
    local T_after  = (resultT.after)  and l_convertTimeStr_to_epoch(resultT.after)  or T_start
 
+   
+   local result = "notActive"
    if (s_Epoch <= T_before and  s_Epoch >= T_after) then
-      return "inRange"
+      result = "inRange"
+   elseif (s_Epoch + nearlyDays * 86400 >= T_after) then
+      result = "nearly"
    end
-   if (s_Epoch + nearlyDays * 86400 >= T_after) then
-      return "nearly"
-   end
-   return "notActive"
+   dbg.print{"result: ",result, ", T_before: ", T_before, ", s_Epoch: ", s_Epoch, ", T_after: ", T_after,"\n"}
+   return result
 end
 
 local function l_check_user_groups(resultT)
@@ -642,7 +679,7 @@ local function l_check_forbidden_modifiers(fullName, resultT)
 end
 
 local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
-   dbg.start{"l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)"}
+   dbg.start{"l_check_hidden_modifiers(fullName:", fullName,", resultT, visibleT, show_hidden)"}
    local count         = false
    local hide_active   = (l_check_time_range(resultT, 0) == "inRange" and
                           l_check_user_groups(resultT))
@@ -670,7 +707,7 @@ end
 
 -- modT is a table with: sn, fullName and fn
 function M.isVisible(self, modT)
-   dbg.start{"MRC:isVisible(modT}"}
+   --dbg.start{"MRC:isVisible(modT}"}
    local frameStk      = require("FrameStk"):singleton()
    local mt            = frameStk:mt()
    local mpathA        = modT.mpathA or mt:modulePathA()
@@ -698,8 +735,8 @@ function M.isVisible(self, modT)
    ------------------------------------------------------------
    -- If sn is already in the ModuleTable then use MT data instead
 
-   dbg.print{"fullName: ",fullName,"\n"}
-   dbg.printT("visibleT",visibleT)
+   --dbg.print{"fullName: ",fullName,"\n"}
+   --dbg.printT("visibleT",visibleT)
 
 
    if (mt:exists(sn,fullName)) then
@@ -709,38 +746,38 @@ function M.isVisible(self, modT)
       else
          my_resultT = { isVisible = show_hidden or visibleT[moduleKindT.kind], count = true, moduleKindT = moduleKindT }
       end
-      dbg.printT("mt:exists(sn): true, my_resultT",my_resultT)
-      dbg.fini("(1) MRC:isVisible")
+      --dbg.printT("mt:exists(sn): true, my_resultT",my_resultT)
+      --dbg.fini("(1) MRC:isVisible")
       return my_resultT
    end
 
 
    local resultT     = l_findHiddenState(self, modT)
-   dbg.print{"RTM type(resultT): ",type(resultT),"\n"}
+   --dbg.print{"RTM type(resultT): ",type(resultT),"\n"}
    if (type(resultT) == "table" ) then
-      dbg.printT("from hidden State resultT",resultT)
+      --dbg.printT("from hidden State resultT",resultT)
       isVisible, hidden_loaded, kind, count = l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
-      dbg.print{"(1)isVisible: ",isVisible,"\n"}
+      --dbg.print{"(1)isVisible: ",isVisible,"\n"}
    elseif (fullName:sub(1,1) == ".") then
       isVisible = (visibleT.hidden == true or show_hidden)
       count     = show_hidden
       kind      = "hidden"
-      dbg.print{"(2)isVisible: ",isVisible,"\n"}
+      --dbg.print{"(2)isVisible: ",isVisible,"\n"}
    else
       local idx = fullName:find("/%.")
       isVisible = (idx == nil) or (visibleT.hidden == true) or show_hidden
       kind      = (idx == nil) and "normal" or "hidden"
       count     = show_hidden or (idx == nil)
-      dbg.print{"(3)isVisible: ",isVisible,"\n"}
+      --dbg.print{"(3)isVisible: ",isVisible,"\n"}
    end
 
    my_resultT       = { isVisible = isVisible,
                         moduleKindT = {kind=kind, hidden_loaded = hidden_loaded},
                         count = count }
 
-   dbg.print{"fullName: ",fullName,", isVisible: ",isVisible,", kind: ",kind,", show_hidden: ", show_hidden,", count: ",count,", hidden_loaded: ",hidden_loaded,"\n"}
-   dbg.printT("my_resultT",my_resultT)
-   dbg.fini("(2) MRC:isVisible")
+   --dbg.print{"fullName: ",fullName,", isVisible: ",isVisible,", kind: ",kind,", show_hidden: ", show_hidden,", count: ",count,", hidden_loaded: ",hidden_loaded,"\n"}
+   --dbg.printT("my_resultT",my_resultT)
+   --dbg.fini("(2) MRC:isVisible")
    return my_resultT
 end
 

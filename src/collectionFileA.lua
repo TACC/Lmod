@@ -38,16 +38,20 @@ require("utils")
 
 local dbg    = require("Dbg"):dbg()
 function collectFileA(sn, versionStr, extended_default, v, fileA)
-   dbg.start{"collectFileA(",sn,",", versionStr,",v,fileA)"}
+   dbg.start{"collectFileA(sn: \"",sn,"\", versionStr: ", versionStr,", v,fileA)"}
+   dbg.printT("v",v)
+   --assert(versionStr ~= "default","wtf")
    if (v.fileT and next(v.fileT) ~= nil ) then
       local found  = false
-      if (versionStr) then
+      if (versionStr and (versionStr ~= "default" or v.fileT.default)) then
          local k  = pathJoin(sn, versionStr)
+         dbg.print{"k: ",k,"\n"}
          local vv = v.fileT[k]
          if (vv) then
             fileA[#fileA+1] = { sn = sn, fullName = build_fullName(sn, versionStr),
                                 version = versionStr, fn = vv.fn, wV = vv.wV, pV = vv.pV, mpath = vv.mpath }
-            dbg.fini("collectFileA")
+            dbg.printT("fileA",fileA)
+            dbg.fini("collectFileA exact match")
             return
          end
          if (extended_default == "yes") then
@@ -55,7 +59,7 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
             local extra  = ""
             local bndPat = "[-+_.=a-zA-Z]"
             if (not vp:sub(-1):find(bndPat)) then
-               extra = "[-+_.=]"
+               extra = "[-+_.=/]"
             end
             local keyPat = pathJoin(sn,vp):escape() .. extra .. ".*"
             for k,vvv in pairs(v.fileT) do
@@ -69,21 +73,27 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
             end
          end
 
-         if (found or versionStr ~= "default") then
-            -- We can return if we found something or the version string is not /default
+         if (found and (not (v.dirT and next(v.dirT) ~= nil))) then
+            -- We can return if we found something or the version string is not /default 
+            -- and there are no entries in v.dirT
+            dbg.printT("fileA",fileA)
             dbg.fini("collectFileA via found or versionStr ~= \"default\"")
             return
          end
+      else
+         dbg.print{"Adding v.fileT to fileA\n"}
+         for fullName, vv in pairs(v.fileT) do
+            local version   = extractVersion(fullName, sn)
+            fileA[#fileA+1] = { sn = sn, fullName = fullName, version = version, fn = vv.fn,
+                                wV = vv.wV, pV = vv.pV, mpath = vv.mpath }
+         end
       end
-      for fullName, vv in pairs(v.fileT) do
-         local version   = extractVersion(fullName, sn)
-         fileA[#fileA+1] = { sn = sn, fullName = fullName, version = version, fn = vv.fn,
-                             wV = vv.wV, pV = vv.pV, mpath = vv.mpath }
-      end
+      dbg.printT("fileA",fileA)
    end
    if (v.dirT and next(v.dirT) ~= nil) then
       for k, vv in pairs(v.dirT) do
-         collectFileA(sn, nil, extended_default, vv, fileA)
+         dbg.print{"k: ",k,"\n"}
+         collectFileA(sn, versionStr, extended_default, vv, fileA)
       end
    end
    dbg.fini("collectFileA")

@@ -37,26 +37,34 @@ function pairsByKeys (t, f)
    local a = {}
    local numA = {}
    local strA = {}
+   local boolA = {}
    local n = 0
    for k in pairs(t) do
-      if (type(k) == "number") then
+      local kind = type(k)
+      if (kind == "number") then
          numA[#numA+1] = k
+      elseif (kind == "boolean") then
+         boolA[#boolA+1] = k
       else
          strA[#strA+1] = k
       end
-      n    = n + 1
    end
    sort(numA, f)
    sort(strA, f)
 
-   for i = 1,#numA do
-      a[i] = numA[i]
+   for i = 1, #boolA do
+      n = n + 1
+      a[n] = boolA[i]
    end
 
-   local j = #numA
+   for i = 1,#numA do
+      n = n + 1
+      a[n] = numA[i]
+   end
+
    for i = 1,#strA do
-      j = j + 1
-      a[j] = strA[i]
+      n = n + 1
+      a[n] = strA[i]
    end
 
    local i = 0                -- iterator variable
@@ -68,4 +76,3 @@ function pairsByKeys (t, f)
                 end
    return iter
 end
-
