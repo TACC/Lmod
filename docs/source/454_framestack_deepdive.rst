@@ -4,7 +4,7 @@ FrameStk: The Engine of Reversible State
 The FrameStack, implemented in `src/FrameStk.lua`, is a critical component at the heart of Lmod's module evaluation process. It provides the foundational mechanism that allows module loading to be a sequential, stateful, and reversible process. Understanding the FrameStack is key to understanding how Lmod robustly manages environment changes across complex dependency chains.
 
 The Core Problem: Stateful, Sequential Loading
----------------------------------------------
+----------------------------------------------
 
 Consider a typical command: `module load A B C`. Lmod processes this by loading each module in sequence: first `A`, then `B`, and finally `C`. This sequential approach creates a challenge:
 

@@ -23,8 +23,8 @@ lowercase letter (e.g mname, cosmic, frameStk)
 Function Naming and location
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Functions named l_ ``something`` () like **l_lazyEval** () are local functions 
-and can only be called from inside that *.lua file.  This helps in tracking 
+Functions named ``l_something`` () like ``l_lazyEval`` () are local functions 
+and can only be called from inside that \*.lua file.  This helps in tracking 
 where changes to a function.  Names without a leading ``l_`` are global in scope.
 If they are not in a separate file like collectFileA.lua or loadModuleFile.lua 
 they are typically found in src/util.lua
