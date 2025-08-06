@@ -33,6 +33,9 @@ testdescript = {
      runLmod load getenv                       # 7
      runLmod spider                            # 8
      runBase cat myMode.log                    # 9
+     runLmod load help/1.0                     # 10
+     runLmod help help/1.0                     # 11
+     runLmod help help/2.0                     # 12
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

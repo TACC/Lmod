@@ -80,3 +80,31 @@ step 9
 cat myMode.log
 ===========================
 myMode: spider
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load help/1.0
+===========================
+LOADEDMODULES=earlyLateOutput/2.0:getenv/1.0:help/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/tclmodules/mf;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/tclmodules/mf/earlyLateOutput/2.0:ProjectDIR/rt/tclmodules/mf/getenv/1.0:ProjectDIR/rt/tclmodules/mf/help/1.0;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={earlyLateOutput={fn="ProjectDIR/rt/tclmodules/mf/earlyLateOutput/2.0",fullName="earlyLateOutput/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="earlyLateOutput",wV="000000002.*zfinal",},getenv={fn="ProjectDIR/rt/tclmodules/mf/getenv/1.0",fullName="getenv/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="getenv",wV="000000001.*zfinal",},help={fn="ProjectDIR/rt/tclmodules/mf/help/1.0",fullName="help/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="help/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/tclmodules/mf",},systemBaseMPATH="ProjectDIR/rt/tclmodules/mf",}';
+export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help help/1.0
+===========================
+MODULEPATH=ProjectDIR/rt/tclmodules/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={earlyLateOutput={fn="ProjectDIR/rt/tclmodules/mf/earlyLateOutput/2.0",fullName="earlyLateOutput/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="earlyLateOutput",wV="000000002.*zfinal",},getenv={fn="ProjectDIR/rt/tclmodules/mf/getenv/1.0",fullName="getenv/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="getenv",wV="000000001.*zfinal",},help={fn="ProjectDIR/rt/tclmodules/mf/help/1.0",fullName="help/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="help/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/tclmodules/mf",},systemBaseMPATH="ProjectDIR/rt/tclmodules/mf",}';
+export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help help/2.0
+===========================
+MODULEPATH=ProjectDIR/rt/tclmodules/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={earlyLateOutput={fn="ProjectDIR/rt/tclmodules/mf/earlyLateOutput/2.0",fullName="earlyLateOutput/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="earlyLateOutput",wV="000000002.*zfinal",},getenv={fn="ProjectDIR/rt/tclmodules/mf/getenv/1.0",fullName="getenv/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="getenv",wV="000000001.*zfinal",},help={fn="ProjectDIR/rt/tclmodules/mf/help/1.0",fullName="help/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="help/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/tclmodules/mf",},systemBaseMPATH="ProjectDIR/rt/tclmodules/mf",}';
+export _ModuleTable_;

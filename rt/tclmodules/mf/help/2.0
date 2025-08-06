@@ -1,0 +1,6 @@
+#%Module
+proc ModulesHelp {} {
+    puts stderr {second help line}
+}
+module-help {first help line
+with newline}

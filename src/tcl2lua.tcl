@@ -410,6 +410,12 @@ proc getModCmdOpts { &answerA &extraArgs args  } {
    set  resultA(mode) $modeStr
 }
 
+proc module-help {args} {
+    global g_outputA
+    set msg [join $args]
+    lappend g_outputA  "help(\[===\[$msg\]===\])\n"
+}
+
 proc module-info {what {more {}}} {
     global g_fullName g_usrName g_shellName g_shellType
     set mode [currentMode]
@@ -1077,6 +1083,7 @@ proc execute-modulefile {modfile } {
     interp alias $child is-loaded      	 {} is-loaded
     interp alias $child is-avail      	 {} is-avail
     interp alias $child module         	 {} module
+    interp alias $child module-help    	 {} module-help
     interp alias $child module-info    	 {} module-info
     interp alias $child module-whatis  	 {} module-whatis
     interp alias $child myPuts         	 {} myPuts

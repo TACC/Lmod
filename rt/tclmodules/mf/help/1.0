@@ -1,0 +1,4 @@
+#%Module
+module-help {first help line
+with newline}
+module-help {second help line}

@@ -104,7 +104,11 @@ standard TCL language.
 
    **unuse** *path* :
       remove *path* to MODULEPATH
-   
+
+**module-help** *string* :
+    What is printed out when the help command is called. Note that
+    the *help string* can be multi-lined.
+
 **module-info** *string* :
    This command returns different things depending what *string* is:
 
