@@ -352,7 +352,7 @@ function M.report(self, t)
    b[#b+1] = "Lmod Version: " .. lmod_version
    b[#b+1] = "Lua Version:  " .. _VERSION:gsub("Lua ","")
    b[#b+1] = "MODULEPATH:   " .. (os.getenv("MODULEPATH") or "<unknown>")
-   b[#b+1] = "OS:           " .. os_name
+   b[#b+1] = "OS Name:      " .. os_name
    b[#b+1] = "\n"
 
    b[#b+1] = "Changes from Default Configuration"
