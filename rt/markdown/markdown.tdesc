@@ -1,0 +1,76 @@
+-- -*- lua -*-
+local testName = "markdown"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules", 
+   description = [[
+     Test markdown detection and processing in help/whatis content
+   ]],
+   keywords = {testName },
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH=$(testDir)/mf/Core;            export MODULEPATH
+
+     remove_generated_lmod_files
+
+     # Test plain text content (should NOT be processed as markdown)
+     runLmod help plain_text/1.0              # 1
+     runLmod show plain_text/1.0              # 2
+     runLmod whatis plain_text/1.0            # 3
+
+     # Test markdown content (SHOULD be processed as markdown)  
+     runLmod help markdown_content/2.0        # 4
+     runLmod show markdown_content/2.0        # 5
+     runLmod whatis markdown_content/2.0      # 6
+
+     # Test mixed/borderline content
+     runLmod help mixed_content/1.5           # 7
+     runLmod show mixed_content/1.5           # 8
+     runLmod whatis mixed_content/1.5         # 9
+
+     # Test short content (should stay plain text)
+     runLmod help short_content/0.1           # 10
+     runLmod show short_content/0.1           # 11
+     runLmod whatis short_content/0.1         # 12
+
+     # Test with color enabled
+     export LMOD_COLORIZE=YES
+     runLmod help markdown_content/2.0        # 13
+     runLmod whatis markdown_content/2.0      # 14
+     unset LMOD_COLORIZE
+
+     HOME=$ORIG_HOME
+
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results -bash _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

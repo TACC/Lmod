@@ -46,8 +46,10 @@ require("strict")
 
 
 require("utils")
-local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
-local MainControl   = require("MainControl")
+local pack            = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
+local MainControl     = require("MainControl")
+local MarkdownDetector  = require("MarkdownDetector")
+local MarkdownProcessor = require("MarkdownProcessor")
 local setenv_posix  = posix.setenv
 MC_Show             = inheritsFrom(MainControl)
 MC_Show.my_name     = "MC_Show"
@@ -91,6 +93,15 @@ local function l_ShowCmd(name, first_elem, ...)
 end
 
 local function l_Show_help(...)
+   local argA = pack(...)
+   for i = 1, argA.n do
+      local content = argA[i]
+      -- For show mode, display original content with markdown detection info
+      local isMarkdown = MarkdownDetector.isMarkdown(content)
+      if isMarkdown then
+         A[#A+1] = "-- This help content will be processed as markdown in terminal display\n"
+      end
+   end
    A[#A+1] = ShowHelpStr(...)
 end
 
@@ -113,6 +124,11 @@ end
 -- @param self A MainControl object
 -- @param value the whatis string.
 function M.whatis(self, value)
+   -- For show mode, display original content with markdown detection info
+   local isMarkdown = MarkdownDetector.isMarkdown(value)
+   if isMarkdown then
+      A[#A+1] = "-- This whatis content will be processed as markdown in terminal display\n"
+   end
    l_ShowCmd("whatis", value)
 end
 

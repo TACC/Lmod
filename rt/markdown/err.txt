@@ -1,0 +1,180 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help plain_text/1.0
+===========================
+Module Specific Help for "plain_text/1.0"
+This is plain text help content without any markdown formatting.
+It contains just regular sentences and basic information about the module.
+No special formatting should be applied to this content.
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show plain_text/1.0
+===========================
+   ProjectDIR/rt/markdown/mf/Core/plain_text/1.0.lua:
+help([[This is plain text help content without any markdown formatting.
+It contains just regular sentences and basic information about the module.
+No special formatting should be applied to this content.]])
+whatis("Name: Plain Text Module")
+whatis("Version: 1.0")
+whatis("Description: Simple module with plain text help")
+setenv("PLAIN_TEXT_VERSION","1.0")
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis plain_text/1.0
+===========================
+plain_text/1.0      : Name: Plain Text Module
+plain_text/1.0      : Version: 1.0
+plain_text/1.0      : Description: Simple module with plain text help
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help markdown_content/2.0
+===========================
+Module Specific Help for "markdown_content/2.0"
+MARKDOWN MODULE
+Description
+This module demonstrates markdown formatting in help content.
+Features
+• *Italicized* feature descriptions
+• **Bold** important notes
+• `inline code` examples
+• Structured content with headers
+Usage
+Code:
+  module load markdown_content/2.0
+For more information, visit the project website (...).
+Installation Notes
+1. First step in installation
+2. Second step with **important** details
+3. Final configuration step
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show markdown_content/2.0
+===========================
+   ProjectDIR/rt/markdown/mf/Core/markdown_content/2.0.lua:
+ This help content will be processed as markdown in terminal display
+help([[# Markdown Module
+## Description
+This module demonstrates **markdown formatting** in help content.
+## Features
+ *Italicized* feature descriptions
+ **Bold** important notes
+ `inline code` examples
+ Structured content with headers
+## Usage
+```bash
+module load markdown_content/2.0
+```
+For more information, visit the [project website](https://example.com).
+### Installation Notes
+1. First step in installation
+2. Second step with **important** details
+3. Final configuration step
+]])
+whatis("Name: Markdown Module")
+whatis("Version: 2.0")
+whatis("Description: Module demonstrating markdown help content")
+setenv("MARKDOWN_VERSION","2.0")
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis markdown_content/2.0
+===========================
+markdown_content/2.0                      : Name: Markdown Module
+markdown_content/2.0                      : Version: 2.0
+markdown_content/2.0                      : Description: Module demonstrating markdown help content
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help mixed_content/1.5
+===========================
+Module Specific Help for "mixed_content/1.5"
+MIXED CONTENT MODULE
+This module has some structure that might trigger markdown detection.
+Some text with * characters for * emphasis * but not proper markdown.
+Also has someunderscoresin_text that aren't intended as formatting.
+Features:
+• Item one (this is a list)
+• Item two with details
+• Item three
+But also has regular paragraphs without special formatting.
+This tests the boundary between markdown and plain text detection.
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show mixed_content/1.5
+===========================
+   ProjectDIR/rt/markdown/mf/Core/mixed_content/1.5.lua:
+ This help content will be processed as markdown in terminal display
+help([[Mixed Content Module
+===================
+This module has some structure that might trigger markdown detection.
+Some text with * characters for * emphasis * but not proper markdown.
+Also has some_underscores_in_text that aren't intended as formatting.
+Features:
+ Item one (this is a list)
+ Item two with details
+ Item three
+But also has regular paragraphs without special formatting.
+This tests the boundary between markdown and plain text detection.
+]])
+whatis("Name: Mixed Content Module")
+whatis("Version: 1.5")
+whatis("Description: Module with content that tests markdown detection boundaries.
+It has some structured elements but also plain text portions.")
+setenv("MIXED_VERSION","1.5")
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis mixed_content/1.5
+===========================
+mixed_content/1.5   : Name: Mixed Content Module
+mixed_content/1.5   : Version: 1.5
+mixed_content/1.5   : Description: Module with content that tests markdown detection boundaries.
+It has some structured elements but also plain text portions.
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help short_content/0.1
+===========================
+Module Specific Help for "short_content/0.1"
+Short help message.
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show short_content/0.1
+===========================
+   ProjectDIR/rt/markdown/mf/Core/short_content/0.1.lua:
+help([[Short help message.]])
+whatis("Name: Short Module")
+whatis("Version: 0.1")
+whatis("Description: Brief module")
+setenv("SHORT_VERSION","0.1")
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis short_content/0.1
+===========================
+short_content/0.1   : Name: Short Module
+short_content/0.1   : Version: 0.1
+short_content/0.1   : Description: Brief module
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help markdown_content/2.0
+===========================
+Module Specific Help for "markdown_content/2.0"
+\\033[1m\\033[36mMARKDOWN MODULE\\033[0m
+\\033[1mDescription\\033[0m
+This module demonstrates \\033[1mmarkdown formatting\\033[0m in help content.
+\\033[1mFeatures\\033[0m
+\\033[36m•\\033[0m *Italicized* feature descriptions
+\\033[36m•\\033[0m **Bold** important notes
+\\033[36m•\\033[0m `inline code` examples
+\\033[36m•\\033[0m Structured content with headers
+\\033[1mUsage\\033[0m
+\\033[2mCode:\\033[0m
+  \\033[2m\\033[36mmodule load markdown_content/2.0\\033[0m
+For more information, visit the \\033[34m\\033[4mproject website\\033[0m (...).
+\\033[4mInstallation Notes\\033[0m
+\\033[36m1.\\033[0m First step in installation
+\\033[36m2.\\033[0m Second step with **important** details
+\\033[36m3.\\033[0m Final configuration step
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis markdown_content/2.0
+===========================
+markdown_content/2.0                      : Name: Markdown Module
+markdown_content/2.0                      : Version: 2.0
+markdown_content/2.0                      : Description: Module demonstrating markdown help content

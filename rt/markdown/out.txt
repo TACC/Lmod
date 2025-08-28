@@ -1,0 +1,114 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help plain_text/1.0
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/markdown/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show plain_text/1.0
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis plain_text/1.0
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help markdown_content/2.0
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show markdown_content/2.0
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis markdown_content/2.0
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help mixed_content/1.5
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show mixed_content/1.5
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis mixed_content/1.5
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help short_content/0.1
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show short_content/0.1
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis short_content/0.1
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help markdown_content/2.0
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis markdown_content/2.0
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
