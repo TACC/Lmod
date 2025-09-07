@@ -85,7 +85,7 @@ local function l_registerUserLoads(mA)
       local mname       = mA[i]
       local userName    = mname:userName()
       s_loadT[userName] = mname
-      dbg.print{"userName: ",userName,"\n"}
+      dbg.print{"Registering: userName: ",userName,"\n"}
    end
    dbg.fini("l_registerUserLoads")
 end
@@ -107,7 +107,9 @@ local function l_compareRequestedLoadsWithActual()
 
    local aa = {}
    local bb = {}
+
    for userName, mname in pairs(s_loadT) do
+      dbg.print{"Testing: ",userName,"\n"}
       local sn = mname:sn()
       if (not mt:have(sn, "active")) then
          aa[#aa+1] = mname:show()
@@ -1516,6 +1518,7 @@ function M.familyStackPush(oldName, sn)
    if (old_userName) then
       s_loadT[old_userName] = nil
    end
+
    s_moduleStk[#s_moduleStk+1] = { sn=oldName, fullName = mt:fullName(oldName),
                                    userName = mt:userName(oldName)}
    s_moduleStk[#s_moduleStk+1] = { sn=sn,      fullName = mt:fullName(sn),
