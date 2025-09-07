@@ -14,7 +14,7 @@ try:
 except:
   import ConfigParser as configparser
 
-import mysql.connector, getpass
+import pymysql, getpass
 import warnings, inspect
 from BeautifulTbl import BeautifulTbl
 warnings.filterwarnings("ignore", "Unknown table.*")
@@ -93,7 +93,7 @@ class LMODdb(object):
       self.__readFromUser()
 
     try: 
-      self.__conn = mysql.connector.connect(
+      self.__conn = pymysql.connect(
         host     = self.__host,
         user     = self.__user,
         password = self.__passwd,

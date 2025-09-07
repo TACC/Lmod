@@ -256,4 +256,5 @@ Lmod 8.7+
             * PR #782: updates to analyzeLmodDB
 W.I.P:
    (8.7.66) * Adding OS Name to miniConfig.
-           
+            * Change from mysql.connector to pymysql in LmodDB.py and docs.
+            
