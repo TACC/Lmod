@@ -418,3 +418,45 @@ MODULEPATH=ProjectDIR/rt/hierarchy/mf2/Compiler:ProjectDIR/rt/hierarchy/mf2/Core
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Default={fn="ProjectDIR/rt/hierarchy/mf2/Core/Default.lua",fullName="Default",loadOrder=3,propT={},stackDepth=0,status="active",userName="Default",wV="M.*zfinal",},moduleA={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf2/Compiler")]],},fn="ProjectDIR/rt/hierarchy/mf2/Core/moduleA.lua",fullName="moduleA",loadOrder=1,propT={},stackDepth=1,status="active",userName="moduleA",wV="M.*zfinal",},moduleB={fn="ProjectDIR/rt/hierarchy/mf2/Compiler/moduleB.lua",fullName="moduleB",loadOrder=2,propT={},stackDepth=1,status="active",userName="moduleB",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/hierarchy/mf2/Compiler","ProjectDIR/rt/hierarchy/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/hierarchy/mf2/Core",}';
 export _ModuleTable_;
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/hierarchy/mf2/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/hierarchy/mf2/Core;
+export MODULEPATH;
+unset MY_NAME;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/hierarchy/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/hierarchy/mf2/Core",}';
+export _ModuleTable_;
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/10 boost
+===========================
+LOADEDMODULES=gcc/10.0:boost/1.9;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10:1\;ProjectDIR/rt/hierarchy/mf3/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10:ProjectDIR/rt/hierarchy/mf3/Core;
+export MODULEPATH;
+VERSION=1.9;
+export VERSION;
+_LMFILES_=ProjectDIR/rt/hierarchy/mf3/Core/gcc/10.0.lua:ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10/boost/1.9.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={boost={fn="ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10/boost/1.9.lua",fullName="boost/1.9",loadOrder=2,propT={},stackDepth=0,status="active",userName="boost",wV="000000001.000000009.*zfinal",},gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10")]],},fn="ProjectDIR/rt/hierarchy/mf3/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},},mpathA={"ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10","ProjectDIR/rt/hierarchy/mf3/Core",},systemBaseMPATH="ProjectDIR/rt/hierarchy/mf3/Core",}';
+export _ModuleTable_;
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/11 boost
+===========================
+false
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10:ProjectDIR/rt/hierarchy/mf3/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={boost={fn="ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10/boost/1.9.lua",fullName="boost/1.9",loadOrder=2,propT={},stackDepth=0,status="active",userName="boost",wV="000000001.000000009.*zfinal",},gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10")]],},fn="ProjectDIR/rt/hierarchy/mf3/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},},mpathA={"ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10","ProjectDIR/rt/hierarchy/mf3/Core",},systemBaseMPATH="ProjectDIR/rt/hierarchy/mf3/Core",}';
+export _ModuleTable_;

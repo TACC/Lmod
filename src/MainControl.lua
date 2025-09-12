@@ -1317,7 +1317,7 @@ function M.unload(self, mA)
       dbg.start{"MainControl:unload(mA={"..s.."})"}
    end
 
-   l_unRegisterUserLoads(mA)
+   --l_unRegisterUserLoads(mA)
    local aa     = hub:unload(mA)
    dbg.fini("MainControl:unload")
    return aa
@@ -1344,6 +1344,7 @@ function M.unload_usr(self, mA, force)
    dbg.start{"MainControl:unload_usr(mA)"}
 
    M.unload(self,mA)
+   l_unRegisterUserLoads(mA)
    local hub = Hub:singleton()
    local aa = hub:reload_sticky(force)
 
