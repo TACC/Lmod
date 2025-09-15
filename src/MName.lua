@@ -234,7 +234,7 @@ local function l_lazyEval(self)
    local origUserName          = self:userName()
    local userName              = mrc:resolve(mt:modulePathA(), self:userName())
    local sn, versionStr, fileA = moduleA:search(userName)
-   dbg.printT("fileA",fileA)
+   --dbg.printT("fileA",fileA)
    dbg.print{"l_lazyEval: orig: ",origUserName,", userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
    mrc:applyWeights(sn, fileA)
 
@@ -262,7 +262,7 @@ local function l_lazyEval(self)
    local mpath
    local moduleKindT
 
-   dbg.printT("fileA",fileA)
+   --dbg.printT("fileA",fileA)
    dbg.print{"#stepA: ",#stepA,"\n"}
    dbg.print{"userName: ",self.__userName,"\n"}
    dbg.print{"sn: ",self.__sn,"\n"}
@@ -338,11 +338,12 @@ function M.origUserName(self)
 end
 
 function M.sn(self)
+   dbg.start{"Mname:sn()"}
+   dbg.print{"evaluated: ",(not (not self.__sn)) ,", username: ",self.__userName,"\n"}
    if (not self.__sn) then
-      --dbg.start{"Mname:sn()"}
       l_lazyEval(self)
-      --dbg.fini("Mname:sn")
    end
+   dbg.fini("Mname:sn")
    return self.__sn
 end
 
