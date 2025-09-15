@@ -85,7 +85,7 @@ local function l_registerUserLoads(mA)
       local mname       = mA[i]
       local userName    = mname:userName()
       s_loadT[userName] = mname
-      dbg.print{"userName: ",userName,"\n"}
+      dbg.print{"Registering userName: ",userName,"\n"}
    end
    dbg.fini("l_registerUserLoads")
 end
@@ -96,7 +96,7 @@ local function l_unRegisterUserLoads(mA)
       local mname       = mA[i]
       local userName    = mname:userName()
       s_loadT[userName] = nil
-      dbg.print{"userName: ",userName,"\n"}
+      dbg.print{"Unregister userName: ",userName,"\n"}
    end
    dbg.fini("l_unRegisterUserLoads")
 end
