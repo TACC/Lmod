@@ -81,11 +81,13 @@ local timer            = require("Timer"):singleton()
 -- @param mA The array of MName objects.
 local function l_registerUserLoads(mA)
    dbg.start{"l_registerUserLoads(mA)"}
+   local frameStk   = FrameStk:singleton()
+   local stackDepth = frameStk:stackDepth()
    for i = 1, #mA do
       local mname       = mA[i]
       local userName    = mname:userName()
-      s_loadT[userName] = mname
-      dbg.print{"Registering: userName: ",userName,"\n"}
+      s_loadT[userName] = {mname, stackDepth}
+      dbg.print{"Registering userName: ",userName,"\n"}
    end
    dbg.fini("l_registerUserLoads")
 end
@@ -95,8 +97,14 @@ local function l_unRegisterUserLoads(mA)
    for i = 1, #mA do
       local mname       = mA[i]
       local userName    = mname:userName()
-      s_loadT[userName] = nil
-      dbg.print{"userName: ",userName,"\n"}
+      local entry       = s_loadT[userName]
+      if (entry) then
+         local stackDepth = entry[2]
+         if (stackDepth > 0) then
+            s_loadT[userName] = nil
+            dbg.print{"Unregister userName: ",userName,"\n"}
+         end
+      end
    end
    dbg.fini("l_unRegisterUserLoads")
 end
@@ -108,9 +116,10 @@ local function l_compareRequestedLoadsWithActual()
    local aa = {}
    local bb = {}
 
-   for userName, mname in pairs(s_loadT) do
+   for userName, entry in pairs(s_loadT) do
       dbg.print{"Testing: ",userName,"\n"}
-      local sn = mname:sn()
+      local mname = entry[1]
+      local sn    = mname:sn()
       if (not mt:have(sn, "active")) then
          aa[#aa+1] = mname:show()
          bb[#bb+1] = userName
@@ -1317,7 +1326,7 @@ function M.unload(self, mA)
       dbg.start{"MainControl:unload(mA={"..s.."})"}
    end
 
-   --l_unRegisterUserLoads(mA)
+   l_unRegisterUserLoads(mA)
    local aa     = hub:unload(mA)
    dbg.fini("MainControl:unload")
    return aa
@@ -1344,7 +1353,7 @@ function M.unload_usr(self, mA, force)
    dbg.start{"MainControl:unload_usr(mA)"}
 
    M.unload(self,mA)
-   l_unRegisterUserLoads(mA)
+   --l_unRegisterUserLoads(mA)
    local hub = Hub:singleton()
    local aa = hub:reload_sticky(force)
 
@@ -1519,7 +1528,6 @@ function M.familyStackPush(oldName, sn)
    if (old_userName) then
       s_loadT[old_userName] = nil
    end
-
    s_moduleStk[#s_moduleStk+1] = { sn=oldName, fullName = mt:fullName(oldName),
                                    userName = mt:userName(oldName)}
    s_moduleStk[#s_moduleStk+1] = { sn=sn,      fullName = mt:fullName(sn),

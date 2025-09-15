@@ -329,6 +329,7 @@ function M.load(self, mA)
          if ((sn == nil) and ((i > 1) or (frameStk:stackDepth() > 0))) then
             dbg.print{"Pushing ",mname:userName()," on moduleQ\n"}
             dbg.print{"i: ",i,", stackDepth: ", frameStk:stackDepth(),"\n"}
+            mname:reset()  -- force a new lazyEval
             mcp:pushModule(mname)
             if (tracing == "yes") then
                tracing_msg{"Pushing ", userName, " on moduleQ"}
@@ -373,7 +374,6 @@ function M.load(self, mA)
             unload_internal{MName:new("mt",sn)}
             mname:reset()  -- force a new lazyEval
             local status = mcp:load_usr{mname}
-            --mcp          = mcp_old
             mcp          = mcpStack:pop()
             dbg.print{"Setting mcp to ", mcp:name(),"\n"}
             if (not status) then
