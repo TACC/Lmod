@@ -296,6 +296,7 @@ local function l_lazyEval(self)
                                           sn = self.__sn, fn = self.__fn,
                                           mpath = self.__mpath}
    else
+      dbg.print{"clearing __sn etc\n"}
       self.__sn      = false
       self.__version = false
       self.__fn      = false

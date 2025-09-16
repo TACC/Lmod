@@ -92,7 +92,7 @@ local function l_registerUserLoads(mA)
    dbg.fini("l_registerUserLoads")
 end
 
-local function l_unRegisterUserLoads(mA)
+local function l_unRegisterUserLoads(mA, force)
    dbg.start{"l_unRegisterUserLoads(mA)"}
    for i = 1, #mA do
       local mname       = mA[i]
@@ -100,7 +100,7 @@ local function l_unRegisterUserLoads(mA)
       local entry       = s_loadT[userName]
       if (entry) then
          local stackDepth = entry[2]
-         if (stackDepth > 0) then
+         if (stackDepth > 0 or force) then
             s_loadT[userName] = nil
             dbg.print{"Unregister userName: ",userName,"\n"}
          end
@@ -1907,7 +1907,8 @@ function M.LmodBreak(self, msg)
    -- Remove this module from the list of user requested modules to load.
    local mname = frameStk:mname()
    dbg.print{"sn: ",mname:sn(),", userName: ",mname:userName(),"\n"}
-   l_unRegisterUserLoads{mname}
+   local force_unloading = true
+   l_unRegisterUserLoads({mname},force_unloading)
 
    -- Copy the previous frameStk on top of the current stack
    -- Then throw an error to stop execution of the current module.
