@@ -673,6 +673,18 @@ function M.update(self, t)
             --dbg.print{"idx: ",idx,", mA[idx].mpath: ", mA[idx].mpath,"\n"}
             --dbg.printT("mA",mA)
 
+            if (not idx) then
+               -- If mpath not found in cached data, rebuild without cache
+               -- This handles cases where MODULEPATH was modified after cache was built
+               local mA_obj = self:__new( {mpath}, mt:maxDepthT(), getModuleRCT(), {})
+               local mA     = mA_obj:moduleA()
+               for i = 1,#mA do
+                  if (mA[i].mpath == mpath) then
+                     idx = i
+                     break;
+                  end
+               end
+            end
             assert(idx,"Did not find mpath in mA\n")
             moduleA[#moduleA + 1] = { mpath = mA[idx].mpath, T = mA[idx].T}
 

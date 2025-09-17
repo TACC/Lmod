@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.64 2025-07-08 12:40 -06:00
+Modules based on Lua: Version 8.7.65 2025-08-05 10:24 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -83,3 +83,15 @@ Due to MODULEPATH changes, the following have been reloaded:
   1) netcdf/4.9.3
 The following have been reloaded with a version change:
   1) toolchain/gcc => toolchain/intel
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/cached_loads/empty_dir
+===========================
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load toolchain/gcc
+===========================

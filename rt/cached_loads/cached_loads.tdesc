@@ -69,6 +69,22 @@ testdescript = {
      runLmod load gcc/11 netcdf     #15
      runLmod load toolchain/intel   #16
      
+     #----------------------------------------
+     # Issue #780: Empty directory in MODULEPATH test
+     runLmod    purge               #17
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf2
+     export MODULEPATH=$MODULEPATH_ROOT/toolchains
+     export LMOD_CACHED_LOADS=1
+     unset LMOD_IGNORE_CACHE
+     
+     # Create empty directory and add it to MODULEPATH (this triggers the bug)
+     mkdir -p $(testDir)/empty_dir
+     runLmod use $(testDir)/empty_dir  #18
+     
+     # Try to load toolchain/gcc - this should fail with "Did not find mpath in mA" error
+     runLmod load toolchain/gcc     #19
+     
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new
