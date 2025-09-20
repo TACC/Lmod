@@ -593,16 +593,12 @@ function prepend_path(...)
 
 
    mcpStack:push(mcp)
-   --dbg.print{"before chose: mcp: ",mcp,"\n"}
-
    mcp = l_chose_mcp(argT)
 
-   --dbg.print{"after chose: mcp: ",mcp,"\n"}
    if (argT[2]) then
       mcp:prepend_path(argT)
    end
    mcp = mcpStack:pop()
-   --dbg.print{"restore: mcp: ",mcp,"\n"}
    dbg.fini("prepend_path")
    return
 end
