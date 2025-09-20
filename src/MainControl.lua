@@ -89,19 +89,13 @@ local function l_registerUserLoads(mA)
       s_loadT[userName] = {mname, stackDepth}
       dbg.print{"Registering userName: ",userName,"\n"}
    end
-   if (dbg.active) then
-      for k in pairsByKeys(s_loadT) do
-         dbg.print{"s_loadT key: ",k,"\n"}
-      end
-   end
-
    dbg.fini("l_registerUserLoads")
 end
 
 local function l_unRegisterUserLoads(mA, force)
    if (dbg.active()) then
       local s = mAList(mA)
-      dbg.start{"MainControl l_unRegisterUserLoads(mA={"..s.."})"}
+      dbg.start{"MainControl l_unRegisterUserLoads(mA={"..s.."}, force=", force,")"}
    end
    for i = 1, #mA do
       local mname       = mA[i]
@@ -126,7 +120,6 @@ local function l_compareRequestedLoadsWithActual()
    local bb = {}
 
    for userName, entry in pairs(s_loadT) do
-      dbg.print{"Testing: ",userName,"\n"}
       local mname = entry[1]
       local sn    = mname:sn()
       if (not mt:have(sn, "active")) then
@@ -134,10 +127,6 @@ local function l_compareRequestedLoadsWithActual()
          aa[#aa+1] = mname:show()
          bb[#bb+1] = userName
       end
-   end
-   dbg.print{"results:\n"}
-   for i = 1,#aa do
-      dbg.print{"  show: ",aa[i], ", userName: ",bb[i],"\n"}
    end
    dbg.fini("l_compareRequestedLoadsWithActual")
    return aa, bb
@@ -209,18 +198,15 @@ local function l_error_on_missing_loaded_modules(aa,bb)
       local a = {}
 
       if (#iA > 0) then
-         dbg.print{"e_Illegal_Load\n"}
          mcp:report{msg="e_Illegal_Load", module_list = concatTbl(iA, " ") }
       end
 
 
       if (#uA > 0) then
-         dbg.print{"e_Failed_Load\n"}
          mcp:report{msg="e_Failed_Load", module_list = concatTbl(uA, " ") }
       end
 
       if (#kA > 0) then
-         dbg.print{"e_Failed_Load_2\n"}
          mcp:report{msg="e_Failed_Load_2", kA = concatTbl(kA, ", "), kB = concatTbl(kB, " ")}
       end
       dbg.fini("l_error_on_missing_loaded_modules")
@@ -1385,12 +1371,10 @@ function M.unload_usr(self, mA, force)
    dbg.start{"MainControl:unload_usr(mA)"}
 
    M.unload(self,mA)
-   --l_unRegisterUserLoads(mA)
    local hub = Hub:singleton()
    local aa = hub:reload_sticky(force)
 
    self:registerDependencyCk()
-   --hub:dependencyCk()
 
    dbg.fini("MainControl:unload_usr")
    return aa
