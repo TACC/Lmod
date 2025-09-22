@@ -319,13 +319,13 @@ function M.load(self, mA)
 
    for i = 1,#mA do
       repeat
-         local isDependModule = false
          local mname          = mA[i]
          local userName       = mname:userName()
+         local isDependModule = mname:get_depends_on_flag()
          mt                   = frameStk:mt()
 
          local sn             = mname:sn()
-         dbg.print{"Hub:load i: ",i,", userName: ",userName,", sn: ",sn,"\n",}
+         dbg.print{"Hub:load i: ",i,", userName: ",userName,", sn: ",sn,", isDependModule:",isDependModule,"\n",}
 
          if ((sn == nil) and ((i > 1) or (frameStk:stackDepth() > 0))) then
             dbg.print{"Pushing ",mname:userName()," on moduleQ\n"}
@@ -359,8 +359,7 @@ function M.load(self, mA)
          if (mt:have(sn,"active")) then
             local version    = mname:version()
             local mt_version = mt:version(sn)
-            isDependModule   = mname:get_depends_on_flag()
-            dbg.print{"mnV: ",version,", mtV: ",mt_version,", isDependModule: ",isDependModule,"\n"}
+            dbg.print{"mnV: ",version,", mtV: ",mt_version,"\n"}
 
             if (disable_same_name_autoswap == "yes" and mt_version ~= version) then
                local oldFullName = pathJoin(sn,mt_version)
