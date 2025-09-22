@@ -1625,11 +1625,6 @@ function M.haveDSConflict(self, mnameIn)
    return false
 end
 
-function M.isDependModule(self,sn)
-   local entry = self.mT[sn]
-   return entry and entry.depT
-end
-
 function M.record_depends_on(self, sn, mA)
    dbg.start{"MT:record_depends_on(mA)"}
    local entry = self.mT[sn]

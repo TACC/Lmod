@@ -359,7 +359,7 @@ function M.load(self, mA)
          if (mt:have(sn,"active")) then
             local version    = mname:version()
             local mt_version = mt:version(sn)
-            isDependModule   = mt:isDependModule(sn)
+            isDependModule   = mname:get_depends_on_flag()
             dbg.print{"mnV: ",version,", mtV: ",mt_version,", isDependModule: ",isDependModule,"\n"}
 
             if (disable_same_name_autoswap == "yes" and mt_version ~= version) then
