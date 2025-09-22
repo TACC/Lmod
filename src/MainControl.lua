@@ -95,7 +95,7 @@ end
 local function l_unRegisterUserLoads(mA, force)
    if (dbg.active()) then
       local s = mAList(mA)
-      dbg.start{"MainControl l_unRegisterUserLoads(mA={"..s.."}, force=", force,")"}
+      dbg.start{"l_unRegisterUserLoads(mA={"..s.."}, force=", force,")"}
    end
    for i = 1, #mA do
       local mname       = mA[i]
@@ -1953,7 +1953,10 @@ function M.userInGroups(self, ...)
 end
 
 function M.missing_module(self,userName, showName)
+   dbg.start{"mcp:missing_module(userName: ",userName,", showName: ",showName,")"}
+
    s_missingModuleT[userName] = showName
+   dbg.fini("mcp:missing_module")
 end
 
 function M.haveDynamicMPATH(self)

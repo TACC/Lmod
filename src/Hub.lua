@@ -319,11 +319,12 @@ function M.load(self, mA)
 
    for i = 1,#mA do
       repeat
-         local mname      = mA[i]
-         local userName   = mname:userName()
-         mt               = frameStk:mt()
+         local isDependModule = false
+         local mname          = mA[i]
+         local userName       = mname:userName()
+         mt                   = frameStk:mt()
 
-         local sn         = mname:sn()
+         local sn             = mname:sn()
          dbg.print{"Hub:load i: ",i,", userName: ",userName,", sn: ",sn,"\n",}
 
          if ((sn == nil) and ((i > 1) or (frameStk:stackDepth() > 0))) then
@@ -358,8 +359,8 @@ function M.load(self, mA)
          if (mt:have(sn,"active")) then
             local version    = mname:version()
             local mt_version = mt:version(sn)
-
-            dbg.print{"mnV: ",version,", mtV: ",mt_version,"\n"}
+            isDependModule   = mt:isDependModule(sn)
+            dbg.print{"mnV: ",version,", mtV: ",mt_version,", isDependModule: ",isDependModule,"\n"}
 
             if (disable_same_name_autoswap == "yes" and mt_version ~= version) then
                local oldFullName = pathJoin(sn,mt_version)
@@ -420,7 +421,7 @@ function M.load(self, mA)
             loaded = true
          end
          mt = frameStk:mt()
-         if (not mt:have(sn,"active")) then
+         if (not mt:have(sn,"active") and not isDependModule) then
             dbg.print{"failed to load ",mname:show(),", sn: ", sn,"\n"}
             mcp:missing_module(userName, mname:show())
             a = false
