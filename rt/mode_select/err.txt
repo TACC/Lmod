@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.59 2025-03-06 13:51 -07:00
+Modules based on Lua: Version 8.7.65 2025-08-05 10:24 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -155,3 +155,51 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load load_test
 step 32
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload load_test
 ===========================
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show simple_test
+===========================
+   ProjectDIR/rt/mode_select/mf/TCL_Core/simple_test/1.0:
+setenv("SIMPLE_VAR","simple_value")
+unsetenv("OLD_VAR")
+pushenv("STACK_VAR","stack_value")
+setenv{"MODE_VAR","mode_value",modeA={"load"}}
+setenv{"RESPECT_VAR","respect_value","true"}
+prepend_path{"SIMPLE_PATH","/simple/path",delim=":",priority="0"}
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show mixed_syntax_test
+===========================
+   ProjectDIR/rt/mode_select/mf/TCL_Core/mixed_syntax_test/1.0:
+setenv("BASIC_VAR","basic")
+unsetenv("CLEANUP_VAR")
+pushenv("PUSH_VAR","pushed")
+setenv{"LOAD_ONLY_VAR","load_value",modeA={"load"}}
+setenv{"UNLOAD_ONLY_VAR","unload_value",modeA={"unload"}}
+setenv{"BOTH_MODE_VAR","both_value",modeA={"load","unload"}}
+setenv{"EXISTING_VAR","new_value","true"}
+prepend_path{"MY_PATH","/my/path",delim=":",priority="0"}
+append_path{"MY_LIB","/my/lib",delim=":",priority="0"}
+remove_path{"OLD_PATH","/old/path",delim=":",priority="0"}
+setenv{"COMBO_VAR","combo_value","true",modeA={"load"}}
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show edge_cases_test
+===========================
+   ProjectDIR/rt/mode_select/mf/TCL_Core/edge_cases_test/1.0:
+setenv("SPECIAL_CHARS_VAR","value with spaces and $symbols")
+setenv("QUOTES_VAR","value with "quotes" and 'apostrophes'")
+setenv("EMPTY_VAR","")
+unsetenv("UNSET_EMPTY_VAR")
+setenv{"SPECIAL_MODE_VAR","mode value with $pecial chars",modeA={"load"}}
+unsetenv{"MODE_UNSET_VAR","",modeA={"unload"}}
+pushenv{"MODE_PUSH_VAR","mode_push_value",modeA={"load"}}
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show env_test
+===========================
+   ProjectDIR/rt/mode_select/mf/TCL_Core/env_test/1.0:
+setenv{"TEST_VAR_LOAD","load_only",modeA={"load"}}
+setenv{"TEST_VAR_UNLOAD","unload_only",modeA={"unload"}}
+setenv{"TEST_VAR_BOTH","both_modes",modeA={"load","unload"}}
+setenv("TEST_VAR_NORMAL","no_mode")

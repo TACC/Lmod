@@ -24,9 +24,9 @@ step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show showMe
 ===========================
    ProjectDIR/rt/tclmodules/mf/showMe/1.0:
-setenv{"TESTVAR","/tmp"}
+setenv("TESTVAR","/tmp")
 prepend_path{"TESTPATH","/tmp",delim=":",priority="0"}
-pushenv{"T2","/tmp/t2"}
+pushenv("T2","/tmp/t2")
 prepend_path{"TESTPATH","/tmp/t2",delim=":",priority="0"}
 ===========================
 step 6
