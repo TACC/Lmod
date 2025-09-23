@@ -1,0 +1,12 @@
+#%Module
+# Test module for simple TCL function calls
+# These should display with parentheses after the fix
+
+setenv SIMPLE_VAR "simple_value"
+unsetenv OLD_VAR
+pushenv STACK_VAR "stack_value"
+
+# These should continue to use curly braces (have mode or other options)
+setenv --mode load MODE_VAR "mode_value"
+setenv -respect RESPECT_VAR "respect_value"
+prepend-path SIMPLE_PATH "/simple/path"

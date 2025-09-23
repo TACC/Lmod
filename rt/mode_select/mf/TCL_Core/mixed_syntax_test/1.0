@@ -1,0 +1,24 @@
+#%Module
+# Test module for mixed syntax scenarios
+# Tests edge cases and combinations
+
+# Simple calls - should use parentheses
+setenv BASIC_VAR "basic"
+unsetenv CLEANUP_VAR  
+pushenv PUSH_VAR "pushed"
+
+# Mode-specific calls - should use curly braces
+setenv --mode load LOAD_ONLY_VAR "load_value"
+setenv --mode unload UNLOAD_ONLY_VAR "unload_value"
+setenv --mode {load unload} BOTH_MODE_VAR "both_value"
+
+# Respect flag - should use curly braces
+setenv -respect EXISTING_VAR "new_value"
+
+# Path operations - should use curly braces (always have extra params)
+prepend-path MY_PATH "/my/path"
+append-path MY_LIB "/my/lib"
+remove-path OLD_PATH "/old/path"
+
+# Combined mode and respect - should use curly braces
+setenv --mode load -respect COMBO_VAR "combo_value"
