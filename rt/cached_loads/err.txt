@@ -95,3 +95,19 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/cach
 step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load toolchain/gcc
 ===========================
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load toolchain/gcc
+===========================
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/cached_loads/fallback_test_dir
+===========================
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load toolchain/gcc
+===========================
