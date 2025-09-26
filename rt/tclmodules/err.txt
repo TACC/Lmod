@@ -33,9 +33,9 @@ step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/tclmodules/mf
-   a/1.0                      help/1.0        hide/2.0       (D)
+   a/1.0                      help/1.0        hide/2.0       (D)    showMe/1.0
    earlyLateOutput/2.0 (L)    help/2.0 (D)    outputMode/1.0
-   getenv/1.0                 hide/1.0        showMe/1.0
+   getenv/1.0                 hide/1.0        report/1.0
   Where:
    D:  Default Module
    L:  Module is loaded
@@ -60,6 +60,7 @@ The following is a list of the modules and extensions currently available:
   help: help/1.0, help/2.0
   hide: hide/1.0, hide/2.0
   outputMode: outputMode/1.0
+  report: report/1.0
   showMe: showMe/1.0
 To learn more about a package execute:
    $ module spider Foo
@@ -91,3 +92,24 @@ Module Specific Help for "help/2.0"
 first help line
 with newline
 second help line
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load report/1.0
+===========================
+line of text to report
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show report/1.0
+===========================
+   ProjectDIR/rt/tclmodules/mf/report/1.0:
+LmodMessage("line of text to report")
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help report/1.0
+===========================
+Module Specific Help for "report/1.0"
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload report/1.0
+===========================
+line of text to report
