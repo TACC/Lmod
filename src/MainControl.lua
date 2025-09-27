@@ -888,9 +888,10 @@ function M.error(self, ...)
       local aa       = {}
       local bb       = {}
       for userName, v in pairs(s_missingModuleT) do
-         local sn = mt:lookup_w_userName(userName)
+         local sn = v.sn
+         dbg.print{"MainControl:error: sn: ",sn, ", userName: ", userName,", showName: ",v.showName,"\n"}
          if (not (sn and mt:have(sn,"active")) ) then
-            aa[#aa + 1] = v
+            aa[#aa + 1] = v.showName
             bb[#bb + 1] = userName
          end
       end
@@ -1952,11 +1953,19 @@ function M.userInGroups(self, ...)
    return false
 end
 
-function M.missing_module(self,userName, showName)
-   dbg.start{"mcp:missing_module(userName: ",userName,", showName: ",showName,")"}
+function M.add_missing_module(self,userName, sn, showName)
+   dbg.start{"mcp:add_missing_module(userName: ",userName,", sn: ",sn,", showName: ",showName,")"}
 
-   s_missingModuleT[userName] = showName
-   dbg.fini("mcp:missing_module")
+   s_missingModuleT[userName] = {sn=sn, showName=showName}
+   dbg.fini("mcp:add_missing_module")
+end
+
+function M.remove_missing_module(self,userName, sn, showName)
+   dbg.start{"mcp:remove_missing_module(userName: ",userName,", sn: ",sn,", showName: ",showName,")"}
+   s_missingModuleT[userName] = nil
+   s_missingModuleT[showName] = nil
+
+   dbg.fini("mcp:remove_missing_module")
 end
 
 function M.haveDynamicMPATH(self)
