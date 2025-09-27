@@ -421,8 +421,12 @@ function M.load(self, mA)
          end
          mt = frameStk:mt()
          if (not mt:have(sn,"active") and not isDependModule) then
-            dbg.print{"failed to load ",mname:show(),", sn: ", sn,"\n"}
-            mcp:missing_module(userName, mname:show())
+            local sn_match = sn
+            if (not sn_match) then
+               sn_match = mt:lookup_w_userName(userName)
+            end
+            dbg.print{"failed to load ",mname:show(),", sn: ", sn,", sn_match: ",sn_match,", userName: ",userName,"\n"}
+            mcp:add_missing_module(userName, sn_match, mname:show())
             a = false
          end
 
@@ -546,6 +550,11 @@ function M.unload(self,mA)
       end
 
       dbg.print{"Trying to unload: ", userName, " sn: ", sn,"\n"}
+      local sn_match = sn
+      if (not sn_match) then
+         sn_match = mt:lookup_w_userName(userName)
+      end
+      mcp:remove_missing_module(userName, sn_match, mname:show())
 
       if (mt:have(sn,"inactive")) then
          dbg.print{"Removing inactive module: ", userName, "\n"}
