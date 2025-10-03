@@ -347,10 +347,10 @@ function M.origUserName(self)
 end
 
 function M.sn(self)
-   if (not self.__evaluated) then
-      dbg.start{"MName:sn()"}
+   if (not self.__sn) then
+      dbg.start{"Mname:sn()"}
       l_lazyEval(self)
-      dbg.fini("MName:sn")
+      dbg.fini("Mname:sn")
    end
    return self.__sn
 end

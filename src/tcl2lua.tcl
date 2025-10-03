@@ -1049,6 +1049,11 @@ proc module { command args } {
     }
 }
 
+proc report {message} {
+    global g_outputA
+    lappend g_outputA "LmodMessage(\[===\[$message\]===\])\n"
+}
+
 proc reportError {message} {
     global g_outputA
     global ModulesCurrentModulefile g_fullName
@@ -1095,6 +1100,7 @@ proc execute-modulefile {modfile } {
     interp alias $child puts           	 {} myPuts
     interp alias $child remove-path    	 {} remove-path
     interp alias $child remove-property  {} remove-property
+    interp alias $child report           {} report
     interp alias $child reportError      {} reportError
     interp alias $child require-fullname {} require-fullname
     interp alias $child set-alias        {} set-alias
