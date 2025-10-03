@@ -157,6 +157,9 @@ standard TCL language.
 **remove-property NAME** *value* :
    See :ref:`lmodrc-label` for how to use this command.
 
+**report** *string* :
+  Prints a message to the user.
+
 **reportError** *string* :
   Report an error and abort processing of the modulefile.
 

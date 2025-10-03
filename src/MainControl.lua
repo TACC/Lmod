@@ -81,22 +81,33 @@ local timer            = require("Timer"):singleton()
 -- @param mA The array of MName objects.
 local function l_registerUserLoads(mA)
    dbg.start{"l_registerUserLoads(mA)"}
+   local frameStk   = FrameStk:singleton()
+   local stackDepth = frameStk:stackDepth()
    for i = 1, #mA do
       local mname       = mA[i]
       local userName    = mname:userName()
-      s_loadT[userName] = mname
-      dbg.print{"userName: ",userName,"\n"}
+      s_loadT[userName] = {mname, stackDepth}
+      dbg.print{"Registering userName: ",userName,"\n"}
    end
    dbg.fini("l_registerUserLoads")
 end
 
-local function l_unRegisterUserLoads(mA)
-   dbg.start{"l_unRegisterUserLoads(mA)"}
+local function l_unRegisterUserLoads(mA, force)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"l_unRegisterUserLoads(mA={"..s.."}, force=", force,")"}
+   end
    for i = 1, #mA do
       local mname       = mA[i]
       local userName    = mname:userName()
-      s_loadT[userName] = nil
-      dbg.print{"userName: ",userName,"\n"}
+      local entry       = s_loadT[userName]
+      if (entry) then
+         local stackDepth = entry[2]
+         if (stackDepth > 0 or force) then
+            s_loadT[userName] = nil
+            dbg.print{"Unregister userName: ",userName,"\n"}
+         end
+      end
    end
    dbg.fini("l_unRegisterUserLoads")
 end
@@ -107,9 +118,12 @@ local function l_compareRequestedLoadsWithActual()
 
    local aa = {}
    local bb = {}
-   for userName, mname in pairs(s_loadT) do
-      local sn = mname:sn()
+
+   for userName, entry in pairs(s_loadT) do
+      local mname = entry[1]
+      local sn    = mname:sn()
       if (not mt:have(sn, "active")) then
+         dbg.print{"not active: userName: ",userName,", mname:show(): ",mname:show(),"\n"}
          aa[#aa+1] = mname:show()
          bb[#bb+1] = userName
       end
@@ -138,6 +152,11 @@ end
 
 local function l_error_on_missing_loaded_modules(aa,bb)
    if (#aa > 0) then
+      dbg.start{"l_error_on_missing_loaded_modules(aa,bb)"}
+      dbg.printT("aa",aa)
+      dbg.printT("bb",bb)
+
+
       local luaprog = findLuaProg()
       local cmdA = {}
       cmdA[#cmdA+1] = luaprog
@@ -190,6 +209,7 @@ local function l_error_on_missing_loaded_modules(aa,bb)
       if (#kA > 0) then
          mcp:report{msg="e_Failed_Load_2", kA = concatTbl(kA, ", "), kB = concatTbl(kB, " ")}
       end
+      dbg.fini("l_error_on_missing_loaded_modules")
    end
 end
 
@@ -504,9 +524,10 @@ function M.prepend_path(self, argT)
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
 
-   dbg.print{"name:\"",name,"\", value: \"",value,
+   dbg.start{"MainControl:prepend_path{\"",name,"\", \"",value,
              "\", delim=\"",delim,"\", nodups=\"",nodups,
-             "\", priority=",priority,"\n"}
+             "\", priority=",priority,
+             "}"}
 
    if (varT[name] == nil) then
       varT[name] = Var:new(name, nil, nodups, delim)
@@ -861,14 +882,23 @@ function M.error(self, ...)
    build_i18n_messages()
    -- Check for user loads that failed.
    if (next(s_missingModuleT) ~= nil) then
-      local aa = {}
-      local bb = {}
-      for k, v in pairs(s_missingModuleT) do
-         aa[#aa + 1] = v
-         bb[#bb + 1] = k
+      
+      local frameStk = FrameStk:singleton()
+      local mt       = frameStk:mt()
+      local aa       = {}
+      local bb       = {}
+      for userName, v in pairs(s_missingModuleT) do
+         local sn = v.sn
+         dbg.print{"MainControl:error: sn: ",sn, ", userName: ", userName,", showName: ",v.showName,"\n"}
+         if (not (sn and mt:have(sn,"active")) ) then
+            aa[#aa + 1] = v.showName
+            bb[#bb + 1] = userName
+         end
       end
       s_missingModuleT = {}
-      l_error_on_missing_loaded_modules(aa, bb)
+      if (next(aa) ~= nil) then
+         l_error_on_missing_loaded_modules(aa, bb)
+      end
    end
 
    local label = colorize("red", i18n("errTitle", {}))
@@ -1346,7 +1376,6 @@ function M.unload_usr(self, mA, force)
    local aa = hub:reload_sticky(force)
 
    self:registerDependencyCk()
-   --hub:dependencyCk()
 
    dbg.fini("MainControl:unload_usr")
    return aa
@@ -1895,7 +1924,8 @@ function M.LmodBreak(self, msg)
    -- Remove this module from the list of user requested modules to load.
    local mname = frameStk:mname()
    dbg.print{"sn: ",mname:sn(),", userName: ",mname:userName(),"\n"}
-   l_unRegisterUserLoads{mname}
+   local force_unloading = true
+   l_unRegisterUserLoads({mname},force_unloading)
 
    -- Copy the previous frameStk on top of the current stack
    -- Then throw an error to stop execution of the current module.
@@ -1923,8 +1953,19 @@ function M.userInGroups(self, ...)
    return false
 end
 
-function M.missing_module(self,userName, showName)
-   s_missingModuleT[userName] = showName
+function M.add_missing_module(self,userName, sn, showName)
+   dbg.start{"mcp:add_missing_module(userName: ",userName,", sn: ",sn,", showName: ",showName,")"}
+
+   s_missingModuleT[userName] = {sn=sn, showName=showName}
+   dbg.fini("mcp:add_missing_module")
+end
+
+function M.remove_missing_module(self,userName, sn, showName)
+   dbg.start{"mcp:remove_missing_module(userName: ",userName,", sn: ",sn,", showName: ",showName,")"}
+   s_missingModuleT[userName] = nil
+   s_missingModuleT[showName] = nil
+
+   dbg.fini("mcp:remove_missing_module")
 end
 
 function M.haveDynamicMPATH(self)

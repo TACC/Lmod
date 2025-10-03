@@ -239,8 +239,7 @@ the second day before the log is rotated.  On our machines, it seems that the lo
 Step 6
 ------
 
-a) Install the mysql.connector.python via pip3 or your package
-   manager. Do NOT use mysql.connector.
+a) Install the pymysql via pip3 or your package manager
 
 a) Create a mysql root password.  Then create an account in the database like this::
 

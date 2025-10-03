@@ -319,16 +319,18 @@ function M.load(self, mA)
 
    for i = 1,#mA do
       repeat
-         local mname      = mA[i]
-         local userName   = mname:userName()
-         mt               = frameStk:mt()
+         local mname          = mA[i]
+         local userName       = mname:userName()
+         local isDependModule = mname:get_depends_on_flag()
+         mt                   = frameStk:mt()
 
-         local sn         = mname:sn()
-         dbg.print{"Hub:load i: ",i,", userName: ",userName,", sn: ",sn,"\n",}
+         local sn             = mname:sn()
+         dbg.print{"Hub:load i: ",i,", userName: ",userName,", sn: ",sn,", isDependModule:",isDependModule,"\n",}
 
          if ((sn == nil) and ((i > 1) or (frameStk:stackDepth() > 0))) then
             dbg.print{"Pushing ",mname:userName()," on moduleQ\n"}
             dbg.print{"i: ",i,", stackDepth: ", frameStk:stackDepth(),"\n"}
+            mname:reset()  -- force a new lazyEval
             mcp:pushModule(mname)
             if (tracing == "yes") then
                tracing_msg{"Pushing ", userName, " on moduleQ"}
@@ -357,7 +359,6 @@ function M.load(self, mA)
          if (mt:have(sn,"active")) then
             local version    = mname:version()
             local mt_version = mt:version(sn)
-
             dbg.print{"mnV: ",version,", mtV: ",mt_version,"\n"}
 
             if (disable_same_name_autoswap == "yes" and mt_version ~= version) then
@@ -373,7 +374,6 @@ function M.load(self, mA)
             unload_internal{MName:new("mt",sn)}
             mname:reset()  -- force a new lazyEval
             local status = mcp:load_usr{mname}
-            --mcp          = mcp_old
             mcp          = mcpStack:pop()
             dbg.print{"Setting mcp to ", mcp:name(),"\n"}
             if (not status) then
@@ -420,9 +420,13 @@ function M.load(self, mA)
             loaded = true
          end
          mt = frameStk:mt()
-         if (not mt:have(sn,"active")) then
-            dbg.print{"failed to load ",mname:show(),", sn: ", sn,"\n"}
-            mcp:missing_module(userName, mname:show())
+         if (not mt:have(sn,"active") and not isDependModule) then
+            local sn_match = sn
+            if (not sn_match) then
+               sn_match = mt:lookup_w_userName(userName)
+            end
+            dbg.print{"failed to load ",mname:show(),", sn: ", sn,", sn_match: ",sn_match,", userName: ",userName,"\n"}
+            mcp:add_missing_module(userName, sn_match, mname:show())
             a = false
          end
 
@@ -546,6 +550,11 @@ function M.unload(self,mA)
       end
 
       dbg.print{"Trying to unload: ", userName, " sn: ", sn,"\n"}
+      local sn_match = sn
+      if (not sn_match) then
+         sn_match = mt:lookup_w_userName(userName)
+      end
+      mcp:remove_missing_module(userName, sn_match, mname:show())
 
       if (mt:have(sn,"inactive")) then
          dbg.print{"Removing inactive module: ", userName, "\n"}

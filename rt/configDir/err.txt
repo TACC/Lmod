@@ -44,7 +44,6 @@ MODULEPATH_INIT (LMOD_MODULEPATH_INIT)                        @PKG@/init/.module
 MODULEPATH_ROOT (MODULEPATH_ROOT)
 NAG File (LMOD_ADMIN_FILE)                                    ProjectDIR/src/../../etc/admin.list
 number of cache dirs                                          0
-OS Name                                                       <N/A>
 Pager (LMOD_PAGER)                                            less
 Pager Options (LMOD_PAGER_OPTS)                               -XqMREF
 Path to HashSum (LMOD_HASHSUM_PATH)                           PATH_to_HASHSUM

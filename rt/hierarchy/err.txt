@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.61 2025-06-20 16:09 -05:00
+Modules based on Lua: Version 8.7.65 2025-08-05 10:24 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -166,3 +166,64 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) moduleA   2) moduleB   3) Default
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/10 boost
+===========================
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/11 boost
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost"
+   Try: "module spider boost" to see how to load the module(s).
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) gcc/10.0   2) boost/1.9
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load meta/10 gcc/10 CMake
+===========================
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) meta/10.0   2) gcc/10.0   3) OpenSSL/3   4) zlib/1.3.1   5) CMake/3.29.3
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load meta/10 gcc/11 CMake
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "CMake"
+   Try: "module spider CMake" to see how to load the module(s).
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load meta/10 gcc/10 CMake
+===========================
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) meta/10.0      3) gcc/10.0    5) zlib/1.3.1
+  2) GCCcore/10.0   4) OpenSSL/3   6) CMake/3.29.3
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load meta/10 gcc/11 CMake
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "CMake"
+   Try: "module spider CMake" to see how to load the module(s).

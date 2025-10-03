@@ -343,9 +343,16 @@ function M.report(self, t)
    else
       lmod_version = lmod_version:gsub("[)(]","")
    end
+   local os_name  = "<N/A>"
+   local print_os = pathJoin(cmdDir(),"print_os.sh")
+   if (isFile(print_os)) then
+      os_name = capture(print_os)
+   end
+
    b[#b+1] = "Lmod Version: " .. lmod_version
    b[#b+1] = "Lua Version:  " .. _VERSION:gsub("Lua ","")
    b[#b+1] = "MODULEPATH:   " .. (os.getenv("MODULEPATH") or "<unknown>")
+   b[#b+1] = "OS Name:      " .. os_name
    b[#b+1] = "\n"
 
    b[#b+1] = "Changes from Default Configuration"

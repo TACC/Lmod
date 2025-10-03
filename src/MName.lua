@@ -102,6 +102,7 @@ function M.new(self, sType, name, action, is, ie)
 
    is                  = is or false
    ie                  = ie or false
+   o.__evaluated       = false
    o.__isOrig          = is
    o.__ieOrig          = ie
    o.__sn              = false
@@ -135,11 +136,12 @@ function M.new(self, sType, name, action, is, ie)
    o.__range      = { o.__is and parseVersion(o.__is) or " ", o.__ie and parseVersion(o.__ie) or "~" }
 
    if (sType == "entryT") then
-      local t      = name
-      o.__sn       = t.sn
-      o.__version  = t.version
-      o.__userName = t.userName
-      o.__fn       = t.fn
+      local t       = name
+      o.__sn        = t.sn
+      o.__version   = t.version
+      o.__userName  = t.userName
+      o.__fn        = t.fn
+      o.__evaluated = true
    elseif (sType == "inherit") then
       local t      = name
       o.__fullName = build_fullName(t.sn, t.version)
@@ -189,7 +191,8 @@ end
 local function l_lazyEval(self)
    dbg.start{"l_lazyEval(",self.__userName,")"}
 
-   local sType   = self.__sType
+   self.__evaluated   = true
+   local sType        = self.__sType
    if (sType == "mt") then
       local t1       = epoch()
       local frameStk = FrameStk:singleton()
@@ -234,7 +237,7 @@ local function l_lazyEval(self)
    local origUserName          = self:userName()
    local userName              = mrc:resolve(mt:modulePathA(), self:userName())
    local sn, versionStr, fileA = moduleA:search(userName)
-   dbg.printT("fileA",fileA)
+   --dbg.printT("fileA",fileA)
    dbg.print{"l_lazyEval: orig: ",origUserName,", userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
    mrc:applyWeights(sn, fileA)
 
@@ -262,7 +265,7 @@ local function l_lazyEval(self)
    local mpath
    local moduleKindT
 
-   dbg.printT("fileA",fileA)
+   --dbg.printT("fileA",fileA)
    dbg.print{"#stepA: ",#stepA,"\n"}
    dbg.print{"userName: ",self.__userName,"\n"}
    dbg.print{"sn: ",self.__sn,"\n"}
@@ -292,6 +295,12 @@ local function l_lazyEval(self)
       self.__forbiddenT = mrc:isForbidden{fullName=build_fullName(self.__sn, version),
                                           sn = self.__sn, fn = self.__fn,
                                           mpath = self.__mpath}
+   else
+      dbg.print{"clearing __sn etc\n"}
+      self.__sn      = false
+      self.__version = false
+      self.__fn      = false
+      self.__wV      = false
    end
 
    local tt = self.__moduleKindT or {}
@@ -302,7 +311,7 @@ end
 
 
 function M.valid(self)
-   if (not self.__sn) then
+   if (not self.__evaluated) then
       l_lazyEval(self)
    end
    return self.__fn
@@ -339,15 +348,15 @@ end
 
 function M.sn(self)
    if (not self.__sn) then
-      --dbg.start{"Mname:sn()"}
+      dbg.start{"Mname:sn()"}
       l_lazyEval(self)
-      --dbg.fini("Mname:sn")
+      dbg.fini("Mname:sn")
    end
    return self.__sn
 end
 
 function M.fn(self)
-   if (not self.__fn) then
+   if (not self.__evaluated) then
       --dbg.start{"Mname:fn()"}
       l_lazyEval(self)
       --dbg.fini("Mname:fn")
@@ -356,21 +365,21 @@ function M.fn(self)
 end
 
 function M.version(self)
-   if (not self.__sn) then
+   if (not self.__evaluated) then
       l_lazyEval(self)
    end
    return self.__version
 end
 
 function M.wV(self)
-   if (not self.__sn) then
+   if (not self.__evaluated) then
       l_lazyEval(self)
    end
    return self.__wV
 end
 
 function M.stackDepth(self)
-   if (not self.__sn) then
+   if (not self.__evaluated) then
       l_lazyEval(self)
    end
    local stackDepth = self.__stackDepth == nil and 0 or self.__stackDepth
@@ -390,21 +399,21 @@ function M.set_depends_on_anyA(self, depends_on_anyA)
 end
 
 function M.get_depends_on_anyA(self, sn)
-   if (not self.__sn) then
+   if (not self.__evaluated) then
       l_lazyEval(self)
    end
    return self.__depends_on_anyA
 end
 
 function M.ref_count(self)
-   if (not self.__sn) then
+   if (not self.__evaluated) then
       l_lazyEval(self)
    end
    return self.__ref_count
 end
 
 function M.fullName(self)
-   if (not self.__sn) then
+   if (not self.__evaluated) then
       --dbg.start{"Mname:fullName()"}
       l_lazyEval(self)
       --dbg.fini("Mname:fullName")
@@ -661,9 +670,7 @@ function M.find_between(self, fileA)
       fn      = blockA[idx].fn
       version = blockA[idx].version
       found   = true
-      if (found) then
-         self.__userName = build_fullName(self.__sn,version)
-      end
+      self.__userName = build_fullName(self.__sn,version)
    end
    --dbg.fini("MName:find_between")
    return found, fn, version, wV, moduleKindT, mpath, "find_between"
@@ -868,6 +875,7 @@ function M.reset(self)
    self.__fn         = nil
    self.__version    = nil
    self.__stackDepth = nil
+   self.__evaluated  = false
 end
 
 function M.actionName(self)
