@@ -254,7 +254,9 @@ Lmod 8.7+
             * Issue #778: Only quit searching when there is no entry in v.dirT (in collectFileA())
             * Issue #780: In ModuleA:update, copy correct entry into new moduleA[#moduleA+1]
             * PR #782: updates to analyzeLmodDB
-W.I.P:
    (8.7.66) * Adding OS Name to miniConfig.
             * Change from mysql.connector to pymysql in LmodDB.py and docs.
-            
+            * Issue #789: Dependent modules are not added to the list of missing modules
+            * Issue #789: When modules like gcc/10 are replaced by gcc/11, gcc/10 is not a missing module
+            * PR #796: French message updated to match gender.
+            * Issue #792: When reading in TCL modules only use {} when needed, not always.
