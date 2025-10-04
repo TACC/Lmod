@@ -142,8 +142,7 @@ class LMODdb(object):
       module  = module[:64].encode("ascii","ignore")
       path    = path[:1024].encode("ascii","ignore")
       syshost = syshost[:32].encode("ascii","ignore")
-      dateStr = dateStr.encode("ascii","ignore")
-      dateTm  = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dateStr)))
+      dateTm  = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dataStr)))
       a = [ user,  module, path,  syshost, dateTm ]
       dataA.append(a)
 
@@ -308,7 +307,7 @@ class LMODdb(object):
       print("modules_used_by(): ",e)
       sys.exit(1)
 
-  def delete_old_records(self, debug, syshost, startDate, endDate):
+  def delete_old_records(self, debug, syshostA, startDate, endDate):
     query = ""
     try:
       conn   = self.connect()
@@ -316,9 +315,10 @@ class LMODdb(object):
       query  = "USE "+self.db()
       cursor.execute(query)
 
-      dateTest = self.build_dateTest(startDate, endDate)
+      dateTest  = self.build_dateTest(startDate, endDate)
+      hostQuery = self.build_patterns_query( "syshost", syshostA )
       
-      query = "DELETE FROM moduleT where syshost like %s  " + dateTest
+      query = "DELETE FROM moduleT where " + hostQuery + " " + dateTest
       print(query)
       cursor.execute(query, [syshost])
       conn.commit()
