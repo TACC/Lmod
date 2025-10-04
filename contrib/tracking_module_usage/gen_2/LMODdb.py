@@ -191,10 +191,10 @@ class LMODdb(object):
 
       dateTest = self.build_dateTest(startDate, endDate)
       pathQuery = self.build_patterns_query( "path", sqlPattern )
-      hostQuery = self.build_patterns_query( "syshost", syshosts )
+      hostQuery = self.build_patterns_query( "syshost", syshost )
 
       sqlPattern = ["%"] if not sqlPattern else sqlPattern
-      syshosts   = ["%"] if not syshosts else syshosts
+      syshost    = ["%"] if not syshost    else syshost
 
       query = "SELECT path, count(distinct(user)) as counts from moduleT " +\
         "where " + pathQuery + " and " + hostQuery + " " + dateTest +\
