@@ -179,7 +179,7 @@ class LMODdb(object):
 
   def build_patterns_query(self, label, itemlist):
     n = max(1, len(itemlist))
-      return "( " + " OR ".join(label + " LIKE %s" for _ in range(n))  + " )"
+    return "( " + " OR ".join(label + " LIKE %s" for _ in range(n))  + " )"
 
   def counts(self, sqlPattern, syshost, startDate, endDate, allmodulesFn):
     query = ""
