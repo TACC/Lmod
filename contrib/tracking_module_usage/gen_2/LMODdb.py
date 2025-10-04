@@ -142,7 +142,7 @@ class LMODdb(object):
       module  = module[:64].encode("ascii","ignore")
       path    = path[:1024].encode("ascii","ignore")
       syshost = syshost[:32].encode("ascii","ignore")
-      dateTm  = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dataStr)))
+      dateTm  = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dateStr)))
       a = [ user,  module, path,  syshost, dateTm ]
       dataA.append(a)
 
