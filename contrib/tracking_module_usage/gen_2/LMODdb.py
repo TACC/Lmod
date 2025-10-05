@@ -135,7 +135,7 @@ class LMODdb(object):
       module  = dataT.get('module')
       path    = dataT.get('path')
       syshost = dataT.get('syshost')
-      dateStr = dataT.get('date')
+      dateStr = dataT.get('date').replace("'",'')
       if (not (user and module and path and syshost and dateStr)):
         continue
       user    = user[:64].encode("ascii","ignore")
@@ -320,7 +320,7 @@ class LMODdb(object):
       
       query = "DELETE FROM moduleT where " + hostQuery + " " + dateTest
       print(query)
-      cursor.execute(query, [syshost])
+      cursor.execute(query, (*syshostA))
       conn.commit()
       print(cursor.rowcount, "record(s) deleted")
 
