@@ -260,3 +260,5 @@ Lmod 8.7+
             * Issue #789: When modules like gcc/10 are replaced by gcc/11, gcc/10 is not a missing module
             * PR #796: French message updated to match gender.
             * Issue #792: When reading in TCL modules only use {} when needed, not always.
+   (8.7.67) * Update gen_2's analyzeLmodDB and delete_old_records to correctly take multiple syshost's and sqlPatterns
+   
