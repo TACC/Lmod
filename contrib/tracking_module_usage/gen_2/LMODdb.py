@@ -317,10 +317,11 @@ class LMODdb(object):
 
       dateTest  = self.build_dateTest(startDate, endDate)
       hostQuery = self.build_patterns_query( "syshost", syshostA )
+      syshostA  = ["%"] if not syshostA else syshostA
       
       query = "DELETE FROM moduleT where " + hostQuery + " " + dateTest
       print(query)
-      cursor.execute(query, (*syshostA))
+      cursor.execute(query, syshostA)
       conn.commit()
       print(cursor.rowcount, "record(s) deleted")
 
