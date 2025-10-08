@@ -235,7 +235,7 @@ end
 function version()
    local v = {}
    v[#v + 1] = "\nModules based on Lua: Version " .. Version.name().."\n"
-   v[#v + 1] = "    by Robert McLay mclay@tacc.utexas.edu\n\n"
+   v[#v + 1] = "    https://lmod.readthedocs.io\n\n"
    return concatTbl(v,"")
 end
 
