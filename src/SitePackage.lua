@@ -34,7 +34,7 @@ require("strict")
 -- and it reports:
 --
 --    Modules based on Lua: Version X.Y.Z  3016-02-05 16:31
---        by Robert McLay mclay@tacc.utexas.edu
+--        https://lmod.readthedocs.io
 --
 --    Description                      Value
 --    -----------                      -----

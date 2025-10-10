@@ -148,7 +148,7 @@ You should check to see that Lmod finds your SitePackage.lua.  If you do::
 and it reports::
 
    Modules based on Lua: Version X.Y ...
-       by Robert McLay mclay@tacc.utexas.edu
+       https://lmod.readthedocs.io
 
    Description                      Value
    -----------                      -----

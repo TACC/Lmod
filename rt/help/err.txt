@@ -3,7 +3,7 @@ step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
-    by Robert McLay mclay@tacc.utexas.edu
+    https://lmod.readthedocs.io
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --help
@@ -111,7 +111,7 @@ Lmod Web Sites
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
 Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
-    by Robert McLay mclay@tacc.utexas.edu
+    https://lmod.readthedocs.io
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing help
@@ -219,7 +219,7 @@ Lmod Web Sites
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
 Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
-    by Robert McLay mclay@tacc.utexas.edu
+    https://lmod.readthedocs.io
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing help amber
@@ -239,7 +239,7 @@ step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
 Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
-    by Robert McLay mclay@tacc.utexas.edu
+    https://lmod.readthedocs.io
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
 Allow TCL modulefiles (LMOD_ALLOW_TCL_FILES)                  yes
@@ -422,7 +422,7 @@ step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
 Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
-    by Robert McLay mclay@tacc.utexas.edu
+    https://lmod.readthedocs.io
 MODULEPATH:   ProjectDIR/rt/help/mf
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
