@@ -74,8 +74,8 @@ local function l_new(self)
    local locSitePkg = locatePkg("SitePackage") or "unknown"
 
    if (locSitePkg ~= "unknown") then
-      local std_sha1 = "1fa3d8f24793042217b8474904136fdde72d42dd"
-      local std_md5  = "3c785db2ee60bc8878fe1b576c890a0f"
+      local std_sha1 = "219922f578b6ed46bf0f0998736e62ce0f5fbb2c"
+      local std_md5  = "eecfd1922d4a1c6b4218591088f6150a"
 
       local std_hashsum = (HashSum:find("md5") ~= nil) and std_md5 or std_sha1
 
