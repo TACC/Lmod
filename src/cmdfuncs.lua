@@ -17,7 +17,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2018 Robert McLay
+--  Copyright (C) 2008-2025 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -738,10 +738,6 @@ local function l_collectionDir(mode)
    local dotConfD = pathJoin(home,".config/lmod")
    local dotLmodD = pathJoin(home,".lmod.d")
    if (mode == "write") then
-      local configDirOnly = cosmic:value("LMOD_USE_DOT_CONFIG_ONLY")
-      if (configDirOnly == "no") then
-         a[#a+1] = dotLmodD
-      end
       a[#a+1] = dotConfD
    else
       a[#a+1] = dotConfD
