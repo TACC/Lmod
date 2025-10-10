@@ -162,18 +162,21 @@ Then you haven't set things up correctly.
 Step 2
 ------
 
-Have "master" send the tracking messages to a separate computer.
+Some sites have all syslog messages sent to a manager or head node.
+Other sites have each node (login or compute) send message directly.
 
-You can add the following to master's /etc/rsyslog.conf file::
+In either case you can add the following lines to the head node or all
+nodes to the module usage tracking computer in /etc/rsyslog.conf file::
 
-   if $programname contains 'ModuleUsageTracking' then @module_usage_tracking
+   if $programname contains 'ModuleUsageTracking' then @module_usage_tracking_machine
    & stop
 
-Where you change "module_usage_tracking" into a real machine name.
+Where you change "module_usage_tracking_machine" into a real machine name.
 Adding this to rsyslog.conf will direct all syslog messages to be sent
 to the "module_usage_tracking" machine. 
 
-Remember to restart the rsyslog daemon on master.
+Remember to restart the rsyslog daemon.
+
 
 Step 3
 ------
@@ -207,14 +210,14 @@ Step 4
 
 Sites may have firewall rules that will prevent master from
 connecting.  After completing step 3, try sending syslog message from
-your cluster to your "module_usage_tracking" machine with the command
+your cluster to your "module_usage_tracking_machine" with the command
 `logger`::
 
    $ logger  -t ModuleUsageTracking -p local0.info -n 192.168.4.8 "Some test message"
 
 where you have replaced 192.168.4.8 with the correct ip address of the
-"module_usage_tracking" machine.  If the above message does not appear
-on "module_usage_tracking" machine in /var/log/moduleUsage.log then
+"module_usage_tracking_machine".  If the above message does not appear
+on "module_usage_tracking_machine" in /var/log/moduleUsage.log then
 talk with your network team to fix the firewall rules.
 
 
