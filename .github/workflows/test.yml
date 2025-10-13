@@ -33,7 +33,7 @@ jobs:
       - name: set up Hermes
         run: |
          cd /tmp
-         git clone https://github.com/rtmclay/Hermes.git
+         git clone https://github.com/TACC/Hermes.git
          echo "$PWD/Hermes/bin" >> $GITHUB_PATH
          cd -
       - name: Run tests
