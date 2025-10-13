@@ -3,7 +3,7 @@ New Features in Lmod
 
 **Collection are written to ~/.config/lmod only
    (Lmod 9.0+) This means that Lmod will only write to ~/.config/lmod
-   but always read from both directories.
+   but always read from both directories (~/.config/lmod and ~/.lmod.d)
 
 **Using luaposix's syslog interface**
   (Lmod 8.8+)  See :ref:`tracking_usage` for more details. In
