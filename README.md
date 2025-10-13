@@ -46,7 +46,7 @@ Features:
 
    5. Collection only written to ~/.config/lmod directory.
 
-   6. Great performance improvment when load a module with many dependencies.
+   6. Great performance improvements when loading a module with many dependencies.
    
 Bug Fixes:
 
