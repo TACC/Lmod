@@ -1,1 +1,4 @@
 Lmod 9.0+
+   (9.0.1)  * Issue #799: return function not value in l_build_test
+   
+          
