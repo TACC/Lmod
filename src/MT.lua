@@ -1703,7 +1703,7 @@ end
 
 local function l_build_test(v)
    if (not v) then
-      return v, l_lessthan_equal(a,b)
+      return v, l_lessthan_equal
    end
    if ( v:find("[<>]") ) then
       return v:gsub("[<>]",""), l_lessthan
