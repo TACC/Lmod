@@ -100,6 +100,8 @@ local function l_init_envTable(self)
       {"^ *=============================* *", banner               },
       {"  *$",                                ""                   },
       {"^ *$",                                ""                   }, 
+      {"\\9",                                 "\t"                 }, 
+      {"\t",                                  "    "               }, 
    }
 
    s_remove_pathA = {

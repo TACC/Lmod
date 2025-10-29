@@ -180,6 +180,7 @@ local function l_extractFuncs(shellName, funcs)
       if (not is) then break end
       local js, je, End      = funcs:find(trailingPatt, ie+1)
       --funcT[Nm]              = funcs:sub(ie+1,js):gsub("\t","    ")
+      funcT[Nm]              = funcs:sub(ie+1,js) --:gsub("\t","    ")
       funcs                  = funcs:sub(je+1,-1)
    end
 
