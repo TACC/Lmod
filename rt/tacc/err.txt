@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.61 2025-06-20 16:09 -05:00
+Modules based on Lua: Version 9.0.2 2025-10-20 21:00 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -29,14 +29,14 @@ step 4
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing help mvapich1
 ===========================
 Module Specific Help for "mvapich1/mvapich1"
-	This module loads the MVAPICH MPI environment built with
-	Intel compilers. By loading this module, the following commands
-	will be automatically available for compiling MPI applications:
-	mpif77       (F77 source)
-	mpif90       (F90 source)
-	mpicc        ( C  source)
-	mpiCC/mpicxx (C++ source)
-	Version 1.0.1
+    This module loads the MVAPICH MPI environment built with
+    Intel compilers. By loading this module, the following commands
+    will be automatically available for compiling MPI applications:
+    mpif77       (F77 source)
+    mpif90       (F90 source)
+    mpicc        ( C  source)
+    mpiCC/mpicxx (C++ source)
+    Version 1.0.1
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
