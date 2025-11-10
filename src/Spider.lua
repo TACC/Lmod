@@ -1051,6 +1051,10 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
    end
 
    if (next(matchT) == nil) then
+      if (optionTbl.terse) then
+         dbg.fini("Spider:spiderSearch")
+         return ""
+      end
       LmodSystemError{msg="e_Failed_2_Find", name=origUserSearchPat}
    end
 
@@ -1073,6 +1077,10 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
       end
    end
    if (#a < 1) then
+      if (optionTbl.terse) then
+         dbg.fini("Spider:spiderSearch")
+         return ""
+      end
       LmodError{msg="e_No_Matching_Mods"}
       dbg.fini("Spider:spiderSearch")
    end
@@ -1371,6 +1379,22 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA, tailMsg)
 
    dbg.printT("entryA[1]", entryT)
    dbg.printT("entryPA", entryPA)
+
+   -- Early return for terse mode when no dependencies
+   if (terse and next(entryA) ~= nil) then
+      local hasDependencies = false
+      for k = 1, #entryA do
+         if (entryA[k].parentAA) then
+            hasDependencies = true
+            break
+         end
+      end
+      if (not hasDependencies) then
+         -- Return just the module name, consistent with _Level1 terse output
+         dbg.fini("Spider:_Level2")
+         return fullName .. "\n"
+      end
+   end
 
    ia = ia + 1; a[ia] = "\n"
    ia = ia + 1; a[ia] = border

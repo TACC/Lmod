@@ -1,0 +1,76 @@
+-- -*- lua -*-
+local testName = "terse_spider"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+     Test terse mode output for spider command:
+     1. Single module match should output just module name (not verbose format)
+     2. Non-existent module should output nothing (no error message)
+   ]],
+   keywords = {testName, "spider", "terse"},
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export MODULEPATH_ROOT=$(testDir)/mf
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+
+     remove_generated_lmod_files
+
+     runLmod --version                                    # 1
+     
+     # Bug 1: Single module match in terse mode should output just module name
+     # Expected: gmp/6.3.0 (single line, no verbose formatting)
+     runLmod -t spider gmp                                # 2
+     
+     # Bug 1: Multiple module matches should still work correctly
+     # Expected: hdf5/1.14.4\nhdf5/1.14.6 (one per line)
+     runLmod -t spider hdf5                               # 3
+     
+     # Bug 2: Non-existent module in terse mode should output nothing
+     # Expected: (empty output, no error message)
+     runLmod -t spider alps                               # 4
+     
+     # Bug 2: Non-existent module in non-terse mode should show error
+     # Expected: Error message (to verify non-terse mode still works)
+     runLmod spider alps                                   # 5
+     
+     # Bug 1: Verify single module with dependencies still works in terse mode
+     # (This should still show dependencies, not just module name)
+     # Note: We don't have a module with dependencies in this test, but we can
+     # verify that the existing behavior for modules without deps is fixed
+
+     HOME=$ORIG_HOME
+
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results -bash _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
+
