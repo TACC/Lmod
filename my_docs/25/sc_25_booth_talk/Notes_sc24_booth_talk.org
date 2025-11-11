@@ -1,0 +1,40 @@
+Notes for SC 24 booth talk on Lmod
+
+* Lots of new stuff this year
+* Support for Dynamic LMOD_MODULERC and DOWNSTREAM Conflicts
+  Explain why this was requested
+* Support for new function depends_on_any()
+* Support $MODULES_AUTO_HANDLING env var
+  if set then prereq() becomes depends_on()
+  and prereq_any() becomes depends_on_any()
+  Something that Tmod already supported.
+* zsh and ksh working together (finally)
+  The fight over FPATH
+* Improvements to sh_to_modulefile command and source_sh() function
+  Old code sometimes did setenv("PATH", "..." which would clear PATH
+  on unload.  This should be fixed now.
+* Generate actual manpage via pod2man
+* % module --dumpname -> Lmod
+  Could use module --version but --dumpname is easier
+* Now show module extension when doing "module --terse avail"
+* Coming Attractions
+** Changes on how Lmod tracks module usage
+*** Old way was efficient on space but not on time
+*** Old way stored all old module usage
+** New way is one table with duplicate data (module names, paths etc)
+*** But it is easier to remove old data
+*** Faster to search
+*** Using mysql.connector.python as replacement for python MySQLdb interface
+** Support for hide{} and forbid{} to match Tmod
+** Support for LMOD_SHOW_HIDDEN env (all, list, avail, spider)
+   Set this variable if you don't want to have to remember to do:
+** Some sites want to hide modules that are loaded on your behalf     
+   I don't like that.  I want to know what module have been loaded.
+   I can set this variable to not have loaded modules hidden from me.
+** Support for no-reversible module functions   
+   setenv, load etc when unloading a module
+   setenv{"A","B", mode={"unload"}}
+** Support for TCL 9.0+
+   works now as separate fork-exec. Needs work to be integrated back
+   into Lmod.
+   
