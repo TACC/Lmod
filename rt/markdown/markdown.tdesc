@@ -23,6 +23,10 @@ testdescript = {
 
      remove_generated_lmod_files
 
+     # ============================================================
+     # Basic functionality tests
+     # ============================================================
+     
      # Test plain text content (should NOT be processed as markdown)
      runLmod help plain_text/1.0              # 1
      runLmod show plain_text/1.0              # 2
@@ -43,10 +47,63 @@ testdescript = {
      runLmod show short_content/0.1           # 11
      runLmod whatis short_content/0.1         # 12
 
+     # ============================================================
+     # False positive prevention tests (CRITICAL)
+     # ============================================================
+     
+     # Test code-like patterns (should NOT be detected as markdown)
+     runLmod help false_positive_code/1.0     # 13
+     runLmod show false_positive_code/1.0     # 14
+     runLmod whatis false_positive_code/1.0  # 15
+
+     # Test variable/environment patterns (should NOT be detected)
+     runLmod help false_positive_vars/1.0     # 16
+     runLmod show false_positive_vars/1.0     # 17
+     runLmod whatis false_positive_vars/1.0   # 18
+
+     # Test URLs without markdown links (should NOT be detected)
+     runLmod help false_positive_urls/1.0     # 19
+     runLmod show false_positive_urls/1.0     # 20
+     runLmod whatis false_positive_urls/1.0   # 21
+
+     # Test list-like patterns (should NOT be detected)
+     runLmod help false_positive_lists/1.0    # 22
+     runLmod show false_positive_lists/1.0    # 23
+     runLmod whatis false_positive_lists/1.0  # 24
+
+     # Test emphasis-like patterns (should NOT be detected)
+     runLmod help false_positive_emphasis/1.0  # 25
+     runLmod show false_positive_emphasis/1.0 # 26
+     runLmod whatis false_positive_emphasis/1.0 # 27
+
+     # Test structured text (should NOT be detected)
+     runLmod help false_positive_structure/1.0 # 28
+     runLmod show false_positive_structure/1.0 # 29
+     runLmod whatis false_positive_structure/1.0 # 30
+
+     # Test edge cases at detection boundaries
+     runLmod help false_positive_edge/1.0     # 31 - Exactly 30 chars
+     runLmod help false_positive_edge/2.0     # 32 - 29 chars (below threshold)
+     runLmod help false_positive_edge/3.0     # 33 - 31 chars but no markdown
+
+     # ============================================================
+     # Feature tests
+     # ============================================================
+     
+     # Test markdown with images (SHOULD be processed as markdown)
+     runLmod help markdown_with_images/1.0    # 34
+     runLmod show markdown_with_images/1.0    # 35
+     runLmod whatis markdown_with_images/1.0  # 36
+
+     # ============================================================
+     # Color support tests
+     # ============================================================
+     
      # Test with color enabled
      export LMOD_COLORIZE=YES
-     runLmod help markdown_content/2.0        # 13
-     runLmod whatis markdown_content/2.0      # 14
+     runLmod help markdown_content/2.0        # 37
+     runLmod whatis markdown_content/2.0      # 38
+     runLmod help markdown_with_images/1.0    # 39
      unset LMOD_COLORIZE
 
      HOME=$ORIG_HOME
@@ -74,3 +131,4 @@ testdescript = {
    },
 
 }
+

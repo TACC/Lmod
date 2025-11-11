@@ -60,10 +60,13 @@ function MarkdownDetector.isMarkdown(text)
    end
    
    -- Split into lines for analysis
+   -- Keep both original and trimmed versions - need original for list indentation check
    local lines = {}
+   local originalLines = {}
    for line in text:gmatch("[^\n]*") do
       local trimmed = line:match("^%s*(.-)%s*$") or ""
       table.insert(lines, trimmed)
+      table.insert(originalLines, line)  -- Keep original for indentation-sensitive checks
    end
    
    dbg.print{"Analyzing ", #lines, " lines"}
@@ -75,11 +78,14 @@ function MarkdownDetector.isMarkdown(text)
       emphasis = 0,        -- *text* **text**
       code = 0,           -- `code` ```blocks```
       links = 0,          -- [text](url)
+      images = 0,         -- ![alt](url)
       structure = 0       -- paragraph breaks, organized content
    }
    
    -- Analyze each line
    for i, line in ipairs(lines) do
+      local originalLine = originalLines[i]  -- Use original for indentation checks
+      
       -- ATX headers (# ## ###)
       if line:match("^#+%s+%S") then
          indicators.atx_headers = indicators.atx_headers + 1
@@ -93,10 +99,12 @@ function MarkdownDetector.isMarkdown(text)
          dbg.print{"Found setext header underline: '", line, "'"}
       end
       
-      -- Lists
-      if line:match("^%s*[-*+]%s+%S") or line:match("^%s*%d+%.%s+%S") then
+      -- Lists (only count lists with minimal indentation: 0-3 spaces)
+      -- Heavily indented lists (4+ spaces) are likely prose, not markdown
+      -- Check original line to preserve indentation information
+      if originalLine:match("^%s?%s?%s?[-*+]%s+%S") or originalLine:match("^%s?%s?%s?%d+%.%s+%S") then
          indicators.lists = indicators.lists + 1
-         dbg.print{"Found list item: '", line, "'"}
+         dbg.print{"Found list item: '", originalLine, "'"}
       end
       
       -- Emphasis patterns
@@ -148,6 +156,14 @@ function MarkdownDetector.isMarkdown(text)
          dbg.print{"Found link: '", match, "'"}
       end
       indicators.links = indicators.links + link_count
+      
+      -- Images
+      local image_count = 0
+      for match in line:gmatch("!%[([^%]]*)%]%([^%)]+%)") do
+         image_count = image_count + 1
+         dbg.print{"Found image: '", match, "'"}
+      end
+      indicators.images = indicators.images + image_count
    end
    
    -- Structural analysis
@@ -187,6 +203,10 @@ function MarkdownDetector.isMarkdown(text)
       score = score + 2 
       dbg.print{"Links bonus: +2"}
    end
+   if indicators.images > 0 then 
+      score = score + 2 
+      dbg.print{"Images bonus: +2"}
+   end
    
    -- Medium indicators
    if indicators.lists > 1 then 
@@ -197,7 +217,9 @@ function MarkdownDetector.isMarkdown(text)
       score = score + 1 
       dbg.print{"Emphasis bonus: +1"}
    end
-   if indicators.structure > 0 then 
+   -- Structure only contributes if other markdown indicators are present
+   -- This prevents false positives from well-structured prose
+   if indicators.structure > 0 and (indicators.lists > 0 or indicators.emphasis > 0 or indicators.code > 0 or indicators.links > 0 or indicators.images > 0) then 
       score = score + 1 
       dbg.print{"Structure bonus: +1"}
    end

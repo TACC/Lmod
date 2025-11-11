@@ -8,3 +8,4 @@ whatis("Version: 1.0")
 whatis("Description: Simple module with plain text help")
 
 setenv("PLAIN_TEXT_VERSION", "1.0")
+

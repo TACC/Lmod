@@ -6,3 +6,4 @@ whatis("Version: 0.1")
 whatis("Description: Brief module")
 
 setenv("SHORT_VERSION", "0.1")
+

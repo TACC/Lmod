@@ -29,3 +29,4 @@ whatis("Version: 2.0")
 whatis("Description: Module demonstrating markdown help content")
 
 setenv("MARKDOWN_VERSION", "2.0")
+

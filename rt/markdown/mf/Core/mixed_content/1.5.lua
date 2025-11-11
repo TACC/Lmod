@@ -23,3 +23,4 @@ whatis([[Description: Module with content that tests markdown detection boundari
 It has some structured elements but also plain text portions.]])
 
 setenv("MIXED_VERSION", "1.5")
+

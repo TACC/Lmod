@@ -239,6 +239,41 @@ local function processLinks(text)
 end
 
 --------------------------------------------------------------------------
+-- Process markdown images
+-- @param text The text to process
+-- @return text with images converted to terminal format (alt text + URL)
+local function processImages(text)
+   dbg.start{"processImages()"}
+   
+   local success, result = pcall(function()
+      return text:gsub("!%[([^%]]*)%]%([^%)]*%)", function(altText, url)
+         -- Handle case where URL might be empty or incomplete
+         if not url or url == "" then
+            url = "..."
+         end
+         -- Use alt text if provided, otherwise use generic "Image"
+         local displayText = altText
+         if not displayText or displayText == "" then
+            displayText = "Image"
+         end
+         if USE_COLOR then
+            return applyFormat("[Image: " .. displayText .. "]", ANSI.CYAN) .. " (" .. url .. ")"
+         else
+            return "[Image: " .. displayText .. "] (" .. url .. ")"
+         end
+      end)
+   end)
+   
+   if not success then
+      dbg.fini("processImages")
+      return text
+   end
+   
+   dbg.fini("processImages")
+   return result
+end
+
+--------------------------------------------------------------------------
 -- Process a list item
 -- @param line The line containing a list item
 -- @return formatted list item
@@ -324,56 +359,49 @@ function MarkdownProcessor._processInternal(markdownText)
             table.insert(result, "")
          end
          i = i + 1
-         goto continue
-      end
-      
-      if inCodeBlock then
+      elseif inCodeBlock then
+         -- Inside code block - output as-is with formatting
          table.insert(result, "  " .. applyFormat(line, ANSI.DIM .. ANSI.CYAN))
          i = i + 1
-         goto continue
-      end
-      
-      -- Handle setext headers
-      local isHeader, headerType = isSetextHeader(lines, i)
-      if isHeader then
-         local headerText = lines[i]
-         if headerType == "=" then
-            headerText = applyFormat(headerText:upper(), ANSI.BOLD .. ANSI.CYAN)
-         else
-            headerText = applyFormat(headerText, ANSI.BOLD)
-         end
-         table.insert(result, headerText)
-         i = i + 2 -- Skip the underline
-         goto continue
-      end
-      
-      -- Skip setext underlines (handled above)
-      if line:match("^===+$") or line:match("^---+$") then
-         i = i + 1
-         goto continue
-      end
-      
-      -- Process the line
-      local processedLine = line
-      
-      -- Headers (ATX style)
-      if line:match("^#+%s") then
-         processedLine = processHeader(line)
-      -- List items
-      elseif line:match("^%s*[-*+]%s") or line:match("^%s*%d+%.%s") then
-         processedLine = processListItem(line)
-      -- Regular text
       else
-         -- Apply inline formatting
-         processedLine = processInlineCode(processedLine)
-         processedLine = processEmphasis(processedLine)
-         processedLine = processLinks(processedLine)
+         -- Handle setext headers (check before processing line)
+         local isHeader, headerType = isSetextHeader(lines, i)
+         if isHeader then
+            local headerText = lines[i]
+            if headerType == "=" then
+               headerText = applyFormat(headerText:upper(), ANSI.BOLD .. ANSI.CYAN)
+            else
+               headerText = applyFormat(headerText, ANSI.BOLD)
+            end
+            table.insert(result, headerText)
+            i = i + 2 -- Skip the underline
+         elseif line:match("^===+$") or line:match("^---+$") then
+            -- Skip setext underlines (handled above)
+            i = i + 1
+         else
+            -- Process the line normally
+            local processedLine = line
+            
+            -- Headers (ATX style)
+            if line:match("^#+%s") then
+               processedLine = processHeader(line)
+            -- List items
+            elseif line:match("^%s*[-*+]%s") or line:match("^%s*%d+%.%s") then
+               processedLine = processListItem(line)
+            -- Regular text
+            else
+               -- Apply inline formatting
+               -- Process images before links to avoid pattern conflicts
+               processedLine = processInlineCode(processedLine)
+               processedLine = processEmphasis(processedLine)
+               processedLine = processImages(processedLine)
+               processedLine = processLinks(processedLine)
+            end
+            
+            table.insert(result, processedLine)
+            i = i + 1
+         end
       end
-      
-      table.insert(result, processedLine)
-      i = i + 1
-      
-      ::continue::
    end
    
    local output = table.concat(result, "\n")
@@ -416,6 +444,11 @@ function MarkdownProcessor.toPlainText(markdownText)
    
    -- Convert links
    text = text:gsub("%[([^%]]+)%]%([^%)]+%)", "%1")
+   
+   -- Convert images to alt text
+   text = text:gsub("!%[([^%]]*)%]%([^%)]+%)", function(altText, url)
+      return altText ~= "" and altText or "Image"
+   end)
    
    -- Clean up list markers
    text = text:gsub("\n%s*[-*+]%s+", "\n• ")
