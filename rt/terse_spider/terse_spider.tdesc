@@ -7,7 +7,10 @@ testdescript = {
    description = [[
      Test terse mode output for spider command:
      1. Single module match should output just module name (not verbose format)
-     2. Non-existent module should output nothing (no error message)
+     2. Single module with dependencies should show module name, not prerequisites
+     3. Multiple module matches should output module names (one per line)
+     4. No blank line at end of output
+     5. Non-existent module should output nothing (no error message, no blank line)
    ]],
    keywords = {testName, "spider", "terse"},
 
@@ -28,26 +31,25 @@ testdescript = {
 
      runLmod --version                                    # 1
      
-     # Bug 1: Single module match in terse mode should output just module name
-     # Expected: gmp/6.3.0 (single line, no verbose formatting)
+     # Test 1: Single module match in terse mode should output just module name
+     # Expected: gmp/6.3.0 (single line, no verbose formatting, no blank line)
+     # This tests the asymmetry fix: single module should show module name,
+     # not prerequisites, even when dependencies exist
      runLmod -t spider gmp                                # 2
      
-     # Bug 1: Multiple module matches should still work correctly
-     # Expected: hdf5/1.14.4\nhdf5/1.14.6 (one per line)
+     # Test 2: Multiple module matches should output module names (one per line)
+     # Expected: hdf5/1.14.4\nhdf5/1.14.6 (one per line, no blank line at end)
+     # This tests that multiple modules work correctly and no blank line appears
      runLmod -t spider hdf5                               # 3
      
-     # Bug 2: Non-existent module in terse mode should output nothing
-     # Expected: (empty output, no error message)
+     # Test 3: Non-existent module in terse mode should output nothing
+     # Expected: (empty output, no error message, no blank line)
+     # This verifies no blank line issue and proper handling of non-existent modules
      runLmod -t spider alps                               # 4
      
-     # Bug 2: Non-existent module in non-terse mode should show error
+     # Test 4: Non-existent module in non-terse mode should show error
      # Expected: Error message (to verify non-terse mode still works)
      runLmod spider alps                                   # 5
-     
-     # Bug 1: Verify single module with dependencies still works in terse mode
-     # (This should still show dependencies, not just module name)
-     # Note: We don't have a module with dependencies in this test, but we can
-     # verify that the existing behavior for modules without deps is fixed
 
      HOME=$ORIG_HOME
 
@@ -73,4 +75,6 @@ testdescript = {
    },
 
 }
+
+
 
