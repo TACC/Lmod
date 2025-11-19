@@ -88,8 +88,12 @@ local function l_new(self, fnA)
 
    o.__forbiddenT        = {}  -- Table of forbidden modules
                                -- from LMOD_MODULERC files only
+   o.__forbiddenT.direct = {}  -- hash table lookup
+   o.__forbiddenT.regex  = {}  -- regex patterns to match
    o.__hiddenT           = {}  -- Table of hidden modules
                                -- from LMOD_MODULERC files only
+   o.__hiddenT.direct    = {}  -- hash table lookup
+   o.__hiddenT.regex     = {}  -- regex patterns to match
    o.__mod2versionT      = false  -- Map from full module name to versions.
    o.__full2aliasesT     = false
    setmetatable(o,self)
@@ -267,7 +271,7 @@ function M.parseModA(self, modA, weight)
          elseif (entry.action == "hide") then
             self.__hiddenT[entry.name] = entry
          elseif (entry.action == "forbid") then
-            self.__forbiddenT[entry.name] = entry
+            self.__forbiddenT.direct[entry.name] = entry
          end
       until true
    end
