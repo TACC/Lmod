@@ -88,11 +88,11 @@ local function l_new(self, fnA)
 
    o.__forbiddenT        = {}  -- Table of forbidden modules
                                -- from LMOD_MODULERC files only
-   o.__forbiddenT.direct = {}  -- hash table lookup
+   o.__forbiddenT.direct = {}  -- hash table direct lookup
    o.__forbiddenT.regex  = {}  -- regex patterns to match
    o.__hiddenT           = {}  -- Table of hidden modules
                                -- from LMOD_MODULERC files only
-   o.__hiddenT.direct    = {}  -- hash table lookup
+   o.__hiddenT.direct    = {}  -- hash table direct lookup
    o.__hiddenT.regex     = {}  -- regex patterns to match
    o.__mod2versionT      = false  -- Map from full module name to versions.
    o.__full2aliasesT     = false
