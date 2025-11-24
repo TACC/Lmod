@@ -284,6 +284,13 @@ local function processListItem(line)
       -- Unordered lists
       local indent, marker, content = line:match("^(%s*)([-*+])%s+(.+)$")
       if indent and marker and content then
+         -- Process inline formatting in the content
+         -- Process images before links to avoid pattern conflicts
+         content = processInlineCode(content)
+         content = processEmphasis(content)
+         content = processImages(content)
+         content = processLinks(content)
+         
          local bullet = USE_COLOR and applyFormat("•", ANSI.CYAN) or "•"
          return indent .. bullet .. " " .. content
       end
@@ -291,6 +298,13 @@ local function processListItem(line)
       -- Ordered lists  
       indent, marker, content = line:match("^(%s*)(%d+%.)%s+(.+)$")
       if indent and marker and content then
+         -- Process inline formatting in the content
+         -- Process images before links to avoid pattern conflicts
+         content = processInlineCode(content)
+         content = processEmphasis(content)
+         content = processImages(content)
+         content = processLinks(content)
+         
          local numberedMarker = USE_COLOR and applyFormat(marker, ANSI.CYAN) or marker
          return indent .. numberedMarker .. " " .. content
       end

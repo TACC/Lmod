@@ -95,15 +95,21 @@ testdescript = {
      runLmod show markdown_with_images/1.0    # 35
      runLmod whatis markdown_with_images/1.0  # 36
 
+     # Test nested markdown formatting in list items (SHOULD process nested formatting)
+     runLmod help nested_markdown_lists/1.0   # 37
+     runLmod show nested_markdown_lists/1.0   # 38
+     runLmod whatis nested_markdown_lists/1.0 # 39
+
      # ============================================================
      # Color support tests
      # ============================================================
      
      # Test with color enabled
      export LMOD_COLORIZE=YES
-     runLmod help markdown_content/2.0        # 37
-     runLmod whatis markdown_content/2.0      # 38
-     runLmod help markdown_with_images/1.0    # 39
+     runLmod help markdown_content/2.0        # 40
+     runLmod whatis markdown_content/2.0      # 41
+     runLmod help markdown_with_images/1.0    # 42
+     runLmod help nested_markdown_lists/1.0   # 43
      unset LMOD_COLORIZE
 
      HOME=$ORIG_HOME
