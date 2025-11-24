@@ -88,12 +88,10 @@ local function l_new(self, fnA)
 
    o.__forbiddenT        = {}  -- Table of forbidden modules
                                -- from LMOD_MODULERC files only
-   o.__forbiddenT.direct = {}  -- hash table direct lookup
-   o.__forbiddenT.regex  = {}  -- regex patterns to match
+   o.__forbiddenRxT      = {}  -- Table of forbidden modules that use Lua Regex strings
    o.__hiddenT           = {}  -- Table of hidden modules
                                -- from LMOD_MODULERC files only
-   o.__hiddenT.direct    = {}  -- hash table direct lookup
-   o.__hiddenT.regex     = {}  -- regex patterns to match
+   o.__hiddenRxT         = {}  -- Table of hidden modules that use Lua Regex strings
    o.__mod2versionT      = false  -- Map from full module name to versions.
    o.__full2aliasesT     = false
    setmetatable(o,self)
@@ -270,8 +268,12 @@ function M.parseModA(self, modA, weight)
             self.__hiddenT[entry.mfile] = {kind="hidden"}
          elseif (entry.action == "hide") then
             self.__hiddenT[entry.name] = entry
+         elseif (entry.action == "hideRegex") then
+            self.__hiddenRxT[entry.name] = entry
          elseif (entry.action == "forbid") then
-            self.__forbiddenT.direct[entry.name] = entry
+            self.__forbiddenT[entry.name] = entry
+         elseif (entry.action == "forbidRegex") then
+            self.__forbiddenRxT[entry.name] = entry
          end
       until true
    end
@@ -489,6 +491,10 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
          l_store_mpathT(self, mpath, "hiddenT", entry.name, entry);
       elseif (entry.action == "forbid") then
          l_store_mpathT(self, mpath, "forbiddenT", entry.name, entry);
+      elseif (entry.action == "hideRegex") then
+         l_store_mpathT(self, mpath, "hiddenRxT", entry.name, entry);
+      elseif (entry.action == "forbidRegex") then
+         l_store_mpathT(self, mpath, "forbiddenRxT", entry.name, entry);
       end
    end
    dbg.fini("MRC:parseModA_for_moduleA")
@@ -520,21 +526,25 @@ function M.export(self)
    return serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
 end
 
-local function l_find_resultT(self, tbl_kind, replaceT, mpath, wantedA)
-   --dbg.start{"MRC:l_find_resultT( tbl_kind, replaceT, mpath, wantedA)"}
+local function l_find_resultT(self, tbl_kind, tbl_kindRx, replaceT, mpath, wantedA)
+   dbg.start{"MRC:l_find_resultT( tbl_kind, replaceT, mpath, wantedA)"}
    local resultT = false
    local Tkind   = "__" .. tbl_kind
    local tt      = {}
    local ttt     = self[Tkind] or {}
 
+   -- Add code here to search both hash table key lookup and Regex matching to keys
+
+
+
    if (self.__mpathT[mpath] and self.__mpathT[mpath][tbl_kind]) then
       tt  = self.__mpathT[mpath][tbl_kind]
    end
-   --dbg.print{"mpath: ",mpath,"\n"}
-   --dbg.printT("wantedA",wantedA)
-   --dbg.printT("ttt", ttt)
-   --dbg.printT("tt", tt)
-   --dbg.printT("mpathT", self.__mpathT)
+   dbg.print{"mpath: ",mpath,"\n"}
+   dbg.printT("wantedA",wantedA)
+   dbg.printT("ttt", ttt)
+   dbg.printT("tt", tt)
+   dbg.printT("mpathT", self.__mpathT)
 
    local mpathA = {mpath}
    for i = 1,#wantedA do
@@ -547,12 +557,14 @@ local function l_find_resultT(self, tbl_kind, replaceT, mpath, wantedA)
          else
             resultT = replaceT
          end
-         --dbg.printT("resultT",resultT)
-         --dbg.fini("MRC:l_find_resultT")
+         dbg.printT("resultT",resultT)
+         dbg.fini("MRC:l_find_resultT")
          return resultT
+      else
+         
       end
    end
-   --dbg.fini("MRC:l_find_resultT (false)")
+   dbg.fini("MRC:l_find_resultT (false)")
    return resultT
 end
 
@@ -568,7 +580,7 @@ local function l_findHiddenState(self, modT)
       wantedA[#wantedA + 1] = n
    end
 
-   local resultT = l_find_resultT(self, "hiddenT", {kind = "hidden"}, modT.mpath, wantedA)
+   local resultT = l_find_resultT(self, "hiddenT", "hiddenRxT", {kind = "hidden"}, modT.mpath, wantedA)
 
    -- Apply isVisibleHook, convert false isVisible flag to resultT.
    if (hook.exists("isVisibleHook")) then
@@ -594,7 +606,7 @@ local function l_findForbiddenState(self, mpath, sn, fullName, fn)
       _, _, n = n:find("(.*)/.*")
       wantedA[#wantedA + 1] = n
    end
-   local resultT = l_find_resultT(self, "forbiddenT", {}, mpath, wantedA)
+   local resultT = l_find_resultT(self, "forbiddenT", "forbiddenRxT", {}, mpath, wantedA)
 
    dbg.fini("l_findForbiddenState")
    return resultT or {}
