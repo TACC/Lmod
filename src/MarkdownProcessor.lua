@@ -116,7 +116,8 @@ local function processHeader(line)
       if level then
          local headerText = text
          if level:len() == 1 then
-            headerText = applyFormat(headerText:upper(), ANSI.BOLD .. ANSI.CYAN)
+            -- Use string.upper() for Lua 5.1 compatibility
+            headerText = applyFormat(string.upper(headerText), ANSI.BOLD .. ANSI.CYAN)
          elseif level:len() == 2 then
             headerText = applyFormat(headerText, ANSI.BOLD)
          else
@@ -375,7 +376,12 @@ function MarkdownProcessor._processInternal(markdownText)
          i = i + 1
       elseif inCodeBlock then
          -- Inside code block - output as-is with formatting
-         table.insert(result, "  " .. applyFormat(line, ANSI.DIM .. ANSI.CYAN))
+         -- Skip empty lines to avoid empty ANSI formatting
+         if line ~= "" then
+            table.insert(result, "  " .. applyFormat(line, ANSI.DIM .. ANSI.CYAN))
+         else
+            table.insert(result, "")
+         end
          i = i + 1
       else
          -- Handle setext headers (check before processing line)
@@ -383,7 +389,8 @@ function MarkdownProcessor._processInternal(markdownText)
          if isHeader then
             local headerText = lines[i]
             if headerType == "=" then
-               headerText = applyFormat(headerText:upper(), ANSI.BOLD .. ANSI.CYAN)
+               -- Use string.upper() for Lua 5.1 compatibility
+               headerText = applyFormat(string.upper(headerText), ANSI.BOLD .. ANSI.CYAN)
             else
                headerText = applyFormat(headerText, ANSI.BOLD)
             end
