@@ -269,10 +269,13 @@ function M.parseModA(self, modA, weight)
          elseif (entry.action == "hide") then
             self.__hiddenT[entry.name] = entry
          elseif (entry.action == "hideRegex") then
+            entry.action = "hide"
             self.__hiddenRxT[entry.name] = entry
          elseif (entry.action == "forbid") then
             self.__forbiddenT[entry.name] = entry
          elseif (entry.action == "forbidRegex") then
+            dbg.print{"action: ", entry.action,", name: ",entry.name,"\n"}
+            entry.action = "forbid"
             self.__forbiddenRxT[entry.name] = entry
          end
       until true
@@ -527,30 +530,31 @@ function M.export(self)
 end
 
 local function l_find_resultT(self, tbl_kind, tbl_kindRx, replaceT, mpath, wantedA)
-   dbg.start{"MRC:l_find_resultT( tbl_kind, replaceT, mpath, wantedA)"}
+   dbg.start{"MRC:l_find_resultT( tbl_kind: ",tbl_kind,", tbl_kindRx, replaceT, mpath, wantedA)"}
    local resultT = false
-   local Tkind   = "__" .. tbl_kind
-   local tt      = {}
-   local ttt     = self[Tkind] or {}
+   local mpathA  = {mpath}
 
-   -- Add code here to search both hash table key lookup and Regex matching to keys
+   ----------------------------------------------------------------------
+   -- Check non-regex names first
+   ----------------------------------------------------------------------
 
-
+   local modTreeMRCT = {}
+   local lmodMRCT    = self["__" .. tbl_kind] or {}
 
    if (self.__mpathT[mpath] and self.__mpathT[mpath][tbl_kind]) then
-      tt  = self.__mpathT[mpath][tbl_kind]
+      modTreeMRCT    = self.__mpathT[mpath][tbl_kind]
    end
-   dbg.print{"mpath: ",mpath,"\n"}
-   dbg.printT("wantedA",wantedA)
-   dbg.printT("ttt", ttt)
-   dbg.printT("tt", tt)
-   dbg.printT("mpathT", self.__mpathT)
 
-   local mpathA = {mpath}
+   dbg.print{"mpath: ",      mpath,"\n"}
+   dbg.printT("wantedA",     wantedA)
+   dbg.printT("lmodMRCT[".."__" .. tbl_kind .. "]", lmodMRCT)
+   dbg.printT("modTreeMRCT", modTreeMRCT)
+   dbg.printT("mpathT",      self.__mpathT)
+
    for i = 1,#wantedA do
       local wanted = wantedA[i]
       local key    = self:resolve(mpathA, wanted)
-      local ans    = ttt[key] or tt[key]
+      local ans    = lmodMRCT[key] or modTreeMRCT[key]
       if (ans) then
          if (type(ans) == "table") then
             resultT = ans
@@ -558,15 +562,70 @@ local function l_find_resultT(self, tbl_kind, tbl_kindRx, replaceT, mpath, wante
             resultT = replaceT
          end
          dbg.printT("resultT",resultT)
-         dbg.fini("MRC:l_find_resultT")
+         dbg.fini("MRC:l_find_resultT via non-regex match")
          return resultT
-      else
-         
+      end
+   end
+
+   ----------------------------------------------------------------------
+   -- Check regex names 
+   ----------------------------------------------------------------------
+   
+
+   lmodMRCT = self["__" .. tbl_kindRx] or {}
+   dbg.printT("lmodMRCT[".."__" .. tbl_kindRx .. "]",lmodMRCT)
+   if (next(lmodMRCT) == nil) then
+      dbg.print{"lmodMRCT has zero keys\n"}
+   end
+   for k, ans in pairs(lmodMRCT) do
+      dbg.print{"lmodMRCT: k: ",k,"\n"}
+      for i = 1,#wantedA do
+         local wanted = wantedA[i]
+         local key    = self:resolve(mpathA, wanted)
+         dbg.print{"lmodMRCT: key: ",key,", wanted: ",wanted,"\n"}
+         if (key:find(k)) then
+            if (type(ans) == "table") then
+               resultT = ans
+            else
+               resultT = replaceT
+            end
+            dbg.printT("resultT",resultT)
+            dbg.fini("MRC:l_find_resultT via regex match from RTMlmodMRCT")
+            
+            return resultT
+         end
+      end
+   end
+   
+   modTreeMRCT = {}
+   if (self.__mpathT[mpath] and self.__mpathT[mpath][tbl_kindRx]) then
+      modTreeMRCT    = self.__mpathT[mpath][tbl_kindRx]
+   end
+   dbg.printT("modTreeMRCT",modTreeMRCT)
+   for k, ans in pairs(modTreeMRCT) do
+      dbg.print{"modTreeMRCT: k: ",k,"\n"}
+      for i = 1,#wantedA do
+         local wanted = wantedA[i]
+         local key    = self:resolve(mpathA, wanted)
+         dbg.print{"modTreeMRCT: key: ",key,", wanted: ",wanted,"\n"}
+
+         if (key:find(k)) then
+            if (type(ans) == "table") then
+               resultT = ans
+            else
+               resultT = replaceT
+            end
+            dbg.printT("resultT",resultT)
+            dbg.fini("MRC:l_find_resultT via regex match from modTreeMRCT")
+            return resultT
+         end
       end
    end
    dbg.fini("MRC:l_find_resultT (false)")
    return resultT
 end
+
+
 
 local function l_findHiddenState(self, modT)
    --dbg.start{"l_findHiddenState(self, modT)"}
@@ -798,7 +857,7 @@ function M.isVisible(self, modT)
 end
 
 function M.isForbidden(self, modT)
-   --dbg.start{"MRC:isForbidden(modT}"}
+   dbg.start{"MRC:isForbidden(modT}"}
    local frameStk     = require("FrameStk"):singleton()
    local mname        = frameStk:mname()
    local mt           = frameStk:mt()
@@ -812,10 +871,11 @@ function M.isForbidden(self, modT)
    local resultT      = l_findForbiddenState(self, mpath, sn, fullName, fn)
 
    --dbg.print{"fullName: ",fullName,"\n"}
-   --dbg.printT("resultT",resultT)
+   dbg.printT("resultT",resultT)
 
+   --if (resultT.action ~= "forbid" and resultT.action ~= "forbidRegex") then
    if (resultT.action ~= "forbid") then
-      --dbg.fini("MRC:isForbidden")
+      dbg.fini("MRC:isForbidden")
       return nil
    end
 
@@ -831,7 +891,8 @@ function M.isForbidden(self, modT)
    local my_resultT  = {forbiddenState = modT.forbiddenState, message = modT.message,
                         nearlymessage = modT.nearlymessage, after = resultT.after}
 
-   --dbg.fini("MRC:isForbidden")
+   dbg.printT("my_resultT",my_resultT)
+   dbg.fini("MRC:isForbidden")
    return my_resultT
 end
 
