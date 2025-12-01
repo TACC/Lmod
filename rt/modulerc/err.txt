@@ -1391,10 +1391,29 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 121
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
+===========================
+ProjectDIR/rt/modulerc/mfH/Core
+   AA/1.0         Bar/1.1  (H)    Gpu-app/2.0 (F)    gpu-app/4.0 (F)
+   BB/2.0  (F)    Bar/2.0  (D)    Junk/1.0    (H)
+   BB/3.0  (D)    Foo/2.0  (H)    Junk/1.1    (H)
+   Bar/1.0 (H)    Foo/3.14 (D)    Junk/2.0    (D)
+  Where:
+   D:  Default Module
+   F:  Forbidden Module
+   H:  Hidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 122
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mfH/Core
-   AA/1.0    BB/2.0    BB/3.0 (D)    Gpu-app/2.0 (F)    gpu-app/4.0 (F)
+   AA/1.0        BB/3.0  (D)    Foo/3.14           Junk/2.0
+   BB/2.0 (F)    Bar/2.0        Gpu-app/2.0 (F)    gpu-app/4.0 (F)
   Where:
    D:  Default Module
    F:  Forbidden Module
