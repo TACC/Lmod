@@ -294,7 +294,8 @@ EOF
      export MODULEPATH_ROOT=$(testDir)/mfH
      export MODULEPATH=$MODULEPATH_ROOT/Core
      export LMOD_MODULERC=$(testDir)/lmodrc_797.lua
-     runLmod avail                                     #121
+     runLmod -A avail                                  #121
+     runLmod    avail                                  #122
 
 
 

@@ -274,7 +274,6 @@ function M.parseModA(self, modA, weight)
          elseif (entry.action == "forbid") then
             self.__forbiddenT[entry.name] = entry
          elseif (entry.action == "forbidRegex") then
-            dbg.print{"action: ", entry.action,", name: ",entry.name,"\n"}
             entry.action = "forbid"
             self.__forbiddenRxT[entry.name] = entry
          end
@@ -495,8 +494,10 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
       elseif (entry.action == "forbid") then
          l_store_mpathT(self, mpath, "forbiddenT", entry.name, entry);
       elseif (entry.action == "hideRegex") then
+         entry.action = "hide"
          l_store_mpathT(self, mpath, "hiddenRxT", entry.name, entry);
       elseif (entry.action == "forbidRegex") then
+         entry.action = "forbid"
          l_store_mpathT(self, mpath, "forbiddenRxT", entry.name, entry);
       end
    end
@@ -521,11 +522,7 @@ function M.extract(self)
    return t, self.__mpathT
 end
 function M.export(self)
-   local t, mrcMpathT = self:extract()
-   local a = {}
-   --a[1] = serializeTbl{indent = true, name = "mrcT",      value = t         }
-   --a[2] = serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
-   --return concatTbl(a,"\n")
+   local mrcMpathT = self:mrcMpathT()
    return serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
 end
 
