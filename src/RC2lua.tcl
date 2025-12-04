@@ -183,11 +183,8 @@ proc module-hide {args} {
 proc module-hide-regex {args} {
    lassign [parseMyArgs {*}$args] argT extraArgA
    
-   if { ! [dict exists $argT kind] } {
-      dict set argT kind "\"hiddenRegex\""
-   }
    foreach name $extraArgA {
-      set str "\{action=\"hide\",name="
+      set str "\{action=\"hideRegex\",name="
       append str "\"$name\","
    
       dict for {key value} $argT {

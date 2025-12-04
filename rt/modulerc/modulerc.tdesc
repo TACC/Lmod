@@ -296,6 +296,9 @@ EOF
      export LMOD_MODULERC=$(testDir)/lmodrc_797.lua
      runLmod -A avail                                  #121
      runLmod    avail                                  #122
+     export LMOD_MODULERC=$(testDir)/modrc_797
+     runLmod -A avail                                  #123
+
 
 
 
