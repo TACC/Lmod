@@ -1,0 +1,80 @@
+-- -*- lua -*-
+local testName = "terse_spider"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+     Test terse mode output for spider command:
+     1. Single module match should output just module name (not verbose format)
+     2. Single module with dependencies should show module name, not prerequisites
+     3. Multiple module matches should output module names (one per line)
+     4. No blank line at end of output
+     5. Non-existent module should output nothing (no error message, no blank line)
+   ]],
+   keywords = {testName, "spider", "terse"},
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export MODULEPATH_ROOT=$(testDir)/mf
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+
+     remove_generated_lmod_files
+
+     runLmod --version                                    # 1
+     
+     # Test 1: Single module match in terse mode should output just module name
+     # Expected: gmp/6.3.0 (single line, no verbose formatting, no blank line)
+     # This tests the asymmetry fix: single module should show module name,
+     # not prerequisites, even when dependencies exist
+     runLmod -t spider gmp                                # 2
+     
+     # Test 2: Multiple module matches should output module names (one per line)
+     # Expected: hdf5/1.14.4\nhdf5/1.14.6 (one per line, no blank line at end)
+     # This tests that multiple modules work correctly and no blank line appears
+     runLmod -t spider hdf5                               # 3
+     
+     # Test 3: Non-existent module in terse mode should output nothing
+     # Expected: (empty output, no error message, no blank line)
+     # This verifies no blank line issue and proper handling of non-existent modules
+     runLmod -t spider alps                               # 4
+     
+     # Test 4: Non-existent module in non-terse mode should show error
+     # Expected: Error message (to verify non-terse mode still works)
+     runLmod spider alps                                   # 5
+
+     HOME=$ORIG_HOME
+
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results -bash _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
+
+
+
