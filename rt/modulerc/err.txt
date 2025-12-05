@@ -1394,10 +1394,10 @@ step 121
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
 ===========================
 ProjectDIR/rt/modulerc/mfH/Core
-   AA/1.0         Bar/1.1  (H)    Gpu-app/2.0 (F)    Junk/2.0 (D)
-   BB/2.0  (F)    Bar/2.0  (D)    Hpu-app/4.0 (F)
-   BB/3.0  (D)    Foo/2.0  (H)    Junk/1.0    (H)
-   Bar/1.0 (H)    Foo/3.14 (D)    Junk/1.1    (H)
+   AA/1.0         Bar/1.1  (H)      Gpu-app/2.0 (F)    Junk/2.0 (D)
+   BB/2.0  (F)    Bar/2.0  (D)      Hpu-app/4.0 (F)
+   BB/3.0  (D)    Foo/2.0  (H)      Junk/1.0    (H)
+   Bar/1.0 (H)    Foo/3.14 (H,D)    Junk/1.1    (H)
   Where:
    D:  Default Module
    F:  Forbidden Module
@@ -1412,8 +1412,8 @@ step 122
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mfH/Core
-   AA/1.0        BB/3.0  (D)    Foo/3.14           Hpu-app/4.0 (F)
-   BB/2.0 (F)    Bar/2.0        Gpu-app/2.0 (F)    Junk/2.0
+   AA/1.0        BB/3.0  (D)    Gpu-app/2.0 (F)    Junk/2.0
+   BB/2.0 (F)    Bar/2.0        Hpu-app/4.0 (F)
   Where:
    D:  Default Module
    F:  Forbidden Module
@@ -1427,10 +1427,10 @@ step 123
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
 ===========================
 ProjectDIR/rt/modulerc/mfH/Core
-   AA/1.0         Bar/1.1  (H)    Gpu-app/2.0 (F)    Junk/2.0 (D)
-   BB/2.0  (F)    Bar/2.0  (D)    Hpu-app/4.0 (F)
-   BB/3.0  (D)    Foo/2.0  (s)    Junk/1.0    (H)
-   Bar/1.0 (H)    Foo/3.14 (D)    Junk/1.1    (H)
+   AA/1.0         Bar/1.1  (H)      Gpu-app/2.0 (F)    Junk/2.0 (D)
+   BB/2.0  (F)    Bar/2.0  (D)      Hpu-app/4.0 (F)
+   BB/3.0  (D)    Foo/2.0  (s)      Junk/1.0    (H)
+   Bar/1.0 (H)    Foo/3.14 (H,D)    Junk/1.1    (H)
   Where:
    D:  Default Module
    F:  Forbidden Module
