@@ -1092,7 +1092,9 @@ function SpiderCmd(...)
       s = concatTbl(a,"")
    end
    if (optionTbl.terse) then
-      shell:echo(s.."\n")
+      -- Remove any trailing newlines and add exactly one
+      s = s:gsub("\n+$", "") .. "\n"
+      shell:echo(s)
    else
       local a = {}
       a[#a+1] = s
