@@ -373,3 +373,35 @@ _LMFILES_=ProjectDIR/rt/mode_select/mf/TCL_Core/dep_load/1.0:ProjectDIR/rt/mode_
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={dep_both={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_both/1.0",fullName="dep_both/1.0",loadOrder=3,propT={},stackDepth=1,status="active",userName="dep_both",wV="000000001.*zfinal",},dep_load={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_load/1.0",fullName="dep_load/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="dep_load",wV="000000001.*zfinal",},dep_unload={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_unload/1.0",fullName="dep_unload/1.0",loadOrder=2,propT={},stackDepth=1,status="active",userName="dep_unload",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/TCL_Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/TCL_Core",}';
 export _ModuleTable_;
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show simple_test
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/TCL_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={dep_both={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_both/1.0",fullName="dep_both/1.0",loadOrder=3,propT={},stackDepth=1,status="active",userName="dep_both",wV="000000001.*zfinal",},dep_load={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_load/1.0",fullName="dep_load/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="dep_load",wV="000000001.*zfinal",},dep_unload={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_unload/1.0",fullName="dep_unload/1.0",loadOrder=2,propT={},stackDepth=1,status="active",userName="dep_unload",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/TCL_Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/TCL_Core",}';
+export _ModuleTable_;
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show mixed_syntax_test
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/TCL_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={dep_both={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_both/1.0",fullName="dep_both/1.0",loadOrder=3,propT={},stackDepth=1,status="active",userName="dep_both",wV="000000001.*zfinal",},dep_load={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_load/1.0",fullName="dep_load/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="dep_load",wV="000000001.*zfinal",},dep_unload={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_unload/1.0",fullName="dep_unload/1.0",loadOrder=2,propT={},stackDepth=1,status="active",userName="dep_unload",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/TCL_Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/TCL_Core",}';
+export _ModuleTable_;
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show edge_cases_test
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/TCL_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={dep_both={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_both/1.0",fullName="dep_both/1.0",loadOrder=3,propT={},stackDepth=1,status="active",userName="dep_both",wV="000000001.*zfinal",},dep_load={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_load/1.0",fullName="dep_load/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="dep_load",wV="000000001.*zfinal",},dep_unload={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_unload/1.0",fullName="dep_unload/1.0",loadOrder=2,propT={},stackDepth=1,status="active",userName="dep_unload",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/TCL_Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/TCL_Core",}';
+export _ModuleTable_;
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show env_test
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/TCL_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={dep_both={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_both/1.0",fullName="dep_both/1.0",loadOrder=3,propT={},stackDepth=1,status="active",userName="dep_both",wV="000000001.*zfinal",},dep_load={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_load/1.0",fullName="dep_load/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="dep_load",wV="000000001.*zfinal",},dep_unload={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_unload/1.0",fullName="dep_unload/1.0",loadOrder=2,propT={},stackDepth=1,status="active",userName="dep_unload",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/TCL_Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/TCL_Core",}';
+export _ModuleTable_;

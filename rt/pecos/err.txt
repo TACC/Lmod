@@ -3,7 +3,7 @@ step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 5.2.5 5.2.5-21-geecdc9c 2014-01-26 07:24
-    by Robert McLay mclay@tacc.utexas.edu
+    https://lmod.readthedocs.io
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider

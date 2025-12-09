@@ -1,0 +1,17 @@
+#%Module
+# Test module for edge cases and special scenarios
+
+# Test with special characters in values
+setenv SPECIAL_CHARS_VAR "value with spaces and \$symbols"
+setenv QUOTES_VAR "value with \"quotes\" and 'apostrophes'"
+
+# Test with empty values
+setenv EMPTY_VAR ""
+unsetenv UNSET_EMPTY_VAR
+
+# Test mode-specific with special characters
+setenv --mode load SPECIAL_MODE_VAR "mode value with \$pecial chars"
+
+# Test unsetenv and pushenv with modes
+unsetenv --mode unload MODE_UNSET_VAR
+pushenv --mode load MODE_PUSH_VAR "mode_push_value"

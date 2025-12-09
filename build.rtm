@@ -116,7 +116,7 @@ COMMON_OPTIONS="--with-siteName=TACC  --with-silentShellDebugging=yes"
 
 
 case $SYSHOST in
-  mijo | vmijo | test-vmijo )
+  xena | mijo | vmijo | test-vmijo )
     SITE_CONTROLLED_PREFIX=yes
     SUDO="sudo"
     base="/opt/apps/lmod/$PKG_VERSION"

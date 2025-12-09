@@ -3,7 +3,7 @@ Upstream-Name: lmod
 Source: http://sourceforge.net/projects/lmod/
 
 Files: *
-Copyright: 2008-2014 Robert McLay <mclay@tacc.utexas.edu>
+Copyright: 2008-2025 Robert McLay <mclay@tacc.utexas.edu>
 License: MIT
 
 Files: tools/base64.lua

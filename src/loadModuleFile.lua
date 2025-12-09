@@ -17,7 +17,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2018 Robert McLay
+--  Copyright (C) 2008-2025 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -61,7 +61,7 @@ local s_mfileCountT   = {}
 --          things like the current list of modules and the shell.
 function loadModuleFile(t)
    dbg.start{"loadModuleFile(",t.file,")"}
-   dbg.print{"mcp: ",mcp,"\n"}
+   --dbg.print{"mcp: ",mcp,"\n"}
 
    local myType     = extname(t.file)
    local forbiddenT = t.forbiddenT or {}
@@ -187,7 +187,7 @@ function loadModuleFile(t)
       end
    end
 
-   dbg.print{"mcp: ",mcp,"\n"}
+   --dbg.print{"mcp: ",mcp,"\n"}
    dbg.fini("loadModuleFile")
    return not lmodBrk
 end

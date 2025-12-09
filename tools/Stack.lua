@@ -49,16 +49,13 @@ function M.new(self)
 end
 
 function M.push(self, entry)
-   dbg.start{"Stack:push(entry)"}
    local stack  = self.__stack
    local count  = self.__count + 1
    stack[count] = entry
    self.__count = count
-   dbg.fini("Stack:push")
 end
 
 function M.pop(self)
-   dbg.start{"Stack:pop()"}
    local stack  = self.__stack
    local count  = self.__count
    assert(count > 0,"Trying to pop an empty stack")
@@ -66,7 +63,6 @@ function M.pop(self)
    local entry  = stack[count]
    stack[count] = nil
    self.__count = count - 1
-   dbg.fini("Stack:pop")
    return entry
 end
    

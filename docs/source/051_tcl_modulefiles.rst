@@ -56,9 +56,8 @@ standard TCL language.
    Exits the module.  No changes in the environment occur if this
    command is found.
 
-**extensions** "numpy/2.1 scipy/3.2" :
-   This module provides the following extensions. Place the list of
-   extensions as a single string.
+**extensions** A B :
+   This module provides the following extensions.
 
 **family NAME** :
    A user can only have one family "name" loaded at a time. For
@@ -156,6 +155,9 @@ standard TCL language.
 
 **remove-property NAME** *value* :
    See :ref:`lmodrc-label` for how to use this command.
+
+**report** *string* :
+  Prints a message to the user.
 
 **reportError** *string* :
   Report an error and abort processing of the modulefile.

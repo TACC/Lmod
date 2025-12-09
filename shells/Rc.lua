@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2018 Robert McLay
+--  Copyright (C) 2008-2025 Robert McLay
 --  Copyright (C) 2021 Oak Ridge National Laboratory
 --
 --  Permission is hereby granted, free of charge, to any person obtaining

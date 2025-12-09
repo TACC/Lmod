@@ -1,6 +1,10 @@
 New Features in Lmod
 ====================
 
+**Collection are written to ~/.config/lmod only
+   (Lmod 9.0+) This means that Lmod will only write to ~/.config/lmod
+   but always read from both directories (~/.config/lmod and ~/.lmod.d)
+
 **Using luaposix's syslog interface**
   (Lmod 8.8+)  See :ref:`tracking_usage` for more details. In
   particular please see the **l_report_loads** () function.
@@ -95,14 +99,7 @@ New Features in Lmod
    and "library" will both be printed out when running **module
    category library**
 
-**Collection are written to both ~/.config/lmod and ~/.lmod.d**
-   (Lmod 8.7.13+) Lmod is transitioning away from using the ~/.lmod.d
-   directory. During transition, collection files are written to both
-   directories.  Sites can use the --with-useDotConfigDirOnly=yes or
-   set the env. var. **LMOD_USE_DOT_CONFIG_ONLY** to "yes" to complete
-   the transition.  Lmod 9+ will force the default to be yes. This
-   means that Lmod will only write to ~/.config/lmod but always read
-   from both directories.
+
 
 **User cache files are now written to ~/.cache/lmod**:
    (Lmod 8.7.12+) The old user cache directory was ~/.lmod.d/.cache

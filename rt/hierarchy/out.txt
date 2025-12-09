@@ -418,3 +418,236 @@ MODULEPATH=ProjectDIR/rt/hierarchy/mf2/Compiler:ProjectDIR/rt/hierarchy/mf2/Core
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Default={fn="ProjectDIR/rt/hierarchy/mf2/Core/Default.lua",fullName="Default",loadOrder=3,propT={},stackDepth=0,status="active",userName="Default",wV="M.*zfinal",},moduleA={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf2/Compiler")]],},fn="ProjectDIR/rt/hierarchy/mf2/Core/moduleA.lua",fullName="moduleA",loadOrder=1,propT={},stackDepth=1,status="active",userName="moduleA",wV="M.*zfinal",},moduleB={fn="ProjectDIR/rt/hierarchy/mf2/Compiler/moduleB.lua",fullName="moduleB",loadOrder=2,propT={},stackDepth=1,status="active",userName="moduleB",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/hierarchy/mf2/Compiler","ProjectDIR/rt/hierarchy/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/hierarchy/mf2/Core",}';
 export _ModuleTable_;
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/hierarchy/mf2/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/hierarchy/mf2/Core;
+export MODULEPATH;
+unset MY_NAME;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/hierarchy/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/hierarchy/mf2/Core",}';
+export _ModuleTable_;
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/10 boost
+===========================
+LOADEDMODULES=gcc/10.0:boost/1.9;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10:1\;ProjectDIR/rt/hierarchy/mf3/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10:ProjectDIR/rt/hierarchy/mf3/Core;
+export MODULEPATH;
+VERSION=1.9;
+export VERSION;
+_LMFILES_=ProjectDIR/rt/hierarchy/mf3/Core/gcc/10.0.lua:ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10/boost/1.9.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={boost={fn="ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10/boost/1.9.lua",fullName="boost/1.9",loadOrder=2,propT={},stackDepth=0,status="active",userName="boost",wV="000000001.000000009.*zfinal",},gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10")]],},fn="ProjectDIR/rt/hierarchy/mf3/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},},mpathA={"ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10","ProjectDIR/rt/hierarchy/mf3/Core",},systemBaseMPATH="ProjectDIR/rt/hierarchy/mf3/Core",}';
+export _ModuleTable_;
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/11 boost
+===========================
+false
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10:ProjectDIR/rt/hierarchy/mf3/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={boost={fn="ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10/boost/1.9.lua",fullName="boost/1.9",loadOrder=2,propT={},stackDepth=0,status="active",userName="boost",wV="000000001.000000009.*zfinal",},gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10")]],},fn="ProjectDIR/rt/hierarchy/mf3/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},},mpathA={"ProjectDIR/rt/hierarchy/mf3/Compiler/gcc/10","ProjectDIR/rt/hierarchy/mf3/Core",},systemBaseMPATH="ProjectDIR/rt/hierarchy/mf3/Core",}';
+export _ModuleTable_;
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/hierarchy/mf3/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/hierarchy/mf3/Core;
+export MODULEPATH;
+unset VERSION;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/hierarchy/mf3/Core",},systemBaseMPATH="ProjectDIR/rt/hierarchy/mf3/Core",}';
+export _ModuleTable_;
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load meta/10 gcc/10 CMake
+===========================
+__LMOD_REF_COUNT_CMAKE_LIBRARY_PATH=/software/rome/r25.06/OpenSSL/3/lib64:1;
+export __LMOD_REF_COUNT_CMAKE_LIBRARY_PATH;
+CMAKE_LIBRARY_PATH=/software/rome/r25.06/OpenSSL/3/lib64;
+export CMAKE_LIBRARY_PATH;
+__LMOD_REF_COUNT_CMAKE_PREFIX_PATH=/software/rome/r25.06/OpenSSL/3:1;
+export __LMOD_REF_COUNT_CMAKE_PREFIX_PATH;
+CMAKE_PREFIX_PATH=/software/rome/r25.06/OpenSSL/3;
+export CMAKE_PREFIX_PATH;
+__LMOD_REF_COUNT_CPATH=/software/rome/r25.06/OpenSSL/3/include:1;
+export __LMOD_REF_COUNT_CPATH;
+CPATH=/software/rome/r25.06/OpenSSL/3/include;
+export CPATH;
+EBDEVELOPENSSL=/software/rome/r25.06/OpenSSL/3/easybuild/Core-OpenSSL-3-easybuild-devel;
+export EBDEVELOPENSSL;
+EBROOTOPENSSL=/software/rome/r25.06/OpenSSL/3;
+export EBROOTOPENSSL;
+EBVERSIONOPENSSL=3;
+export EBVERSIONOPENSSL;
+EBVERSIONZLIB=1.3.1;
+export EBVERSIONZLIB;
+__LMOD_REF_COUNT_LD_LIBRARY_PATH=/software/rome/r25.06/OpenSSL/3/lib64:1;
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+LD_LIBRARY_PATH=/software/rome/r25.06/OpenSSL/3/lib64;
+export LD_LIBRARY_PATH;
+__LMOD_REF_COUNT_LIBRARY_PATH=/software/rome/r25.06/OpenSSL/3/lib64:1;
+export __LMOD_REF_COUNT_LIBRARY_PATH;
+LIBRARY_PATH=/software/rome/r25.06/OpenSSL/3/lib64;
+export LIBRARY_PATH;
+LOADEDMODULES=meta/10.0:gcc/10.0:OpenSSL/3:zlib/1.3.1:CMake/3.29.3;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH=/software/rome/r25.06/OpenSSL/3/share/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/software/rome/r25.06/OpenSSL/3/share/man;
+export MANPATH;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/hierarchy/mf4/Compiler/gcc/10:1\;ProjectDIR/rt/hierarchy/mf4/Core:1\;ProjectDIR/rt/hierarchy/mf4/base:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/hierarchy/mf4/Compiler/gcc/10:ProjectDIR/rt/hierarchy/mf4/Core:ProjectDIR/rt/hierarchy/mf4/base;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=/software/rome/r25.06/OpenSSL/3/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/software/rome/r25.06/OpenSSL/3/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+__LMOD_REF_COUNT_PKG_CONFIG_PATH=/software/rome/r25.06/OpenSSL/3/lib64/pkgconfig:1;
+export __LMOD_REF_COUNT_PKG_CONFIG_PATH;
+PKG_CONFIG_PATH=/software/rome/r25.06/OpenSSL/3/lib64/pkgconfig;
+export PKG_CONFIG_PATH;
+__LMOD_REF_COUNT_XDG_DATA_DIRS=/software/rome/r25.06/OpenSSL/3/share:1;
+export __LMOD_REF_COUNT_XDG_DATA_DIRS;
+XDG_DATA_DIRS=/software/rome/r25.06/OpenSSL/3/share;
+export XDG_DATA_DIRS;
+_LMFILES_=ProjectDIR/rt/hierarchy/mf4/base/meta/10.0.lua:ProjectDIR/rt/hierarchy/mf4/Core/gcc/10.0.lua:ProjectDIR/rt/hierarchy/mf4/Core/OpenSSL/3.lua:ProjectDIR/rt/hierarchy/mf4/Compiler/gcc/10/zlib/1.3.1.lua:ProjectDIR/rt/hierarchy/mf4/Compiler/gcc/10/CMake/3.29.3.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={CMake={depT={depA={{sn="zlib",version={kind="fixed",value="1.3.1",},},},},fn="ProjectDIR/rt/hierarchy/mf4/Compiler/gcc/10/CMake/3.29.3.lua",fullName="CMake/3.29.3",loadOrder=5,propT={},stackDepth=0,status="active",userName="CMake",wV="000000003.000000029.000000003.*zfinal",},OpenSSL={fn="ProjectDIR/rt/hierarchy/mf4/Core/OpenSSL/3.lua",fullName="OpenSSL/3",loadOrder=3,propT={},ref_count=1,stackDepth=2,status="active",userName="OpenSSL/3",wV="000000003.*zfinal",},gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf4/Compiler/gcc/10")]],},fn="ProjectDIR/rt/hierarchy/mf4/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},meta={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf4/Core")]],},fn="ProjectDIR/rt/hierarchy/mf4/base/meta/10.0.lua",fullName="meta/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="meta/10.0",wV="000000010.*zfinal",},zlib={depT={depA={{sn="OpenSSL",version={kind="fixed",value="3",},},},},fn="ProjectDIR/rt/hierarchy/mf4/Compiler/gcc/10/zlib/1.3.1.lua",fullName="zlib/1.3.1",loadOrder=4,propT={},ref_count=1,stackDepth=1,status="active",userName="zlib/1.3.1",wV="000000001.000000003.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/hierarchy/mf4/Compiler/gcc/10","ProjectDIR/rt/hierarchy/mf4/Core","ProjectDIR/rt/hierarchy/mf4/base",},systemBaseMPATH="ProjectDIR/rt/hierarchy/mf4/base",}';
+export _ModuleTable_;
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/hierarchy/mf4/Compiler/gcc/10:ProjectDIR/rt/hierarchy/mf4/Core:ProjectDIR/rt/hierarchy/mf4/base;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={CMake={depT={depA={{sn="zlib",version={kind="fixed",value="1.3.1",},},},},fn="ProjectDIR/rt/hierarchy/mf4/Compiler/gcc/10/CMake/3.29.3.lua",fullName="CMake/3.29.3",loadOrder=5,propT={},stackDepth=0,status="active",userName="CMake",wV="000000003.000000029.000000003.*zfinal",},OpenSSL={fn="ProjectDIR/rt/hierarchy/mf4/Core/OpenSSL/3.lua",fullName="OpenSSL/3",loadOrder=3,propT={},ref_count=1,stackDepth=2,status="active",userName="OpenSSL/3",wV="000000003.*zfinal",},gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf4/Compiler/gcc/10")]],},fn="ProjectDIR/rt/hierarchy/mf4/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},meta={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf4/Core")]],},fn="ProjectDIR/rt/hierarchy/mf4/base/meta/10.0.lua",fullName="meta/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="meta/10.0",wV="000000010.*zfinal",},zlib={depT={depA={{sn="OpenSSL",version={kind="fixed",value="3",},},},},fn="ProjectDIR/rt/hierarchy/mf4/Compiler/gcc/10/zlib/1.3.1.lua",fullName="zlib/1.3.1",loadOrder=4,propT={},ref_count=1,stackDepth=1,status="active",userName="zlib/1.3.1",wV="000000001.000000003.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/hierarchy/mf4/Compiler/gcc/10","ProjectDIR/rt/hierarchy/mf4/Core","ProjectDIR/rt/hierarchy/mf4/base",},systemBaseMPATH="ProjectDIR/rt/hierarchy/mf4/base",}';
+export _ModuleTable_;
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load meta/10 gcc/11 CMake
+===========================
+false
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset __LMOD_REF_COUNT_CMAKE_LIBRARY_PATH;
+unset CMAKE_LIBRARY_PATH;
+unset __LMOD_REF_COUNT_CMAKE_PREFIX_PATH;
+unset CMAKE_PREFIX_PATH;
+unset __LMOD_REF_COUNT_CPATH;
+unset CPATH;
+unset EBDEVELOPENSSL;
+unset EBROOTOPENSSL;
+unset EBVERSIONOPENSSL;
+unset EBVERSIONZLIB;
+unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+unset LD_LIBRARY_PATH;
+unset __LMOD_REF_COUNT_LIBRARY_PATH;
+unset LIBRARY_PATH;
+unset LOADEDMODULES;
+unset __LMOD_REF_COUNT_MANPATH;
+unset MANPATH;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/hierarchy/mf4/base:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/hierarchy/mf4/base;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+unset __LMOD_REF_COUNT_PKG_CONFIG_PATH;
+unset PKG_CONFIG_PATH;
+unset __LMOD_REF_COUNT_XDG_DATA_DIRS;
+unset XDG_DATA_DIRS;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/hierarchy/mf4/base",},systemBaseMPATH="ProjectDIR/rt/hierarchy/mf4/base",}';
+export _ModuleTable_;
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load meta/10 gcc/10 CMake
+===========================
+__LMOD_REF_COUNT_CMAKE_LIBRARY_PATH=/software/rome/r25.06/OpenSSL/3/lib64:1;
+export __LMOD_REF_COUNT_CMAKE_LIBRARY_PATH;
+CMAKE_LIBRARY_PATH=/software/rome/r25.06/OpenSSL/3/lib64;
+export CMAKE_LIBRARY_PATH;
+__LMOD_REF_COUNT_CMAKE_PREFIX_PATH=/software/rome/r25.06/OpenSSL/3:1;
+export __LMOD_REF_COUNT_CMAKE_PREFIX_PATH;
+CMAKE_PREFIX_PATH=/software/rome/r25.06/OpenSSL/3;
+export CMAKE_PREFIX_PATH;
+__LMOD_REF_COUNT_CPATH=/software/rome/r25.06/OpenSSL/3/include:1;
+export __LMOD_REF_COUNT_CPATH;
+CPATH=/software/rome/r25.06/OpenSSL/3/include;
+export CPATH;
+EBDEVELOPENSSL=/software/rome/r25.06/OpenSSL/3/easybuild/Core-OpenSSL-3-easybuild-devel;
+export EBDEVELOPENSSL;
+EBROOTOPENSSL=/software/rome/r25.06/OpenSSL/3;
+export EBROOTOPENSSL;
+EBVERSIONOPENSSL=3;
+export EBVERSIONOPENSSL;
+EBVERSIONZLIB=1.3.1;
+export EBVERSIONZLIB;
+__LMOD_REF_COUNT_LD_LIBRARY_PATH=/software/rome/r25.06/OpenSSL/3/lib64:1;
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+LD_LIBRARY_PATH=/software/rome/r25.06/OpenSSL/3/lib64;
+export LD_LIBRARY_PATH;
+__LMOD_REF_COUNT_LIBRARY_PATH=/software/rome/r25.06/OpenSSL/3/lib64:1;
+export __LMOD_REF_COUNT_LIBRARY_PATH;
+LIBRARY_PATH=/software/rome/r25.06/OpenSSL/3/lib64;
+export LIBRARY_PATH;
+LOADEDMODULES=meta/10.0:GCCcore/10.0:gcc/10.0:OpenSSL/3:zlib/1.3.1:CMake/3.29.3;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH=/software/rome/r25.06/OpenSSL/3/share/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/software/rome/r25.06/OpenSSL/3/share/man;
+export MANPATH;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/hierarchy/mf5/Compiler/gcc/10:1\;ProjectDIR/rt/hierarchy/mf5/Compiler/GCCcore/10:1\;ProjectDIR/rt/hierarchy/mf5/Core:1\;ProjectDIR/rt/hierarchy/mf5/base:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/hierarchy/mf5/Compiler/gcc/10:ProjectDIR/rt/hierarchy/mf5/Compiler/GCCcore/10:ProjectDIR/rt/hierarchy/mf5/Core:ProjectDIR/rt/hierarchy/mf5/base;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=/software/rome/r25.06/OpenSSL/3/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/software/rome/r25.06/OpenSSL/3/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+__LMOD_REF_COUNT_PKG_CONFIG_PATH=/software/rome/r25.06/OpenSSL/3/lib64/pkgconfig:1;
+export __LMOD_REF_COUNT_PKG_CONFIG_PATH;
+PKG_CONFIG_PATH=/software/rome/r25.06/OpenSSL/3/lib64/pkgconfig;
+export PKG_CONFIG_PATH;
+__LMOD_REF_COUNT_XDG_DATA_DIRS=/software/rome/r25.06/OpenSSL/3/share:1;
+export __LMOD_REF_COUNT_XDG_DATA_DIRS;
+XDG_DATA_DIRS=/software/rome/r25.06/OpenSSL/3/share;
+export XDG_DATA_DIRS;
+_LMFILES_=ProjectDIR/rt/hierarchy/mf5/base/meta/10.0.lua:ProjectDIR/rt/hierarchy/mf5/Core/GCCcore/10.0.lua:ProjectDIR/rt/hierarchy/mf5/Core/gcc/10.0.lua:ProjectDIR/rt/hierarchy/mf5/Core/OpenSSL/3.lua:ProjectDIR/rt/hierarchy/mf5/Compiler/GCCcore/10/zlib/1.3.1.lua:ProjectDIR/rt/hierarchy/mf5/Compiler/gcc/10/CMake/3.29.3.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={CMake={depT={depA={{sn="zlib",version={kind="fixed",value="1.3.1",},},},},fn="ProjectDIR/rt/hierarchy/mf5/Compiler/gcc/10/CMake/3.29.3.lua",fullName="CMake/3.29.3",loadOrder=6,propT={},stackDepth=0,status="active",userName="CMake",wV="000000003.000000029.000000003.*zfinal",},GCCcore={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf5/Compiler/GCCcore/10")]],},fn="ProjectDIR/rt/hierarchy/mf5/Core/GCCcore/10.0.lua",fullName="GCCcore/10.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="GCCcore/10.0",wV="000000010.*zfinal",},OpenSSL={fn="ProjectDIR/rt/hierarchy/mf5/Core/OpenSSL/3.lua",fullName="OpenSSL/3",loadOrder=4,propT={},ref_count=1,stackDepth=2,status="active",userName="OpenSSL/3",wV="000000003.*zfinal",},gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf5/Compiler/gcc/10")]],},depT={depA={{sn="GCCcore",version={kind="fixed",value="10.0",},},},},fn="ProjectDIR/rt/hierarchy/mf5/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},meta={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf5/Core")]],},fn="ProjectDIR/rt/hierarchy/mf5/base/meta/10.0.lua",fullName="meta/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="meta/10.0",wV="000000010.*zfinal",},zlib={depT={depA={{sn="OpenSSL",version={kind="fixed",value="3",},},},},fn="ProjectDIR/rt/hierarchy/mf5/Compiler/GCCcore/10/zlib/1.3.1.lua",fullName="zlib/1.3.1",loadOrder=5,propT={},ref_count=1,stackDepth=1,status="active",userName="zlib/1.3.1",wV="000000001.000000003.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/hierarchy/mf5/Compiler/gcc/10","ProjectDIR/rt/hierarchy/mf5/Compiler/GCCcore/10","ProjectDIR/rt/hierarchy/mf5/Core","ProjectDIR/rt/hierarchy/mf5/base",},systemBaseMPATH="ProjectDIR/rt/hierarchy/mf5/base",}';
+export _ModuleTable_;
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/hierarchy/mf5/Compiler/gcc/10:ProjectDIR/rt/hierarchy/mf5/Compiler/GCCcore/10:ProjectDIR/rt/hierarchy/mf5/Core:ProjectDIR/rt/hierarchy/mf5/base;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={CMake={depT={depA={{sn="zlib",version={kind="fixed",value="1.3.1",},},},},fn="ProjectDIR/rt/hierarchy/mf5/Compiler/gcc/10/CMake/3.29.3.lua",fullName="CMake/3.29.3",loadOrder=6,propT={},stackDepth=0,status="active",userName="CMake",wV="000000003.000000029.000000003.*zfinal",},GCCcore={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf5/Compiler/GCCcore/10")]],},fn="ProjectDIR/rt/hierarchy/mf5/Core/GCCcore/10.0.lua",fullName="GCCcore/10.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="GCCcore/10.0",wV="000000010.*zfinal",},OpenSSL={fn="ProjectDIR/rt/hierarchy/mf5/Core/OpenSSL/3.lua",fullName="OpenSSL/3",loadOrder=4,propT={},ref_count=1,stackDepth=2,status="active",userName="OpenSSL/3",wV="000000003.*zfinal",},gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf5/Compiler/gcc/10")]],},depT={depA={{sn="GCCcore",version={kind="fixed",value="10.0",},},},},fn="ProjectDIR/rt/hierarchy/mf5/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},meta={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hierarchy/mf5/Core")]],},fn="ProjectDIR/rt/hierarchy/mf5/base/meta/10.0.lua",fullName="meta/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="meta/10.0",wV="000000010.*zfinal",},zlib={depT={depA={{sn="OpenSSL",version={kind="fixed",value="3",},},},},fn="ProjectDIR/rt/hierarchy/mf5/Compiler/GCCcore/10/zlib/1.3.1.lua",fullName="zlib/1.3.1",loadOrder=5,propT={},ref_count=1,stackDepth=1,status="active",userName="zlib/1.3.1",wV="000000001.000000003.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/hierarchy/mf5/Compiler/gcc/10","ProjectDIR/rt/hierarchy/mf5/Compiler/GCCcore/10","ProjectDIR/rt/hierarchy/mf5/Core","ProjectDIR/rt/hierarchy/mf5/base",},systemBaseMPATH="ProjectDIR/rt/hierarchy/mf5/base",}';
+export _ModuleTable_;
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load meta/10 gcc/11 CMake
+===========================
+false
