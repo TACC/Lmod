@@ -29,7 +29,7 @@ def --env lmod-eval [script: string] {
       # Handle different value types
       if ($var_value | str starts-with 'r#') and ($var_value | str ends-with '#') {
         # Raw string value - extract the content
-        let content = ($var_value | str substring 3..(-2))
+        let content = ($var_value | str substring 3..(-3))
         load-env {$var_name: $content}
       } else if ($var_value | str starts-with '[') and ($var_value | str ends-with ']') {
         # Array/list value - convert raw strings to regular strings then parse
