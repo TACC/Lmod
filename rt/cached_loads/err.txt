@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.64 2025-07-08 12:40 -06:00
+Modules based on Lua: Version 9.0.4 2025-11-12 09:30 -06:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -83,3 +83,83 @@ Due to MODULEPATH changes, the following have been reloaded:
   1) netcdf/4.9.3
 The following have been reloaded with a version change:
   1) toolchain/gcc => toolchain/intel
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/cached_loads/empty_dir
+===========================
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load toolchain/gcc
+===========================
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load toolchain/gcc
+===========================
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/cached_loads/fallback_test_dir
+===========================
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load toolchain/gcc
+===========================
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load modA modB
+===========================
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) modA/1.0   2) modB/1.0
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load modA modB
+===========================
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) modA/1.0   2) modB/1.0
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load modA
+===========================
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) modA/1.0
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load modB
+===========================
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) modA/1.0   2) modB/1.0
