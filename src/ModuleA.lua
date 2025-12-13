@@ -670,10 +670,30 @@ function M.update(self, t)
                   break;
                end
             end
-            --dbg.print{"idx: ",idx,", mA[idx].mpath: ", mA[idx].mpath,"\n"}
-            --dbg.printT("mA",mA)
-
-            assert(idx,"Did not find mpath in mA\n")
+            if (not idx) then
+               -- Only fall back to DirTree rebuild if we were using cached spider data.
+               -- This indicates a dynamic MODULEPATH change after cache was built,
+               -- not a normal cache building scenario.
+               local spiderCacheActive = (next(spiderT) ~= nil)
+               if (spiderCacheActive) then
+                  dbg.print{"mpath not in cache, rebuilding: ",mpath,"\n"}
+                  local mA_obj = self:__new( {mpath}, mt:maxDepthT(), getModuleRCT(), {})
+                  local mA     = mA_obj:moduleA()
+                  for i = 1,#mA do
+                     if (mA[i].mpath == mpath) then
+                        idx = i
+                        break;
+                     end
+                  end
+               end
+            end
+            
+            if (not idx) then
+               local spiderUsed = (next(spiderT) ~= nil) and "yes" or "no"
+               local errMsg = "Did not find mpath '" .. mpath .. "' in moduleA data (spider_cache=" ..
+                             spiderUsed .. "). This may indicate a filesystem issue or invalid MODULEPATH entry."
+               LmodError{msg="e_Unable_2_Load",name=errMsg}
+            end
             moduleA[#moduleA + 1] = { mpath = mA[idx].mpath, T = mA[idx].T}
 
             ------------------------------------------------------------------
