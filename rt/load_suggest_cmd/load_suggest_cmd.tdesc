@@ -1,0 +1,137 @@
+-- -*- lua -*-
+------------------------------------------------------------------------------
+-- Test for Issue #804: Show command to load module on failure
+--
+-- This test validates the enhanced error message behavior when a user 
+-- attempts to load a module that exists but cannot be loaded due to 
+-- missing dependencies. Instead of suggesting "module spider", the error
+-- should show ready-to-copy-paste load commands.
+--
+-- Test Scenarios:
+--   1. Basic version check
+--   2. Load module with single parent dependency (boost requires gcc)
+--   3. Load module with multiple parent paths (netcdf available via gcc or intel)
+--   4. Load truly unknown module (should still show "Unable to find")
+--   5. Load module after loading its dependency (positive test)
+--   6. Load multiple modules requiring dependencies
+--   7. Spider output verification (ensure spider still works correctly)
+--   8. Module with unique single dependency path (hdf5 only available via gcc)
+------------------------------------------------------------------------------
+
+local testName = "load_suggest_cmd"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+     Test Issue #804: Enhanced error messages for module load failures.
+     When loading modules that exist but cannot be loaded due to missing
+     dependencies, the error message should show ready-to-copy-paste
+     commands instead of just suggesting "module spider".
+   ]],
+   keywords = {testName, "issue804", "error_message", "load_suggest"},
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH_ROOT=$(testDir)/mf;    export MODULEPATH_ROOT
+     MODULEPATH=$MODULEPATH_ROOT/Core; export MODULEPATH
+
+     remove_generated_lmod_files
+
+     ############################################################
+     # Test 1: Basic version check
+     runLmod --version                                            # 1
+
+     ############################################################
+     # Test 2: Show available Core modules
+     runLmod avail                                                # 2
+
+     ############################################################
+     # Test 3: Spider to show all modules and their dependencies
+     runLmod spider                                               # 3
+
+     ############################################################
+     # Test 4: Spider specific module with dependencies
+     runLmod spider boost/1.75.0                                  # 4
+
+     ############################################################
+     # Test 5: Try to load module requiring dependency - SINGLE PARENT
+     # boost/1.75.0 is available via gcc/10.0 or intel/21.0
+     # Expected: Error message should show "module load gcc/10.0 boost/1.75.0"
+     #           or list multiple options if multiple paths exist
+     runLmod load boost/1.75.0                                    # 5
+
+     ############################################################
+     # Test 6: Try to load module with MULTIPLE possible parent paths
+     # netcdf/4.8.0 is available via gcc/10.0 OR intel/21.0
+     # Expected: Error message should show multiple options
+     runLmod load netcdf/4.8.0                                    # 6
+
+     ############################################################
+     # Test 7: Load a truly UNKNOWN module (does not exist anywhere)
+     # Expected: "Unable to find" error message (existing behavior)
+     runLmod load completely_nonexistent_module/1.0               # 7
+
+     ############################################################
+     # Test 8: Load module after loading its dependency (POSITIVE test)
+     # This should succeed without error
+     runLmod load gcc/10.0                                        # 8
+     runLmod list                                                 # 9
+     runLmod load boost/1.75.0                                   #10
+     runLmod list                                                #11
+
+     ############################################################
+     # Test 9: Unload and try module with UNIQUE dependency path
+     # hdf5/1.12.0 is ONLY available via gcc/10.0
+     runLmod purge                                               #12
+     runLmod load hdf5/1.12.0                                    #13
+
+     ############################################################
+     # Test 10: Try to load MULTIPLE modules requiring dependencies at once
+     runLmod load boost/1.75.0 hdf5/1.12.0                       #14
+
+     ############################################################
+     # Test 11: Verify spider still works correctly for dependency info
+     runLmod spider hdf5/1.12.0                                  #15
+     runLmod spider netcdf/4.8.0                                 #16
+
+     ############################################################
+     # Test 12: Load module by short name (without version)
+     # Should show dependency info in error message
+     runLmod load boost                                          #17
+     runLmod load hdf5                                           #18
+
+     ############################################################
+     # Cleanup and result processing
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
