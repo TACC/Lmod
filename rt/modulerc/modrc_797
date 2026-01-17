@@ -1,0 +1,4 @@
+#%Module
+module-forbid-regex --soft \[GH\]pu%-app.*
+module-hide-regex --soft \[Ff\]oo/2.0
+
