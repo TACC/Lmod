@@ -154,7 +154,7 @@ end
 
 
 local hide_rulesT = {
-   action        = {kind="string", choiceT = {hide = true}},
+   action        = {kind="string", choiceT = {hide = true, hideRegex = true}},
    nameA         = {kind="stringArray"},
    userA         = {kind="stringArray"},
    groupA        = {kind="stringArray"},
@@ -170,8 +170,12 @@ function hide(t)
    l_hide_forbid("hide","hidden", t, hide_rulesT)
 end
 
+function hideRegex(t)
+   l_hide_forbid("hideRegex",nil, t, hide_rulesT)
+end
+
 local forbid_rulesT = {
-   action         = {kind="string", choiceT = {forbid = true}},
+   action         = {kind="string", choiceT = {forbid = true, forbidRegex = true}},
    nameA          = {kind="stringArray"},
    userA          = {kind="stringArray"},
    groupA         = {kind="stringArray"},
@@ -185,4 +189,6 @@ local forbid_rulesT = {
 function forbid(t)
    l_hide_forbid("forbid", nil, t, forbid_rulesT)
 end
-
+function forbidRegex(t)
+   l_hide_forbid("forbidRegex", nil, t, forbid_rulesT)
+end
