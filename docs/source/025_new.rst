@@ -1,7 +1,12 @@
 New Features in Lmod
 ====================
 
-**Collection are written to ~/.config/lmod only
+**New commands** *hideRegex* {} **and** *forbidRegex* {} **have been added**
+  (Lmod 9.1+) The modulerc files now support Lua based regular
+  expression matching.  See :ref:`modulerc-label` for more details.
+
+
+**Collection are written to ~/.config/lmod only**
    (Lmod 9.0+) This means that Lmod will only write to ~/.config/lmod
    but always read from both directories (~/.config/lmod and ~/.lmod.d)
 

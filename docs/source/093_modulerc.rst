@@ -190,6 +190,26 @@ within 14 days.  This can be changed by setting environment variable
 "LMOD_NEARLY_FORBIDDEN_DAYS" or by configuring Lmod in the usual
 fashion.
 
+=========================================================
+hideRegex{}: hiding modules with Lua regular expression
+=========================================================
+
+Lmod 9.1+ now supports **hideRegex** {} that has the same options as
+**hide** {}.  The only difference is that the **name** is now a
+Lua-based regular expression.  Please note that Lua-based regex's are
+simplier that standard regular expression.  These use *%* instead of
+**\\** and that *.* and *-* are regular expression characters.
+
+=============================================================
+forbidRegex{}: forbidding modules with Lua regular expression
+=============================================================
+
+Lmod 9.1+ now supports **forbidRegex** {} that has the same options as
+**forbid** {}.  The only difference is that the **name** is now a
+Lua-based regular expression.  Please note that Lua-based regex's are
+simplier that standard regular expression.  These use *%* instead of
+**\\** and that *.* and *-* are regular expression characters.
+
 
 ============================================================
 TCL .modulerc files
