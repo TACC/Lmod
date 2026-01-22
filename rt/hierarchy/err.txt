@@ -179,9 +179,9 @@ step 26
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/11 boost
 ===========================
 Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost"
-   Try:
-      module load gcc/10.0 boost
    Try: "module spider boost" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 boost
 ===========================
 step 27
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
@@ -207,9 +207,9 @@ step 31
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load meta/10 gcc/11 CMake
 ===========================
 Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "CMake"
-   Try:
-      module load meta/10.0 gcc/10.0 CMake
    Try: "module spider CMake" to see how to load the module(s).
+   Or load any one of these options:
+      module load meta/10.0 gcc/10.0 CMake
 ===========================
 step 32
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
@@ -230,6 +230,6 @@ step 35
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load meta/10 gcc/11 CMake
 ===========================
 Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "CMake"
-   Try:
-      module load meta/10.0 gcc/10.0 CMake
    Try: "module spider CMake" to see how to load the module(s).
+   Or load any one of these options:
+      module load meta/10.0 gcc/10.0 CMake

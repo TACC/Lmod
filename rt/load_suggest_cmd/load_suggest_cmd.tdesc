@@ -110,6 +110,114 @@ testdescript = {
      runLmod load hdf5                                           #18
 
      ############################################################
+     # MULTI-MODULE TESTS (Issue #804 follow-up)
+     # Test how the feature handles loading multiple modules at once
+     ############################################################
+
+     ############################################################
+     # Test 13: Two modules with SAME dependency options
+     # boost and netcdf both available via gcc/10.0 or intel/21.0
+     runLmod load boost/1.75.0 netcdf/4.8.0                      #19
+
+     ############################################################
+     # Test 14: Two modules with DIFFERENT dependency options
+     # boost has gcc/10.0 or intel/21.0, hdf5 ONLY has gcc/10.0
+     # The common dependency is gcc/10.0
+     runLmod load boost/1.75.0 hdf5/1.12.0                       #20
+
+     ############################################################
+     # Test 15: Core module (no deps) + module needing deps
+     # python/3.9 is directly loadable, boost needs gcc or intel
+     runLmod load python/3.9 boost/1.75.0                        #21
+
+     ############################################################
+     # Test 16: Unknown module + module needing deps
+     # Should show appropriate errors for both
+     runLmod load nonexistent/1.0 boost/1.75.0                   #22
+
+     ############################################################
+     # Test 17: Three modules - mixed scenario
+     # python (Core), boost (gcc or intel), hdf5 (gcc only)
+     runLmod load python/3.9 boost/1.75.0 hdf5/1.12.0            #23
+
+     ############################################################
+     # Test 18: Verify loading works when deps are satisfied
+     runLmod load gcc/10.0                                       #24
+     runLmod load boost/1.75.0 hdf5/1.12.0 netcdf/4.8.0          #25
+     runLmod list                                                #26
+
+     ############################################################
+     # DIFFERENT DEPTH DEPENDENCY TESTS
+     # Test modules with varying numbers of dependencies
+     ############################################################
+     runLmod purge                                               #27
+
+     ############################################################
+     # Test 19: Spider to show the new hierarchy
+     runLmod spider                                              #28
+
+     ############################################################
+     # Test 20: Module with 2-level deep dependency (petsc needs gcc + openmpi)
+     runLmod spider petsc/3.17                                   #29
+     runLmod load petsc/3.17                                     #30
+
+     ############################################################
+     # Test 21: Module available at BOTH 1-level AND 2-level (fftw)
+     # fftw/3.3 is available via:
+     #   - gcc/10.0 (Compiler level, 1 dep)
+     #   - gcc/10.0 openmpi/4.0 (MPI level, 2 deps)
+     runLmod spider fftw/3.3                                     #31
+     runLmod load fftw/3.3                                       #32
+
+     ############################################################
+     # Test 22: Load 2-level deep module after satisfying deps
+     runLmod load gcc/10.0 openmpi/4.0                           #33
+     runLmod load petsc/3.17                                     #34
+     runLmod list                                                #35
+
+     ############################################################
+     # COMBINED SUGGESTION TESTS (Issue #804 enhancement)
+     # When loading multiple modules, suggestions should include
+     # ALL originally requested modules, not just the failing ones
+     ############################################################
+     runLmod purge                                               #36
+
+     ############################################################
+     # Test 23: Two failing modules with SAME deps - combined suggestion
+     # boost and netcdf both work with gcc/10.0 AND intel/21.0
+     # Expected suggestion: module load gcc/10.0 boost/1.75.0 netcdf/4.8.0
+     #                      module load intel/21.0 boost/1.75.0 netcdf/4.8.0
+     runLmod load boost/1.75.0 netcdf/4.8.0                      #37
+
+     ############################################################
+     # Test 24: Two failing modules with PARTIAL common deps
+     # boost works with gcc OR intel, hdf5 ONLY works with gcc
+     # Expected suggestion: module load gcc/10.0 boost/1.75.0 hdf5/1.12.0
+     # (intel option excluded because hdf5 doesn't support it)
+     runLmod load boost/1.75.0 hdf5/1.12.0                       #38
+
+     ############################################################
+     # Test 25: Core module (succeeds) + failing module
+     # python/3.9 loads immediately, boost/1.75.0 fails
+     # Expected suggestion: module load gcc/10.0 python/3.9 boost/1.75.0
+     runLmod load python/3.9 boost/1.75.0                        #39
+
+     ############################################################
+     # Test 26: Core module + TWO failing modules with common deps
+     # python loads, boost and hdf5 both need gcc
+     # Expected: module load gcc/10.0 python/3.9 boost/1.75.0 hdf5/1.12.0
+     runLmod purge                                               #40
+     runLmod load python/3.9 boost/1.75.0 hdf5/1.12.0            #41
+
+     ############################################################
+     # Test 27: Different depth deps - fftw (1 or 2 level) + petsc (2 level)
+     # fftw: gcc/10.0 OR gcc/10.0 openmpi/4.0
+     # petsc: ONLY gcc/10.0 openmpi/4.0
+     # Common path: gcc/10.0 openmpi/4.0
+     # Expected: module load gcc/10.0 openmpi/4.0 fftw/3.3 petsc/3.17
+     runLmod load fftw/3.3 petsc/3.17                            #42
+
+     ############################################################
      # Cleanup and result processing
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

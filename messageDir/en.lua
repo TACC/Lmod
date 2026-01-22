@@ -133,8 +133,8 @@ It is also possible your cache file is out-of-date; it may help to try:
 Also make sure that all modulefiles written in TCL start with the string #%Module
 ]==],
      e_Failed_Load_2       = [==[These module(s) or extension(s) exist but cannot be loaded as requested: %{kA}
-%{suggest_cmd}   Try: "module spider %{kB}" to see how to load the module(s).
-]==],
+   Try: "module spider %{kB}" to see how to load the module(s).
+%{suggest_cmd}]==],
      e_Failed_Load_any     = [==[The load_any function failed because it could not find any of the following modules : %{module_list}
 
 Please check the spelling or version number. Also try "module spider ..."
