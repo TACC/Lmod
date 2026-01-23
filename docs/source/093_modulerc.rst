@@ -194,21 +194,29 @@ fashion.
 hideRegex{}: hiding modules with Lua regular expression
 =========================================================
 
-Lmod 9.1+ now supports **hideRegex** {} that has the same options as
+Lmod 9.0.6+ now supports **hideRegex** {} that has the same options as
 **hide** {}.  The only difference is that the **name** is now a
 Lua-based regular expression.  Please note that Lua-based regex's are
 simplier that standard regular expression.  These use *%* instead of
 **\\** and that *.* and *-* are regular expression characters.
 
+Also note that using this regular expression matching is more
+expensive than using multiple **hide**.  Some tests show that adding regular
+expression matching can cause 10 to 15% slowdowns.  
+
 =============================================================
 forbidRegex{}: forbidding modules with Lua regular expression
 =============================================================
 
-Lmod 9.1+ now supports **forbidRegex** {} that has the same options as
+Lmod 9.0.6+ now supports **forbidRegex** {} that has the same options as
 **forbid** {}.  The only difference is that the **name** is now a
 Lua-based regular expression.  Please note that Lua-based regex's are
 simplier that standard regular expression.  These use *%* instead of
 **\\** and that *.* and *-* are regular expression characters.
+
+Also note that using this regular expression matching is more
+expensive than using multiple **forbid**.  Some tests show that adding
+regular expression matching can cause 10 to 15% slowdowns.
 
 
 ============================================================
@@ -286,6 +294,10 @@ modulefiles are located or in the LMOD_MODULERC files.
 
    the above command would match both Foo/2.0 and foo/2.0
 
+Also note that using this regular expression matching is more
+expensive than using multiple **forbid**.  Some tests show that adding regular
+expression matching can cause 10 to 15% slowdowns.  
+
 
 
 **module-forbid-regex** *options* name1 name2 ...
@@ -308,6 +320,9 @@ modulefiles are located or in the LMOD_MODULERC files.
 
    the above command would match both Gpu-app.* and Hpu-app.*
 
+Also note that using this regular expression matching is more
+expensive than using multiple **forbid**.  Some tests show that adding regular
+expression matching can cause 10 to 15% slowdowns.  
 
 The above TCL commands are the only commands support in .modulerc or .version
 files. In particular, TCL commands like setenv(), pushenv() are not supported.
