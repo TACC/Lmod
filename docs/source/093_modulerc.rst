@@ -265,6 +265,49 @@ modulefiles are located or in the LMOD_MODULERC files.
 
    All of the above options work the same as the Lmod versions do.
 
+**module-hide-regex** *options* name1 name2 ...
+   Where the *options* are::
+
+       --before YYYY-MM-DDTHH:MM
+       --after  YYYY-MM-DDTHH:MM
+       --hard
+       --soft
+       --hidden-loaded
+       --user {u1 u2 ...}
+       --group {g1 g2 ...}
+       --not-user {u1 u2 ...}
+       --not-group {g1 g2 ...}
+
+   All of the above options work the same as the Lmod versions do.
+   Note that name1 name2 ... are now Lua based regular expressions
+   For example::
+
+      module-hide-regex --soft \[Ff\]oo/2.0
+
+   the above command would match both Foo/2.0 and foo/2.0
+
+
+
+**module-forbid-regex** *options* name1 name2 ...
+   Where the *options* are::
+
+       --before YYYY-MM-DDTHH:MM
+       --after  YYYY-MM-DDTHH:MM
+       --user {u1 u2 ...}
+       --group {g1 g2 ...}
+       --not-user {u1 u2 ...}
+       --not-group {g1 g2 ...}
+       --message {...}
+       --nearly-message {...}
+
+   All of the above options work the same as the Lmod versions do.
+   Note that name1 name2 ... are now Lua based regular expressions
+   For example::
+
+      module-forbid-regex --soft \[GH\]pu%-app.*
+
+   the above command would match both Gpu-app.* and Hpu-app.*
+
 
 The above TCL commands are the only commands support in .modulerc or .version
 files. In particular, TCL commands like setenv(), pushenv() are not supported.
