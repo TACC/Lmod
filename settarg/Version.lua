@@ -9,14 +9,14 @@ function M.branchStr()
    end
    return s == "" and s or "[branch: "..s.."]"
 end
-function M.tag()  return "9.0.5"   end
+function M.tag()  return "9.0.6"   end
 function M.git()
-   local s = "9.0.5"
+   local s = "9.0.6"
    if (s == "@" .. "git@") then s = "" end
    if (s == M.tag()      ) then s = "" end
    return s == "" and s or "("..s..")"
 end
-function M.date() return "2025-12-10 11:49 -06:00" end
+function M.date() return "2026-01-22 17:59 -07:00" end
 function M.name()
   local a = {}
   a[#a+1] = M.tag()
