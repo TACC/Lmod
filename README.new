@@ -1,5 +1,13 @@
 Lmod 9.0+
    (9.0.1)  * Issue #799: return function not value in l_build_test
    (9.0.2)  * Really fix Issue #799: return function not value in l_build_test
+   (9.0.3)  * Fix Issue #801
+   (9.0.4)  * More work on Issue #801
+   (9.0.5)  * Fix Issue #780
+   (9.0.6)  * Merging IS787-regex branch>  This adds Lua regular expressions to hide and
+              forbid modules.
+   
+   
+   
    
           
