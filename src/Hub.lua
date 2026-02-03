@@ -373,7 +373,7 @@ function M.load(self, mA)
             dbg.print{"Setting mcp to ", mcp:name(),"\n"}
             unload_internal{MName:new("mt",sn)}
             mname:reset()  -- force a new lazyEval
-            local status = mcp:load_usr{mname}
+            local status = mcp:load{mname}
             mcp          = mcpStack:pop()
             dbg.print{"Setting mcp to ", mcp:name(),"\n"}
             if (not status) then
