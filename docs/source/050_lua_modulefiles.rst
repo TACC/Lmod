@@ -81,7 +81,9 @@ unset during unloading.
 
 **help** ( [[ *help string* ]]):
      What is printed out when the help command is called. Note that
-     the *help string* can be multi-lined.
+     the *help string* can be multi-lined. Lmod automatically detects
+     and processes markdown formatting in help content, converting it
+     to terminal-friendly display for better readability.
 
 **pathJoin** ("/a", "b/c/", "d/"):
      builds a path: "/a/b/c/d", It combines any number of strings with

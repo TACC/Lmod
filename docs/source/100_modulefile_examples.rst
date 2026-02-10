@@ -62,6 +62,32 @@ A library module might look like::
     prepend_path("PATH","/apps/intel17/boost/1.64/bin")
 
 
+For improved documentation readability, help content can include markdown
+formatting which Lmod automatically converts for terminal display::
+
+    help([[
+    # Scientific Computing Package
+
+    ## Description
+    This module provides **advanced numerical tools** for scientific computing.
+
+    ## Features
+    - *Fast* linear algebra routines
+    - **Parallel** processing support
+    - `command-line` utilities
+
+    ## Usage
+    Load the module and run:
+    ```bash
+    mpirun -n 4 myprogram
+    ```
+
+    See documentation at [project website](https://example.com).
+    ]])
+
+    prepend_path("PATH", "/apps/scicomp/2.1/bin")
+
+
 .. _generic_modules-label:
 
 Introspection
