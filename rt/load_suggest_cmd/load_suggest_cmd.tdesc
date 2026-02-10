@@ -175,50 +175,79 @@ testdescript = {
      runLmod load petsc/3.17                                     #34
      runLmod list                                                #35
 
-     ############################################################
-     # COMBINED SUGGESTION TESTS (Issue #804 enhancement)
-     # When loading multiple modules, suggestions should include
-     # ALL originally requested modules, not just the failing ones
-     ############################################################
-     runLmod purge                                               #36
+    ############################################################
+    # COMBINED SUGGESTION TESTS (Issue #804 enhancement)
+    # When loading multiple modules, suggestions should include
+    # ALL originally requested modules, not just the failing ones
+    # NOTE: Basic combined suggestion tests covered in Tests 13-17 above
+    ############################################################
+    runLmod purge                                               #36
 
-     ############################################################
-     # Test 23: Two failing modules with SAME deps - combined suggestion
-     # boost and netcdf both work with gcc/10.0 AND intel/21.0
-     # Expected suggestion: module load gcc/10.0 boost/1.75.0 netcdf/4.8.0
-     #                      module load intel/21.0 boost/1.75.0 netcdf/4.8.0
-     runLmod load boost/1.75.0 netcdf/4.8.0                      #37
+   ############################################################
+   # Test 23: Different depth deps - fftw (1 or 2 level) + petsc (2 level)
+   # fftw: gcc/10.0 OR gcc/10.0 openmpi/4.0
+   # petsc: ONLY gcc/10.0 openmpi/4.0
+   # Common path: gcc/10.0 openmpi/4.0
+   # Expected: module load gcc/10.0 openmpi/4.0 fftw/3.3 petsc/3.17
+   runLmod load fftw/3.3 petsc/3.17                            #37
 
-     ############################################################
-     # Test 24: Two failing modules with PARTIAL common deps
-     # boost works with gcc OR intel, hdf5 ONLY works with gcc
-     # Expected suggestion: module load gcc/10.0 boost/1.75.0 hdf5/1.12.0
-     # (intel option excluded because hdf5 doesn't support it)
-     runLmod load boost/1.75.0 hdf5/1.12.0                       #38
+   ############################################################
+   # ADDITIONAL TESTS: Include succeeded Core modules in suggestions
+   # These tests validate that ALL originally requested modules appear
+   # in the suggested commands, not just the failing ones
+   ############################################################
 
-     ############################################################
-     # Test 25: Core module (succeeds) + failing module
-     # python/3.9 loads immediately, boost/1.75.0 fails
-     # Expected suggestion: module load gcc/10.0 python/3.9 boost/1.75.0
-     runLmod load python/3.9 boost/1.75.0                        #39
+   ############################################################
+   # Test 24: TWO Core modules + one failing module
+   # python/3.9 and ruby/3.0 both load immediately, boost fails
+   # Expected: module load gcc/10.0 python/3.9 ruby/3.0 boost/1.75.0
+   #           module load intel/21.0 python/3.9 ruby/3.0 boost/1.75.0
+   runLmod purge                                               #38
+   runLmod load python/3.9 ruby/3.0 boost/1.75.0               #39
 
-     ############################################################
-     # Test 26: Core module + TWO failing modules with common deps
-     # python loads, boost and hdf5 both need gcc
-     # Expected: module load gcc/10.0 python/3.9 boost/1.75.0 hdf5/1.12.0
-     runLmod purge                                               #40
-     runLmod load python/3.9 boost/1.75.0 hdf5/1.12.0            #41
+   ############################################################
+   # Test 25: Order preservation - failing module listed BEFORE Core
+   # Suggestion should preserve user's original order
+   # Expected: module load gcc/10.0 boost/1.75.0 python/3.9
+   runLmod purge                                               #40
+   runLmod load boost/1.75.0 python/3.9                        #41
 
-     ############################################################
-     # Test 27: Different depth deps - fftw (1 or 2 level) + petsc (2 level)
-     # fftw: gcc/10.0 OR gcc/10.0 openmpi/4.0
-     # petsc: ONLY gcc/10.0 openmpi/4.0
-     # Common path: gcc/10.0 openmpi/4.0
-     # Expected: module load gcc/10.0 openmpi/4.0 fftw/3.3 petsc/3.17
-     runLmod load fftw/3.3 petsc/3.17                            #42
+   ############################################################
+   # Test 26: Core module + failing + unknown (mixed error types)
+   # Unknown module error takes priority and aborts processing
+   # Expected: Only unknown error shown (boost suggestion NOT shown)
+   runLmod purge                                               #42
+   runLmod load python/3.9 boost/1.75.0 nonexistent/1.0        #43
 
-     ############################################################
-     # Cleanup and result processing
+   ############################################################
+   # Test 27: Pre-loaded Core module + failing module in new command
+   # First load python alone (succeeds), then request python + boost
+   # BUG: Currently shows no error - needs investigation
+   runLmod purge                                               #44
+   runLmod load python/3.9                                     #45
+   runLmod list                                                #46
+   runLmod load python/3.9 boost/1.75.0                        #47
+
+   ############################################################
+   # Test 28: Core + two failing with DIFFERENT depth requirements
+   # python loads, fftw needs gcc (1-level), petsc needs gcc+openmpi (2-level)
+   # Common path: gcc/10.0 openmpi/4.0
+   # Expected: module load gcc/10.0 openmpi/4.0 python/3.9 fftw/3.3 petsc/3.17
+   runLmod purge                                               #48
+   runLmod load python/3.9 fftw/3.3 petsc/3.17                 #49
+
+   ############################################################
+   # Test 29: Deps pre-loaded, all modules should load successfully
+   # gcc is pre-loaded, python and ruby are Core, boost becomes available
+   # Expected: All modules load without error
+   runLmod purge                                               #50
+   runLmod load gcc/10.0                                       #51
+   runLmod list                                                #52
+   runLmod load python/3.9 ruby/3.0 boost/1.75.0               #53
+   runLmod list                                                #54
+
+    ############################################################
+    # Cleanup and result processing
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

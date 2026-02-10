@@ -64,6 +64,7 @@ local pack             = (_VERSION == "Lua 5.1") and argsPack or table.pack -- l
 local remove           = table.remove
 local s_adminT         = {}
 local s_loadT          = {}
+local s_allRequestedT  = {}  -- Track ALL modules from user's original request (for error suggestions)
 local s_moduleStk      = {}
 local s_performDepCk   = false
 local s_missDepT       = {}
@@ -83,6 +84,21 @@ local function l_registerUserLoads(mA)
    dbg.start{"l_registerUserLoads(mA)"}
    local frameStk   = FrameStk:singleton()
    local stackDepth = frameStk:stackDepth()
+   
+   -- Track user-requested modules at top level for error suggestions
+   if (stackDepth == 0) then
+      s_allRequestedT = {}
+      for i = 1, #mA do
+         local mname = mA[i]
+         s_allRequestedT[#s_allRequestedT + 1] = {
+            userName = mname:userName(),
+            showName = mname:show(),
+            mname    = mname
+         }
+         dbg.print{"Tracking in s_allRequestedT: userName: ",mname:userName(),"\n"}
+      end
+   end
+   
    for i = 1, #mA do
       local mname       = mA[i]
       local userName    = mname:userName()
@@ -116,31 +132,33 @@ local function l_compareRequestedLoadsWithActual()
    dbg.start{"l_compareRequestedLoadsWithActual()"}
    local mt = FrameStk:singleton():mt()
 
-   local aa = {}
-   local bb = {}
+   local aa = {}  -- failing modules (showName)
+   local bb = {}  -- failing modules (userName)
+   local allRequestedInOrder = {}  -- ALL modules in original user request order (for suggestions)
 
-   -- Collect missing modules into a temporary array for sorting
-   local tmpA = {}
-   for userName, entry in pairs(s_loadT) do
-      local mname = entry[1]
-      local sn    = mname:sn()
-      if (not mt:have(sn, "active")) then
-         dbg.print{"not active: userName: ",userName,", mname:show(): ",mname:show(),"\n"}
-         tmpA[#tmpA+1] = {showName = mname:show(), userName = userName}
+   -- Iterate through s_allRequestedT in original order to preserve user's request order
+   -- This ensures suggestions maintain the same module order the user specified
+   for i = 1, #s_allRequestedT do
+      local entry = s_allRequestedT[i]
+      local userName = entry.userName
+      local showName = entry.showName
+      local mname    = entry.mname
+      local sn       = mname:sn()
+      
+      -- Always add to allRequestedInOrder to preserve original order for suggestions
+      allRequestedInOrder[#allRequestedInOrder + 1] = showName
+      
+      if (mt:have(sn, "active")) then
+         dbg.print{"succeeded: userName: ",userName,"\n"}
+      else
+         dbg.print{"not active: userName: ",userName,", showName: ",showName,"\n"}
+         aa[#aa + 1] = showName
+         bb[#bb + 1] = userName
       end
    end
 
-   -- Sort by userName for deterministic output order
-   table.sort(tmpA, function(a, b) return a.userName < b.userName end)
-
-   -- Extract sorted values back to aa and bb
-   for i = 1, #tmpA do
-      aa[i] = tmpA[i].showName
-      bb[i] = tmpA[i].userName
-   end
-
    dbg.fini("l_compareRequestedLoadsWithActual")
-   return aa, bb
+   return aa, bb, allRequestedInOrder
 end
 
 local function l_check_for_valid_name(kind, name)
@@ -309,8 +327,50 @@ local function l_find_common_paths(failingUserNames, dbT)
 end
 
 --------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- Helper function to build the list of user-requested modules to include
+-- in a suggestion command, filtering out modules that conflict with the
+-- dependency path.  A conflict exists when a requested module has the
+-- same short name as a module in the dependency path but a different
+-- version (e.g., user requested gcc/11 but path requires gcc/10.0).
+-- Failing modules are always included.  Non-conflicting modules (e.g.,
+-- python/3.9 when the path is gcc/10.0) are included to give the user
+-- a complete command.
+-- @param path       Array of dependency path entries (e.g., {"gcc/10.0"})
+-- @param failingSet Table of failing userNames (userName -> true)
+-- @return Array of module names to append after the dependency path
+local function l_build_modules_for_path(path, failingSet)
+   -- Build set of short names in the dependency path
+   local pathSnSet = {}
+   for i = 1, #path do
+      pathSnSet[l_extract_sn(path[i])] = true
+   end
+
+   local modulesToInclude = {}
+   for i = 1, #s_allRequestedT do
+      local entry    = s_allRequestedT[i]
+      local userName = entry.userName
+      local sn       = entry.mname:sn()
+
+      if (failingSet[userName]) then
+         -- Failing modules are always included
+         modulesToInclude[#modulesToInclude + 1] = userName
+      elseif (not pathSnSet[sn]) then
+         -- Non-conflicting module: safe to include
+         modulesToInclude[#modulesToInclude + 1] = userName
+      end
+      -- Conflicting modules (same sn as dependency path) are excluded
+   end
+   return modulesToInclude
+end
+
+--------------------------------------------------------------------------
 -- Helper function to format dependency commands for display
--- Returns formatted string with ready-to-copy-paste commands, or nil if no dependencies
+-- Returns formatted string with ready-to-copy-paste commands, or nil if
+-- no dependencies found.
+-- @param kA Array of failing module show names
+-- @param kB Array of failing module user names
+-- @param dbT The spider database table
 local function l_format_dependency_commands(kA, kB, dbT)
    if (not dbT or next(dbT) == nil) then
       return nil
@@ -319,14 +379,11 @@ local function l_format_dependency_commands(kA, kB, dbT)
    local allCommands = {}
    local maxCommands = 5  -- Limit number of suggestions to avoid overwhelming output
 
-   -- Build list of modules to include in suggestion (sorted for determinism)
-   local modulesToInclude = {}
+   -- Build set of failing userNames for quick lookup
+   local failingSet = {}
    for i = 1, #kB do
-      -- Remove quotes from module names if present
-      local cleanName = kA[i]:gsub('^"', ''):gsub('"$', '')
-      modulesToInclude[#modulesToInclude + 1] = cleanName
+      failingSet[kB[i]] = true
    end
-   table.sort(modulesToInclude)
 
    -- Try to find common paths for all failing modules
    local commonPaths = l_find_common_paths(kB, dbT)
@@ -336,6 +393,7 @@ local function l_format_dependency_commands(kA, kB, dbT)
       for i = 1, #commonPaths do
          local path = commonPaths[i]
          if (path and #path > 0) then
+            local modulesToInclude = l_build_modules_for_path(path, failingSet)
             local cmd = "module load " .. concatTbl(path, " ") .. " " .. concatTbl(modulesToInclude, " ")
             -- Avoid duplicates
             local found = false
@@ -351,18 +409,17 @@ local function l_format_dependency_commands(kA, kB, dbT)
          end
       end
    else
-      -- Fallback: generate individual commands per module (original behavior)
+      -- Fallback: generate individual commands per module
       for i = 1, #kB do
          local userName = kB[i]
-         local showName = kA[i]
-         local cleanShowName = showName:gsub('^"', ''):gsub('"$', '')
          local parentAA = l_collect_all_parentAA(userName, dbT)
 
          if (parentAA and #parentAA > 0) then
             for j = 1, #parentAA do
                local parentA = parentAA[j]
                if (parentA and #parentA > 0) then
-                  local cmd = "module load " .. concatTbl(parentA, " ") .. " " .. cleanShowName
+                  local modulesToInclude = l_build_modules_for_path(parentA, failingSet)
+                  local cmd = "module load " .. concatTbl(parentA, " ") .. " " .. concatTbl(modulesToInclude, " ")
                   local found = false
                   for k = 1, #allCommands do
                      if (allCommands[k] == cmd) then
@@ -399,15 +456,16 @@ local function l_format_dependency_commands(kA, kB, dbT)
    return result
 end
 
-local function l_error_on_missing_loaded_modules(aa, bb)
+local function l_error_on_missing_loaded_modules(aa, bb, allRequestedInOrder)
    if (#aa > 0) then
-      dbg.start{"l_error_on_missing_loaded_modules(aa,bb)"}
+      dbg.start{"l_error_on_missing_loaded_modules(aa,bb,allRequestedInOrder)"}
       -- Clear s_missingModuleT to prevent recursive processing through M.error()
       -- when mcp:report is called below. The modules we're processing here via
       -- l_compareRequestedLoadsWithActual() supersede the s_missingModuleT tracking.
       s_missingModuleT = {}
       dbg.printT("aa",aa)
       dbg.printT("bb",bb)
+      dbg.printT("allRequestedInOrder",allRequestedInOrder or {})
 
 
       local luaprog = findLuaProg()
@@ -1165,25 +1223,33 @@ function M.error(self, ...)
       local mt       = frameStk:mt()
       local aa       = {}
       local bb       = {}
-      -- Collect missing modules into a temporary array for sorting
-      local tmpA     = {}
-      for userName, v in pairs(s_missingModuleT) do
-         local sn = v.sn
-         dbg.print{"MainControl:error: sn: ",sn, ", userName: ", userName,", showName: ",v.showName,"\n"}
-         if (not (sn and mt:have(sn,"active")) ) then
-            tmpA[#tmpA + 1] = {showName = v.showName, userName = userName}
+      local allRequestedInOrder = {}
+      
+      -- Build allRequestedInOrder from s_allRequestedT (preserves user's original order)
+      for i = 1, #s_allRequestedT do
+         local entry = s_allRequestedT[i]
+         allRequestedInOrder[#allRequestedInOrder + 1] = entry.showName
+      end
+      
+      -- Collect failing modules from s_missingModuleT
+      -- Note: We iterate s_allRequestedT to maintain original order for failing modules too
+      for i = 1, #s_allRequestedT do
+         local entry = s_allRequestedT[i]
+         local userName = entry.userName
+         local v = s_missingModuleT[userName]
+         if (v) then
+            local sn = v.sn
+            dbg.print{"MainControl:error: sn: ",sn, ", userName: ", userName,", showName: ",v.showName,"\n"}
+            if (not (sn and mt:have(sn,"active")) ) then
+               aa[#aa + 1] = v.showName
+               bb[#bb + 1] = userName
+            end
          end
       end
-      -- Sort by userName for deterministic output order
-      table.sort(tmpA, function(a, b) return a.userName < b.userName end)
-      -- Extract sorted values back to aa and bb
-      for i = 1, #tmpA do
-         aa[i] = tmpA[i].showName
-         bb[i] = tmpA[i].userName
-      end
+      
       s_missingModuleT = {}
       if (next(aa) ~= nil) then
-         l_error_on_missing_loaded_modules(aa, bb)
+         l_error_on_missing_loaded_modules(aa, bb, allRequestedInOrder)
       end
    end
 
@@ -1221,12 +1287,11 @@ end
 function M.mustLoad(self)
    dbg.start{"MainControl:mustLoad()"}
 
-   local aa, bb = l_compareRequestedLoadsWithActual()
-   l_error_on_missing_loaded_modules(aa, bb)
+   local aa, bb, allRequestedInOrder = l_compareRequestedLoadsWithActual()
+   l_error_on_missing_loaded_modules(aa, bb, allRequestedInOrder)
 
    dbg.fini("MainControl:mustLoad")
 end
-
 
 function M.registerDependencyCk(self)
    s_performDepCk = true
