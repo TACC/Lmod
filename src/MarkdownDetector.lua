@@ -93,10 +93,19 @@ function MarkdownDetector.isMarkdown(text)
       end
       
       -- Setext headers (underlines)
-      if i > 1 and lines[i-1]:len() > 0 and 
-         (line:match("^===+$") or line:match("^---+$")) then
-         indicators.setext_headers = indicators.setext_headers + 1
-         dbg.print{"Found setext header underline: '", line, "'"}
+      -- Look back through empty lines to find the header text
+      if i > 1 and (line:match("^===+$") or line:match("^---+$")) then
+         -- Find the most recent non-empty line before this one
+         local headerFound = false
+         for j = i - 1, 1, -1 do
+            if lines[j]:len() > 0 then
+               -- Found non-empty line - this is a setext header
+               indicators.setext_headers = indicators.setext_headers + 1
+               dbg.print{"Found setext header underline: '", line, "' with header: '", lines[j], "'"}
+               headerFound = true
+               break
+            end
+         end
       end
       
       -- Lists (only count lists with minimal indentation: 0-3 spaces)
