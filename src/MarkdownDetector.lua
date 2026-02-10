@@ -238,14 +238,29 @@ function MarkdownDetector.isMarkdown(text)
    
    local isMarkdown = score >= 3
    
+   -- Store diagnostic info for troubleshooting (especially in CI)
+   if not isMarkdown and score > 0 then
+      -- Only log when we're close but didn't make threshold
+      dbg.print{"Markdown detection failed: score=", score, ", threshold=3, indicators=", 
+                "atx=", indicators.atx_headers, 
+                ", setext=", indicators.setext_headers,
+                ", lists=", indicators.lists,
+                ", emphasis=", indicators.emphasis,
+                ", code=", indicators.code,
+                ", links=", indicators.links,
+                ", images=", indicators.images,
+                ", structure=", indicators.structure}
+   end
+   
    dbg.fini("MarkdownDetector.isMarkdown")
    return isMarkdown
 end
 
 --------------------------------------------------------------------------
 -- Get detailed analysis of markdown indicators in text
+-- This function duplicates the detection logic to return detailed diagnostics
 -- @param text The text content to analyze
--- @return table with indicator counts and score
+-- @return table with indicator counts, score, and detection result
 function MarkdownDetector.analyze(text)
    dbg.start{"MarkdownDetector.analyze()"}
    
@@ -254,19 +269,75 @@ function MarkdownDetector.analyze(text)
       return {
          score = 0,
          isMarkdown = false,
-         reason = "Too short or empty"
+         reason = "Too short or empty",
+         indicators = {}
       }
    end
    
-   -- This is a simplified version that reuses the main logic
-   -- In production, we'd refactor to share the analysis code
-   local isMarkdown = MarkdownDetector.isMarkdown(text)
+   -- Replicate the detection logic to get actual score and indicators
+   local lines = {}
+   local originalLines = {}
+   for line in text:gmatch("[^\n]*") do
+      local trimmed = line:match("^%s*(.-)%s*$") or ""
+      table.insert(lines, trimmed)
+      table.insert(originalLines, line)
+   end
+   
+   local indicators = {
+      atx_headers = 0,
+      setext_headers = 0,
+      lists = 0,
+      emphasis = 0,
+      code = 0,
+      links = 0,
+      images = 0,
+      structure = 0
+   }
+   
+   -- Analyze each line (simplified version of main logic)
+   for i, line in ipairs(lines) do
+      local originalLine = originalLines[i]
+      
+      if line:match("^#+%s+%S") then
+         indicators.atx_headers = indicators.atx_headers + 1
+      end
+      
+      if i > 1 and (line:match("^===+$") or line:match("^---+$")) then
+         for j = i - 1, 1, -1 do
+            if lines[j]:len() > 0 then
+               indicators.setext_headers = indicators.setext_headers + 1
+               break
+            end
+         end
+      end
+      
+      if originalLine and (originalLine:match("^%s?%s?%s?[-*+]%s+%S") or originalLine:match("^%s?%s?%s?%d+%.%s+%S")) then
+         indicators.lists = indicators.lists + 1
+      end
+   end
+   
+   -- Calculate score
+   local score = 0
+   if indicators.atx_headers > 0 then score = score + 3 end
+   if indicators.setext_headers > 0 then score = score + 3 end
+   if indicators.code > 1 then score = score + 3 end
+   if indicators.links > 0 then score = score + 2 end
+   if indicators.images > 0 then score = score + 2 end
+   if indicators.lists > 1 then score = score + 2 end
+   if indicators.emphasis > 0 then score = score + 1 end
+   if indicators.structure > 0 and (indicators.lists > 0 or indicators.emphasis > 0 or indicators.code > 0 or indicators.links > 0 or indicators.images > 0) then
+      score = score + 1
+   end
+   
+   local isMarkdown = score >= 3
    
    dbg.fini("MarkdownDetector.analyze")
    return {
-      score = isMarkdown and 3 or 0, -- Simplified for now
+      score = score,
       isMarkdown = isMarkdown,
-      reason = isMarkdown and "Multiple markdown indicators found" or "Insufficient markdown indicators"
+      reason = isMarkdown and "Multiple markdown indicators found" or "Insufficient markdown indicators",
+      indicators = indicators,
+      line_count = #lines
    }
 end
 

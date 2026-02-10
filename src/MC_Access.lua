@@ -77,6 +77,32 @@ function M.help(self, ...)
       for i = 1, argA.n do
          local content = argA[i]
          local isMarkdown = MarkdownDetector.isMarkdown(content)
+         -- Diagnostic output for troubleshooting CI failures
+         -- Check if we're in regression testing and detection failed
+         local status, opts = pcall(require, "utils")
+         if status and opts and type(opts) == "function" then
+            local options = opts()
+            if options and options.rt == true and not isMarkdown then
+               -- In regression testing mode, output diagnostic info to stderr
+               local analysis = MarkdownDetector.analyze(content)
+               if analysis.score > 0 then
+                  io.stderr:write(string.format(
+                     "[MarkdownDetector] Detection failed: score=%d (threshold=3), " ..
+                     "indicators: atx=%d, setext=%d, lists=%d, emphasis=%d, code=%d, links=%d, images=%d, structure=%d, lines=%d\n",
+                     analysis.score,
+                     analysis.indicators.atx_headers,
+                     analysis.indicators.setext_headers,
+                     analysis.indicators.lists,
+                     analysis.indicators.emphasis,
+                     analysis.indicators.code,
+                     analysis.indicators.links,
+                     analysis.indicators.images,
+                     analysis.indicators.structure,
+                     analysis.line_count
+                  ))
+               end
+            end
+         end
          if isMarkdown then
             content = MarkdownProcessor.toTerminal(content)
          end
