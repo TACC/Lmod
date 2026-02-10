@@ -316,7 +316,21 @@ function MarkdownDetector.analyze(text)
       end
    end
    
-   -- Calculate score
+   -- Structural analysis (same as main function)
+   local empty_lines = 0
+   local long_lines = 0
+   for _, line in ipairs(lines) do
+      if line:len() == 0 then
+         empty_lines = empty_lines + 1
+      elseif line:len() > 60 then
+         long_lines = long_lines + 1
+      end
+   end
+   if #lines > 5 and empty_lines > 1 and long_lines > 2 then
+      indicators.structure = indicators.structure + 1
+   end
+   
+   -- Calculate score (same logic as main function)
    local score = 0
    if indicators.atx_headers > 0 then score = score + 3 end
    if indicators.setext_headers > 0 then score = score + 3 end

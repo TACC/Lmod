@@ -530,6 +530,37 @@ nested_markdown_lists/1.0                           : Version: 1.0
 nested_markdown_lists/1.0                           : Description: Tests nested markdown formatting within list items
 ===========================
 step 40
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help diagnostic_test/1.0
+===========================
+[MarkdownDetector] Detection failed: score=2 (threshold=3), indicators: atx=0, setext=0, lists=2, emphasis=0, code=0, links=0, images=0, structure=0, lines=6
+Module Specific Help for "diagnostic_test/1.0"
+Short content.
+Features:
+ Feature one
+ Feature two
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show diagnostic_test/1.0
+===========================
+   ProjectDIR/rt/markdown/mf/Core/diagnostic_test/1.0.lua:
+help([[Short content.
+Features:
+ Feature one
+ Feature two
+]])
+whatis("Name: Diagnostic Test Module")
+whatis("Version: 1.0")
+whatis("Description: Tests diagnostic output when markdown detection fails")
+setenv("DIAGNOSTIC_TEST_VERSION","1.0")
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis diagnostic_test/1.0
+===========================
+diagnostic_test/1.0 : Name: Diagnostic Test Module
+diagnostic_test/1.0 : Version: 1.0
+diagnostic_test/1.0 : Description: Tests diagnostic output when markdown detection fails
+===========================
+step 43
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing help markdown_content/2.0
 ===========================
 Module Specific Help for "markdown_content/2.0"
@@ -550,14 +581,14 @@ For more information, visit the \\033[34m\\033[4mproject website\\033[0m (...).
 \\033[36m2.\\033[0m Second step with \\033[1mimportant\\033[0m details
 \\033[36m3.\\033[0m Final configuration step
 ===========================
-step 41
+step 44
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis markdown_content/2.0
 ===========================
 markdown_content/2.0                      : Name: Markdown Module
 markdown_content/2.0                      : Version: 2.0
 markdown_content/2.0                      : Description: Module demonstrating markdown help content
 ===========================
-step 42
+step 45
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing help markdown_with_images/1.0
 ===========================
 Module Specific Help for "markdown_with_images/1.0"
@@ -574,7 +605,7 @@ This module demonstrates markdown with image support.
 \\033[36m•\\033[0m Feature three with \\033[2m\\033[36mcode\\033[0m examples
 For more information, visit the \\033[34m\\033[4mproject website\\033[0m (...).
 ===========================
-step 43
+step 46
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing help nested_markdown_lists/1.0
 ===========================
 Module Specific Help for "nested_markdown_lists/1.0"
