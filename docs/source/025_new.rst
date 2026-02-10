@@ -1,6 +1,11 @@
 New Features in Lmod
 ====================
 
+**Lmod now looks for /etc/lmod/SitePackage.lua**
+  (Lmod 9.0.7+): After looking for SitePackage.lua in the usual
+  places, Lmod now looks in /etc/lmod for SitePackage.lua.  Actually
+  Lmod looks in LMOD_CONFIG_DIR which defaults to /etc/lmod
+
 **New commands** *hideRegex* {} **and** *forbidRegex* {} **have been added**
   (Lmod 9.0.6+) The modulerc files now support Lua based regular
   expression matching.  See :ref:`modulerc-label` for more details.
