@@ -532,7 +532,6 @@ nested_markdown_lists/1.0                           : Description: Tests nested 
 step 40
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing help diagnostic_test/1.0
 ===========================
-[MarkdownDetector] Detection failed: score=2 (threshold=3), indicators: atx=0, setext=0, lists=2, emphasis=0, code=0, links=0, images=0, structure=0, lines=6
 Module Specific Help for "diagnostic_test/1.0"
 Short content.
 Features:

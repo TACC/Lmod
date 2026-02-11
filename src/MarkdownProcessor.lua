@@ -46,6 +46,29 @@ require("TermWidth")
 
 local MarkdownProcessor = {}
 
+--------------------------------------------------------------------------
+-- Split text into lines using string.find (version-independent; see LUA_GMATCH_BEHAVIOR.md)
+-- @param text The text to split
+-- @return array of lines (untrimmed)
+local function splitLines(text)
+   local lines = {}
+   local pos = 1
+   local len = text:len()
+   while pos <= len do
+      local lineEnd = text:find("\n", pos, true)
+      local line
+      if lineEnd then
+         line = text:sub(pos, lineEnd - 1)
+         pos = lineEnd + 1
+      else
+         line = text:sub(pos)
+         pos = len + 1
+      end
+      table.insert(lines, line)
+   end
+   return lines
+end
+
 -- ANSI color codes for terminal formatting
 local ANSI = {
    RESET = "\027[0m",
@@ -353,10 +376,7 @@ end
 -- @param markdownText The markdown content to convert
 -- @return converted text suitable for terminal display
 function MarkdownProcessor._processInternal(markdownText)
-   local lines = {}
-   for line in markdownText:gmatch("[^\n]*") do
-      table.insert(lines, line)
-   end
+   local lines = splitLines(markdownText)
    
    local result = {}
    local inCodeBlock = false
@@ -378,49 +398,49 @@ function MarkdownProcessor._processInternal(markdownText)
          -- Inside code block - output as-is with formatting
          -- Skip empty lines to avoid empty ANSI formatting
          if line ~= "" then
-            table.insert(result, "  " .. applyFormat(line, ANSI.DIM .. ANSI.CYAN))
+         table.insert(result, "  " .. applyFormat(line, ANSI.DIM .. ANSI.CYAN))
          else
             table.insert(result, "")
          end
          i = i + 1
       else
          -- Handle setext headers (check before processing line)
-         local isHeader, headerType = isSetextHeader(lines, i)
-         if isHeader then
-            local headerText = lines[i]
-            if headerType == "=" then
+      local isHeader, headerType = isSetextHeader(lines, i)
+      if isHeader then
+         local headerText = lines[i]
+         if headerType == "=" then
                -- Use string.upper() for Lua 5.1 compatibility
                headerText = applyFormat(string.upper(headerText), ANSI.BOLD .. ANSI.CYAN)
-            else
-               headerText = applyFormat(headerText, ANSI.BOLD)
-            end
-            table.insert(result, headerText)
-            i = i + 2 -- Skip the underline
+         else
+            headerText = applyFormat(headerText, ANSI.BOLD)
+         end
+         table.insert(result, headerText)
+         i = i + 2 -- Skip the underline
          elseif line:match("^===+$") or line:match("^---+$") then
-            -- Skip setext underlines (handled above)
-            i = i + 1
+      -- Skip setext underlines (handled above)
+         i = i + 1
          else
             -- Process the line normally
-            local processedLine = line
-            
-            -- Headers (ATX style)
-            if line:match("^#+%s") then
-               processedLine = processHeader(line)
-            -- List items
-            elseif line:match("^%s*[-*+]%s") or line:match("^%s*%d+%.%s") then
-               processedLine = processListItem(line)
-            -- Regular text
-            else
-               -- Apply inline formatting
+      local processedLine = line
+      
+      -- Headers (ATX style)
+      if line:match("^#+%s") then
+         processedLine = processHeader(line)
+      -- List items
+      elseif line:match("^%s*[-*+]%s") or line:match("^%s*%d+%.%s") then
+         processedLine = processListItem(line)
+      -- Regular text
+      else
+         -- Apply inline formatting
                -- Process images before links to avoid pattern conflicts
-               processedLine = processInlineCode(processedLine)
-               processedLine = processEmphasis(processedLine)
+         processedLine = processInlineCode(processedLine)
+         processedLine = processEmphasis(processedLine)
                processedLine = processImages(processedLine)
-               processedLine = processLinks(processedLine)
-            end
-            
-            table.insert(result, processedLine)
-            i = i + 1
+         processedLine = processLinks(processedLine)
+      end
+      
+      table.insert(result, processedLine)
+      i = i + 1
          end
       end
    end
