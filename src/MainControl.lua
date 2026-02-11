@@ -84,21 +84,6 @@ local function l_registerUserLoads(mA)
    dbg.start{"l_registerUserLoads(mA)"}
    local frameStk   = FrameStk:singleton()
    local stackDepth = frameStk:stackDepth()
-   
-   -- Track user-requested modules at top level for error suggestions
-   if (stackDepth == 0) then
-      s_allRequestedT = {}
-      for i = 1, #mA do
-         local mname = mA[i]
-         s_allRequestedT[#s_allRequestedT + 1] = {
-            userName = mname:userName(),
-            showName = mname:show(),
-            mname    = mname
-         }
-         dbg.print{"Tracking in s_allRequestedT: userName: ",mname:userName(),"\n"}
-      end
-   end
-   
    for i = 1, #mA do
       local mname       = mA[i]
       local userName    = mname:userName()
@@ -132,33 +117,33 @@ local function l_compareRequestedLoadsWithActual()
    dbg.start{"l_compareRequestedLoadsWithActual()"}
    local mt = FrameStk:singleton():mt()
 
-   local aa = {}  -- failing modules (showName)
-   local bb = {}  -- failing modules (userName)
-   local allRequestedInOrder = {}  -- ALL modules in original user request order (for suggestions)
+   local aa = {}
+   local bb = {}
 
-   -- Iterate through s_allRequestedT in original order to preserve user's request order
-   -- This ensures suggestions maintain the same module order the user specified
-   for i = 1, #s_allRequestedT do
-      local entry = s_allRequestedT[i]
-      local userName = entry.userName
-      local showName = entry.showName
-      local mname    = entry.mname
-      local sn       = mname:sn()
-      
-      -- Always add to allRequestedInOrder to preserve original order for suggestions
-      allRequestedInOrder[#allRequestedInOrder + 1] = showName
-      
-      if (mt:have(sn, "active")) then
-         dbg.print{"succeeded: userName: ",userName,"\n"}
-      else
-         dbg.print{"not active: userName: ",userName,", showName: ",showName,"\n"}
-         aa[#aa + 1] = showName
-         bb[#bb + 1] = userName
+   -- Use s_loadT (populated by l_registerUserLoads at all depths) to detect
+   -- ALL modules that failed to load, including dependencies loaded from
+   -- within module files.  Collect into tmpA for deterministic sorting.
+   local tmpA = {}
+   for userName, entry in pairs(s_loadT) do
+      local mname = entry[1]
+      local sn    = mname:sn()
+      if (not mt:have(sn, "active")) then
+         dbg.print{"not active: userName: ",userName,", mname:show(): ",mname:show(),"\n"}
+         tmpA[#tmpA+1] = {showName = mname:show(), userName = userName}
       end
    end
 
+   -- Sort by userName for deterministic output order
+   table.sort(tmpA, function(a, b) return a.userName < b.userName end)
+
+   -- Extract sorted values back to aa and bb
+   for i = 1, #tmpA do
+      aa[i] = tmpA[i].showName
+      bb[i] = tmpA[i].userName
+   end
+
    dbg.fini("l_compareRequestedLoadsWithActual")
-   return aa, bb, allRequestedInOrder
+   return aa, bb
 end
 
 local function l_check_for_valid_name(kind, name)
@@ -456,16 +441,15 @@ local function l_format_dependency_commands(kA, kB, dbT)
    return result
 end
 
-local function l_error_on_missing_loaded_modules(aa, bb, allRequestedInOrder)
+local function l_error_on_missing_loaded_modules(aa, bb)
    if (#aa > 0) then
-      dbg.start{"l_error_on_missing_loaded_modules(aa,bb,allRequestedInOrder)"}
+      dbg.start{"l_error_on_missing_loaded_modules(aa,bb)"}
       -- Clear s_missingModuleT to prevent recursive processing through M.error()
       -- when mcp:report is called below. The modules we're processing here via
       -- l_compareRequestedLoadsWithActual() supersede the s_missingModuleT tracking.
       s_missingModuleT = {}
       dbg.printT("aa",aa)
       dbg.printT("bb",bb)
-      dbg.printT("allRequestedInOrder",allRequestedInOrder or {})
 
 
       local luaprog = findLuaProg()
@@ -1223,33 +1207,25 @@ function M.error(self, ...)
       local mt       = frameStk:mt()
       local aa       = {}
       local bb       = {}
-      local allRequestedInOrder = {}
-      
-      -- Build allRequestedInOrder from s_allRequestedT (preserves user's original order)
-      for i = 1, #s_allRequestedT do
-         local entry = s_allRequestedT[i]
-         allRequestedInOrder[#allRequestedInOrder + 1] = entry.showName
-      end
-      
-      -- Collect failing modules from s_missingModuleT
-      -- Note: We iterate s_allRequestedT to maintain original order for failing modules too
-      for i = 1, #s_allRequestedT do
-         local entry = s_allRequestedT[i]
-         local userName = entry.userName
-         local v = s_missingModuleT[userName]
-         if (v) then
-            local sn = v.sn
-            dbg.print{"MainControl:error: sn: ",sn, ", userName: ", userName,", showName: ",v.showName,"\n"}
-            if (not (sn and mt:have(sn,"active")) ) then
-               aa[#aa + 1] = v.showName
-               bb[#bb + 1] = userName
-            end
+      -- Collect missing modules into a temporary array for sorting
+      local tmpA     = {}
+      for userName, v in pairs(s_missingModuleT) do
+         local sn = v.sn
+         dbg.print{"MainControl:error: sn: ",sn, ", userName: ", userName,", showName: ",v.showName,"\n"}
+         if (not (sn and mt:have(sn,"active")) ) then
+            tmpA[#tmpA + 1] = {showName = v.showName, userName = userName}
          end
       end
-      
+      -- Sort by userName for deterministic output order
+      table.sort(tmpA, function(a, b) return a.userName < b.userName end)
+      -- Extract sorted values back to aa and bb
+      for i = 1, #tmpA do
+         aa[i] = tmpA[i].showName
+         bb[i] = tmpA[i].userName
+      end
       s_missingModuleT = {}
       if (next(aa) ~= nil) then
-         l_error_on_missing_loaded_modules(aa, bb, allRequestedInOrder)
+         l_error_on_missing_loaded_modules(aa, bb)
       end
    end
 
@@ -1287,8 +1263,8 @@ end
 function M.mustLoad(self)
    dbg.start{"MainControl:mustLoad()"}
 
-   local aa, bb, allRequestedInOrder = l_compareRequestedLoadsWithActual()
-   l_error_on_missing_loaded_modules(aa, bb, allRequestedInOrder)
+   local aa, bb = l_compareRequestedLoadsWithActual()
+   l_error_on_missing_loaded_modules(aa, bb)
 
    dbg.fini("MainControl:mustLoad")
 end
@@ -1559,6 +1535,25 @@ function M.forgo_any(self,mA)
    local aa     = unload_internal(mB)
    dbg.fini("MainControl:forgo_any")
    return aa
+end
+
+-------------------------------------------------------------------
+-- Record the user's original module request for error suggestions.
+-- Called from cmdfuncs.lua before any load processing begins.
+-- Nested load_usr calls (e.g., family swaps) bypass cmdfuncs and
+-- therefore cannot corrupt this data.
+-- @param self A MainControl object
+-- @param mA A array of MName objects.
+function M.setOriginalUserRequest(self, mA)
+   s_allRequestedT = {}
+   for i = 1, #mA do
+      local mname = mA[i]
+      s_allRequestedT[#s_allRequestedT + 1] = {
+         userName = mname:userName(),
+         showName = mname:show(),
+         mname    = mname
+      }
+   end
 end
 
 -------------------------------------------------------------------
