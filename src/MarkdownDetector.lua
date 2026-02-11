@@ -3,7 +3,6 @@
 -- @module MarkdownDetector
 
 _G._DEBUG = false
-local posix = require("posix")
 
 pcall(require, "strict")
 
@@ -46,6 +45,34 @@ local dbg = require("Dbg"):dbg()
 local MarkdownDetector = {}
 
 --------------------------------------------------------------------------
+-- Split text into lines using string.find (version-independent: avoids gmatch
+-- behavior differences between Lua 5.1 and 5.2+ with patterns that match
+-- empty strings). Returns lines (trimmed) and originalLines.
+-- @param text The text to split
+-- @return lines, originalLines
+local function splitLines(text)
+   local lines = {}
+   local originalLines = {}
+   local pos = 1
+   local len = text:len()
+   while pos <= len do
+      local lineEnd = text:find("\n", pos, true)
+      local line, orig
+      if lineEnd then
+         orig = text:sub(pos, lineEnd - 1)
+         pos = lineEnd + 1
+      else
+         orig = text:sub(pos)
+         pos = len + 1
+      end
+      line = orig:match("^%s*(.-)%s*$") or ""
+      table.insert(lines, line)
+      table.insert(originalLines, orig)
+   end
+   return lines, originalLines
+end
+
+--------------------------------------------------------------------------
 -- Detect if text content is intended as markdown based on heuristic analysis
 -- @param text The text content to analyze
 -- @return true if content appears to be markdown, false otherwise
@@ -59,15 +86,8 @@ function MarkdownDetector.isMarkdown(text)
       return false
    end
    
-   -- Split into lines for analysis
-   -- Keep both original and trimmed versions - need original for list indentation check
-   local lines = {}
-   local originalLines = {}
-   for line in text:gmatch("[^\n]*") do
-      local trimmed = line:match("^%s*(.-)%s*$") or ""
-      table.insert(lines, trimmed)
-      table.insert(originalLines, line)  -- Keep original for indentation-sensitive checks
-   end
+   -- Split into lines for analysis (version-independent: see LUA_GMATCH_BEHAVIOR.md)
+   local lines, originalLines = splitLines(text)
    
    dbg.print{"Analyzing ", #lines, " lines"}
    
@@ -95,14 +115,10 @@ function MarkdownDetector.isMarkdown(text)
       -- Setext headers (underlines)
       -- Look back through empty lines to find the header text
       if i > 1 and (line:match("^===+$") or line:match("^---+$")) then
-         -- Find the most recent non-empty line before this one
-         local headerFound = false
          for j = i - 1, 1, -1 do
-            if lines[j]:len() > 0 then
-               -- Found non-empty line - this is a setext header
+            if lines[j] and lines[j]:len() > 0 then
                indicators.setext_headers = indicators.setext_headers + 1
                dbg.print{"Found setext header underline: '", line, "' with header: '", lines[j], "'"}
-               headerFound = true
                break
             end
          end
@@ -238,29 +254,14 @@ function MarkdownDetector.isMarkdown(text)
    
    local isMarkdown = score >= 3
    
-   -- Store diagnostic info for troubleshooting (especially in CI)
-   if not isMarkdown and score > 0 then
-      -- Only log when we're close but didn't make threshold
-      dbg.print{"Markdown detection failed: score=", score, ", threshold=3, indicators=", 
-                "atx=", indicators.atx_headers, 
-                ", setext=", indicators.setext_headers,
-                ", lists=", indicators.lists,
-                ", emphasis=", indicators.emphasis,
-                ", code=", indicators.code,
-                ", links=", indicators.links,
-                ", images=", indicators.images,
-                ", structure=", indicators.structure}
-   end
-   
    dbg.fini("MarkdownDetector.isMarkdown")
    return isMarkdown
 end
 
 --------------------------------------------------------------------------
--- Get detailed analysis of markdown indicators in text
--- This function duplicates the detection logic to return detailed diagnostics
+-- Get basic analysis of markdown indicators in text
 -- @param text The text content to analyze
--- @return table with indicator counts, score, and detection result
+-- @return table with score and detection result
 function MarkdownDetector.analyze(text)
    dbg.start{"MarkdownDetector.analyze()"}
    
@@ -269,89 +270,17 @@ function MarkdownDetector.analyze(text)
       return {
          score = 0,
          isMarkdown = false,
-         reason = "Too short or empty",
-         indicators = {}
+         reason = "Too short or empty"
       }
    end
    
-   -- Replicate the detection logic to get actual score and indicators
-   local lines = {}
-   local originalLines = {}
-   for line in text:gmatch("[^\n]*") do
-      local trimmed = line:match("^%s*(.-)%s*$") or ""
-      table.insert(lines, trimmed)
-      table.insert(originalLines, line)
-   end
-   
-   local indicators = {
-      atx_headers = 0,
-      setext_headers = 0,
-      lists = 0,
-      emphasis = 0,
-      code = 0,
-      links = 0,
-      images = 0,
-      structure = 0
-   }
-   
-   -- Analyze each line (simplified version of main logic)
-   for i, line in ipairs(lines) do
-      local originalLine = originalLines[i]
-      
-      if line:match("^#+%s+%S") then
-         indicators.atx_headers = indicators.atx_headers + 1
-      end
-      
-      if i > 1 and (line:match("^===+$") or line:match("^---+$")) then
-         for j = i - 1, 1, -1 do
-            if lines[j]:len() > 0 then
-               indicators.setext_headers = indicators.setext_headers + 1
-               break
-            end
-         end
-      end
-      
-      if originalLine and (originalLine:match("^%s?%s?%s?[-*+]%s+%S") or originalLine:match("^%s?%s?%s?%d+%.%s+%S")) then
-         indicators.lists = indicators.lists + 1
-      end
-   end
-   
-   -- Structural analysis (same as main function)
-   local empty_lines = 0
-   local long_lines = 0
-   for _, line in ipairs(lines) do
-      if line:len() == 0 then
-         empty_lines = empty_lines + 1
-      elseif line:len() > 60 then
-         long_lines = long_lines + 1
-      end
-   end
-   if #lines > 5 and empty_lines > 1 and long_lines > 2 then
-      indicators.structure = indicators.structure + 1
-   end
-   
-   -- Calculate score (same logic as main function)
-   local score = 0
-   if indicators.atx_headers > 0 then score = score + 3 end
-   if indicators.setext_headers > 0 then score = score + 3 end
-   if indicators.code > 1 then score = score + 3 end
-   if indicators.links > 0 then score = score + 2 end
-   if indicators.images > 0 then score = score + 2 end
-   if indicators.lists > 1 then score = score + 2 end
-   if indicators.emphasis > 0 then score = score + 1 end
-   if indicators.structure > 0 and (indicators.lists > 0 or indicators.emphasis > 0 or indicators.code > 0 or indicators.links > 0 or indicators.images > 0) then
-      score = score + 1
-   end
-   
-   local isMarkdown = score >= 3
+   local isMarkdown = MarkdownDetector.isMarkdown(text)
    
    dbg.fini("MarkdownDetector.analyze")
    return {
-      score = score,
+      score = isMarkdown and 3 or 0,
       isMarkdown = isMarkdown,
-      reason = isMarkdown and "Multiple markdown indicators found" or "Insufficient markdown indicators",
-      indicators = indicators,
-      line_count = #lines
+      reason = isMarkdown and "Multiple markdown indicators found" or "Insufficient markdown indicators"
    }
 end
 
