@@ -1,0 +1,383 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+Modules based on Lua: Version 9.0.5 2025-12-10 11:49 -06:00
+    https://lmod.readthedocs.io
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+ProjectDIR/rt/load_suggest_cmd/mf/Core
+   gcc/10.0    intel/21.0    python/3.9    ruby/3.0
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
+===========================
+The following is a list of the modules and extensions currently available:
+  boost: boost/1.75.0
+  fftw: fftw/3.3
+  gcc: gcc/10.0
+  hdf5: hdf5/1.12.0
+  intel: intel/21.0
+  netcdf: netcdf/4.8.0
+  openmpi: openmpi/4.0
+  petsc: petsc/3.17
+  python: python/3.9
+  ruby: ruby/3.0
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider boost/1.75.0
+===========================
+  boost: boost/1.75.0
+    You will need to load all module(s) on any one of the lines below before the "boost/1.75.0" module is available to load.
+      gcc/10.0
+      intel/21.0
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost/1.75.0"
+   Try: "module spider boost/1.75.0" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 boost/1.75.0
+      module load intel/21.0 boost/1.75.0
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load netcdf/4.8.0
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "netcdf/4.8.0"
+   Try: "module spider netcdf/4.8.0" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 netcdf/4.8.0
+      module load intel/21.0 netcdf/4.8.0
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load completely_nonexistent_module/1.0
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "completely_nonexistent_module/1.0"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "completely_nonexistent_module/1.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/10.0
+===========================
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) gcc/10.0
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0
+===========================
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) gcc/10.0   2) boost/1.75.0
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hdf5/1.12.0
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "hdf5/1.12.0"
+   Try: "module spider hdf5/1.12.0" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 hdf5/1.12.0
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 hdf5/1.12.0
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost/1.75.0", "hdf5/1.12.0"
+   Try: "module spider boost/1.75.0 hdf5/1.12.0" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 boost/1.75.0 hdf5/1.12.0
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider hdf5/1.12.0
+===========================
+  hdf5: hdf5/1.12.0
+    You will need to load all module(s) on any one of the lines below before the "hdf5/1.12.0" module is available to load.
+      gcc/10.0
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider netcdf/4.8.0
+===========================
+  netcdf: netcdf/4.8.0
+    You will need to load all module(s) on any one of the lines below before the "netcdf/4.8.0" module is available to load.
+      gcc/10.0
+      intel/21.0
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost"
+   Try: "module spider boost" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 boost
+      module load intel/21.0 boost
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hdf5
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "hdf5"
+   Try: "module spider hdf5" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 hdf5
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 netcdf/4.8.0
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost/1.75.0", "netcdf/4.8.0"
+   Try: "module spider boost/1.75.0 netcdf/4.8.0" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 boost/1.75.0 netcdf/4.8.0
+      module load intel/21.0 boost/1.75.0 netcdf/4.8.0
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 hdf5/1.12.0
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost/1.75.0", "hdf5/1.12.0"
+   Try: "module spider boost/1.75.0 hdf5/1.12.0" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 boost/1.75.0 hdf5/1.12.0
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 boost/1.75.0
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost/1.75.0"
+   Try: "module spider boost/1.75.0" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 python/3.9 boost/1.75.0
+      module load intel/21.0 python/3.9 boost/1.75.0
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load nonexistent/1.0 boost/1.75.0
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "nonexistent/1.0"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "nonexistent/1.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 boost/1.75.0 hdf5/1.12.0
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost/1.75.0", "hdf5/1.12.0"
+   Try: "module spider boost/1.75.0 hdf5/1.12.0" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 python/3.9 boost/1.75.0 hdf5/1.12.0
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/10.0
+===========================
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 hdf5/1.12.0 netcdf/4.8.0
+===========================
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) gcc/10.0   2) boost/1.75.0   3) hdf5/1.12.0   4) netcdf/4.8.0
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
+===========================
+The following is a list of the modules and extensions currently available:
+  boost: boost/1.75.0
+  fftw: fftw/3.3
+  gcc: gcc/10.0
+  hdf5: hdf5/1.12.0
+  intel: intel/21.0
+  netcdf: netcdf/4.8.0
+  openmpi: openmpi/4.0
+  petsc: petsc/3.17
+  python: python/3.9
+  ruby: ruby/3.0
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider petsc/3.17
+===========================
+  petsc: petsc/3.17
+    You will need to load all module(s) on any one of the lines below before the "petsc/3.17" module is available to load.
+      gcc/10.0  openmpi/4.0
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load petsc/3.17
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "petsc/3.17"
+   Try: "module spider petsc/3.17" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 openmpi/4.0 petsc/3.17
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider fftw/3.3
+===========================
+  fftw: fftw/3.3
+    You will need to load all module(s) on any one of the lines below before the "fftw/3.3" module is available to load.
+      gcc/10.0
+      gcc/10.0  openmpi/4.0
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load fftw/3.3
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "fftw/3.3"
+   Try: "module spider fftw/3.3" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 fftw/3.3
+      module load gcc/10.0 openmpi/4.0 fftw/3.3
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/10.0 openmpi/4.0
+===========================
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load petsc/3.17
+===========================
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) gcc/10.0   2) openmpi/4.0   3) petsc/3.17
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 37
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load fftw/3.3 petsc/3.17
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "fftw/3.3", "petsc/3.17"
+   Try: "module spider fftw/3.3 petsc/3.17" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 openmpi/4.0 fftw/3.3 petsc/3.17
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 ruby/3.0 boost/1.75.0
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost/1.75.0"
+   Try: "module spider boost/1.75.0" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 python/3.9 ruby/3.0 boost/1.75.0
+      module load intel/21.0 python/3.9 ruby/3.0 boost/1.75.0
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 python/3.9
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost/1.75.0"
+   Try: "module spider boost/1.75.0" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 boost/1.75.0 python/3.9
+      module load intel/21.0 boost/1.75.0 python/3.9
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 boost/1.75.0 nonexistent/1.0
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "nonexistent/1.0"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "nonexistent/1.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 45
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9
+===========================
+===========================
+step 46
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) python/3.9
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 boost/1.75.0
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost/1.75.0"
+   Try: "module spider boost/1.75.0" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 python/3.9 boost/1.75.0
+      module load intel/21.0 python/3.9 boost/1.75.0
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 fftw/3.3 petsc/3.17
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "fftw/3.3", "petsc/3.17"
+   Try: "module spider fftw/3.3 petsc/3.17" to see how to load the module(s).
+   Or load any one of these options:
+      module load gcc/10.0 openmpi/4.0 python/3.9 fftw/3.3 petsc/3.17
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 51
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/10.0
+===========================
+===========================
+step 52
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) gcc/10.0
+===========================
+step 53
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 ruby/3.0 boost/1.75.0
+===========================
+===========================
+step 54
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) gcc/10.0   2) python/3.9   3) ruby/3.0   4) boost/1.75.0

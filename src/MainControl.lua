@@ -64,6 +64,7 @@ local pack             = (_VERSION == "Lua 5.1") and argsPack or table.pack -- l
 local remove           = table.remove
 local s_adminT         = {}
 local s_loadT          = {}
+local s_allRequestedT  = {}  -- Track ALL modules from user's original request (for error suggestions)
 local s_moduleStk      = {}
 local s_performDepCk   = false
 local s_missDepT       = {}
@@ -119,15 +120,28 @@ local function l_compareRequestedLoadsWithActual()
    local aa = {}
    local bb = {}
 
+   -- Use s_loadT (populated by l_registerUserLoads at all depths) to detect
+   -- ALL modules that failed to load, including dependencies loaded from
+   -- within module files.  Collect into tmpA for deterministic sorting.
+   local tmpA = {}
    for userName, entry in pairs(s_loadT) do
       local mname = entry[1]
       local sn    = mname:sn()
       if (not mt:have(sn, "active")) then
          dbg.print{"not active: userName: ",userName,", mname:show(): ",mname:show(),"\n"}
-         aa[#aa+1] = mname:show()
-         bb[#bb+1] = userName
+         tmpA[#tmpA+1] = {showName = mname:show(), userName = userName}
       end
    end
+
+   -- Sort by userName for deterministic output order
+   table.sort(tmpA, function(a, b) return a.userName < b.userName end)
+
+   -- Extract sorted values back to aa and bb
+   for i = 1, #tmpA do
+      aa[i] = tmpA[i].showName
+      bb[i] = tmpA[i].userName
+   end
+
    dbg.fini("l_compareRequestedLoadsWithActual")
    return aa, bb
 end
@@ -150,9 +164,290 @@ local function l_createStackName(name)
    return "__LMOD_STACK_" .. name
 end
 
-local function l_error_on_missing_loaded_modules(aa,bb)
+--------------------------------------------------------------------------
+-- Helper function to extract short name from a module userName
+-- e.g., "boost/1.75.0" -> "boost", "gcc" -> "gcc"
+local function l_extract_sn(userName)
+   return userName:match("([^/]+)") or userName
+end
+
+--------------------------------------------------------------------------
+-- Helper function to collect ALL parentAA entries for a module from dbT
+-- A module may exist in multiple hierarchy locations (e.g., gcc/boost and intel/boost)
+-- Each location has its own parentAA, so we collect all of them
+-- Returns a combined array of parent arrays, or nil if none found
+local function l_collect_all_parentAA(userName, dbT)
+   local sn = l_extract_sn(userName)
+   local moduleData = dbT[sn]
+   if (not moduleData) then
+      return nil
+   end
+
+   local allParentAA = {}
+
+   -- Search through all entries for this short name
+   for fn, entry in pairs(moduleData) do
+      local match = false
+      -- Check for exact fullName match
+      if (entry.fullName == userName) then
+         match = true
+      -- Also match if userName is just the short name (no version)
+      elseif (userName == sn) then
+         match = true
+      end
+
+      if (match and entry.parentAA) then
+         -- Add all parent arrays from this entry
+         for i = 1, #entry.parentAA do
+            allParentAA[#allParentAA + 1] = entry.parentAA[i]
+         end
+      end
+   end
+
+   if (#allParentAA == 0) then
+      return nil
+   end
+   return allParentAA
+end
+
+--------------------------------------------------------------------------
+-- Helper function to check if two dependency paths are compatible
+-- Two paths are compatible if one is a prefix of the other
+-- Returns the longer (more specific) path if compatible, nil otherwise
+local function l_paths_compatible(pathA, pathB)
+   if (not pathA or not pathB) then return nil end
+   local lenA, lenB = #pathA, #pathB
+   local shorter, longer = pathA, pathB
+   if (lenA > lenB) then
+      shorter, longer = pathB, pathA
+   end
+   -- Check if shorter is a prefix of longer
+   for i = 1, #shorter do
+      if (shorter[i] ~= longer[i]) then
+         return nil
+      end
+   end
+   return longer
+end
+
+--------------------------------------------------------------------------
+-- Helper function to find common dependency paths across multiple modules
+-- Returns array of paths that work for ALL modules, or empty if none
+local function l_find_common_paths(failingUserNames, dbT)
+   if (not dbT or #failingUserNames == 0) then
+      return {}
+   end
+
+   -- Get paths for first module
+   local firstPaths = l_collect_all_parentAA(failingUserNames[1], dbT)
+   if (not firstPaths or #firstPaths == 0) then
+      return {}
+   end
+
+   -- If only one failing module, return its paths
+   if (#failingUserNames == 1) then
+      return firstPaths
+   end
+
+   -- Find paths compatible with ALL subsequent modules
+   local commonPaths = {}
+   for i = 1, #firstPaths do
+      local candidatePath = firstPaths[i]
+      local isCommon = true
+
+      for j = 2, #failingUserNames do
+         local otherPaths = l_collect_all_parentAA(failingUserNames[j], dbT)
+         if (not otherPaths or #otherPaths == 0) then
+            isCommon = false
+            break
+         end
+
+         -- Find a compatible path in otherPaths
+         local foundCompatible = false
+         local bestPath = candidatePath
+         for k = 1, #otherPaths do
+            local compatible = l_paths_compatible(candidatePath, otherPaths[k])
+            if (compatible) then
+               foundCompatible = true
+               -- Use the longer (more specific) path
+               if (#compatible > #bestPath) then
+                  bestPath = compatible
+               end
+               break
+            end
+         end
+
+         if (not foundCompatible) then
+            isCommon = false
+            break
+         end
+         candidatePath = bestPath
+      end
+
+      if (isCommon) then
+         -- Avoid duplicates
+         local isDup = false
+         for m = 1, #commonPaths do
+            if (#commonPaths[m] == #candidatePath) then
+               local same = true
+               for n = 1, #candidatePath do
+                  if (commonPaths[m][n] ~= candidatePath[n]) then
+                     same = false
+                     break
+                  end
+               end
+               if (same) then
+                  isDup = true
+                  break
+               end
+            end
+         end
+         if (not isDup) then
+            commonPaths[#commonPaths + 1] = candidatePath
+         end
+      end
+   end
+
+   return commonPaths
+end
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- Helper function to build the list of user-requested modules to include
+-- in a suggestion command, filtering out modules that conflict with the
+-- dependency path.  A conflict exists when a requested module has the
+-- same short name as a module in the dependency path but a different
+-- version (e.g., user requested gcc/11 but path requires gcc/10.0).
+-- Failing modules are always included.  Non-conflicting modules (e.g.,
+-- python/3.9 when the path is gcc/10.0) are included to give the user
+-- a complete command.
+-- @param path       Array of dependency path entries (e.g., {"gcc/10.0"})
+-- @param failingSet Table of failing userNames (userName -> true)
+-- @return Array of module names to append after the dependency path
+local function l_build_modules_for_path(path, failingSet)
+   -- Build set of short names in the dependency path
+   local pathSnSet = {}
+   for i = 1, #path do
+      pathSnSet[l_extract_sn(path[i])] = true
+   end
+
+   local modulesToInclude = {}
+   for i = 1, #s_allRequestedT do
+      local entry    = s_allRequestedT[i]
+      local userName = entry.userName
+      local sn       = entry.mname:sn()
+
+      if (failingSet[userName]) then
+         -- Failing modules are always included
+         modulesToInclude[#modulesToInclude + 1] = userName
+      elseif (not pathSnSet[sn]) then
+         -- Non-conflicting module: safe to include
+         modulesToInclude[#modulesToInclude + 1] = userName
+      end
+      -- Conflicting modules (same sn as dependency path) are excluded
+   end
+   return modulesToInclude
+end
+
+--------------------------------------------------------------------------
+-- Helper function to format dependency commands for display
+-- Returns formatted string with ready-to-copy-paste commands, or nil if
+-- no dependencies found.
+-- @param kA Array of failing module show names
+-- @param kB Array of failing module user names
+-- @param dbT The spider database table
+local function l_format_dependency_commands(kA, kB, dbT)
+   if (not dbT or next(dbT) == nil) then
+      return nil
+   end
+
+   local allCommands = {}
+   local maxCommands = 5  -- Limit number of suggestions to avoid overwhelming output
+
+   -- Build set of failing userNames for quick lookup
+   local failingSet = {}
+   for i = 1, #kB do
+      failingSet[kB[i]] = true
+   end
+
+   -- Try to find common paths for all failing modules
+   local commonPaths = l_find_common_paths(kB, dbT)
+
+   if (#commonPaths > 0) then
+      -- Generate combined commands with all modules
+      for i = 1, #commonPaths do
+         local path = commonPaths[i]
+         if (path and #path > 0) then
+            local modulesToInclude = l_build_modules_for_path(path, failingSet)
+            local cmd = "module load " .. concatTbl(path, " ") .. " " .. concatTbl(modulesToInclude, " ")
+            -- Avoid duplicates
+            local found = false
+            for k = 1, #allCommands do
+               if (allCommands[k] == cmd) then
+                  found = true
+                  break
+               end
+            end
+            if (not found) then
+               allCommands[#allCommands + 1] = cmd
+            end
+         end
+      end
+   else
+      -- Fallback: generate individual commands per module
+      for i = 1, #kB do
+         local userName = kB[i]
+         local parentAA = l_collect_all_parentAA(userName, dbT)
+
+         if (parentAA and #parentAA > 0) then
+            for j = 1, #parentAA do
+               local parentA = parentAA[j]
+               if (parentA and #parentA > 0) then
+                  local modulesToInclude = l_build_modules_for_path(parentA, failingSet)
+                  local cmd = "module load " .. concatTbl(parentA, " ") .. " " .. concatTbl(modulesToInclude, " ")
+                  local found = false
+                  for k = 1, #allCommands do
+                     if (allCommands[k] == cmd) then
+                        found = true
+                        break
+                     end
+                  end
+                  if (not found) then
+                     allCommands[#allCommands + 1] = cmd
+                  end
+               end
+            end
+         end
+      end
+   end
+
+   if (#allCommands == 0) then
+      return nil
+   end
+
+   -- Sort commands alphabetically for deterministic output
+   table.sort(allCommands)
+
+   -- Limit number of commands shown
+   local cmdsToShow = {}
+   for i = 1, math.min(#allCommands, maxCommands) do
+      cmdsToShow[#cmdsToShow + 1] = "      " .. allCommands[i]
+   end
+
+   local result = "   Or load any one of these options:\n" .. concatTbl(cmdsToShow, "\n") .. "\n"
+   if (#allCommands > maxCommands) then
+      result = result .. "      ... and " .. (#allCommands - maxCommands) .. " more options\n"
+   end
+   return result
+end
+
+local function l_error_on_missing_loaded_modules(aa, bb)
    if (#aa > 0) then
       dbg.start{"l_error_on_missing_loaded_modules(aa,bb)"}
+      -- Clear s_missingModuleT to prevent recursive processing through M.error()
+      -- when mcp:report is called below. The modules we're processing here via
+      -- l_compareRequestedLoadsWithActual() supersede the s_missingModuleT tracking.
+      s_missingModuleT = {}
       dbg.printT("aa",aa)
       dbg.printT("bb",bb)
 
@@ -207,7 +502,32 @@ local function l_error_on_missing_loaded_modules(aa,bb)
       end
 
       if (#kA > 0) then
-         mcp:report{msg="e_Failed_Load_2", kA = concatTbl(kA, ", "), kB = concatTbl(kB, " ")}
+         -- Try to get dependency information from cache for ready-to-copy-paste commands
+         local cmdText = nil
+         local ok, Cache = pcall(require, "Cache")
+         if (ok and Cache) then
+            local cache_ok, cache = pcall(function()
+               return Cache:singleton{buildCache = true, quiet = true}
+            end)
+            if (cache_ok and cache) then
+               local build_ok, spiderT, dbT = pcall(function()
+                  local s, d = cache:build()
+                  return s, d
+               end)
+               if (build_ok and dbT and next(dbT) ~= nil) then
+                  cmdText = l_format_dependency_commands(kA, kB, dbT)
+               end
+            end
+         end
+
+         if (cmdText) then
+            mcp:report{msg="e_Failed_Load_2", kA = concatTbl(kA, ", "), kB = concatTbl(kB, " "),
+                       suggest_cmd = cmdText}
+         else
+            -- Fallback to original behavior if cache access fails
+            mcp:report{msg="e_Failed_Load_2", kA = concatTbl(kA, ", "), kB = concatTbl(kB, " "),
+                       suggest_cmd = ""}
+         end
       end
       dbg.fini("l_error_on_missing_loaded_modules")
    end
@@ -887,13 +1207,21 @@ function M.error(self, ...)
       local mt       = frameStk:mt()
       local aa       = {}
       local bb       = {}
+      -- Collect missing modules into a temporary array for sorting
+      local tmpA     = {}
       for userName, v in pairs(s_missingModuleT) do
          local sn = v.sn
          dbg.print{"MainControl:error: sn: ",sn, ", userName: ", userName,", showName: ",v.showName,"\n"}
          if (not (sn and mt:have(sn,"active")) ) then
-            aa[#aa + 1] = v.showName
-            bb[#bb + 1] = userName
+            tmpA[#tmpA + 1] = {showName = v.showName, userName = userName}
          end
+      end
+      -- Sort by userName for deterministic output order
+      table.sort(tmpA, function(a, b) return a.userName < b.userName end)
+      -- Extract sorted values back to aa and bb
+      for i = 1, #tmpA do
+         aa[i] = tmpA[i].showName
+         bb[i] = tmpA[i].userName
       end
       s_missingModuleT = {}
       if (next(aa) ~= nil) then
@@ -936,11 +1264,10 @@ function M.mustLoad(self)
    dbg.start{"MainControl:mustLoad()"}
 
    local aa, bb = l_compareRequestedLoadsWithActual()
-   l_error_on_missing_loaded_modules(aa,bb)
+   l_error_on_missing_loaded_modules(aa, bb)
 
    dbg.fini("MainControl:mustLoad")
 end
-
 
 function M.registerDependencyCk(self)
    s_performDepCk = true
@@ -1208,6 +1535,25 @@ function M.forgo_any(self,mA)
    local aa     = unload_internal(mB)
    dbg.fini("MainControl:forgo_any")
    return aa
+end
+
+-------------------------------------------------------------------
+-- Record the user's original module request for error suggestions.
+-- Called from cmdfuncs.lua before any load processing begins.
+-- Nested load_usr calls (e.g., family swaps) bypass cmdfuncs and
+-- therefore cannot corrupt this data.
+-- @param self A MainControl object
+-- @param mA A array of MName objects.
+function M.setOriginalUserRequest(self, mA)
+   s_allRequestedT = {}
+   for i = 1, #mA do
+      local mname = mA[i]
+      s_allRequestedT[#s_allRequestedT + 1] = {
+         userName = mname:userName(),
+         showName = mname:show(),
+         mname    = mname
+      }
+   end
 end
 
 -------------------------------------------------------------------

@@ -1,0 +1,499 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider boost/1.75.0
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0
+===========================
+false
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load netcdf/4.8.0
+===========================
+false
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load completely_nonexistent_module/1.0
+===========================
+false
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/10.0
+===========================
+LMOD_FAMILY_COMPILER=gcc;
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION=10.0;
+export LMOD_FAMILY_COMPILER_VERSION;
+LOADEDMODULES=gcc/10.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:1\;ProjectDIR/rt/load_suggest_cmd/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0
+===========================
+BOOST_DIR=/software/boost/1.75.0;
+export BOOST_DIR;
+BOOST_VERSION=1.75.0;
+export BOOST_VERSION;
+LOADEDMODULES=gcc/10.0:boost/1.75.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua:ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/boost/1.75.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={boost={fn="ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/boost/1.75.0.lua",fullName="boost/1.75.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="boost/1.75.0",wV="000000001.000000075.*zfinal",},gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={boost={fn="ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/boost/1.75.0.lua",fullName="boost/1.75.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="boost/1.75.0",wV="000000001.000000075.*zfinal",},gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset BOOST_DIR;
+unset BOOST_VERSION;
+unset LMOD_FAMILY_COMPILER;
+unset LMOD_FAMILY_COMPILER_VERSION;
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hdf5/1.12.0
+===========================
+false
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 hdf5/1.12.0
+===========================
+false
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider hdf5/1.12.0
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider netcdf/4.8.0
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost
+===========================
+false
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hdf5
+===========================
+false
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 netcdf/4.8.0
+===========================
+false
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 hdf5/1.12.0
+===========================
+false
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 boost/1.75.0
+===========================
+false
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load nonexistent/1.0 boost/1.75.0
+===========================
+false
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 boost/1.75.0 hdf5/1.12.0
+===========================
+false
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/10.0
+===========================
+LMOD_FAMILY_COMPILER=gcc;
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION=10.0;
+export LMOD_FAMILY_COMPILER_VERSION;
+LOADEDMODULES=gcc/10.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:1\;ProjectDIR/rt/load_suggest_cmd/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 hdf5/1.12.0 netcdf/4.8.0
+===========================
+BOOST_DIR=/software/boost/1.75.0;
+export BOOST_DIR;
+BOOST_VERSION=1.75.0;
+export BOOST_VERSION;
+HDF5_DIR=/software/hdf5/1.12.0;
+export HDF5_DIR;
+HDF5_VERSION=1.12.0;
+export HDF5_VERSION;
+LOADEDMODULES=gcc/10.0:boost/1.75.0:hdf5/1.12.0:netcdf/4.8.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+NETCDF_DIR=/software/netcdf/4.8.0;
+export NETCDF_DIR;
+NETCDF_VERSION=4.8.0;
+export NETCDF_VERSION;
+_LMFILES_=ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua:ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/boost/1.75.0.lua:ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/hdf5/1.12.0.lua:ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/netcdf/4.8.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={boost={fn="ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/boost/1.75.0.lua",fullName="boost/1.75.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="boost/1.75.0",wV="000000001.000000075.*zfinal",},gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},hdf5={fn="ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/hdf5/1.12.0.lua",fullName="hdf5/1.12.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="hdf5/1.12.0",wV="000000001.000000012.*zfinal",},netcdf={fn="ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/netcdf/4.8.0.lua",fullName="netcdf/4.8.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="netcdf/4.8.0",wV="000000004.000000008.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={boost={fn="ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/boost/1.75.0.lua",fullName="boost/1.75.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="boost/1.75.0",wV="000000001.000000075.*zfinal",},gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},hdf5={fn="ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/hdf5/1.12.0.lua",fullName="hdf5/1.12.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="hdf5/1.12.0",wV="000000001.000000012.*zfinal",},netcdf={fn="ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/netcdf/4.8.0.lua",fullName="netcdf/4.8.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="netcdf/4.8.0",wV="000000004.000000008.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset BOOST_DIR;
+unset BOOST_VERSION;
+unset HDF5_DIR;
+unset HDF5_VERSION;
+unset LMOD_FAMILY_COMPILER;
+unset LMOD_FAMILY_COMPILER_VERSION;
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+unset NETCDF_DIR;
+unset NETCDF_VERSION;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider petsc/3.17
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load petsc/3.17
+===========================
+false
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider fftw/3.3
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load fftw/3.3
+===========================
+false
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/10.0 openmpi/4.0
+===========================
+LMOD_FAMILY_COMPILER=gcc;
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION=10.0;
+export LMOD_FAMILY_COMPILER_VERSION;
+LOADEDMODULES=gcc/10.0:openmpi/4.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/MPI/gcc/10.0/openmpi/4.0:1\;ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:1\;ProjectDIR/rt/load_suggest_cmd/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/MPI/gcc/10.0/openmpi/4.0:ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+OPENMPI_VERSION=4.0;
+export OPENMPI_VERSION;
+_LMFILES_=ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua:ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/openmpi/4.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},openmpi={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/MPI/gcc/10.0/openmpi/4.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/openmpi/4.0.lua",fullName="openmpi/4.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="openmpi/4.0",wV="000000004.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/MPI/gcc/10.0/openmpi/4.0","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load petsc/3.17
+===========================
+LOADEDMODULES=gcc/10.0:openmpi/4.0:petsc/3.17;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/MPI/gcc/10.0/openmpi/4.0:ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+PETSC_DIR=/software/petsc/3.17;
+export PETSC_DIR;
+PETSC_VERSION=3.17;
+export PETSC_VERSION;
+_LMFILES_=ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua:ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/openmpi/4.0.lua:ProjectDIR/rt/load_suggest_cmd/mf/MPI/gcc/10.0/openmpi/4.0/petsc/3.17.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},openmpi={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/MPI/gcc/10.0/openmpi/4.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/openmpi/4.0.lua",fullName="openmpi/4.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="openmpi/4.0",wV="000000004.*zfinal",},petsc={fn="ProjectDIR/rt/load_suggest_cmd/mf/MPI/gcc/10.0/openmpi/4.0/petsc/3.17.lua",fullName="petsc/3.17",loadOrder=3,propT={},stackDepth=0,status="active",userName="petsc/3.17",wV="000000003.000000017.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/MPI/gcc/10.0/openmpi/4.0","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/MPI/gcc/10.0/openmpi/4.0:ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},openmpi={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/MPI/gcc/10.0/openmpi/4.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/openmpi/4.0.lua",fullName="openmpi/4.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="openmpi/4.0",wV="000000004.*zfinal",},petsc={fn="ProjectDIR/rt/load_suggest_cmd/mf/MPI/gcc/10.0/openmpi/4.0/petsc/3.17.lua",fullName="petsc/3.17",loadOrder=3,propT={},stackDepth=0,status="active",userName="petsc/3.17",wV="000000003.000000017.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/MPI/gcc/10.0/openmpi/4.0","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LMOD_FAMILY_COMPILER;
+unset LMOD_FAMILY_COMPILER_VERSION;
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+unset OPENMPI_VERSION;
+unset PETSC_DIR;
+unset PETSC_VERSION;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 37
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load fftw/3.3 petsc/3.17
+===========================
+false
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 ruby/3.0 boost/1.75.0
+===========================
+false
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 python/3.9
+===========================
+false
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 boost/1.75.0 nonexistent/1.0
+===========================
+false
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 45
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9
+===========================
+LOADEDMODULES=python/3.9;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+PYTHON_DIR=/software/python/3.9;
+export PYTHON_DIR;
+PYTHON_VERSION=3.9;
+export PYTHON_VERSION;
+_LMFILES_=ProjectDIR/rt/load_suggest_cmd/mf/Core/python/3.9.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={python={fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/python/3.9.lua",fullName="python/3.9",loadOrder=1,propT={},stackDepth=0,status="active",userName="python/3.9",wV="000000003.000000009.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 46
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={python={fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/python/3.9.lua",fullName="python/3.9",loadOrder=1,propT={},stackDepth=0,status="active",userName="python/3.9",wV="000000003.000000009.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 boost/1.75.0
+===========================
+false
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+unset PYTHON_DIR;
+unset PYTHON_VERSION;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 fftw/3.3 petsc/3.17
+===========================
+false
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 51
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/10.0
+===========================
+LMOD_FAMILY_COMPILER=gcc;
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION=10.0;
+export LMOD_FAMILY_COMPILER_VERSION;
+LOADEDMODULES=gcc/10.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:1\;ProjectDIR/rt/load_suggest_cmd/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 52
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 53
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 ruby/3.0 boost/1.75.0
+===========================
+BOOST_DIR=/software/boost/1.75.0;
+export BOOST_DIR;
+BOOST_VERSION=1.75.0;
+export BOOST_VERSION;
+LOADEDMODULES=gcc/10.0:python/3.9:ruby/3.0:boost/1.75.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+PYTHON_DIR=/software/python/3.9;
+export PYTHON_DIR;
+PYTHON_VERSION=3.9;
+export PYTHON_VERSION;
+RUBY_VERSION=3.0;
+export RUBY_VERSION;
+_LMFILES_=ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua:ProjectDIR/rt/load_suggest_cmd/mf/Core/python/3.9.lua:ProjectDIR/rt/load_suggest_cmd/mf/Core/ruby/3.0.lua:ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/boost/1.75.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={boost={fn="ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/boost/1.75.0.lua",fullName="boost/1.75.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="boost/1.75.0",wV="000000001.000000075.*zfinal",},gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},python={fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/python/3.9.lua",fullName="python/3.9",loadOrder=2,propT={},stackDepth=0,status="active",userName="python/3.9",wV="000000003.000000009.*zfinal",},ruby={fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/ruby/3.0.lua",fullName="ruby/3.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="ruby/3.0",wV="000000003.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 54
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0:ProjectDIR/rt/load_suggest_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={boost={fn="ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/boost/1.75.0.lua",fullName="boost/1.75.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="boost/1.75.0",wV="000000001.000000075.*zfinal",},gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},python={fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/python/3.9.lua",fullName="python/3.9",loadOrder=2,propT={},stackDepth=0,status="active",userName="python/3.9",wV="000000003.000000009.*zfinal",},ruby={fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/ruby/3.0.lua",fullName="ruby/3.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="ruby/3.0",wV="000000003.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
+export _ModuleTable_;
