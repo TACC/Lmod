@@ -583,6 +583,7 @@ local function l_usrLoad(argA, check_must_load)
       mcpStack:push(mcp)
       mcp           = MCP
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+      mcp:setOriginalUserRequest(lA)
       b             = mcp:load_usr(lA)
 
       if (haveWarnings() and check_must_load) then
