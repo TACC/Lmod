@@ -100,6 +100,12 @@ testdescript = {
      runLmod show nested_markdown_lists/1.0   # 38
      runLmod whatis nested_markdown_lists/1.0 # 39
 
+     # Test diagnostic output when detection fails (score=2, threshold=3)
+     # This should produce diagnostic output to stderr
+     runLmod help diagnostic_test/1.0         # 44
+     runLmod show diagnostic_test/1.0         # 45
+     runLmod whatis diagnostic_test/1.0        # 46
+
      # ============================================================
      # Color support tests
      # ============================================================

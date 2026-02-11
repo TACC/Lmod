@@ -3,7 +3,6 @@
 -- @module MarkdownDetector
 
 _G._DEBUG = false
-local posix = require("posix")
 
 pcall(require, "strict")
 
@@ -46,6 +45,34 @@ local dbg = require("Dbg"):dbg()
 local MarkdownDetector = {}
 
 --------------------------------------------------------------------------
+-- Split text into lines using string.find (version-independent: avoids gmatch
+-- behavior differences between Lua 5.1 and 5.2+ with patterns that match
+-- empty strings). Returns lines (trimmed) and originalLines.
+-- @param text The text to split
+-- @return lines, originalLines
+local function splitLines(text)
+   local lines = {}
+   local originalLines = {}
+   local pos = 1
+   local len = text:len()
+   while pos <= len do
+      local lineEnd = text:find("\n", pos, true)
+      local line, orig
+      if lineEnd then
+         orig = text:sub(pos, lineEnd - 1)
+         pos = lineEnd + 1
+      else
+         orig = text:sub(pos)
+         pos = len + 1
+      end
+      line = orig:match("^%s*(.-)%s*$") or ""
+      table.insert(lines, line)
+      table.insert(originalLines, orig)
+   end
+   return lines, originalLines
+end
+
+--------------------------------------------------------------------------
 -- Detect if text content is intended as markdown based on heuristic analysis
 -- @param text The text content to analyze
 -- @return true if content appears to be markdown, false otherwise
@@ -59,15 +86,8 @@ function MarkdownDetector.isMarkdown(text)
       return false
    end
    
-   -- Split into lines for analysis
-   -- Keep both original and trimmed versions - need original for list indentation check
-   local lines = {}
-   local originalLines = {}
-   for line in text:gmatch("[^\n]*") do
-      local trimmed = line:match("^%s*(.-)%s*$") or ""
-      table.insert(lines, trimmed)
-      table.insert(originalLines, line)  -- Keep original for indentation-sensitive checks
-   end
+   -- Split into lines for analysis (version-independent: see LUA_GMATCH_BEHAVIOR.md)
+   local lines, originalLines = splitLines(text)
    
    dbg.print{"Analyzing ", #lines, " lines"}
    
@@ -95,14 +115,10 @@ function MarkdownDetector.isMarkdown(text)
       -- Setext headers (underlines)
       -- Look back through empty lines to find the header text
       if i > 1 and (line:match("^===+$") or line:match("^---+$")) then
-         -- Find the most recent non-empty line before this one
-         local headerFound = false
          for j = i - 1, 1, -1 do
-            if lines[j]:len() > 0 then
-               -- Found non-empty line - this is a setext header
+            if lines[j] and lines[j]:len() > 0 then
                indicators.setext_headers = indicators.setext_headers + 1
                dbg.print{"Found setext header underline: '", line, "' with header: '", lines[j], "'"}
-               headerFound = true
                break
             end
          end
@@ -243,9 +259,9 @@ function MarkdownDetector.isMarkdown(text)
 end
 
 --------------------------------------------------------------------------
--- Get detailed analysis of markdown indicators in text
+-- Get basic analysis of markdown indicators in text
 -- @param text The text content to analyze
--- @return table with indicator counts and score
+-- @return table with score and detection result
 function MarkdownDetector.analyze(text)
    dbg.start{"MarkdownDetector.analyze()"}
    
@@ -258,13 +274,11 @@ function MarkdownDetector.analyze(text)
       }
    end
    
-   -- This is a simplified version that reuses the main logic
-   -- In production, we'd refactor to share the analysis code
    local isMarkdown = MarkdownDetector.isMarkdown(text)
    
    dbg.fini("MarkdownDetector.analyze")
    return {
-      score = isMarkdown and 3 or 0, -- Simplified for now
+      score = isMarkdown and 3 or 0,
       isMarkdown = isMarkdown,
       reason = isMarkdown and "Multiple markdown indicators found" or "Insufficient markdown indicators"
    }
