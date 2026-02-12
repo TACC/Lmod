@@ -63,7 +63,10 @@ A library module might look like::
 
 
 For improved documentation readability, help content can include markdown
-formatting which Lmod automatically converts for terminal display::
+formatting. Lmod automatically detects and converts it for terminal display.
+Supported elements include headers, lists, bold/italic, inline code, code
+blocks, links, and images. See :ref:`markdown_help-label` for full capabilities
+and limitations.::
 
     help([[
     # Scientific Computing Package

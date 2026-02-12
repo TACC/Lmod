@@ -80,7 +80,7 @@ Key Architectural Components:
 
         *   ``src/MainControl.lua``: Defines the base class and core logic for the MCP object (often referred to as ``mcp``). It manages a collection of environment variable changes (known as ``varT``) and the state of loaded modules (``MT`` - Module Table).
 
-        *   ``src/MC_*.lua`` (e.g., ``MC_Load.lua``, ``MC_Unload.lua``, ``MC_Show.lua``, ``MC_Avail.lua``): These files implement specialized behaviors for the MCP depending on the command being executed. For instance, ``MC_Load.lua`` defines how ``setenv`` behaves during a module load, while ``MC_Unload.lua`` defines its behavior during an unload.
+        *   ``src/MC_*.lua`` (e.g., ``MC_Load.lua``, ``MC_Unload.lua``, ``MC_Show.lua``, ``MC_Avail.lua``, ``MC_Access.lua``): These files implement specialized behaviors for the MCP depending on the command being executed. For instance, ``MC_Load.lua`` defines how ``setenv`` behaves during a module load, while ``MC_Unload.lua`` defines its behavior during an unload. ``MC_Access.lua`` and ``MC_Show.lua`` handle help and whatis display, using ``MarkdownDetector`` and ``MarkdownProcessor`` to detect and format markdown in help content. See :ref:`deepdive_markdown`.
 
         *   ``src/FrameStk.lua``: Manages a frame stack that holds contextual information for Lmod operations, including the current ``varT`` and ``MT``. This is important for handling nested operations and features like ``LmodBreak()``.
 

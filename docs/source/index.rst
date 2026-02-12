@@ -121,6 +121,7 @@ Advanced Topics
    098_dependent_modules
    100_modulefile_examples
    105_terse_output
+   106_markdown_help
    110_lmod_mpi_parallel_filesystem
    120_shared_home_directories
    125_personal_spider_cache
@@ -168,8 +169,8 @@ Overview and Internal Structure of Lmod
    454_framestack_deepdive
    455_mt_deepdive
    456_vart_deepdive
+   457_markdown_deepdive
    
-
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
