@@ -76,14 +76,16 @@ unset during unloading.
    when the mode is unload.
 
 **whatis** ("STRING"):
-    The whatis command can be called repeatedly with different strings. 
-    See the Administrator Guide for more details.
+    The whatis command can be called repeatedly with different strings.
+    Markdown in whatis strings is detected and formatted like help content.
+    See :ref:`markdown_help-label` for details.
 
 **help** ( [[ *help string* ]]):
      What is printed out when the help command is called. Note that
      the *help string* can be multi-lined. Lmod automatically detects
-     and processes markdown formatting in help content, converting it
-     to terminal-friendly display for better readability.
+     and processes markdown formatting (headers, lists, emphasis, code,
+     links, images) and converts it to terminal-friendly display.
+     See :ref:`markdown_help-label` for supported syntax and troubleshooting.
 
 **pathJoin** ("/a", "b/c/", "d/"):
      builds a path: "/a/b/c/d", It combines any number of strings with

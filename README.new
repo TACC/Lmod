@@ -11,3 +11,4 @@ Lmod 9.0+
 
 Lmod 9.1+
    (9.1.0)  * IS804: Show command to load module on failure - feature complete
+   (9.1.1)  * added markdown documentation
