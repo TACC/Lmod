@@ -78,7 +78,7 @@ unset during unloading.
 **whatis** ("STRING"):
     The whatis command can be called repeatedly with different strings.
     Markdown in whatis strings is detected and formatted like help content.
-    See the Administrator Guide for more details.
+    See :ref:`markdown_help-label` for details.
 
 **help** ( [[ *help string* ]]):
      What is printed out when the help command is called. Note that
