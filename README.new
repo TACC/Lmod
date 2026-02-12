@@ -9,3 +9,4 @@ Lmod 9.0+
    (9.0.7)  * SitePackage.lua can now be placed in /etc/lmod
    (9.0.8)  * IS788: Markdown support in whatis and help - feature complete
    (9.1.0)  * IS804: Show command to load module on failure - feature complete
+   (9.1.1)  * added markdown documentation
