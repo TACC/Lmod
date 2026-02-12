@@ -31,7 +31,7 @@ class CmdLineOptions(object):
   def execute(self):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
-    parser.add_argument("--syshost",      dest='syshost',      action="store",      default = "%",            help="system host name")
+    parser.add_argument("--syshost",      dest='syshostA',     action="store",      default = [],             help="system host name")
     parser.add_argument("--keepMonths",   dest='nMonths',      action="store",      default = None,           help="number of months to keep")
     parser.add_argument("--yes",          dest='yes',          action="store_true", default = None,           help="yes to deletions")
     parser.add_argument("--start",        dest='startDate',    action="store",      default = "unknown",      help="start date")
@@ -73,7 +73,7 @@ def main():
       sys.exit(0)
     
   
-  lmod.delete_old_records(args.debug, args.syshost, startDate, endDate)
+  lmod.delete_old_records(args.debug, args.syshostA, startDate, endDate)
 
 
 if ( __name__ == '__main__'): main()

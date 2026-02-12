@@ -28,7 +28,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2018 Robert McLay
+--  Copyright (C) 2008-2025 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -527,13 +527,13 @@ function load_module(...)
    end
 
    mcpStack:push(mcp)
-   dbg.print{"before chose: mcp: ",mcp,"\n"}
+   --dbg.print{"before chose: mcp: ",mcp,"\n"}
    mcp = l_chose_mcp(argT)
-   dbg.print{"after chose: mcp: ",mcp,"\n"}
+   --dbg.print{"after chose: mcp: ",mcp,"\n"}
 
    local b = mcp:load_usr(MName:buildA(mcp:MNameType(), argT))
    mcp = mcpStack:pop()
-   dbg.print{"restore: mcp: ",mcp,"\n"}
+   --dbg.print{"restore: mcp: ",mcp,"\n"}
    dbg.fini("load_module")
    return b
 end
@@ -593,16 +593,12 @@ function prepend_path(...)
 
 
    mcpStack:push(mcp)
-   dbg.print{"before chose: mcp: ",mcp,"\n"}
-
    mcp = l_chose_mcp(argT)
 
-   dbg.print{"after chose: mcp: ",mcp,"\n"}
    if (argT[2]) then
       mcp:prepend_path(argT)
    end
    mcp = mcpStack:pop()
-   dbg.print{"restore: mcp: ",mcp,"\n"}
    dbg.fini("prepend_path")
    return
 end
@@ -616,15 +612,15 @@ function append_path(...)
       return
    end
    mcpStack:push(mcp)
-   dbg.print{"before chose: mcp: ",mcp,"\n"}
+   --dbg.print{"before chose: mcp: ",mcp,"\n"}
    mcp = l_chose_mcp(argT)
-   dbg.print{"after chose: mcp: ",mcp,"\n"}
+   --dbg.print{"after chose: mcp: ",mcp,"\n"}
 
    if (argT[2]) then
       mcp:append_path(argT)
    end
    mcp = mcpStack:pop()
-   dbg.print{"restore: mcp: ",mcp,"\n"}
+   --dbg.print{"restore: mcp: ",mcp,"\n"}
    dbg.fini("append_path")
    return
 end

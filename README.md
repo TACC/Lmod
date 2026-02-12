@@ -32,6 +32,27 @@ release at sourceforge.
 ## ChangeLog
 
 
+### Lmod 9.0
+
+Features:
+
+   1. Irreversible mode: Unloading a module can set env. vars.
+
+   2. Improved optional module tracking.
+
+   3. More powerful hide{} and forbid{} functions to hide and forbid modules.
+
+   4. The function depends_on_any() added.
+
+   5. Collection only written to ~/.config/lmod directory.
+
+   6. Great performance improvements when loading a module with many dependencies.
+   
+Bug Fixes:
+
+   See README.old for the list.
+
+
 ### Lmod 8.7:
 
 Features:

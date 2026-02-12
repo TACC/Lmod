@@ -285,6 +285,21 @@ EOF
      $SED -e "s|%testDir%|$(testDir)|g" < $(testDir)/spiderT-vub-old.lua > $HOME/.cache/lmod/spiderT.lua
      runLmod -A    avail                               #119
 
+     ############################################################
+     # Issue #797: Test regex matching of hidden/forbidden modules
+     runLmod    purge                                  #120
+     unsetMT
+     rm -f $HOME/.cache/lmod/spiderT.lua
+     unset LMOD_MODULERC
+     export MODULEPATH_ROOT=$(testDir)/mfH
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     export LMOD_MODULERC=$(testDir)/lmodrc_797.lua
+     runLmod -A avail                                  #121
+     runLmod    avail                                  #122
+     export LMOD_MODULERC=$(testDir)/modrc_797
+     runLmod -A avail                                  #123
+
+
 
 
 

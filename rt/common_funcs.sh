@@ -326,6 +326,7 @@ initStdEnvVars()
   unset LMOD_SHOW_HIDDEN
   unset LMOD_SYSTEM_DEFAULT_MODULES
   unset MODULERCFILE
+  unset XDG_DATA_DIRS
   unset __LMOD_Priority_PATH
   export LMOD_NEWLINE="
 "

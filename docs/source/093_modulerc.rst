@@ -190,6 +190,34 @@ within 14 days.  This can be changed by setting environment variable
 "LMOD_NEARLY_FORBIDDEN_DAYS" or by configuring Lmod in the usual
 fashion.
 
+=========================================================
+hideRegex{}: hiding modules with Lua regular expression
+=========================================================
+
+Lmod 9.0.6+ now supports **hideRegex** {} that has the same options as
+**hide** {}.  The only difference is that the **name** is now a
+Lua-based regular expression.  Please note that Lua-based regex's are
+simplier that standard regular expression.  These use *%* instead of
+**\\** and that *.* and *-* are regular expression characters.
+
+Also note that using this regular expression matching is more
+expensive than using multiple **hide**.  Some tests show that adding regular
+expression matching can cause 10 to 15% slowdowns.  
+
+=============================================================
+forbidRegex{}: forbidding modules with Lua regular expression
+=============================================================
+
+Lmod 9.0.6+ now supports **forbidRegex** {} that has the same options as
+**forbid** {}.  The only difference is that the **name** is now a
+Lua-based regular expression.  Please note that Lua-based regex's are
+simplier that standard regular expression.  These use *%* instead of
+**\\** and that *.* and *-* are regular expression characters.
+
+Also note that using this regular expression matching is more
+expensive than using multiple **forbid**.  Some tests show that adding
+regular expression matching can cause 10 to 15% slowdowns.
+
 
 ============================================================
 TCL .modulerc files
@@ -245,6 +273,56 @@ modulefiles are located or in the LMOD_MODULERC files.
 
    All of the above options work the same as the Lmod versions do.
 
+**module-hide-regex** *options* name1 name2 ...
+   Where the *options* are::
+
+       --before YYYY-MM-DDTHH:MM
+       --after  YYYY-MM-DDTHH:MM
+       --hard
+       --soft
+       --hidden-loaded
+       --user {u1 u2 ...}
+       --group {g1 g2 ...}
+       --not-user {u1 u2 ...}
+       --not-group {g1 g2 ...}
+
+   All of the above options work the same as the Lmod versions do.
+   Note that name1 name2 ... are now Lua based regular expressions
+   For example::
+
+      module-hide-regex --soft \[Ff\]oo/2.0
+
+   the above command would match both Foo/2.0 and foo/2.0
+
+Also note that using this regular expression matching is more
+expensive than using multiple **forbid**.  Some tests show that adding regular
+expression matching can cause 10 to 15% slowdowns.  
+
+
+
+**module-forbid-regex** *options* name1 name2 ...
+   Where the *options* are::
+
+       --before YYYY-MM-DDTHH:MM
+       --after  YYYY-MM-DDTHH:MM
+       --user {u1 u2 ...}
+       --group {g1 g2 ...}
+       --not-user {u1 u2 ...}
+       --not-group {g1 g2 ...}
+       --message {...}
+       --nearly-message {...}
+
+   All of the above options work the same as the Lmod versions do.
+   Note that name1 name2 ... are now Lua based regular expressions
+   For example::
+
+      module-forbid-regex --soft \[GH\]pu%-app.*
+
+   the above command would match both Gpu-app.* and Hpu-app.*
+
+Also note that using this regular expression matching is more
+expensive than using multiple **forbid**.  Some tests show that adding regular
+expression matching can cause 10 to 15% slowdowns.  
 
 The above TCL commands are the only commands support in .modulerc or .version
 files. In particular, TCL commands like setenv(), pushenv() are not supported.

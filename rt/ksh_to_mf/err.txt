@@ -3,7 +3,7 @@ step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.7.47 2024-07-22 10:04 -04:00
-    by Robert McLay mclay@tacc.utexas.edu
+    https://lmod.readthedocs.io
 ===========================
 step 2
 buildSh2MF --from ksh ProjectDIR/rt/ksh_to_mf/script.ksh

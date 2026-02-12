@@ -13,7 +13,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2018 Robert McLay
+--  Copyright (C) 2008-2025 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -1167,6 +1167,14 @@ function reset_env()
    s_envT    = {}
 end
 
+
+function mergeEnvVars(...)
+   local argA = pack(...)
+   local env = table.concat(argA,":")
+   env = env:gsub("^:+",""):gsub(":+$",""):gsub("::+",":")
+   return env
+end
+
 ------------------------------------------------------------
 -- Initialize Lmod
 
@@ -1202,16 +1210,18 @@ function initialize_lmod()
       l_build_quarantineT()
    end
 
-   local lmodPath = cosmic:value("LMOD_PACKAGE_PATH")
-   for path in lmodPath:split(":") do
-      path = path .. "/"
-      path = path:gsub("//+","/")
-      package.path  = path .. "?.lua;"      ..
-                      path .. "?/init.lua;" ..
-                      package.path
-
-      package.cpath = path .. "../lib/?.so;"..
-                      package.cpath
+   local lmodPath = mergeEnvVars(cosmic:value("LMOD_PACKAGE_PATH"),configDir)
+   if (lmodPath ~= "") then
+      for path in lmodPath:split(":") do
+         path = path .. "/"
+         path = path:gsub("//+","/")
+         package.path  = path .. "?.lua;"      ..
+            path .. "?/init.lua;" ..
+            package.path
+         
+         package.cpath = path .. "../lib/?.so;"..
+            package.cpath
+      end
    end
 
    local locSitePkg = locatePkg("SitePackage")

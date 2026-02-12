@@ -1,0 +1,274 @@
+-- -*- lua -*-
+------------------------------------------------------------------------------
+-- Test for Issue #804: Show command to load module on failure
+--
+-- This test validates the enhanced error message behavior when a user 
+-- attempts to load a module that exists but cannot be loaded due to 
+-- missing dependencies. Instead of suggesting "module spider", the error
+-- should show ready-to-copy-paste load commands.
+--
+-- Test Scenarios:
+--   1. Basic version check
+--   2. Load module with single parent dependency (boost requires gcc)
+--   3. Load module with multiple parent paths (netcdf available via gcc or intel)
+--   4. Load truly unknown module (should still show "Unable to find")
+--   5. Load module after loading its dependency (positive test)
+--   6. Load multiple modules requiring dependencies
+--   7. Spider output verification (ensure spider still works correctly)
+--   8. Module with unique single dependency path (hdf5 only available via gcc)
+------------------------------------------------------------------------------
+
+local testName = "load_suggest_cmd"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+     Test Issue #804: Enhanced error messages for module load failures.
+     When loading modules that exist but cannot be loaded due to missing
+     dependencies, the error message should show ready-to-copy-paste
+     commands instead of just suggesting "module spider".
+   ]],
+   keywords = {testName, "issue804", "error_message", "load_suggest"},
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH_ROOT=$(testDir)/mf;    export MODULEPATH_ROOT
+     MODULEPATH=$MODULEPATH_ROOT/Core; export MODULEPATH
+
+     remove_generated_lmod_files
+
+     ############################################################
+     # Test 1: Basic version check
+     runLmod --version                                            # 1
+
+     ############################################################
+     # Test 2: Show available Core modules
+     runLmod avail                                                # 2
+
+     ############################################################
+     # Test 3: Spider to show all modules and their dependencies
+     runLmod spider                                               # 3
+
+     ############################################################
+     # Test 4: Spider specific module with dependencies
+     runLmod spider boost/1.75.0                                  # 4
+
+     ############################################################
+     # Test 5: Try to load module requiring dependency - SINGLE PARENT
+     # boost/1.75.0 is available via gcc/10.0 or intel/21.0
+     # Expected: Error message should show "module load gcc/10.0 boost/1.75.0"
+     #           or list multiple options if multiple paths exist
+     runLmod load boost/1.75.0                                    # 5
+
+     ############################################################
+     # Test 6: Try to load module with MULTIPLE possible parent paths
+     # netcdf/4.8.0 is available via gcc/10.0 OR intel/21.0
+     # Expected: Error message should show multiple options
+     runLmod load netcdf/4.8.0                                    # 6
+
+     ############################################################
+     # Test 7: Load a truly UNKNOWN module (does not exist anywhere)
+     # Expected: "Unable to find" error message (existing behavior)
+     runLmod load completely_nonexistent_module/1.0               # 7
+
+     ############################################################
+     # Test 8: Load module after loading its dependency (POSITIVE test)
+     # This should succeed without error
+     runLmod load gcc/10.0                                        # 8
+     runLmod list                                                 # 9
+     runLmod load boost/1.75.0                                   #10
+     runLmod list                                                #11
+
+     ############################################################
+     # Test 9: Unload and try module with UNIQUE dependency path
+     # hdf5/1.12.0 is ONLY available via gcc/10.0
+     runLmod purge                                               #12
+     runLmod load hdf5/1.12.0                                    #13
+
+     ############################################################
+     # Test 10: Try to load MULTIPLE modules requiring dependencies at once
+     runLmod load boost/1.75.0 hdf5/1.12.0                       #14
+
+     ############################################################
+     # Test 11: Verify spider still works correctly for dependency info
+     runLmod spider hdf5/1.12.0                                  #15
+     runLmod spider netcdf/4.8.0                                 #16
+
+     ############################################################
+     # Test 12: Load module by short name (without version)
+     # Should show dependency info in error message
+     runLmod load boost                                          #17
+     runLmod load hdf5                                           #18
+
+     ############################################################
+     # MULTI-MODULE TESTS (Issue #804 follow-up)
+     # Test how the feature handles loading multiple modules at once
+     ############################################################
+
+     ############################################################
+     # Test 13: Two modules with SAME dependency options
+     # boost and netcdf both available via gcc/10.0 or intel/21.0
+     runLmod load boost/1.75.0 netcdf/4.8.0                      #19
+
+     ############################################################
+     # Test 14: Two modules with DIFFERENT dependency options
+     # boost has gcc/10.0 or intel/21.0, hdf5 ONLY has gcc/10.0
+     # The common dependency is gcc/10.0
+     runLmod load boost/1.75.0 hdf5/1.12.0                       #20
+
+     ############################################################
+     # Test 15: Core module (no deps) + module needing deps
+     # python/3.9 is directly loadable, boost needs gcc or intel
+     runLmod load python/3.9 boost/1.75.0                        #21
+
+     ############################################################
+     # Test 16: Unknown module + module needing deps
+     # Should show appropriate errors for both
+     runLmod load nonexistent/1.0 boost/1.75.0                   #22
+
+     ############################################################
+     # Test 17: Three modules - mixed scenario
+     # python (Core), boost (gcc or intel), hdf5 (gcc only)
+     runLmod load python/3.9 boost/1.75.0 hdf5/1.12.0            #23
+
+     ############################################################
+     # Test 18: Verify loading works when deps are satisfied
+     runLmod load gcc/10.0                                       #24
+     runLmod load boost/1.75.0 hdf5/1.12.0 netcdf/4.8.0          #25
+     runLmod list                                                #26
+
+     ############################################################
+     # DIFFERENT DEPTH DEPENDENCY TESTS
+     # Test modules with varying numbers of dependencies
+     ############################################################
+     runLmod purge                                               #27
+
+     ############################################################
+     # Test 19: Spider to show the new hierarchy
+     runLmod spider                                              #28
+
+     ############################################################
+     # Test 20: Module with 2-level deep dependency (petsc needs gcc + openmpi)
+     runLmod spider petsc/3.17                                   #29
+     runLmod load petsc/3.17                                     #30
+
+     ############################################################
+     # Test 21: Module available at BOTH 1-level AND 2-level (fftw)
+     # fftw/3.3 is available via:
+     #   - gcc/10.0 (Compiler level, 1 dep)
+     #   - gcc/10.0 openmpi/4.0 (MPI level, 2 deps)
+     runLmod spider fftw/3.3                                     #31
+     runLmod load fftw/3.3                                       #32
+
+     ############################################################
+     # Test 22: Load 2-level deep module after satisfying deps
+     runLmod load gcc/10.0 openmpi/4.0                           #33
+     runLmod load petsc/3.17                                     #34
+     runLmod list                                                #35
+
+    ############################################################
+    # COMBINED SUGGESTION TESTS (Issue #804 enhancement)
+    # When loading multiple modules, suggestions should include
+    # ALL originally requested modules, not just the failing ones
+    # NOTE: Basic combined suggestion tests covered in Tests 13-17 above
+    ############################################################
+    runLmod purge                                               #36
+
+   ############################################################
+   # Test 23: Different depth deps - fftw (1 or 2 level) + petsc (2 level)
+   # fftw: gcc/10.0 OR gcc/10.0 openmpi/4.0
+   # petsc: ONLY gcc/10.0 openmpi/4.0
+   # Common path: gcc/10.0 openmpi/4.0
+   # Expected: module load gcc/10.0 openmpi/4.0 fftw/3.3 petsc/3.17
+   runLmod load fftw/3.3 petsc/3.17                            #37
+
+   ############################################################
+   # ADDITIONAL TESTS: Include succeeded Core modules in suggestions
+   # These tests validate that ALL originally requested modules appear
+   # in the suggested commands, not just the failing ones
+   ############################################################
+
+   ############################################################
+   # Test 24: TWO Core modules + one failing module
+   # python/3.9 and ruby/3.0 both load immediately, boost fails
+   # Expected: module load gcc/10.0 python/3.9 ruby/3.0 boost/1.75.0
+   #           module load intel/21.0 python/3.9 ruby/3.0 boost/1.75.0
+   runLmod purge                                               #38
+   runLmod load python/3.9 ruby/3.0 boost/1.75.0               #39
+
+   ############################################################
+   # Test 25: Order preservation - failing module listed BEFORE Core
+   # Suggestion should preserve user's original order
+   # Expected: module load gcc/10.0 boost/1.75.0 python/3.9
+   runLmod purge                                               #40
+   runLmod load boost/1.75.0 python/3.9                        #41
+
+   ############################################################
+   # Test 26: Core module + failing + unknown (mixed error types)
+   # Unknown module error takes priority and aborts processing
+   # Expected: Only unknown error shown (boost suggestion NOT shown)
+   runLmod purge                                               #42
+   runLmod load python/3.9 boost/1.75.0 nonexistent/1.0        #43
+
+   ############################################################
+   # Test 27: Pre-loaded Core module + failing module in new command
+   # First load python alone (succeeds), then request python + boost
+   # BUG: Currently shows no error - needs investigation
+   runLmod purge                                               #44
+   runLmod load python/3.9                                     #45
+   runLmod list                                                #46
+   runLmod load python/3.9 boost/1.75.0                        #47
+
+   ############################################################
+   # Test 28: Core + two failing with DIFFERENT depth requirements
+   # python loads, fftw needs gcc (1-level), petsc needs gcc+openmpi (2-level)
+   # Common path: gcc/10.0 openmpi/4.0
+   # Expected: module load gcc/10.0 openmpi/4.0 python/3.9 fftw/3.3 petsc/3.17
+   runLmod purge                                               #48
+   runLmod load python/3.9 fftw/3.3 petsc/3.17                 #49
+
+   ############################################################
+   # Test 29: Deps pre-loaded, all modules should load successfully
+   # gcc is pre-loaded, python and ruby are Core, boost becomes available
+   # Expected: All modules load without error
+   runLmod purge                                               #50
+   runLmod load gcc/10.0                                       #51
+   runLmod list                                                #52
+   runLmod load python/3.9 ruby/3.0 boost/1.75.0               #53
+   runLmod list                                                #54
+
+    ############################################################
+    # Cleanup and result processing
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

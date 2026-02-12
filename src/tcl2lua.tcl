@@ -10,7 +10,7 @@
 #
 #  ----------------------------------------------------------------------
 #
-#  Copyright (C) 2008-2018 Robert McLay
+#  Copyright (C) 2008-2025 Robert McLay
 #
 #  Permission is hereby granted, free of charge, to any person obtaining
 #  a copy of this software and associated documentation files (the
@@ -523,10 +523,16 @@ proc setenv { args } {
    if {$mode == "display"} {
       set-env $var $val
    }
-   if {$respect == "true"} {
-      cmdargs_w_mode_select "setenv" $resultA(mode) $var $val $respect
+   if {$resultA(mode) != "modeA={\"normal\"}" || $respect == "true"} {
+      # Has mode selection or respect - use curly braces
+      if {$respect == "true"} {
+         cmdargs_w_mode_select "setenv" $resultA(mode) $var $val $respect
+      } else {
+         cmdargs_w_mode_select "setenv" $resultA(mode) $var $val
+      }
    } else {
-      cmdargs_w_mode_select "setenv" $resultA(mode) $var $val
+      # Simple call - use parentheses
+      cmdargs "setenv" $var $val
    }
 }
 
@@ -553,7 +559,13 @@ proc unsetenv { args } {
           set-env $var $val
        }
     }
-   cmdargs_w_mode_select "unsetenv" $resultA(mode) $var $val
+   if {$resultA(mode) != "modeA={\"normal\"}"} {
+      # Has mode selection - use curly braces
+      cmdargs_w_mode_select "unsetenv" $resultA(mode) $var $val
+   } else {
+      # Simple call - use parentheses
+      cmdargs "unsetenv" $var
+   }
 }
 
 proc require-fullname {} {
@@ -592,7 +604,13 @@ proc pushenv { args } {
    set-env $var $val
    set g_varsT($var) $val
    
-   cmdargs_w_mode_select "pushenv" $resultA(mode) $var $val
+   if {$resultA(mode) != "modeA={\"normal\"}"} {
+      # Has mode selection - use curly braces
+      cmdargs_w_mode_select "pushenv" $resultA(mode) $var $val
+   } else {
+      # Simple call - use parentheses
+      cmdargs "pushenv" $var $val
+   }
 }
 
 proc prepend-path { args } {
@@ -1049,6 +1067,11 @@ proc module { command args } {
     }
 }
 
+proc report {message} {
+    global g_outputA
+    lappend g_outputA "LmodMessage(\[===\[$message\]===\])\n"
+}
+
 proc reportError {message} {
     global g_outputA
     global ModulesCurrentModulefile g_fullName
@@ -1095,6 +1118,7 @@ proc execute-modulefile {modfile } {
     interp alias $child puts           	 {} myPuts
     interp alias $child remove-path    	 {} remove-path
     interp alias $child remove-property  {} remove-property
+    interp alias $child report           {} report
     interp alias $child reportError      {} reportError
     interp alias $child require-fullname {} require-fullname
     interp alias $child set-alias        {} set-alias

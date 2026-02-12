@@ -69,6 +69,71 @@ testdescript = {
      runLmod load gcc/11 netcdf     #15
      runLmod load toolchain/intel   #16
      
+     #----------------------------------------
+     # Issue #780: Empty directory in MODULEPATH test
+     runLmod    purge               #17
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf2
+     export MODULEPATH=$MODULEPATH_ROOT/toolchains
+     export LMOD_CACHED_LOADS=1
+     unset LMOD_IGNORE_CACHE
+     
+     # Create empty directory and add it to MODULEPATH (this triggers the bug)
+     mkdir -p $(testDir)/empty_dir
+     runLmod use $(testDir)/empty_dir  #18
+     
+     # Try to load toolchain/gcc - this should work with controlled fallback behavior
+     runLmod load toolchain/gcc  #19 - Should show controlled FALLBACK for empty_dir
+     
+     #----------------------------------------
+     # Issue #780: Validate performance regression fix
+     #----------------------------------------
+     echo "=== Validating performance regression fix behavior ===" >&2
+     runLmod purge               #20
+     
+     # Test normal cache building (should NOT trigger expensive fallbacks)
+     cacheDir=`userCacheDir`
+     rm -rf $cacheDir
+     runLmod load toolchain/gcc  #21 - Should show SUCCESS or normal cache building
+     
+     # Test controlled fallback with pre-built cache
+     buildSpiderT $MODULEPATH > $cacheDir/spiderT.lua  
+     mkdir -p $(testDir)/fallback_test_dir
+     runLmod use $(testDir)/fallback_test_dir  #22
+     runLmod load toolchain/gcc  #23 - Should show FALLBACK only for fallback_test_dir
+     
+     #----------------------------------------
+     # Issue #780: Core regression test - MODULEPATH modified in same call
+     # Test that module B can be loaded in same call as module A when A modifies MODULEPATH
+     # This is the core regression: loading A and B together where A adds MODULEPATH containing B
+     #----------------------------------------
+     runLmod purge                  #24
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf3
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     unset LMOD_CACHED_LOADS
+     unset LMOD_IGNORE_CACHE
+     
+     # Core regression test: Load modA and modB in same call where modA modifies MODULEPATH
+     # modA adds NewPath, modB is in NewPath - both should load successfully
+     runLmod load modA modB         #25 - Should succeed: modA adds NewPath, modB is in NewPath
+     runLmod list                   #26 - Verify both modules loaded and active
+     
+     # Test with cached loads enabled
+     runLmod purge                  #27
+     export LMOD_CACHED_LOADS=1
+     runLmod load modA modB         #28 - Should work with cached loads too
+     runLmod list                   #29
+     unset LMOD_CACHED_LOADS
+     
+     # Test reloading modules when MODULEPATH changes
+     # Load modA first, then load modB (modA should remain active)
+     runLmod purge                  #30
+     runLmod load modA              #31 - Load modA first
+     runLmod list                   #32 - Verify modA is loaded
+     runLmod load modB              #33 - Load modB, which should work and modA should remain active
+     runLmod list                   #34 - Both should be active
+     
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

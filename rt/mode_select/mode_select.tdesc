@@ -90,6 +90,15 @@ testdescript = {
      runLmod load   load_test           #31
      runLmod unload load_test           #32
 
+     # Test module show with TCL syntax formatting
+     # These tests demonstrate the curly brace vs parentheses issue
+     runLmod show simple_test           #33 (Test simple TCL calls - should show parentheses after fix)
+     runLmod show mixed_syntax_test     #34 (Test mixed simple/mode calls - mixed parentheses/braces)
+     runLmod show edge_cases_test       #35 (Test edge cases with special characters)
+     
+     # Compare with existing env_test to show current problematic behavior
+     runLmod show env_test              #36 (Current TCL env_test - shows curly braces for simple calls)
+
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

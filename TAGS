@@ -1,23 +1,17 @@
 
-README_lua_modulefiles.txt,19
-   whatis(52,1780
-
-docker/Dockerfile,323
-RUN mkdir /tmp/git-repo;repo44,927
-RUN mkdir /tmp/git-repo; cd /tmp/git-repo repo44,927
-    cd Lmod 46,1025
-    git fetch --tags;tags47,1041
-    git checkout origin/debian debian docker 49,1099
-    cd Lmod 50,1148
-    cd Lmod ; debuild -b -uc -us;us50,1148
-    cd .. ; dpkg -i ./lmod_8.7.34_all.deb deb51,1184
-
-docker/build.sh,29
-VERSION=12,227
-lmod 24,593
-
-settarg/ModifyPath.lua,29
-function ModifyPath(38,1745
+settarg/Version.lua,325
+function M.branch(2,11
+function M.branch(branch2,11
+function M.branchStr(5,52
+function M.branchStr(branchStr5,52
+function M.tag(12,195
+function M.tag(tag12,195
+function M.git(13,235
+function M.git(git13,235
+function M.date(19,403
+function M.date(date19,403
+function M.name(20,458
+function M.name(name20,458
 
 settarg/TargValue.lua,174
 function M.new(45,1819
@@ -27,10 +21,8 @@ function M.value(value61,2119
 function M.display(71,2372
 function M.display(display71,2372
 
-settarg/settarg_cmd.in.lua,77
-function cmdDir(65,2547
-function optionTbl(75,2680
-function main(124,4075
+settarg/getUname.lua,27
+function getUname(66,2448
 
 settarg/BuildTarget.lua,548
 function M.default_MACH(69,2583
@@ -48,56 +40,15 @@ local function l_readDotFiles(245,7277
 function M.exec(352,10487
 function M.exec(exec352,10487
 
-settarg/ProcessModuleTable.lua,70
-function extractVersion(42,1872
-function processModuleTable(51,2080
+settarg/utils.lua,111
+function argsPack(50,2045
+function findFileInTree(56,2224
+function STError(74,2575
+function getSTT(84,2786
 
 settarg/Bare.lua,67
 function Bare.expand(43,1821
 function Bare.expand(expand43,1821
-
-settarg/Bash.lua,140
-function Bash.expandVar(42,1840
-function Bash.expandVar(expandVar42,1840
-function Bash.unset(61,2302
-function Bash.unset(unset61,2302
-
-settarg/Output.lua,25
-function Output(37,1689
-
-settarg/Version.lua,325
-function M.branch(2,11
-function M.branch(branch2,11
-function M.branchStr(5,52
-function M.branchStr(branchStr5,52
-function M.tag(12,195
-function M.tag(tag12,195
-function M.git(13,235
-function M.git(git13,235
-function M.date(19,403
-function M.date(date19,403
-function M.name(20,458
-function M.name(name20,458
-
-settarg/bash.settarg,126
-export SETTARG_CMD=7,211
-dbg(14,360
-opt(18,387
-mdbg(22,414
-gopt(26,443
-chk(30,472
-targ(34,499
-cdt(39,532
-PATH=48,753
-
-settarg/getUname.lua,27
-function getUname(66,2448
-
-settarg/Csh.lua,136
-function Csh.expandVar(44,1880
-function Csh.expandVar(expandVar44,1880
-function Csh.unset(52,2056
-function Csh.unset(unset52,2056
 
 settarg/BaseShell.lua,344
 function M.name(56,2301
@@ -111,6 +62,13 @@ function M.expand(102,3289
 function M.expand(expand102,3289
 function M.expandSTT(112,3480
 function M.expandSTT(expandSTT112,3480
+
+settarg/ProcessModuleTable.lua,70
+function extractVersion(42,1872
+function processModuleTable(51,2080
+
+settarg/ModifyPath.lua,29
+function ModifyPath(38,1745
 
 settarg/STT.lua,1042
 local function l_stt_version(55,2135
@@ -145,1486 +103,72 @@ local function l_new(51,2054
 function  M.options(60,2163
 function  M.options(options60,2163
 
-settarg/utils.lua,111
-function argsPack(50,2045
-function findFileInTree(56,2224
-function STError(74,2575
-function getSTT(84,2786
-
-src/PkgBase.lua,646
-function M.build(47,1929
-function M.build(build47,1929
-function M.pkgBaseName(52,2009
-function M.pkgBaseName(pkgBaseName52,2009
-function M.new(62,2188
-function M.new(new62,2188
-function M.setPkgInfo(92,2875
-function M.setPkgInfo(setPkgInfo92,2875
-function M.setStandardPaths(121,3584
-function M.setStandardPaths(setStandardPaths121,3584
-function M.pkgName(153,4366
-function M.pkgName(pkgName153,4366
-function M.pkgDisplayName(157,4420
-function M.pkgDisplayName(pkgDisplayName157,4420
-function M.pkgVersion(161,4486
-function M.pkgVersion(pkgVersion161,4486
-function M.pkgBase(165,4546
-function M.pkgBase(pkgBase165,4546
-
-src/sh_to_modulefile.in.lua,257
-function cmdDir(115,4252
-function programName(119,4293
-function optionTbl(157,5143
-local function l_cleanPath(161,5191
-function l_cleanEnv(216,6385
-function main(229,6662
-function usage(272,7673
-function my_error(277,7787
-function options(287,7943
-
-src/Hook.lua,190
-function M.register(88,4664
-function M.register(register88,4664
-function M.apply(124,5695
-function M.apply(apply124,5695
-function M.exists(134,5902
-function M.exists(exists134,5902
-
-src/Spider.lua,2194
-function M.new(69,2677
-function M.new(new69,2677
-local function l_nothing(78,2800
-local function l_process(81,2832
-function processLPATH(95,3219
-function processPATH(99,3282
-function processDIR(103,3343
-local function l_processNewModulePATH(107,3402
-function Spider_dynamic_mpath(132,4200
-function Spider_append_path(140,4434
-local function l_loadMe(169,5308
-local function l_findModules(191,6163
-local function l_findChangeMPATH_modules(210,6843
-function M.searchSpiderDB(231,7613
-function M.searchSpiderDB(searchSpiderDB231,7613
-function M.findAllModules(291,9215
-function M.findAllModules(findAllModules291,9215
-function extend(404,12586
-function reverse(412,12709
-function copy(421,12836
-local function l_build_parentT(478,14982
-   local function l_build_parentT_helper(483,15148
-local function l_build_mpathParentT(532,16573
-local function l_search_mpathParentT(562,17381
-local function l_build_keepT(578,17727
-function M.buildDbT(599,18284
-function M.buildDbT(buildDbT599,18284
-   local function l_cmp(616,18894
-   local function l_buildDbT_helper(619,18955
-function M.buildProvideByT(678,20799
-function M.buildProvideByT(buildProvideByT678,20799
-   local function l_cmp(711,22163
-function M.Level0_terse(732,22570
-function M.Level0_terse(Level0_terse732,22570
-function M.Level0(772,23783
-function M.Level0(Level0772,23783
-local function l_case_independent_cmp_by_name(798,24410
-local function l_computeColor(809,24624
-function M.Level0Helper(823,24966
-function M.Level0Helper(Level0Helper823,24966
-function M.setExactMatch(908,27837
-function M.setExactMatch(setExactMatch908,27837
-function M.getExactMatch(912,27902
-function M.getExactMatch(getExactMatch912,27902
-function M.spiderSearch(916,27960
-function M.spiderSearch(spiderSearch916,27960
-function M._Level1(1079,32872
-function M._Level1(_Level11079,32872
-   local function l_countEntries(1096,33462
-      local function cmp(1133,34498
-function M._Level2(1339,40688
-function M._Level2(_Level21339,40688
-function M.listModules(1524,46176
-function M.listModules(listModules1524,46176
-function M.dictModules(1535,46358
-function M.dictModules(dictModules1535,46358
-
-src/MN_Latest.lua,174
-function M.show(49,2034
-function M.show(show49,2034
-function M.steps(62,2238
-function M.steps(steps62,2238
-function M.prereq(69,2440
-function M.prereq(prereq69,2440
-
-src/DirTree.lua,468
-local function l_keepFile(79,2636
-local function l_checkValidModulefileReal(109,3346
-local function l_checkValidModulefileFake(121,3559
-local function l_walk_link(130,3836
-local function l_versionFile(151,4457
-local function l_walk(173,5153
-local function l_find_default(242,7970
-local function l_walk_tree(252,8132
-local function l_build(281,9009
-function M.new(303,9659
-function M.new(new303,9659
-function M.dirA(311,9802
-function M.dirA(dirA311,9802
-
-src/clearLMOD_cmd.in.lua,290
-function optionTbl(96,3118
-function cmdDir(100,3166
-function bash_unset(104,3207
-function csh_unset(108,3302
-function python_unset(112,3374
-function bash_export(116,3408
-function csh_setenv(133,3745
-function python_setenv(149,4061
-function options(168,4497
-function main(206,5299
-
-src/computeHashSum.in.lua,105
-function cmdDir(89,3231
-function optionTbl(120,3966
-function main(125,4015
-function options(181,5887
-
-src/update_lmod_system_cache_files.in,292
-DEBUG=51,1790
-error(89,2344
-warning(95,2419
-print_help(101,2520
-parse_cmdline(131,3622
-set_defaults(184,4903
-check_parameters(211,5790
-new_timestamp(228,6216
-install_new_cache(246,6824
-run_spider(268,7448
-update_cache(297,8447
-    PYTHON=342,9792
-  LMOD_REVERSEMAPT_DIR=348,9869
-
-src/HookArray.lua,125
-function M.register(48,2082
-function M.register(register48,2082
-function M.apply(55,2324
-function M.apply(apply55,2324
-
-src/Configuration.lua,249
-local function l_new(68,2538
-function M.singleton(302,18919
-function M.singleton(singleton302,18919
-function M.report(314,19260
-function M.report(report314,19260
-function M.report_json(414,22298
-function M.report_json(report_json414,22298
-
-src/MN_Exact.lua,58
-function M.steps(47,1865
-function M.steps(steps47,1865
-
-src/convertSh2MF.lua,39
-local function l_convertSh2MF(84,2149
-
-src/MainControl.lua,7796
-local function l_registerUserLoads(81,3365
-local function l_unRegisterUserLoads(92,3663
-local function l_compareRequestedLoadsWithActual(103,3965
-local function l_check_for_valid_name(120,4409
-local function l_check_for_valid_alias_name(128,4625
-local function l_createStackName(134,4780
-local function l_error_on_missing_loaded_modules(138,4858
-function M.name(195,6560
-function M.name(name195,6560
-function M.MNameType(202,6742
-function M.MNameType(MNameType202,6742
-function M.MNamePrereqType(209,6951
-function M.MNamePrereqType(MNamePrereqType209,6951
-function M.tcl_mode(216,7209
-function M.tcl_mode(tcl_mode216,7209
-local function l_valid_name(224,7459
-function M._setMode(231,7722
-function M._setMode(_setMode231,7722
-function M.build(241,8097
-function M.build(build241,8097
-function M.pushModule(284,9981
-function M.pushModule(pushModule284,9981
-function M.popModule(290,10108
-function M.popModule(popModule290,10108
-function M.isEmpty(301,10425
-function M.isEmpty(isEmpty301,10425
-function M.setenv(315,10946
-function M.setenv(setenv315,10946
-function M.setenv_env(345,11790
-function M.setenv_env(setenv_env345,11790
-function M.unsetenv(363,12397
-function M.unsetenv(unsetenv363,12397
-function M.pushenv(399,13533
-function M.pushenv(pushenv399,13533
-function M.popenv(455,15173
-function M.popenv(popenv455,15173
-function M.prepend_path(498,16374
-function M.prepend_path(prepend_path498,16374
-function M.append_path(531,17418
-function M.append_path(append_path531,17418
-function M.remove_path(562,18461
-function M.remove_path(remove_path562,18461
-function M.remove_path_first(597,19661
-function M.remove_path_first(remove_path_first597,19661
-function M.remove_path_last(606,19953
-function M.remove_path_last(remove_path_last606,19953
-function M.set_alias(619,20342
-function M.set_alias(set_alias619,20342
-function M.unset_alias(641,20983
-function M.unset_alias(unset_alias641,20983
-function M.set_shell_function(661,21602
-function M.set_shell_function(set_shell_function661,21602
-function M.unset_shell_function(684,22407
-function M.unset_shell_function(unset_shell_function684,22407
-function M.mode(703,23050
-function M.mode(mode703,23050
-function M.execute(711,23343
-function M.execute(execute711,23343
-function M.myShellName(730,23859
-function M.myShellName(myShellName730,23859
-function M.myShellType(734,23936
-function M.myShellType(myShellType734,23936
-function M.myFileName(743,24181
-function M.myFileName(myFileName743,24181
-function M.myModuleFullName(751,24463
-function M.myModuleFullName(myModuleFullName751,24463
-function M.myModuleUsrName(760,24828
-function M.myModuleUsrName(myModuleUsrName760,24828
-function M.myModuleName(769,25133
-function M.myModuleName(myModuleName769,25133
-function M.myModuleVersion(778,25452
-function M.myModuleVersion(myModuleVersion778,25452
-local function l_generateMsg(783,25560
-function M.msg_raw(814,26369
-function M.msg_raw(msg_raw814,26369
-function M.message(828,26672
-function M.message(message828,26672
-function M.warning(851,27400
-function M.warning(warning851,27400
-function M.error(867,27948
-function M.error(error867,27948
-function M.quiet(908,29048
-function M.quiet(quiet908,29048
-function M.mustLoad(912,29102
-function M.mustLoad(mustLoad912,29102
-function M.registerDependencyCk(922,29309
-function M.registerDependencyCk(registerDependencyCk922,29309
-function M.performDependencyCk(926,29377
-function M.performDependencyCk(performDependencyCk926,29377
-function M.dependencyCk(936,29647
-function M.dependencyCk(dependencyCk936,29647
-function M.dependencyCk_any(958,30198
-function M.dependencyCk_any(dependencyCk_any958,30198
-function M.reportMissingDepModules(990,31034
-function M.reportMissingDepModules(reportMissingDepModules990,31034
-function M.depends_on(1012,31682
-function M.depends_on(depends_on1012,31682
-function M.depends_on_any(1051,32618
-function M.depends_on_any(depends_on_any1051,32618
-function M.forgo(1097,33846
-function M.forgo(forgo1097,33846
-function M.forgo_any(1128,34702
-function M.forgo_any(forgo_any1128,34702
-function M.load_usr(1176,36168
-function M.load_usr(load_usr1176,36168
-function mAList(1198,36793
-function M.load(1206,36926
-function M.load(load1206,36926
-function M.load_any(1223,37240
-function M.load_any(load_any1223,37240
-function M.mgrload(1253,37816
-function M.mgrload(mgrload1253,37816
-function M.mgr_unload(1270,38184
-function M.mgr_unload(mgr_unload1270,38184
-function M.try_load(1285,38680
-function M.try_load(try_load1285,38680
-function M.unload(1296,39010
-function M.unload(unload1296,39010
-function M.build_unload(1311,39298
-function M.build_unload(build_unload1311,39298
-function M.do_not_build_unload(1317,39456
-function M.do_not_build_unload(do_not_build_unload1317,39456
-function M.unload_usr(1328,39793
-function M.unload_usr(unload_usr1328,39793
-function M.fake_load(1347,40295
-function M.fake_load(fake_load1347,40295
-function M.conflict(1359,40672
-function M.conflict(conflict1359,40672
-function M.removeConflict(1393,41630
-function M.removeConflict(removeConflict1393,41630
-function M.prereq(1410,42177
-function M.prereq(prereq1410,42177
-function M.prereq_any(1437,42925
-function M.prereq_any(prereq_any1437,42925
-function M.familyStackPush(1468,43802
-function M.familyStackPush(familyStackPush1468,43802
-function M.familyStackTop(1485,44498
-function M.familyStackTop(familyStackTop1485,44498
-function M.familyStackPop(1495,44805
-function M.familyStackPop(familyStackPop1495,44805
-function M.processFamilyStack(1506,45140
-function M.processFamilyStack(processFamilyStack1506,45140
-function M.familyStackEmpty(1516,45449
-function M.familyStackEmpty(familyStackEmpty1516,45449
-function M.family(1525,45760
-function M.family(family1525,45760
-function M.unset_family(1553,46694
-function M.unset_family(unset_family1553,46694
-function M.registerAdminMsg(1560,46890
-function M.registerAdminMsg(registerAdminMsg1560,46890
-function M.reportAdminMsgs(1597,48010
-function M.reportAdminMsgs(reportAdminMsgs1597,48010
-function M.loaded_modules(1627,49050
-function M.loaded_modules(loaded_modules1627,49050
-function M.add_property(1642,49518
-function M.add_property(add_property1642,49518
-function M.remove_property(1656,49980
-function M.remove_property(remove_property1656,49980
-function purgeFlg(1665,50248
-function M.purge(1670,50295
-function M.purge(purge1670,50295
-function M.tcl_mode(1701,50956
-function M.tcl_mode(tcl_mode1701,50956
-function M.is_spider(1708,51192
-function M.is_spider(is_spider1708,51192
-function M.inherit(1719,51618
-function M.inherit(inherit1719,51618
-function M.source_sh(1726,51775
-function M.source_sh(source_sh1726,51775
-function M.un_source_sh(1751,52643
-function M.un_source_sh(un_source_sh1751,52643
-function M.complete(1766,53252
-function M.complete(complete1766,53252
-function M.uncomplete(1782,53724
-function M.uncomplete(uncomplete1782,53724
-function M.export_shell_function(1798,54200
-function M.export_shell_function(export_shell_function1798,54200
-function M.unexport_shell_function(1809,54583
-function M.unexport_shell_function(unexport_shell_function1809,54583
-function M.color_banner(1820,54970
-function M.color_banner(color_banner1820,54970
-function M.set_errorFunc(1830,55198
-function M.set_errorFunc(set_errorFunc1830,55198
-function M.LmodBreak(1835,55308
-function M.LmodBreak(LmodBreak1835,55308
-function M.userInGroups(1866,56288
-function M.userInGroups(userInGroups1866,56288
-function M.missing_module(1885,56731
-function M.missing_module(missing_module1885,56731
-function M.haveDynamicMPATH(1889,56828
-function M.haveDynamicMPATH(haveDynamicMPATH1889,56828
-
-src/CTimer.lua,212
-local function l_new(47,1925
-function M.singleton(69,2644
-function M.singleton(singleton69,2644
-function M.test(79,3006
-function M.test(test79,3006
-function M.done(101,3595
-function M.done(done101,3595
-
-src/mrc_load.lua,56
-function myMRC_file(45,1913
-function mrc_load(49,1955
-
-src/MT.lua,6122
-function M.name(77,2958
-function M.name(name77,2958
-local function l_mt_version(81,3002
-local function l_new(86,3050
-function M.singleton(201,6101
-function M.singleton(singleton201,6101
-function M.__clearMT(219,6504
-function M.__clearMT(__clearMT219,6504
-function M.__convertMT(226,6632
-function M.__convertMT(__convertMT226,6632
-function __removeEnvMT(250,7322
-function M.add(264,7737
-function M.add(add264,7737
-function M.reportContents(304,9322
-function M.reportContents(reportContents304,9322
-function M.changeMPATH(333,10110
-function M.changeMPATH(changeMPATH333,10110
-function M.set_MPATH_change_flag(337,10173
-function M.set_MPATH_change_flag(set_MPATH_change_flag337,10173
-function M.reset_MPATH_change_flag(342,10295
-function M.reset_MPATH_change_flag(reset_MPATH_change_flag342,10295
-function M.add_actionA(347,10372
-function M.add_actionA(add_actionA347,10372
-function M.get_actionA(356,10614
-function M.get_actionA(get_actionA356,10614
-function M.add_sh2mf_cmds(365,10792
-function M.add_sh2mf_cmds(add_sh2mf_cmds365,10792
-function M.get_sh2mf_cmds(380,11158
-function M.get_sh2mf_cmds(get_sh2mf_cmds380,11158
-function M.setStatus(396,11586
-function M.setStatus(setStatus396,11586
-function M.status(407,11847
-function M.status(status407,11847
-function M.exists(415,11982
-function M.exists(exists415,11982
-function M.moduleKindT(423,12198
-function M.moduleKindT(moduleKindT423,12198
-function M.setRebuildTime(435,12586
-function M.setRebuildTime(setRebuildTime435,12586
-local function l_setLoadOrder(445,12949
-function M.serializeTbl(456,13147
-function M.serializeTbl(serializeTbl456,13147
-function M.encodeMT(509,14449
-function M.encodeMT(encodeMT509,14449
-function M.remove(518,14728
-function M.remove(remove518,14728
-local function l_build_AB(523,14803
-function M.list(548,15718
-function M.list(list548,15718
-   local function l_loadOrder_cmp(608,18299
-function M.empty(634,18704
-function M.empty(empty634,18704
-function M.add_property(647,19038
-function M.add_property(add_property647,19038
-function M.remove_property(674,19848
-function M.remove_property(remove_property674,19848
-function M.list_w_property(716,21267
-function M.list_w_property(list_w_property716,21267
-function M.haveProperty(746,22335
-function M.haveProperty(haveProperty746,22335
-function M.have(760,22814
-function M.have(have760,22814
-function M.find_possible_sn(768,22992
-function M.find_possible_sn(find_possible_sn768,22992
-function M.lookup_w_userName(787,23374
-function M.lookup_w_userName(lookup_w_userName787,23374
-function M.userName(814,23957
-function M.userName(userName814,23957
-function M.fullName(822,24096
-function M.fullName(fullName822,24096
-function M.wV(830,24235
-function M.wV(wV830,24235
-function M.fn(838,24362
-function M.fn(fn838,24362
-function M.version(846,24489
-function M.version(version846,24489
-function M.stackDepth(854,24646
-function M.stackDepth(stackDepth854,24646
-function M.safely_incr_ref_count(862,24793
-function M.safely_incr_ref_count(safely_incr_ref_count862,24793
-function M.decr_ref_count(880,25409
-function M.decr_ref_count(decr_ref_count880,25409
-function M.get_ref_count(892,25790
-function M.get_ref_count(get_ref_count892,25790
-function M.get_depends_on_anyA(901,26039
-function M.get_depends_on_anyA(get_depends_on_anyA901,26039
-function M.save_depends_on_any(909,26218
-function M.save_depends_on_any(save_depends_on_any909,26218
-function M.pop_depends_on_any(917,26426
-function M.pop_depends_on_any(pop_depends_on_any917,26426
-function M.pop_depends_on_any_ck(927,26698
-function M.pop_depends_on_any_ck(pop_depends_on_any_ck927,26698
-function M.updateMPathA(945,27289
-function M.updateMPathA(updateMPathA945,27289
-function M.modulePathA(956,27617
-function M.modulePathA(modulePathA956,27617
-function M.maxDepthT(960,27673
-function M.maxDepthT(maxDepthT960,27673
-function M.getShortTime(967,27861
-function M.getShortTime(getShortTime967,27861
-function M.getRebuildTime(974,28055
-function M.getRebuildTime(getRebuildTime974,28055
-function M.setRebuildTime(983,28380
-function M.setRebuildTime(setRebuildTime983,28380
-function M.addStickyA(994,28758
-function M.addStickyA(addStickyA994,28758
-function M.getStickyA(1004,29133
-function M.getStickyA(getStickyA1004,29133
-function M.userLoad(1017,29622
-function M.userLoad(userLoad1017,29622
-local function l_columnList(1025,29876
-function M.reportChanges(1044,30541
-function M.reportChanges(reportChanges1044,30541
-local function l_buildFamilyPrefix(1109,32497
-function M.setfamily(1127,32938
-function M.setfamily(setfamily1127,32938
-function M.unsetfamily(1143,33419
-function M.unsetfamily(unsetfamily1143,33419
-function M.getfamily(1157,33819
-function M.getfamily(getfamily1157,33819
-function M.pushInheritFn(1169,34157
-function M.pushInheritFn(pushInheritFn1169,34157
-function M.popInheritFn(1184,34743
-function M.popInheritFn(popInheritFn1184,34743
-function M.hideHash(1201,35279
-function M.hideHash(hideHash1201,35279
-function M.getHash(1215,35637
-function M.getHash(getHash1215,35637
-function M.setHashSum(1227,35965
-function M.setHashSum(setHashSum1227,35965
-function M.getMTfromFile(1294,38170
-function M.getMTfromFile(getMTfromFile1294,38170
-function M.extractModulesFiles(1513,45550
-function M.extractModulesFiles(extractModulesFiles1513,45550
-function M.setMpathRefCountT(1542,46228
-function M.setMpathRefCountT(setMpathRefCountT1542,46228
-function M.hideMpathRefCountT(1545,46313
-function M.hideMpathRefCountT(hideMpathRefCountT1545,46313
-function M.resetMPATH2system(1549,46394
-function M.resetMPATH2system(resetMPATH2system1549,46394
-function M.name_w_possible_alias(1555,46571
-function M.name_w_possible_alias(name_w_possible_alias1555,46571
-function M.registerConflicts(1573,47143
-function M.registerConflicts(registerConflicts1573,47143
-function M.removeConflicts(1589,47638
-function M.removeConflicts(removeConflicts1589,47638
-function M.haveDSConflict(1598,47855
-function M.haveDSConflict(haveDSConflict1598,47855
-
-src/FrameStk.lua,1303
-local function l_new(47,1953
-function M.singleton(63,2323
-function M.singleton(singleton63,2323
-function M.__clear(77,2674
-function M.__clear(__clear77,2674
-function M.resetMPATH2system(87,2884
-function M.resetMPATH2system(resetMPATH2system87,2884
-function M.push(96,3125
-function M.push(push96,3125
-function M.LmodBreak(107,3465
-function M.LmodBreak(LmodBreak107,3465
-function M.pop(114,3689
-function M.pop(pop114,3689
-function M.empty(126,4063
-function M.empty(empty126,4063
-function M.atTop(130,4121
-function M.atTop(atTop130,4121
-function M.stackDepth(134,4179
-function M.stackDepth(stackDepth134,4179
-function M.fullName(138,4239
-function M.fullName(fullName138,4239
-function M.mname(144,4387
-function M.mname(mname144,4387
-function M.userName(149,4479
-function M.userName(userName149,4479
-function M.fn(155,4627
-function M.fn(fn155,4627
-function M.sn(161,4763
-function M.sn(sn161,4763
-function M.version(167,4899
-function M.version(version167,4899
-function M.mt(173,5045
-function M.mt(mt173,5045
-function M.origMT(178,5131
-function M.origMT(origMT178,5131
-function M.varT(182,5184
-function M.varT(varT182,5184
-function M.count(187,5274
-function M.count(count187,5274
-function M.traceBack(191,5325
-function M.traceBack(traceBack191,5325
-
-src/printEnvT.lua,78
-function cmdDir(46,1093
-function programName(50,1134
-function main(62,1344
-
-src/parseVersion.lua,96
-function parseVersion(84,4011
-function parseVersionParts(128,5315
-      function()(134,5466
-
-src/MN_Match.lua,58
-function M.steps(48,1991
-function M.steps(steps48,1991
-
-src/pager.lua,86
-function bypassPager(60,2474
-function usePager(71,2779
-function buildPager(83,3167
-
-src/check_module_tree_syntax.in.lua,420
-function cmdDir(89,3155
-local function l_nothing(127,4250
-function walk_spiderT(130,4282
-   local function l_walk_moduleA_helper(134,4425
-function too_many_defaultA_entries(166,5410
-function check_syntax(171,5549
-   local function l_loadMe(178,5868
-function check_syntax_error_handler(204,6741
-local function l_OptError(228,7694
-local function l_prt(235,7819
-function options(239,7874
-function main(274,8811
-
-src/Version.lua,325
-function M.branch(2,11
-function M.branch(branch2,11
-function M.branchStr(5,52
-function M.branchStr(branchStr5,52
-function M.tag(12,195
-function M.tag(tag12,195
-function M.git(13,235
-function M.git(git13,235
-function M.date(19,403
-function M.date(date19,403
-function M.name(20,458
-function M.name(name20,458
-
-src/MRC.lua,2485
-local function l_new(79,2967
-function M.singleton(112,4243
-function M.singleton(singleton112,4243
-local function l_convertStr2TM(131,4645
-local function l_convertTimeStr_to_epoch(142,4890
-function M.__clear(157,5237
-function M.__clear(__clear157,5237
-function l_build(163,5343
-local function l_save_su_weights(177,5674
-   local function l_su_weight_helper(185,5839
-function M.parseModA(200,6191
-function M.parseModA(parseModA200,6191
-local function l_build_reverse_maps_from_v2mT(242,7705
-local function l_build_m2vT_f2aT(277,8511
-local function l_findKeyA(294,9118
-function M.pairsForMRC_aliases(322,9748
-function M.pairsForMRC_aliases(pairsForMRC_aliases322,9748
-local function l_find_alias_value(348,10392
-function M.resolve(365,10799
-function M.resolve(resolve365,10799
-function M.search_mapT(384,11411
-function M.search_mapT(search_mapT384,11411
-local function l_store_mpathT(392,11705
-function M.parseModA_for_moduleA(403,11997
-function M.parseModA_for_moduleA(parseModA_for_moduleA403,11997
-function M.fullNameDfltT(460,14331
-function M.fullNameDfltT(fullNameDfltT460,14331
-function M.mrcMpathT(464,14398
-function M.mrcMpathT(mrcMpathT464,14398
-function M.extract(468,14454
-function M.extract(extract468,14454
-function M.export(475,14661
-function M.export(export475,14661
-local function l_find_resultT(484,15013
-local function l_findHiddenState(520,16058
-local function l_findForbiddenState(549,16923
-function M.import(564,17417
-function M.import(import564,17417
-local function l_intersection(580,17861
-local function l_check_time_range(591,18068
-local function l_check_user_groups(607,18597
-local function l_check_forbidden_modifiers(629,19383
-local function l_check_hidden_modifiers(644,19849
-function M.isVisible(672,20797
-function M.isVisible(isVisible672,20797
-function M.isForbidden(747,23670
-function M.isForbidden(isForbidden747,23670
-function M.update(785,24828
-function M.update(update785,24828
-function l_find_all_su_defaults(792,24976
-function M.find_wght_for_fullName(806,25338
-function M.find_wght_for_fullName(find_wght_for_fullName806,25338
-function M.applyWeights(860,26590
-function M.applyWeights(applyWeights860,26590
-function M.set_display_mode(938,28574
-function M.set_display_mode(set_display_mode938,28574
-function M.sane_show_hidden(951,28783
-function M.sane_show_hidden(sane_show_hidden951,28783
-function M.show_hidden(966,29173
-function M.show_hidden(show_hidden966,29173
-
-src/ReadLmodRC.lua,428
-local function l_buildRC(55,2172
-local function l_new(108,3524
-function M.validPropValue(120,3716
-function M.validPropValue(validPropValue120,3716
-function M.singleton(143,4490
-function M.singleton(singleton143,4490
-function M.propT(152,4684
-function M.propT(propT152,4684
-function M.scDescriptT(156,4735
-function M.scDescriptT(scDescriptT156,4735
-function M.rcFileA(160,4798
-function M.rcFileA(rcFileA160,4798
-
-src/collectionFileA.lua,31
-function collectFileA(40,1743
-
-src/spiderCacheSupport.in.lua,149
-function cmdDir(88,2893
-function main(100,3100
-function buildFromEnvVars(127,3872
-function buildFromDescript(143,4215
-function options(170,4846
-
-src/spider.in.lua,1032
-function cmdDir(89,3126
-local function l_keepThisPath(132,4446
-local function l_add2map(179,5661
-function l_version(227,7359
-local function l_rptList(239,7716
-local function l_rptSpiderT(249,8026
-local function l_buildReverseMapT(261,8589
-local function l_buildXALTrmapT(294,9506
-local function l_buildLibMapA(308,9877
-local function l_rptReverseMapT(338,10583
-local function l_rptReverseMapTJson(353,11319
-local function l_rptXALTRmapTJson(370,11966
-local function l_rptSoftwarePageJson(387,12602
-local function l_rptSoftwarePageLua(400,13034
-local function l_rptSoftwarePageXml(408,13367
-local function l_rptDbT(415,13640
-local function l_rptDbTJson(425,14125
-function main(438,14497
-function softwarePage(535,17426
-function convertEntry(543,17564
-   local function l_cmp_wV(583,18478
-local function l_Error(630,19483
-local function l_prt(637,19602
-function options(641,19654
-function xmlSoftwarePage(724,21802
-function splitNV(770,22846
-function findLatestV(781,23064
-function localSoftware(808,23657
-
-src/Exec.lua,213
-local function l_new(49,2022
-function M.exec(62,2314
-function M.exec(exec62,2314
-function M.register(74,2612
-function M.register(register74,2612
-function M.expand(89,2992
-function M.expand(expand89,2992
-
-src/MC_ComputeHash.lua,1054
-local function l_ShowCmd(67,3089
-function M.always_load(112,4981
-function M.always_load(always_load112,4981
-function M.always_unload(120,5262
-function M.always_unload(always_unload120,5262
-function M.prepend_path(128,5542
-function M.prepend_path(prepend_path128,5542
-function M.append_path(138,5892
-function M.append_path(append_path138,5892
-function M.remove_path(148,6240
-function M.remove_path(remove_path148,6240
-function M.load(158,6580
-function M.load(load158,6580
-function M.mgrload(165,6761
-function M.mgrload(mgrload165,6761
-function M.depends_on(172,7054
-function M.depends_on(depends_on172,7054
-function M.depends_on_any(180,7331
-function M.depends_on_any(depends_on_any180,7331
-function M.load_usr(188,7604
-function M.load_usr(load_usr188,7604
-function M.load_any(196,7865
-function M.load_any(load_any196,7865
-function M.try_load(204,8130
-function M.try_load(try_load204,8130
-function M.inherit(213,8368
-function M.inherit(inherit213,8368
-function M.unload(221,8625
-function M.unload(unload221,8625
-
-src/chkJson,23
-function main(59,1566
-
-src/mrc_sandbox.lua,74
-local function l_mrc_run5_1(83,3579
-local function l_mrc_run5_2(96,4255
-
-src/myConfig.lua,27
-function myConfig(37,1727
-
-src/MName.lua,3154
-function M.className(52,2104
-function M.className(className52,2104
-local function l_lessthan(56,2159
-local function l_lessthan_equal(60,2211
-function M.new(69,2438
-function M.new(new69,2438
-local function l_overRide_sType(158,5266
-function M.buildA(167,5586
-function M.buildA(buildA167,5586
-local function l_lazyEval(183,5930
-function M.valid(296,9727
-function M.valid(valid296,9727
-function M.moduleKindT(303,9832
-function M.moduleKindT(moduleKindT303,9832
-function M.isVisible(316,10173
-function M.isVisible(isVisible316,10173
-function M.userName(324,10349
-function M.userName(userName324,10349
-function M.origUserName(328,10406
-function M.origUserName(origUserName328,10406
-function M.sn(332,10471
-function M.sn(sn332,10471
-function M.fn(341,10634
-function M.fn(fn341,10634
-function M.version(350,10797
-function M.version(version350,10797
-function M.wV(357,10909
-function M.wV(wV357,10909
-function M.stackDepth(364,11011
-function M.stackDepth(stackDepth364,11011
-function M.setStackDepth(372,11196
-function M.setStackDepth(setStackDepth372,11196
-function M.set_ref_count(376,11268
-function M.set_ref_count(set_ref_count376,11268
-function M.set_depends_on_anyA(380,11339
-function M.set_depends_on_anyA(set_depends_on_anyA380,11339
-function M.get_depends_on_anyA(384,11442
-function M.get_depends_on_anyA(get_depends_on_anyA384,11442
-function M.ref_count(391,11578
-function M.ref_count(ref_count391,11578
-function M.fullName(398,11694
-function M.fullName(fullName398,11694
-local function l_find_exact_match(459,14033
-function M.find_exact_match(513,16201
-function M.find_exact_match(find_exact_match513,16201
-function M.find_exact_match_meta_module(526,16835
-function M.find_exact_match_meta_module(find_exact_match_meta_module526,16835
-local function l_find_highest_by_key(534,17230
-function M.find_highest(591,19284
-function M.find_highest(find_highest591,19284
-function M.find_latest(595,19376
-function M.find_latest(find_latest595,19376
-function M.find_between(599,19466
-function M.find_between(find_between599,19466
-local function l_rangeCk(648,21053
-function M.isloaded(678,22238
-function M.isloaded(isloaded678,22238
-function M.isPending(710,23185
-function M.isPending(isPending710,23185
-function M.defaultKind(723,23534
-function M.defaultKind(defaultKind723,23534
-function M.prereq(738,23837
-function M.prereq(prereq738,23837
-function M.conflictCk(772,24738
-function M.conflictCk(conflictCk772,24738
-function M.downstreamConflictCk(798,25553
-function M.downstreamConflictCk(downstreamConflictCk798,25553
-function M.forbiddenT(822,26264
-function M.forbiddenT(forbiddenT822,26264
-function M.set_depends_on_flag(826,26325
-function M.set_depends_on_flag(set_depends_on_flag826,26325
-function M.get_depends_on_flag(837,26580
-function M.get_depends_on_flag(get_depends_on_flag837,26580
-function M.reset(842,26706
-function M.reset(reset842,26706
-function M.actionName(849,26842
-function M.actionName(actionName849,26842
-function M.show(857,27058
-function M.show(show857,27058
-function M.print(861,27125
-function M.print(print861,27125
-
-src/MC_CheckSyntax.lua,162
-function M.add_property(107,4627
-function M.add_property(add_property107,4627
-function M.userInGroups(120,5080
-function M.userInGroups(userInGroups120,5080
-
-src/Var.lua,1761
-local function l_extract_Lmod_var_table(73,2903
-local function l_dynamicMP(106,3797
-local function l_dynamicMRC(127,4616
-local function l_processDynamicVars(149,5306
-local function l_extract(166,6063
-function M.new(237,8358
-function M.new(new237,8358
-function M.myName(253,8719
-function M.myName(myName253,8719
-local function l_remFunc(262,9074
-function M.remove(304,10412
-function M.remove(remove304,10412
-local function l_insertFunc(346,11887
-function M.prepend(390,13276
-function M.prepend(prepend390,13276
-function M.append(441,14845
-function M.append(append441,14845
-function M.complete(484,16140
-function M.complete(complete484,16140
-function M.uncomplete(490,16273
-function M.uncomplete(uncomplete490,16273
-function M.export_shell_function(496,16364
-function M.export_shell_function(export_shell_function496,16364
-function M.unset_shell_function(501,16477
-function M.unset_shell_function(unset_shell_function501,16477
-function M.set(511,16771
-function M.set(set511,16771
-function M.pop(525,17233
-function M.pop(pop525,17233
-function M.prt(578,18650
-function M.prt(prt578,18650
-function M.set_ref_countT(610,19626
-function M.set_ref_countT(set_ref_countT610,19626
-function M.refCountT(617,19768
-function M.refCountT(refCountT617,19768
-function M.unset(631,20073
-function M.unset(unset631,20073
-function M.expand(652,20758
-function M.expand(expand652,20758
-function M.setAlias(785,24104
-function M.setAlias(setAlias785,24104
-function M.unsetAlias(794,24352
-function M.unsetAlias(unsetAlias794,24352
-function M.setShellFunction(804,24670
-function M.setShellFunction(setShellFunction804,24670
-function M.unsetShellFunction(812,24949
-function M.unsetShellFunction(unsetShellFunction812,24949
-
-src/StandardPackage.lua,159
-local function l_site_name_hook(59,2453
-local function l_msg(68,2676
-local function l_groupName(88,3104
-local function l_reverseMapPathFilterHook(124,3745
-
-src/Timer.lua,222
-local function l_new(55,2293
-function M.singleton(66,2572
-function M.singleton(singleton66,2572
-function M.deltaT(78,2916
-function M.deltaT(deltaT78,2916
-function M.report(88,3303
-function M.report(report88,3303
-
-src/Cache.lua,404
-local function l_new(100,4482
-local function l_uuid(199,7537
-function M.singleton(224,8500
-function M.singleton(singleton224,8500
-local function l_readCacheFile(274,10057
-local function l_writeUserSpiderCacheWhenNecessary(377,13238
-function M.build(515,19155
-function M.build(build515,19155
-   local function l_cmp(582,21295
-function M.__clear(653,23281
-function M.__clear(__clear653,23281
-
-src/colorize.lua,123
-function full_colorize(80,2912
-function plain(115,3983
-function colorize_kind(127,4185
-function colorize_init(131,4241
-
-src/LocationT.lua,263
-local function l_merge_locationT(46,1884
-local function l_build(73,2691
-function M.new(106,3532
-function M.new(new106,3532
-function M.locationT(116,3756
-function M.locationT(locationT116,3756
-function M.search(120,3815
-function M.search(search120,3815
-
-src/MN_Between.lua,174
-function M.steps(50,1930
-function M.steps(steps50,1930
-function M.show(57,2118
-function M.show(show57,2118
-function M.prereq(75,2575
-function M.prereq(prereq75,2575
-
-src/tcl2lua.tcl,125
-global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode g_shellType g_outputA,37,1648
-set g_help $params(1173,30474
-
-src/Options.lua,134
-local function l_prt(73,2966
-local function l_nothing(81,3178
-function M.singleton(90,3486
-function M.singleton(singleton90,3486
-
-src/PkgTACC.lua,140
-function M.name(45,1866
-function M.name(name45,1866
-function M._build_pkgBase(49,1913
-function M._build_pkgBase(_build_pkgBase49,1913
-
-src/sandbox.lua,251
-function sandbox_registration(277,11056
-function sandbox_set_os_exit(286,11246
-function turn_off_stdio(290,11316
-      function(f,(f294,11482
-function turn_on_stdio(302,11641
-local function l_run5_1(312,11996
-local function l_run5_2(325,12664
-
-src/MC_Spider.lua,1258
-function argsPack(99,4112
-function M.myFileName(108,4437
-function M.myFileName(myFileName108,4437
-function M.myModuleFullName(119,4858
-function M.myModuleFullName(myModuleFullName119,4858
-function M.myModuleName(130,5234
-function M.myModuleName(myModuleName130,5234
-function M.myModuleVersion(140,5602
-function M.myModuleVersion(myModuleVersion140,5602
-function M.help(151,6040
-function M.help(help151,6040
-function M.haveDynamicMPATH(162,6366
-function M.haveDynamicMPATH(haveDynamicMPATH162,6366
-function M.extensions(171,6697
-function M.extensions(extensions171,6697
-function M.whatis(195,7390
-function M.whatis(whatis195,7390
-function M.setenv(223,8295
-function M.setenv(setenv223,8295
-function M.pushenv(263,9361
-function M.pushenv(pushenv263,9361
-function M.prepend_path(274,9684
-function M.prepend_path(prepend_path274,9684
-function M.append_path(286,10003
-function M.append_path(append_path286,10003
-function M.is_spider(296,10291
-function M.is_spider(is_spider296,10291
-function M.family(307,10566
-function M.family(family307,10566
-function M.add_property(323,11113
-function M.add_property(add_property323,11113
-function M.remove_property(342,11827
-function M.remove_property(remove_property342,11827
-
-src/Hub.lua,1485
-local function l_new(71,2763
-function M.singleton(84,3046
-function M.singleton(singleton84,3046
-function M.access(102,3690
-function M.access(access102,3690
-local function l_registerLoaded(171,5976
-local function l_registerUnloaded(197,6756
-function M.inheritModule(221,7344
-function M.inheritModule(inheritModule221,7344
-function M.mgrload(276,8811
-function M.mgrload(mgrload276,8811
-function M.load(299,9460
-function M.load(load299,9460
-local function l_missingFn_action(488,16833
-function M.unload(514,17657
-function M.unload(unload514,17657
-function M.reloadAll(606,21053
-function M.reloadAll(reloadAll606,21053
-function M.refresh(723,26001
-function M.refresh(refresh723,26001
-function M.dependencyCk(758,27311
-function M.dependencyCk(dependencyCk758,27311
-function M.reload_sticky(791,28399
-function M.reload_sticky(reload_sticky791,28399
-function M.safeToUpdate(851,30212
-function M.safeToUpdate(safeToUpdate851,30212
-local function l_availEntry(855,30266
-local function mark_as_default(890,31113
-local function regroup_avail_blocks(895,31259
-function M.overview(968,33110
-function M.overview(overview968,33110
-   local function print_overview_block(1035,34914
-   local function register_sn_count_in_b(1051,35542
-function M.buildExtA(1107,37125
-function M.buildExtA(buildExtA1107,37125
-function M.terse_avail(1155,38453
-function M.terse_avail(terse_avail1155,38453
-function M.avail(1223,40564
-function M.avail(avail1223,40564
-
-src/ml_cmd.in.lua,111
-function cmdDir(92,3409
-local function l_quoteWrap(106,3718
-function usage(112,3889
-function main(123,4267
-
-src/MC_Access.lua,198
-function M.setAccessMode(65,2706
-function M.setAccessMode(setAccessMode65,2706
-function M.help(72,2943
-function M.help(help72,2943
-function M.whatis(86,3329
-function M.whatis(whatis86,3329
-
-src/Pkg.lua,255
-function M.name(52,2060
-function M.name(name52,2060
-function M._build_pkgBase(56,2103
-function M._build_pkgBase(_build_pkgBase56,2103
-local function l_digit_rule_pattern(74,2581
-function M.moduleDir(85,2791
-function M.moduleDir(moduleDir85,2791
-
-src/modfuncs.lua,2555
-local function l_concatTbl(77,3205
-local function l_validateStringArgs(99,3789
-local function l_validateStringTable(114,4286
-local function l_validateArgsWithValue(143,5112
-local function l_validateModules(165,5845
-function load_module(191,6679
-function mgrload(201,6976
-function load_any(210,7154
-local function l_convert2table(224,7649
-local function l_cleanupPathArgs(241,7971
-function prepend_path(257,8365
-function append_path(269,8769
-function remove_path(280,9169
-function pushenv(293,9623
-function setenv(304,9941
-function unsetenv(315,10256
-function execute(327,10620
-function family(341,11067
-function loaded_modules(354,11413
-function inherit(366,11734
-function mode(375,11953
-function haveDynamicMPATH(380,12010
-function is_spider(389,12274
-function isloaded(399,12533
-function isAvail(407,12747
-function export_shell_function(418,13055
-function myFileName(426,13319
-function myModuleFullName(432,13486
-function myModuleName(438,13675
-function myModuleUsrName(444,13866
-function myModuleVersion(450,14042
-function isPending(457,14270
-function LmodError(465,14535
-function LmodWarning(472,14723
-function LmodMessage(479,14890
-function LmodMsgRaw(486,15057
-function LmodVersion(493,15236
-function myShellName(499,15397
-function myShellType(503,15453
-function whatis(509,15617
-function help(519,15897
-function userInGroups(527,16046
-function convertToCanonical(540,16460
-function prereq(551,16829
-function prereq_any(562,17259
-function conflict(572,17640
-function atleast(585,18076
-function atmost(599,18465
-function between(614,18886
-function latest(626,19240
-function set_alias(639,19525
-function unset_alias(649,19836
-function set_shell_function(659,20174
-function unset_shell_function(669,20529
-function add_property(681,20917
-function remove_property(690,21238
-function hierarchyA(702,21677
-function moduleStackTraceBack(748,22711
-function requireFullName(773,23366
-function LmodErrorExit(782,23666
-function LmodSystemError(789,23847
-function try_load(798,24278
-function unload_usr_internal(807,24524
-function unload_internal(824,24986
-function unload(845,25651
-function always_load(855,26003
-function always_unload(867,26423
-function depends_on(874,26581
-function depends_on_any(882,26824
-function extensions(890,27087
-function color_banner(898,27303
-function source_sh(903,27365
-function complete(910,27563
-function uncomplete(917,27830
-function LmodBreak(924,28085
-function purge(931,28279
-function dofile_not_supported(938,28395
-function subprocess(945,28506
-
-src/loadModuleFile.lua,33
-function loadModuleFile(60,2548
-
-src/MC_Show.lua,3009
-local function l_ShowCmd(71,2885
-local function l_Show_help(75,2960
-function M.help(82,3161
-function M.help(help82,3161
-function M.extensions(89,3353
-function M.extensions(extensions89,3353
-function M.whatis(97,3593
-function M.whatis(whatis97,3593
-function M.export_shell_function(105,3845
-function M.export_shell_function(export_shell_function105,3845
-function show_exit(113,4110
-function M.execute(121,4360
-function M.execute(execute121,4360
-function M.prepend_path(135,4746
-function M.prepend_path(prepend_path135,4746
-function M.add_property(144,5053
-function M.add_property(add_property144,5053
-function M.remove_property(153,5376
-function M.remove_property(remove_property153,5376
-function M.message(160,5609
-function M.message(message160,5609
-function M.msg_raw(167,5819
-function M.msg_raw(msg_raw167,5819
-function M.set_alias(176,6120
-function M.set_alias(set_alias176,6120
-function M.pushenv(185,6435
-function M.pushenv(pushenv185,6435
-function M.unset_alias(194,6736
-function M.unset_alias(unset_alias194,6736
-function M.append_path(202,6974
-function M.append_path(append_path202,6974
-function M.setenv(211,7273
-function M.setenv(setenv211,7273
-function M.unsetenv(221,7618
-function M.unsetenv(unsetenv221,7618
-function M.remove_path(230,7897
-function M.remove_path(remove_path230,7897
-function M.load(238,8153
-function M.load(load238,8153
-function M.load_any(246,8409
-function M.load_any(load_any246,8409
-function M.mgrload(254,8672
-function M.mgrload(mgrload254,8672
-function M.depends_on(262,8965
-function M.depends_on(depends_on262,8965
-function M.depends_on_any(270,9239
-function M.depends_on_any(depends_on_any270,9239
-function M.try_load(282,9612
-function M.try_load(try_load282,9612
-function M.inherit(291,9874
-function M.inherit(inherit291,9874
-function M.family(304,10225
-function M.family(family304,10225
-function M.unload(312,10476
-function M.unload(unload312,10476
-function M.always_load(320,10738
-function M.always_load(always_load320,10738
-function M.always_unload(328,11013
-function M.always_unload(always_unload328,11013
-function M.prereq(336,11285
-function M.prereq(prereq336,11285
-function M.prereq_any(344,11547
-function M.prereq_any(prereq_any344,11547
-function M.conflict(352,11815
-function M.conflict(conflict352,11815
-function M.haveDynamicMPATH(360,12079
-function M.haveDynamicMPATH(haveDynamicMPATH360,12079
-function M.set_shell_function(367,12306
-function M.set_shell_function(set_shell_function367,12306
-function M.unset_shell_function(383,12804
-function M.unset_shell_function(unset_shell_function383,12804
-function M.LmodBreak(387,12892
-function M.LmodBreak(LmodBreak387,12892
-function M.source_sh(391,12960
-function M.source_sh(source_sh391,12960
-function M.complete(396,13096
-function M.complete(complete396,13096
-function M.uncomplete(400,13162
-function M.uncomplete(uncomplete400,13162
-function M.purge(404,13232
-function M.purge(purge404,13232
-
-src/addto.in.lua,228
-function cmdDir(101,3340
-function optionTbl(105,3381
-function isDir(109,3427
-function myInsert(115,3572
-function myClean(131,4011
-function main(149,4489
-   local function l_build_array(177,5144
-function options(253,6980
-
-src/lmod.in.lua,128
-function cmdDir(97,3490
-function cmdName(103,3648
-function Usage(139,4804
-function version(235,9425
-function main(244,9771
-
-src/mrc_funcs.lua,262
-local function l_validateStringArgs(44,1984
-function module_version(57,2332
-function module_alias(65,2638
-function hide_version(71,2862
-function hide_modulefile(78,3063
-local function l_hide_forbid(83,3231
-function hide(169,6037
-function forbid(185,6557
-
-src/utils.lua,2088
-function argsPack(76,2914
-function __FILE__(82,3070
-function __LINE__(86,3133
-local function l_prequire(91,3203
-function buildMsg(104,3520
-function build_fullName(172,5202
-function build_MT_envT(176,5295
-function build_i18n_messages(197,5809
-   function cmdDir(233,6827
-function findLuaProg(240,7040
-function colorizePropA(261,7780
-function expert(353,10695
-function extractFullName(360,10814
-function extractVersion(365,10955
-function findAdminFn(377,11285
-function readAdmin(394,11946
-function getMT(466,14152
-function getModuleRCT(494,14833
-function isMarked(547,16710
-function length(558,17008
-function optionTbl(567,17210
-function paired2pathT(573,17281
-function path2pathA(614,18420
-function quiet(658,19440
-function regular_cmp(665,19579
-local function l_sanizatizeTbl(670,19633
-function sanizatizeTbl(703,20461
-function setenv_lmod_version(716,20797
-function ShowCmdA(743,21565
-local function l_arg2str(759,21954
-function s_indent(781,22481
-function ShowCmdStr(789,22777
-function ShowHelpStr(841,23979
-function decorateModule(863,24461
-function UUIDString(903,25511
-function case_independent_cmp(931,26355
-function activateWarning(948,26851
-function deactivateWarning(954,27023
-function haveWarnings(960,27201
-function setStatusFlag(966,27360
-function getStatusFlag(973,27549
-local function l_restoreEnv(977,27598
-local function l_runTCLprog(1005,28157
-local function l_build_runTCLprog(1025,28860
-function usingFastTCLInterp(1039,29209
-local function l_build_accept_function(1045,29446
-local function l_build_allow_dups_function(1059,29743
-local function l_build_epoch_function(1072,30033
-local function l_build_prepend_order_function(1107,30997
-function setSyntaxMode(1129,31520
-function checkSyntaxMode(1132,31583
-local function l_build_quarantineT(1138,31667
-function save_set_env(1151,32002
-function reset_env(1161,32220
-function initialize_lmod(1176,32542
-function tracing_msg(1241,34869
-function dynamic_shell(1255,35242
-function locatePkg(1304,36615
-function wrap_kind(1316,36848
-function unwrap_kind(1319,36920
-
-src/cmdfuncs.lua,1145
-local function l_Access(77,3299
-local function l_findNamedCollections(103,4168
-function Avail(143,5565
-function Category(152,5796
-   local function add_module(164,6083
-function Overview(279,9097
-function Help(291,9447
-function IsAvail(308,9834
-function IsLoaded(322,10115
-function Keyword(339,10560
-function List(375,11763
-local function l_usrLoad(545,16617
-function Load_Try(602,18120
-function Load_Usr(610,18330
-function Purge_Usr(618,18539
-function purgeFlg(625,18630
-function Purge(631,18846
-function Refresh(642,19232
-function Reset(655,19710
-   local function cmp(695,20557
-local function l_collectionDir(735,21327
-local function l_find_a_collection(755,21809
-function CollectionLst(774,22427
-function GetDefault(814,23914
-function Restore(836,24736
-function Save(918,27123
-function SaveList(993,29146
-function SearchCmd(1039,30408
-function Show(1047,30751
-function SpiderCmd(1075,31655
-function Swap(1115,32928
-function TableList(1159,34057
-function Disable(1179,34654
-function Update(1206,35397
-function Use(1217,35805
-function UnUse(1278,37578
-function UnLoad(1297,38166
-function Whatis(1307,38500
-
-src/ModuleA.lua,1554
-local function l_addPV(67,2795
-local function l_GroupIntoModules(110,4170
-local function l_build(140,5337
-local function l_check_depth(159,5903
-local function l_find_vA(176,6378
-local function l_find_vB(242,8295
-local function l_search(283,9291
-function M.applyWeights(307,10098
-function M.applyWeights(applyWeights307,10098
-function M.__find_all_defaults(338,11106
-function M.__find_all_defaults(__find_all_defaults338,11106
-   local function l_find_all_defaults_helper(347,11383
-function M.build_availA(424,14177
-function M.build_availA(build_availA424,14177
-   local function l_build_availA_helper(428,14286
-function M.inherited_search(470,15803
-function M.inherited_search(inherited_search470,15803
-   local function l_inherited_search_helper(473,15940
-function M.search(527,17556
-function M.search(search527,17556
-local function l_checkforNV(544,18027
-local function l_build_from_spiderT(553,18183
-function M.update(583,19231
-function M.update(update583,19231
-function M.__new(647,21429
-function M.__new(__new647,21429
-function M.moduleA(680,22400
-function M.moduleA(moduleA680,22400
-function M.isNVV(684,22455
-function M.isNVV(isNVV684,22455
-function M.spiderBuilt(688,22506
-function M.spiderBuilt(spiderBuilt688,22506
-function M.locationT(692,22569
-function M.locationT(locationT692,22569
-function M.defaultT(702,22785
-function M.defaultT(defaultT702,22785
-function M.singleton(714,23051
-function M.singleton(singleton714,23051
-function M.__clear(740,23790
-function M.__clear(__clear740,23790
-
-logos/2x/Lmod-black@2x.png,110
-NKKÎvÌ⁄µÿ››c‰O˘{àØCÉÛ~˝}ÎJ®Îi(eñ√8ÜìÈ©FBçê=û_X4ç‡Å$»…°ßñ9ç–}h·„∏¨”<`ÈAÍxZœﬂÑfÊdtVzAÍxZœﬂÑfÊdtV5,2308
-
-logos/2x/Lmod-White@2x.png,19
-˝≠Ñã˝ÑOO5,587
-
-logos/4x/Lmod-black@4x.png,34
-ﬁ©_äˆ_ä4,1309
->™I‡îI‡6,1739
-
-logos/4x/Lmod-White@4x.png,144
-¯◊´øÈΩvµ†§¯˛òÃÆÚ˜©)ÅP˘ıP˘7,1003
-¯◊´øÈΩvµ†§¯˛òÃÆÚ˜©)ÅP˘ıp¸u´Øõq,~ú~7,1003
-¯◊´øÈΩvµ†§¯˛òÃÆÚ˜©)ÅP˘ıp¸u´Øõq,~ú,|éqa;qa7,1003
-
-logos/4x/Lmod-4color@4x.png,287
--åŸ)FÚF7,1043
-|\≥ñNY‘ë˜ÖáÚoº-ˇ˙ã]™ë§ÔOï Ç,Éÿ[∂‡ÈÊ“˘O±°¡∞d?ë‚öµ≠ÈŸSd®"Öºf∆3f∆15,4578
-ä¯‚‰7‘Å-M÷…°	åDà¢y|1–zLƒÿ2ä+ßÏ7íUiƒ§õ„'–¥‰ˇ≠º¡ºH·ﬁ=u⁄îEdì˘ÃÈw¸§Nøª4Ïcë•¯Òæ%um±Ë‹6 kB"%(‚õ“222,Am◊yÊ^CC16,4988
-v\3çO}Aˆ°A•&NøÎßïg‹ı”ò˙‹R6„ôA◊R|ı›—´ÁkK9íWãFkK9íWã18,5361
-
-INSTALL,759
-         Lmod and install lua-X.X.X.tar.gz file.  It contains the lua command,13,371
-      following rpms;31,1013
-         $ luarocks install luaposix;44,1322
-      by lua.  On our Centos system,47,1471
-        ./?.lua;/usr/share/lua/5.1/?.lua;lua51,1602
-        ./?.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua;lua51,1602
-        ./?.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua;/usr/lib64/lua/5.1/?.lua;lua51,1602
-        ./?.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua;/usr/lib64/lua/5.1/?.lua;/usr/lib64/lua/5.1/?/init.lua;lua51,1602
-        ./?.so;/usr/lib64/lua/5.1/?.so;so56,1817
-        ./?.so;/usr/lib64/lua/5.1/?.so;/usr/lib64/lua/5.1/loadall.so;so56,1817
-         LUAROCKS_PREFIX=66,2149
-
-init/R,23
-  args <- paste(6,130
+settarg/bash.settarg,126
+export SETTARG_CMD=7,211
+dbg(14,360
+opt(18,387
+mdbg(22,414
+gopt(26,443
+chk(30,472
+targ(34,499
+cdt(39,532
+PATH=48,753
+
+settarg/Csh.lua,136
+function Csh.expandVar(44,1880
+function Csh.expandVar(expandVar44,1880
+function Csh.unset(52,2056
+function Csh.unset(unset52,2056
+
+settarg/Bash.lua,140
+function Bash.expandVar(42,1840
+function Bash.expandVar(expandVar42,1840
+function Bash.unset(61,2302
+function Bash.unset(unset61,2302
+
+settarg/settarg_cmd.in.lua,77
+function cmdDir(65,2547
+function optionTbl(75,2680
+function main(124,4075
+
+settarg/Output.lua,25
+function Output(37,1689
+
+init/profile.in,376
+  LMOD_ALLOW_ROOT_USE=7,262
+  export MODULEPATH_ROOT=14,457
+  export LMOD_sys=16,561
+      LMOD_MODULEPATH_INIT=20,677
+                export MODULEPATH=30,1059
+    OLD_IFS=44,1650
+      export MODULEPATH=47,1718
+     export BASH_ENV=53,1849
+    export MANPATH=60,2030
+  my_shell=89,2612
+   bash|zsh|sh)sh97,2804
+   ksh*) my_shell=98,2823
+   *) my_shell=99,2849
+
+init/sh.in,43
+LMOD_ROOT=3,11
+clearMT(19,239
+ml(31,685
+
+init/ksh_funcs/settarg,19
+    settarg 7,249
+
+init/ksh_funcs/clearLmod,20
+   clearLmod(6,202
+
+init/ksh_funcs/ml,13
+   ml 6,202
+
+init/ksh_funcs/module,39
+     module(7,252
+     module(12,365
+
+init/ksh_funcs/clearMT,18
+   clearMT(6,202
 
 init/zsh/_module,444
 _module(4,35
@@ -1666,25 +210,68 @@ _ml_unuse(267,7955
 _ml_whatis(273,8043
 _ml_spider(279,8125
 
-init/profile.in,376
-  LMOD_ALLOW_ROOT_USE=7,262
-  export MODULEPATH_ROOT=14,457
-  export LMOD_sys=16,561
-      LMOD_MODULEPATH_INIT=20,677
-                export MODULEPATH=30,1059
-    OLD_IFS=44,1650
-      export MODULEPATH=47,1718
-     export BASH_ENV=53,1849
-    export MANPATH=60,2030
-  my_shell=89,2612
-   bash|zsh|sh)sh97,2804
-   ksh*) my_shell=98,2823
-   *) my_shell=99,2849
+init/R,23
+  args <- paste(6,130
 
-init/fish.in,71
-   function module14,298
-   function module18,372
-function ml23,460
+init/nushell.in,33
+def --env lmod-eval eval11,281
+
+init/fish/module.fish,261
+function __fish_lmod_commands5,51
+function __fish_lmod_av26,543
+function __fish_lmod_list30,637
+function __fish_lmod_savelist39,844
+function _get_commandline_list48,1062
+function __fish_lmod_needs_command53,1167
+function __fish_lmod_using_command64,1374
+
+init/bash.in,453
+     *v*x*) __lmod_vx=10,259
+     *v*)   __lmod_vx=11,289
+     *x*)   __lmod_vx=12,319
+   esac;13,349
+__uid=24,708
+  __stat_flag=28,793
+    __zsh_fpath=34,1082
+  export FPATH=36,1143
+export LMOD_ROOT=41,1315
+   module(86,2983
+   module(93,3190
+LMOD_VERSION=127,4233
+  settarg 131,4329
+ml(147,4810
+clearMT(162,5156
+clearLmod(167,5227
+xSetTitleLmod(173,5326
+  set -$__lmod_vx;$__lmod_vx189,5800
+  unset __lmod_vx;190,5819
+fi;191,5838
+
+init/cshrc.in,19
+set MY_NAME=9,249
+
+init/env_modules_python.py.in,70
+from subprocess import PIPE,3,55
+import os,4,90
+    numArgs 27,810
+
+init/rc.in,15
+LMOD_PKG=4,44
+
+init/lmod_bash_completions,327
+_module_avail(1,0
+_module_dir(8,255
+_module_spider(66,1950
+_module_loaded_modules(70,2041
+_module_savelist(74,2199
+_module_disable(78,2294
+_module_loaded_modules_negated(82,2388
+_module_mcc(86,2563
+_module_describe(90,2653
+_module_not_yet_loaded(94,2748
+_module_long_arg_list(98,2844
+_module(118,3381
+_ml(186,5441
 
 init/cmake,288
 function(73,3534
@@ -1703,82 +290,6 @@ endfunction(147,5612
     endif(174,6414
 endfunction(178,6487
 
-init/fish/module.fish,261
-function __fish_lmod_commands5,51
-function __fish_lmod_av26,543
-function __fish_lmod_list30,637
-function __fish_lmod_savelist39,844
-function _get_commandline_list48,1062
-function __fish_lmod_needs_command53,1167
-function __fish_lmod_using_command64,1374
-
-init/env_modules_python.py.in,70
-from subprocess import PIPE,3,55
-import os,4,90
-    numArgs 27,810
-
-init/rc.in,15
-LMOD_PKG=4,44
-
-init/ksh_funcs/settarg,19
-    settarg 7,249
-
-init/ksh_funcs/clearLmod,20
-   clearLmod(6,202
-
-init/ksh_funcs/module,39
-     module(7,252
-     module(12,365
-
-init/ksh_funcs/ml,13
-   ml 6,202
-
-init/ksh_funcs/clearMT,18
-   clearMT(6,202
-
-init/bash.in,410
-     *v*x*) __lmod_vx=10,259
-     *v*)   __lmod_vx=11,289
-     *x*)   __lmod_vx=12,319
-   esac;13,349
-  __zsh_fpath=24,674
-export FPATH=26,731
-export LMOD_ROOT=29,847
-   module(74,2515
-   module(81,2722
-LMOD_VERSION=115,3765
-  settarg 119,3861
-ml(135,4342
-clearMT(150,4688
-clearLmod(155,4759
-xSetTitleLmod(161,4858
-  set -$__lmod_vx;$__lmod_vx177,5332
-  unset __lmod_vx;178,5351
-fi;179,5370
-
-init/sh.in,43
-LMOD_ROOT=3,11
-clearMT(19,239
-ml(31,685
-
-init/cshrc.in,19
-set MY_NAME=9,249
-
-init/lmod_bash_completions,327
-_module_avail(1,0
-_module_dir(8,255
-_module_spider(66,1950
-_module_loaded_modules(70,2041
-_module_savelist(74,2199
-_module_disable(78,2294
-_module_loaded_modules_negated(82,2388
-_module_mcc(86,2563
-_module_describe(90,2653
-_module_not_yet_loaded(94,2748
-_module_long_arg_list(98,2844
-_module(118,3381
-_ml(186,5441
-
 init/lisp,679
             ;; call-process on Emacs cannot write stderr to a separate buffer35,1322
             ;; so it must go to a file and then get pulled into the log buffer36,1400
@@ -1789,34 +300,140 @@ init/lisp,679
                 ;; and run it carefully.  If an error is thrown, catch it and64,2838
                 ;; propagate the fact upwards as a nil, but be sure to still65,2916
 
-README.new,32
-              entry in 32,2236
+init/fish.in,71
+   function module14,298
+   function module18,372
+function ml23,460
+
+debian/gbp.conf,23
+pristine-tar=tar2,10
+
+debian/lmod.substvars,26
+misc:Depends=Depends1,0
+
+debian/changelog,2045
+lmod (8.7.34) unstable;1,0
+lmod (8.7.34) unstable; urgency=1,0
+lmod (8.7.32) unstable; urgency=8,152
+lmod (8.7.31) unstable; urgency=15,304
+lmod (8.7.30) unstable; urgency=22,456
+lmod (8.7.29) unstable; urgency=29,608
+lmod (8.7.28) unstable; urgency=36,760
+lmod (8.7.27) unstable; urgency=43,912
+lmod (8.7.25) unstable; urgency=50,1064
+lmod (8.7.24) unstable; urgency=57,1216
+lmod (8.7.23) unstable; urgency=64,1368
+lmod (8.7.22) unstable; urgency=71,1520
+lmod (8.7.21) unstable; urgency=78,1672
+lmod (8.7.20) unstable; urgency=85,1824
+lmod (8.7.19) unstable; urgency=92,1976
+lmod (8.7.18) unstable; urgency=99,2128
+lmod (8.7.17) unstable; urgency=106,2280
+lmod (8.7.15) unstable; urgency=113,2432
+lmod (8.7.14) unstable; urgency=120,2584
+lmod (8.7.13) unstable; urgency=127,2736
+lmod (8.7.12) unstable; urgency=134,2888
+lmod (8.7.11) unstable; urgency=141,3040
+lmod (8.7.8) unstable; urgency=148,3192
+lmod (8.7.7) unstable; urgency=155,3342
+lmod (8.7.6) unstable; urgency=162,3492
+lmod (8.7.5) unstable; urgency=169,3642
+lmod (8.7.4) unstable; urgency=176,3792
+lmod (8.7.3) unstable; urgency=183,3942
+lmod (8.7.2) unstable; urgency=190,4092
+lmod (8.7) unstable; urgency=197,4242
+lmod (8.6.17) unstable; urgency=204,4388
+lmod (8.6.15) unstable; urgency=211,4540
+lmod (8.6.14) unstable; urgency=218,4692
+lmod (8.6.12) unstable; urgency=225,4844
+lmod (8.6.9) unstable; urgency=232,4996
+lmod (8.6.8) unstable; urgency=239,5146
+lmod (8.6.7) unstable; urgency=246,5296
+lmod (8.6.6) unstable; urgency=253,5446
+lmod (8.6.5) unstable; urgency=260,5596
+lmod (8.6.4) unstable; urgency=267,5746
+lmod (8.6.3) unstable; urgency=274,5896
+lmod (8.6.2) unstable; urgency=281,6046
+lmod (8.6.1) unstable; urgency=288,6196
+lmod (8.5.25) unstable; urgency=295,6346
+lmod (6.6-0.3) unstable; urgency=302,6513
+lmod (6.6-0.2) unstable; urgency=310,6776
+lmod (6.6-0.1) unstable; urgency=317,6981
+lmod (5.8-1) unstable; urgency=335,7681
+lmod (5.6.2-1) unstable; urgency=345,7992
+lmod (5.5.1-1) unstable; urgency=354,8234
+
+debian/control,39
+Build-Depends: autotools-dev,dev5,97
+
+debian/rules,12
+TDIR=7,103
+
+debian/patches/set_modulespath,45
+     export LMOD_FULL_SETTARG_SUPPORT=9,215
+
+debian/patches/change_paths,32
+ prefix	4,56
+-PKGV	PKGV7,211
 
 README.design.md,16
 Lmod design1,0
+
+docker/Dockerfile,323
+RUN mkdir /tmp/git-repo;repo44,927
+RUN mkdir /tmp/git-repo; cd /tmp/git-repo repo44,927
+    cd Lmod 46,1025
+    git fetch --tags;tags47,1041
+    git checkout origin/debian debian docker 49,1099
+    cd Lmod 50,1148
+    cd Lmod ; debuild -b -uc -us;us50,1148
+    cd .. ; dpkg -i ./lmod_8.7.34_all.deb deb51,1184
+
+docker/build.sh,29
+VERSION=12,227
+lmod 24,593
 
 sh_src/print_os.sh.in,55
     result=6,95
     result=18,353
     result=24,469
 
-ML_README.txt,184
-                                  module load baz goo;13,312
-Unless you know what you are doing,79,1763
-alias provided above on a system where Lmod is installed.  Therefore,80,1833
+pkgs/Makefile,39
+install:install1,0
+clean:clean4,36
 
-pkgs/term/core.c,43
-lua_isatty(7,90
-luaopen_term_core(16,250
+pkgs/tcl2lua/Makefile,330
+SONAME 1,0
+SONAMEV 2,23
+LIBRARY 3,47
+SRC 4,74
+OBJ 5,96
+OS 6,137
+  LIB_OPTION 10,189
+  LIB_OPTION 12,257
+override CFLAGS override CFLAGS14,321
+all:all16,411
+$(SONAMEV)$(SONAMEV18,450
+$(SONAME)$(SONAME21,484
+$(LIBRARY)$(LIBRARY24,517
+install:install27,624
+clean:clean33,794
+neat:neat35,845
+echo:echo38,866
 
-pkgs/term/term/colors.lua,273
-function colormt:__tostring(30,1272
-function colormt:__tostring(__tostring30,1272
-function colormt:__concat(34,1329
-function colormt:__concat(__concat34,1329
-function colormt:__call(38,1412
-function colormt:__call(__call38,1412
-local function l_makecolor(44,1507
+pkgs/tcl2lua/tcl2lua.c,335
+#define MYNAME 8,134
+#define MYVERSION 9,166
+  typedef int Tcl_Size;12,232
+typedef struct _results 17,266
+    char* resultStr;18,292
+    int   rlen;19,313
+} results_t;20,329
+#define TclNewLiteralStringObj(26,479
+int setResultsObjCmd(29,609
+int Tcl_AppInit(59,1348
+static int runTCLprog(66,1465
+int luaopen_tcl2lua(185,4460
 
 pkgs/term/Makefile,432
 SONAME 1,0
@@ -1839,16 +456,18 @@ clean:clean39,774
 neat:neat41,825
 echo:echo44,846
 
-pkgs/luafilesystem/lfs.h,220
-#define chdir(9,188
-#define chdir_error	10,210
-#define chdir_error	12,278
-#define chdir(16,336
-#define getcwd(17,365
-#define rmdir(18,402
-#define LFS_EXPORT 19,431
-#define fileno(21,488
-#define LFS_EXPORT24,532
+pkgs/term/core.c,43
+lua_isatty(7,90
+luaopen_term_core(16,250
+
+pkgs/term/term/colors.lua,273
+function colormt:__tostring(30,1272
+function colormt:__tostring(__tostring30,1272
+function colormt:__concat(34,1329
+function colormt:__concat(__concat34,1329
+function colormt:__call(38,1412
+function colormt:__call(__call38,1412
+local function l_makecolor(44,1507
 
 pkgs/luafilesystem/lfs.c,3492
 #define _FILE_OFFSET_BITS 26,674
@@ -1983,601 +602,106 @@ clean:clean35,655
 neat:neat37,706
 echo:echo40,727
 
-pkgs/tcl2lua/tcl2lua.c,258
-#define MYNAME 8,134
-#define MYVERSION 9,166
-static char* resultStr 11,204
-static int   rlen 12,235
-#define TclNewLiteralStringObj(18,400
-int setResultsObjCmd(21,530
-int Tcl_AppInit(50,1170
-static int runTCLprog(58,1397
-int luaopen_tcl2lua(177,4241
+pkgs/luafilesystem/lfs.h,220
+#define chdir(9,188
+#define chdir_error	10,210
+#define chdir_error	12,278
+#define chdir(16,336
+#define getcwd(17,365
+#define rmdir(18,402
+#define LFS_EXPORT 19,431
+#define fileno(21,488
+#define LFS_EXPORT24,532
 
-pkgs/tcl2lua/Makefile,330
-SONAME 1,0
-SONAMEV 2,23
-LIBRARY 3,47
-SRC 4,74
-OBJ 5,96
-OS 6,137
-  LIB_OPTION 10,189
-  LIB_OPTION 12,257
-override CFLAGS override CFLAGS14,321
-all:all16,405
-$(SONAMEV)$(SONAMEV18,444
-$(SONAME)$(SONAME21,478
-$(LIBRARY)$(LIBRARY24,511
-install:install27,618
-clean:clean33,788
-neat:neat35,839
-echo:echo38,860
-
-pkgs/Makefile,39
-install:install1,0
-clean:clean4,36
+bugReport/bug_report_template.sh,24
+export MODULEPATH=7,66
 
 README.old,87
               (PROMPT_COMMAND=precmd for bash).  Now use LMOD_SETTARG_FUNCTIONS=8,450
 
-.luacheckrc,290
-std 1,0
-files[files7,149
-files[files8,213
-files[files9,279
-files[files10,344
-files[files11,416
-files[files13,614
-files[files14,676
-files[files15,767
-files[files16,842
-files[files17,905
-files[files19,1133
-files[files20,1204
-files[files21,1276
-files[files24,1579
+proj_mgmt/clean_gold_files/regularize,22
+function main(39,919
 
-build.rtm,440
-PKG_VERSION=3,35
-save_old_version(30,886
-make_symlink(42,1199
-runMe(52,1505
-BUILD_TYPE=82,1990
-  BUILD_TYPE=84,2037
-myhost=93,2206
-first=94,2230
-SYSHOST=95,2250
-SUDO=96,2271
-    MY_ARCH=99,2318
-   MAKE_EXTRA=111,2542
-      EXTRA=131,3238
-    SUDO=136,3357
-    base=147,3713
-      UPDATE_FN=152,3883
-    base=160,4126
-    	   base=162,4191
-    ADMIN_DIR=174,4519
-BASE_DIR=182,4769
-   EXTRA_CMD=185,4813
-  MAKE=196,4992
+proj_mgmt/clean_gold_files/try.sh,18
+export gitV=4,36
 
-configure.ac,1325
-FOLLOW_READLINK 23,294
-ERR_MSG=45,690
-PATH_TO_SRC=48,741
-    AC_MSG_RESULT(688,28132
-    AC_MSG_RESULT(705,28676
-  FAST_TCL_INTERP=728,29441
-TCL_VERSION=741,29744
-  FAST_TCL_INTERP=743,29853
-  TCL_PKG_CONFIG_DIR=747,29918
-   OS=752,30034
-      export PKG_CONFIG_PATH=765,30539
-      DIR=770,30763
-            TCL_INCLUDE=775,30972
-              TCL_INCLUDE=792,31420
-      FOUND_ERROR=806,31830
-  mode=839,33196
-MSG=842,33272
-AC_PATH_PROG(864,33661
-AC_PATH_PROGS(873,33859
-AC_PATH_PROGS(882,34059
-AC_PATH_PROGS(891,34293
-AC_PATH_PROG(900,34459
-  PATH_TO_HASHSUM=907,34760
-AC_PATH_PROGS(916,34985
-   PATH_TO_LUA=935,35516
-      mismatch=941,35731
-      mismatch=944,35852
-  AC_PATH_PROG(960,36225
-  AC_PATH_PROG(971,36520
-  lmodV=982,36949
-   LUA_PATH=1000,37448
-    missingModules=1022,38348
-  AC_SUBST(1039,38684
-      missingModules=1047,38919
-    lfsV=1054,39023
-       AC_SUBST(1059,39207
-      missingModules=1068,39429
-    AC_SUBST(1075,39549
-PATH_TO_LUA_DIR=1086,39686
-   LUA_INCLUDE=1091,39755
-  AC_PATH_PROG(1095,39837
-      PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1098,39946
-        LUA_INCLUDE=1100,40035
-        LUA_INCLUDE=1110,40342
-  exit 1142,41072
-AC_SUBST(1145,41092
-  resultA=1151,41230
-     result=1165,41481
-   ORIG_ZSH_VERSION=1185,41951
-   ZSH_FPATH=1199,42182
+proj_mgmt/clean_gold_files/Cleanup.lua,810
+local function l_init_envTable(61,2107
+local function l_remove(151,5781
+local function l_replacement(161,5967
+local function l_add_mark_bash(178,6295
+local function l_remove_mark_bash(185,6494
+local function l_patt_bash(191,6694
+local function l_add_mark_csh(201,6931
+local function l_remove_mark_csh(208,7143
+local function l_add_mark_fish(218,7438
+local function l_remove_mark_fish(224,7610
+local function l_patt_fish(231,7788
+local function l_isPath_fish(238,7952
+local function l_add_mark_nushell(254,8380
+local function l_remove_mark_nushell(260,8587
+local function l_patt_nushell(266,8799
+local function l_isPath_common(273,8959
+local function l_remove_paths(278,9040
+function M.new(299,9985
+function M.new(new299,9985
+function M.filter(313,10403
+function M.filter(filter313,10403
 
-tools/Optiks_Option.lua,263
-function M.optionNames(65,2309
-function M.optionNames(optionNames65,2309
-function M.bless(83,2750
-function M.bless(bless83,2750
-function M.setDefault(120,3792
-function M.setDefault(setDefault120,3792
-function M.new(135,4362
-function M.new(new135,4362
+proj_mgmt/joinBase64Results,573
+local function l_argsPack(64,2447
+local function l_grab(83,3043
+local function l_grabCsh(89,3200
+local function l_grabFish(97,3346
+local function l_grabNushell(105,3493
+function fixB64(117,3722
+function sectionEnd(160,4840
+function joinArrays(187,5590
+function joinB64_fish(197,5762
+function joinB64_nushell(224,6393
+function joinB64_bash(255,7234
+function joinB64_csh(290,8145
+local function l_stackVar_common(317,8770
+local function l_stackVar_fish(331,9076
+local function l_stackVar_nushell(345,9380
+function lmod_stack(367,9849
+function main(389,10543
 
-tools/Dbg.lua,1865
-local function l_rPrint(104,3081
-local function l_argsPack(121,3690
-local function l_changeIndentLevel(127,3879
-local function l_new(132,4007
-function M.dbg(153,4545
-function M.dbg(dbg153,4545
-function M.set_prefix(164,4900
-function M.set_prefix(set_prefix164,4900
-function M.activateDebug(175,5319
-function M.activateDebug(activateDebug175,5319
-function M.indentLevel(212,6568
-function M.indentLevel(indentLevel212,6568
-function M.active(218,6723
-function M.active(active218,6723
-function M.currentLevel(224,6869
-function M.currentLevel(currentLevel224,6869
-function M.deactivateWarning(230,7033
-function M.deactivateWarning(deactivateWarning230,7033
-function M.activateWarning(236,7195
-function M.activateWarning(activateWarning236,7195
-function M._quiet(242,7355
-function M._quiet(_quiet242,7355
-local function l_extractVPL(247,7486
-local function l_startExtractVPL(252,7568
-function M._start(260,7783
-function M._start(_start260,7783
-function M._zeroIndent(276,8134
-function M._zeroIndent(_zeroIndent276,8134
-function M._indent(282,8289
-function M._indent(_indent282,8289
-function M._fini(288,8447
-function M._fini(_fini288,8447
-function M._warning(310,9069
-function M._warning(_warning310,9069
-function M._error(321,9367
-function M._error(_error321,9367
-function M.errorExit(334,9659
-function M.errorExit(errorExit334,9659
-function M.warningCalled(341,9846
-function M.warningCalled(warningCalled341,9846
-function M._print(349,10032
-function M._print(_print349,10032
-function M._textA(384,10905
-function M._textA(_textA384,10905
-function M._printA(405,11357
-function M._printA(_printA405,11357
-function M._print2D(424,11756
-function M._print2D(_print2D424,11756
-function M.flush(441,12153
-function M.flush(flush441,12153
-function M._printT(445,12198
-function M._printT(_printT445,12198
+proj_mgmt/epoch.in.lua,54
+function build_epoch(89,3206
+function main(112,3795
 
-tools/deepcopy.lua,24
-function deepcopy(3,19
+proj_mgmt/buildVersion_src,76
+function mTbl(6,51
+function buildVersionCode(10,89
+function main(49,1434
 
-tools/pairsByKeys.lua,29
-function pairsByKeys 18,714
+proj_mgmt/updateVersion,101
+function optionTbl(17,337
+function main(21,385
+function options(82,1729
+function isFile(122,2750
 
-tools/base64.lua,242
-local function lsh(17,307
-local function rsh(22,393
-local function bit(27,497
-local function lor(32,594
-function M.encode64(49,1545
-function M.encode64(encode6449,1545
-function M.decode64(76,3032
-function M.decode64(decode6476,3032
+proj_mgmt/convert_mode.sh,103
+KIND=4,34
+   uid=8,87
+     UID_MIN=12,176
+     xx=18,266
+       UID_MIN=20,368
+     umask=24,435
 
-tools/MF_Base.lua,871
-function M.name(56,2255
-function M.name(name56,2255
-function M.build(65,2508
-function M.build(build65,2508
-local function l_safe_eval(79,2859
-function M.process(101,3539
-function M.process(process101,3539
-local function l_extractAliases(131,4548
-function M.processAliases(147,5032
-function M.processAliases(processAliases147,5032
-local function l_extractFuncs(168,5754
-function M.processFuncs(185,6264
-function M.processFuncs(processFuncs185,6264
-local function l_extractComplete(207,6974
-function M.processComplete(231,7733
-function M.processComplete(processComplete231,7733
-function l_indexPath(248,8257
-function l_splice(303,9273
-function M.processVars(315,9434
-function M.processVars(processVars315,9434
-function M.complete(385,11522
-function M.complete(complete385,11522
-function M.header(388,11577
-function M.header(header388,11577
+proj_mgmt/find_tcl_pc.sh,77
+   realpath(4,78
+OS=18,373
+  TCL_PC_LOC=32,739
+TCL_PKG_CONFIG_DIR=35,782
 
-tools/MF_TCL.lua,557
-function MF_TCL.setenv(59,2444
-function MF_TCL.setenv(setenv59,2444
-function MF_TCL.prepend_path(68,2716
-function MF_TCL.prepend_path(prepend_path68,2716
-function MF_TCL.append_path(78,3000
-function MF_TCL.append_path(append_path78,3000
-function MF_TCL.alias(82,3094
-function MF_TCL.alias(alias82,3094
-function MF_TCL.shell_function(86,3180
-function MF_TCL.shell_function(shell_function86,3180
-function MF_TCL.complete(90,3279
-function MF_TCL.complete(complete90,3279
-function MF_TCL.header(95,3400
-function MF_TCL.header(header95,3400
+proj_mgmt/getLFSVersion,51
+function string.string3,34
+function main(16,427
 
-tools/TermWidth.lua,64
-local function l_askSystem(49,1883
-function TermWidth(74,2477
-
-tools/Cosmic.lua,748
-function M.singleton(54,2164
-function M.singleton(singleton54,2164
-function M.init(68,2375
-function M.init(init68,2375
-local function l_build_string(121,3733
-function M.reportChangesFromDefault(131,3916
-function M.reportChangesFromDefault(reportChangesFromDefault131,3916
-function M.assign(155,4467
-function M.assign(assign155,4467
-function M.get(165,4648
-function M.get(get165,4648
-function M.value(170,4748
-function M.value(value170,4748
-function M.default(175,4870
-function M.default(default175,4870
-function M.changed(179,4938
-function M.changed(changed179,4938
-function M.get_key(184,5058
-function M.get_key(get_key184,5058
-function M.set_key(188,5110
-function M.set_key(set_key188,5110
-function l_new(192,5168
-
-tools/string_utils.lua,755
-function string.escape(44,1901
-function string.escape(escape44,1901
-function string.split(59,2362
-function string.split(split59,2362
-   local function l_getter(62,2467
-   local function l_splitter(66,2633
-function string.trim(72,2763
-function string.trim(trim72,2763
-function string.caseIndependent(85,3141
-function string.caseIndependent(caseIndependent85,3141
-function string.multiEscaped(106,3808
-function string.multiEscaped(multiEscaped106,3808
-function string.doubleQuoteString(119,4234
-function string.doubleQuoteString(doubleQuoteString119,4234
-function string.atSymbolEscaped(132,4587
-function string.atSymbolEscaped(atSymbolEscaped132,4587
-function string.fillWords(144,5004
-function string.fillWords(fillWords144,5004
-
-tools/i18n/interpolate.lua,195
-local function interpolateValue(4,122
-    function (previous,(previous6,216
-local function interpolateField(16,415
-    function (previous,(previous18,529
-local function interpolate(27,727
-
-tools/i18n/init.lua,1175
-local function dotSplit(21,511
-local function isPluralTable(30,688
-local function isPresent(34,783
-local function assertPresent(38,862
-local function assertPresentOrPlural(45,1126
-local function assertPresentOrTable(52,1443
-local function assertFunctionOrNil(59,1749
-local function defaultPluralizeFunction(66,2047
-local function pluralize(70,2159
-local function treatNode(78,2379
-local function recursiveLoad(87,2595
-local function localizedTranslate(101,2996
-function i18n.set(115,3271
-function i18n.set(set115,3271
-function i18n.translate(132,3604
-function i18n.translate(translate132,3604
-function i18n.setLocale(147,3968
-function i18n.setLocale(setLocale147,3968
-function i18n.setFallbackLocale(154,4256
-function i18n.setFallbackLocale(setFallbackLocale154,4256
-function i18n.getFallbackLocale(159,4426
-function i18n.getFallbackLocale(getFallbackLocale159,4426
-function i18n.getLocale(163,4489
-function i18n.getLocale(getLocale163,4489
-function i18n.reset(167,4536
-function i18n.reset(reset167,4536
-function i18n.load(174,4665
-function i18n.load(load174,4665
-function i18n.loadFile(178,4722
-function i18n.loadFile(loadFile178,4722
-
-tools/i18n/plural.lua,444
-local function assertPresentString(5,67
-local function assertNumber(12,378
-local function words(20,720
-local function isInteger(29,888
-local function between(33,949
-local function inside(37,1033
-function plural.get(261,6911
-function plural.get(get261,6911
-function plural.setDefaultFunction(270,7136
-function plural.setDefaultFunction(setDefaultFunction270,7136
-function plural.reset(274,7201
-function plural.reset(reset274,7201
-
-tools/i18n/variants.lua,365
-local function reverse(3,21
-local function concat(9,159
-function variants.ancestry(16,293
-function variants.ancestry(ancestry16,293
-function variants.isParent(26,548
-function variants.isParent(isParent26,548
-function variants.root(30,646
-function variants.root(root30,646
-function variants.fallbacks(34,714
-function variants.fallbacks(fallbacks34,714
-
-tools/MF_Lua.lua,498
-function MF_Lmod.setenv(54,2234
-function MF_Lmod.setenv(setenv54,2234
-function MF_Lmod.prepend_path(64,2548
-function MF_Lmod.prepend_path(prepend_path64,2548
-function MF_Lmod.append_path(74,2873
-function MF_Lmod.append_path(append_path74,2873
-function MF_Lmod.alias(78,3008
-function MF_Lmod.alias(alias78,3008
-function MF_Lmod.shell_function(82,3135
-function MF_Lmod.shell_function(shell_function82,3135
-function MF_Lmod.complete(86,3285
-function MF_Lmod.complete(complete86,3285
-
-tools/haveTermSupport.lua,67
-function haveTermSupport(44,1846
-function connected2Term(53,1985
-
-tools/declare.lua,85
-function declare(38,1669
-function isDefined(46,1894
-function isNotDefined(50,1960
-
-tools/replaceStr.lua,125
-local function l_replaceStrValue(30,1315
-                 function(prev,(prev32,1396
-local function l_replaceStr(42,1640
-
-tools/capture.lua,26
-function capture(46,2022
-
-tools/strict.lua,30
-local function l_what 18,496
-
-tools/ColumnTable.lua,850
-local function l_sizeMe(66,2587
-function M.new(84,3040
-function M.new(new84,3040
-function M._clearEmptyColumns2D(129,4170
-function M._clearEmptyColumns2D(_clearEmptyColumns2D129,4170
-function M._entry_width1(171,5127
-function M._entry_width1(_entry_width1171,5127
-function M._entry_width2(201,6022
-function M._entry_width2(_entry_width2201,6022
-function M._columnSum1(254,7699
-function M._columnSum1(_columnSum1254,7699
-function M._columnSum2(274,8360
-function M._columnSum2(_columnSum2274,8360
-function M._display1(315,9564
-function M._display1(_display1315,9564
-function M._display2(330,10062
-function M._display2(_display2330,10062
-function M._number_of_columns_rows(368,11077
-function M._number_of_columns_rows(_number_of_columns_rows368,11077
-function M.build_tbl(480,14661
-function M.build_tbl(build_tbl480,14661
-
-tools/BeautifulTbl.lua,199
-function M.new(89,3873
-function M.new(new89,3873
-function M._build_tbl(120,4857
-function M._build_tbl(_build_tbl120,4857
-function M.build_tbl(184,6533
-function M.build_tbl(build_tbl184,6533
-
-tools/lmod_system_execute.lua,38
-function lmod_system_execute(42,1751
-
-tools/serializeTbl.lua,180
-local function l_quoteValue(67,2553
-local function l_nsformat(79,2836
-local function wrap_name(112,3894
-local function outputTblHelper(129,4390
-function serializeTbl(235,7254
-
-tools/Optiks.lua,1471
-local function l_argsPack(33,1446
-function Optiks_Error(42,1780
-function Optiks_Exit(52,1983
-local function l_prt(81,2671
-local function l_prtend(85,2723
-function M.new(92,2916
-function M.new(new92,2916
-function M.add_option(154,4398
-function M.add_option(add_option154,4398
-function M._getValue(190,5592
-function M._getValue(_getValue190,5592
-function M.store(216,6400
-function M.store(store216,6400
-function M.store_true(229,6911
-function M.store_true(store_true229,6911
-function M.append(242,7429
-function M.append(append242,7429
-function M.store_false(259,8019
-function M.store_false(store_false259,8019
-function M.count(272,8534
-function M.count(count272,8534
-function M.display_store(282,8834
-function M.display_store(display_store282,8834
-function M.display_flag(302,9350
-function M.display_flag(display_flag302,9350
-function M.display_count(315,9704
-function M.display_count(display_count315,9704
-function M.setDefaults(323,9971
-function M.setDefaults(setDefaults323,9971
-function M.parseOpt(338,10513
-function M.parseOpt(parseOpt338,10513
-function M.buildHelpMsg(351,10964
-function M.buildHelpMsg(buildHelpMsg351,10964
-function M.printHelp(374,11588
-function M.printHelp(printHelp374,11588
-function M.buildManPod(379,11669
-function M.buildManPod(buildManPod379,11669
-function M.parseEnvArg(406,12421
-function M.parseEnvArg(parseEnvArg406,12421
-function M.parse(461,13773
-function M.parse(parse461,13773
-
-tools/json.lua,592
-function json.encode 67,2820
-function json.encode encode67,2820
-function json.decode(123,4461
-function json.decode(decode123,4461
-function null(153,5535
-function decode_scanArray(168,6263
-function decode_scanComment(195,7381
-function decode_scanConstant(208,8104
-function decode_scanNumber(228,8971
-function decode_scanObject(249,9899
-function decode_scanString(303,12201
-function decode_scanWhitespace(356,14628
-function json_private.encodeString(381,15364
-function json_private.encodeString(encodeString381,15364
-function isArray(394,16044
-function isEncodable(421,17321
-
-tools/.luatools_modules.list,12
-fileA=4,36
-
-tools/fileOps.lua,612
-local function l_argsPack(45,1815
-function findInPath(54,2215
-function find_exec_path(91,3194
-function isDir(126,4069
-function isFile(145,4569
-function exists(156,4788
-function isExec(169,5124
-function dirname(178,5429
-function extname(193,5810
-function removeExt(210,6197
-function barefilename(227,6606
-function splitFileName(244,7038
-function pathJoin(264,7568
-function mkdir_recursive(306,8602
-local function l_abspath 334,9245
-function realpath(377,10234
-function path_regularize(389,10582
-local function l_walk_dir(456,11975
-local function l_walker(477,12573
-function dir_walk(485,12753
-
-tools/inherits.lua,116
-function inheritsFrom(38,1646
-    function new_class:create(49,2022
-    function new_class:create(create49,2022
-
-tools/Banner.lua,291
-local function l_new(51,1998
-function M.singleton(64,2252
-function M.singleton(singleton64,2252
-function M.width(77,2561
-function M.width(width77,2561
-function M.border(85,2864
-function M.border(border85,2864
-function M.bannerStr(102,3442
-function M.bannerStr(bannerStr102,3442
-
-Hermes.db,18
-ProjectData 3,52
-
-spec/MName/MName_spec.lua,101
-         function()(23,586
-               function()(25,660
-               function()(137,7692
-
-spec/ModuleA/ModuleA_spec.lua,102
-         function()(25,705
-               function()(27,765
-               function()(295,15184
-
-spec/LocationT/LocationT_spec.lua,176
-         function()(24,655
-               function()(26,721
-               function()(119,5477
-               function()(177,8421
-               function()(239,11686
-
-spec/MainControl/MainControl_spec.lua,100
-         function()(28,732
-               function()(30,783
-               function()(68,2221
-
-spec/Var/Var_spec.lua,64
-         function()(12,231
-               function()(14,284
-
-spec/DirTree/DirTree_spec.lua,178
-         function()(14,316
-               function()(16,387
-               function()(181,10243
-               function()(238,12905
-               function()(301,15911
-
-spec/MT/MT_spec.lua,64
-         function()(15,348
-               function()(17,413
-
-spec/Avail/Avail_spec.lua,64
-         function()(20,486
-               function()(22,556
-
-spec/MRC/MRC_spec.lua,100
-         function()(23,610
-               function()(25,669
-               function()(48,2104
-
-spec/Spider/Spider_spec.lua,101
-         function()(24,657
-               function()(26,715
-               function()(149,6918
+proj_mgmt/luaModuleAvailable,19
+function main(1,0
 
 proj_mgmt/ignore_dirs_converter,256
 function string:trim(41,1850
@@ -2589,16 +713,40 @@ function string:split(split53,2177
 function wrapper(70,2677
 function main(76,2872
 
-proj_mgmt/jsonLoadConversion,23
-function main(68,1754
+proj_mgmt/build_hide_cmd,50
+function build_tStr(13,159
+function main(21,419
 
-proj_mgmt/buildVersion_src,76
-function mTbl(6,51
-function buildVersionCode(10,89
-function main(49,1434
-
-proj_mgmt/luaModuleAvailable,19
-function main(1,0
+proj_mgmt/demoIrreversible.lua,1016
+function argsPack(11,185
+function mode(27,707
+function purgeFlg(35,811
+local function l_modeCk(50,1142
+local function l_priorityCk(70,1725
+local function l_delimCk(82,2145
+local function l_validateModules(101,2662
+local function l_validateArgs(125,3332
+local function l_validateTblArgs(141,3846
+local function l_stringCk(150,4136
+local function l_booleanCk(154,4219
+local function l_stringValueCk(158,4305
+local function l_trim_first_arg(168,4579
+local function l_trim_all_strings_args(172,4650
+local function l_check_argT(232,6255
+local function l_chose_mcp(263,7154
+local function l_build_argTable(295,7881
+local function l_build_check_argT(324,8805
+function setenv(338,9358
+function pushenv(349,9592
+function prepend_path(360,9832
+function append_path(371,10097
+function load_module(382,10357
+function mcp_setenv(397,10736
+function mcp_pushenv(403,10870
+function mcp_prepend_path(409,11006
+function mcp_append_path(415,11140
+function mcp_load_module(421,11272
+function main(430,11500
 
 proj_mgmt/DATE_cmd.sh,43
 arg=4,34
@@ -2612,56 +760,32 @@ local function l_find_all_sn(39,924
 function find_all_versions(78,1590
 function main(95,2012
 
-proj_mgmt/epoch.in.lua,54
-function build_epoch(89,3206
-function main(112,3795
+proj_mgmt/jsonLoadConversion,23
+function main(68,1754
 
-proj_mgmt/updateVersion,101
-function optionTbl(17,337
-function main(21,385
-function options(82,1729
-function isFile(122,2750
-
-proj_mgmt/getLFSVersion,51
-function string.string3,34
-function main(16,427
-
-proj_mgmt/convert_mode.sh,103
-KIND=4,34
-   uid=8,87
-     UID_MIN=12,176
-     xx=18,266
-       UID_MIN=20,368
-     umask=24,435
-
-proj_mgmt/joinBase64Results,370
-local function l_argsPack(64,2447
-local function l_grab(83,3043
-local function l_grabCsh(89,3200
-local function l_grabFish(97,3346
-function fixB64(109,3558
-function sectionEnd(152,4676
-function joinArrays(177,5331
-function joinB64_fish(187,5503
-function joinB64_bash(214,6134
-function joinB64_csh(249,7045
-function lmod_stack(276,7670
-function main(306,8500
-
-proj_mgmt/find_tcl_pc.sh,77
-   realpath(4,78
-OS=18,373
-  TCL_PC_LOC=32,739
-TCL_PKG_CONFIG_DIR=35,782
-
-proj_mgmt/build_hide_cmd,50
-function build_tStr(13,159
-function main(21,419
-
-config.ld,41
-project 1,0
-topics 8,194
-format=9,288
+build.rtm,440
+PKG_VERSION=3,35
+save_old_version(31,909
+make_symlink(42,1221
+runMe(52,1527
+BUILD_TYPE=82,2012
+  BUILD_TYPE=84,2059
+myhost=93,2228
+first=94,2252
+SYSHOST=95,2272
+SUDO=96,2293
+    MY_ARCH=99,2340
+   MAKE_EXTRA=111,2564
+      EXTRA=131,3267
+    SUDO=136,3386
+    base=147,3742
+      UPDATE_FN=152,3912
+    base=160,4155
+    	   base=162,4220
+    ADMIN_DIR=174,4548
+BASE_DIR=182,4798
+   EXTRA_CMD=185,4842
+  MAKE=196,5021
 
 Makefile.in,5413
 srcdir 1,0
@@ -2782,102 +906,640 @@ DIRLIST 136,6531
 STANDALONE_PRGM 142,7017
 STANDALONE_PRGM 150,7671
 SHELL_INIT 151,7747
-SHELL_INIT 154,7984
-LMODRC_INIT 155,8060
-ZSH_FUNCS 158,8135
-ZSH_FUNCS 159,8176
-FISH_FUNCS 161,8256
-FISH_FUNCS 162,8300
-KSH_FUNCS 164,8382
-KSH_FUNCS 165,8447
-STARTUP 167,8533
-STARTUP 168,8612
-MSGFNs 170,8686
-MAIN_DIR 172,8755
-CONTRIB_DIRS 175,8899
-CONTRIB 188,9641
-lua_code 189,9722
-lua_code 190,9807
-CurDATE 191,9921
-ComputeHashSum 193,9988
-spiderCacheSupportCMD 194,10053
-export L_PATH export L_PATH195,10137
-export L_CPATH export L_CPATH196,10179
-HAVE_LUA_TERM 198,10223
-  PKGS 200,10297
-HAVE_LUAFILESYSTEM 202,10318
-  PKGS 204,10402
-  PKG_LFS 205,10424
-FAST_TCL_INTERP 207,10447
-TCL_INCLUDE 208,10494
-TCL_LIBS	209,10530
-  PKGS 211,10593
-  PKG_T2L 212,10622
-.PHONY:.PHONY215,10650
-all:all217,10679
-uninstall:uninstall220,10697
-pre-install:pre-install224,10819
-lmod_install_targets:lmod_install_targets226,10865
-install:install231,11156
-echo:echo246,12101
-man_pages:man_pages251,12214
-             LUA_PATH=254,12404
-             LUA_PATH=259,12742
-$(DIRLIST)$(DIRLIST266,13133
-__installMe:__installMe269,13175
-generate_doc:generate_doc357,19931
-shell_init:shell_init360,19954
-lmodrc_init:lmodrc_init363,20068
-messageFns:messageFns366,20186
-i18n:i18n369,20302
-startup:startup372,20408
-other_tools:other_tools375,20518
-spiderCacheSupport:spiderCacheSupport378,20659
-src/computeHashSum:src/computeHashSum385,21057
-tcl2lua:tcl2lua389,21202
-           $(MAKE) -C $(srcdir)/pkgs/tcl2lua  LUA_INC=$(MAKE) -C $(srcdir)/pkgs/tcl2lua  LUA_INC391,21281
-                LIB=393,21428
-                SHARE=394,21505
-lfs:lfs398,21671
-           $(MAKE) -C $(srcdir)/pkgs/luafilesystem  LUA_INC=$(MAKE) -C $(srcdir)/pkgs/luafilesystem  LUA_INC400,21746
-                LIB=401,21823
-                MODE_R=402,21900
-pkgs:pkgs405,22065
-           $(MAKE) -C $(srcdir)/pkgs LUA_INC=$(MAKE) -C $(srcdir)/pkgs LUA_INC407,22141
-               LIB=408,22218
-               MODE_R=409,22295
-zsh_tab_funcs:zsh_tab_funcs413,22461
-ksh_funcs:ksh_funcs428,23366
-fish_tab_funcs:fish_tab_funcs431,23488
-makefile:makefile434,23578
-config.status:config.status437,23647
-trailing_blanks_removed:trailing_blanks_removed440,23690
-dist:dist444,23955
-ml_dist:ml_dist464,25376
-_ml_dist:_ml_dist467,25415
-test:test476,25861
-tags:tags479,25899
-build_tags:build_tags482,25936
-busted:busted546,29567
-luachk:luachk553,29922
-libexec:libexec557,30081
-VersionSrc:VersionSrc560,30194
-STVersionSrc:STVersionSrc563,30336
-Inst_Tools:Inst_Tools566,30492
-Inst_Shells:Inst_Shells569,30605
-Inst_Settarg:Inst_Settarg572,30731
-Inst_Lmod_MF:Inst_Lmod_MF576,30855
-clean:clean579,30978
-clobber:clobber585,31222
-distclean:distclean587,31238
-world_update:world_update590,31288
-gittag:gittag616,33230
+SHELL_INIT 154,7995
+LMODRC_INIT 155,8071
+ZSH_FUNCS 158,8146
+ZSH_FUNCS 159,8187
+FISH_FUNCS 161,8267
+FISH_FUNCS 162,8311
+KSH_FUNCS 164,8393
+KSH_FUNCS 165,8458
+STARTUP 167,8544
+STARTUP 168,8623
+MSGFNs 170,8697
+MAIN_DIR 172,8766
+CONTRIB_DIRS 175,8910
+CONTRIB 188,9652
+lua_code 189,9733
+lua_code 190,9818
+CurDATE 191,9932
+ComputeHashSum 193,9999
+spiderCacheSupportCMD 194,10064
+export L_PATH export L_PATH195,10148
+export L_CPATH export L_CPATH196,10190
+HAVE_LUA_TERM 198,10234
+  PKGS 200,10308
+HAVE_LUAFILESYSTEM 202,10329
+  PKGS 204,10413
+  PKG_LFS 205,10435
+FAST_TCL_INTERP 207,10458
+TCL_INCLUDE 208,10505
+TCL_LIBS	209,10541
+  PKGS 211,10604
+  PKG_T2L 212,10633
+.PHONY:.PHONY215,10661
+all:all217,10690
+uninstall:uninstall220,10708
+pre-install:pre-install224,10830
+lmod_install_targets:lmod_install_targets226,10876
+install:install231,11167
+echo:echo246,12112
+man_pages:man_pages251,12225
+             LUA_PATH=254,12415
+             LUA_PATH=259,12753
+$(DIRLIST)$(DIRLIST266,13144
+__installMe:__installMe269,13186
+generate_doc:generate_doc357,19942
+shell_init:shell_init360,19965
+lmodrc_init:lmodrc_init363,20079
+messageFns:messageFns366,20197
+i18n:i18n369,20313
+startup:startup372,20419
+other_tools:other_tools375,20529
+spiderCacheSupport:spiderCacheSupport378,20670
+src/computeHashSum:src/computeHashSum385,21068
+tcl2lua:tcl2lua389,21213
+           $(MAKE) -C $(srcdir)/pkgs/tcl2lua  LUA_INC=$(MAKE) -C $(srcdir)/pkgs/tcl2lua  LUA_INC391,21292
+                LIB=393,21439
+                SHARE=394,21516
+lfs:lfs398,21682
+           $(MAKE) -C $(srcdir)/pkgs/luafilesystem  LUA_INC=$(MAKE) -C $(srcdir)/pkgs/luafilesystem  LUA_INC400,21757
+                LIB=401,21834
+                MODE_R=402,21911
+pkgs:pkgs405,22076
+           $(MAKE) -C $(srcdir)/pkgs LUA_INC=$(MAKE) -C $(srcdir)/pkgs LUA_INC407,22152
+               LIB=408,22229
+               MODE_R=409,22306
+zsh_tab_funcs:zsh_tab_funcs413,22472
+ksh_funcs:ksh_funcs428,23377
+fish_tab_funcs:fish_tab_funcs431,23499
+makefile:makefile434,23589
+config.status:config.status437,23658
+trailing_blanks_removed:trailing_blanks_removed440,23701
+dist:dist444,23966
+ml_dist:ml_dist464,25387
+_ml_dist:_ml_dist467,25426
+test:test476,25872
+tags:tags479,25910
+build_tags:build_tags482,25947
+busted:busted546,29578
+luachk:luachk553,29933
+libexec:libexec557,30092
+VersionSrc:VersionSrc560,30205
+STVersionSrc:STVersionSrc563,30347
+Inst_Tools:Inst_Tools566,30503
+Inst_Shells:Inst_Shells569,30616
+Inst_Settarg:Inst_Settarg572,30742
+Inst_Lmod_MF:Inst_Lmod_MF576,30866
+clean:clean579,30989
+clobber:clobber585,31233
+distclean:distclean587,31249
+world_update:world_update590,31299
+gittag:gittag616,33241
+
+.luacheckrc,290
+std 1,0
+files[files7,149
+files[files8,213
+files[files9,279
+files[files10,344
+files[files11,416
+files[files13,614
+files[files14,676
+files[files15,767
+files[files16,842
+files[files17,905
+files[files19,1133
+files[files20,1204
+files[files21,1276
+files[files24,1579
+
+tools/serializeTbl.lua,262
+local function l_set_constants(71,2598
+local function l_has_brackets(83,2807
+local function l_quoteValue(87,2910
+local function l_nsformat(100,3260
+local function l_wrap_name(136,4462
+local function outputTblHelper(153,4960
+function serializeTbl(261,8013
+
+tools/TermWidth.lua,64
+local function l_askSystem(49,1883
+function TermWidth(74,2477
+
+tools/lmod_system_execute.lua,38
+function lmod_system_execute(42,1751
+
+tools/ColumnTable.lua,850
+local function l_sizeMe(66,2587
+function M.new(84,3040
+function M.new(new84,3040
+function M._clearEmptyColumns2D(129,4170
+function M._clearEmptyColumns2D(_clearEmptyColumns2D129,4170
+function M._entry_width1(171,5127
+function M._entry_width1(_entry_width1171,5127
+function M._entry_width2(201,6022
+function M._entry_width2(_entry_width2201,6022
+function M._columnSum1(254,7699
+function M._columnSum1(_columnSum1254,7699
+function M._columnSum2(274,8360
+function M._columnSum2(_columnSum2274,8360
+function M._display1(315,9564
+function M._display1(_display1315,9564
+function M._display2(330,10062
+function M._display2(_display2330,10062
+function M._number_of_columns_rows(368,11077
+function M._number_of_columns_rows(_number_of_columns_rows368,11077
+function M.build_tbl(480,14661
+function M.build_tbl(build_tbl480,14661
+
+tools/pairsByKeys.lua,30
+function pairsByKeys 36,1175
+
+tools/Dbg.lua,1865
+local function l_rPrint(104,3081
+local function l_argsPack(121,3696
+local function l_changeIndentLevel(127,3885
+local function l_new(132,4013
+function M.dbg(153,4551
+function M.dbg(dbg153,4551
+function M.set_prefix(164,4906
+function M.set_prefix(set_prefix164,4906
+function M.activateDebug(175,5325
+function M.activateDebug(activateDebug175,5325
+function M.indentLevel(212,6574
+function M.indentLevel(indentLevel212,6574
+function M.active(218,6729
+function M.active(active218,6729
+function M.currentLevel(224,6875
+function M.currentLevel(currentLevel224,6875
+function M.deactivateWarning(230,7039
+function M.deactivateWarning(deactivateWarning230,7039
+function M.activateWarning(236,7201
+function M.activateWarning(activateWarning236,7201
+function M._quiet(242,7361
+function M._quiet(_quiet242,7361
+local function l_extractVPL(247,7492
+local function l_startExtractVPL(252,7574
+function M._start(260,7789
+function M._start(_start260,7789
+function M._zeroIndent(276,8140
+function M._zeroIndent(_zeroIndent276,8140
+function M._indent(282,8295
+function M._indent(_indent282,8295
+function M._fini(288,8453
+function M._fini(_fini288,8453
+function M._warning(310,9075
+function M._warning(_warning310,9075
+function M._error(321,9373
+function M._error(_error321,9373
+function M.errorExit(334,9665
+function M.errorExit(errorExit334,9665
+function M.warningCalled(341,9852
+function M.warningCalled(warningCalled341,9852
+function M._print(349,10038
+function M._print(_print349,10038
+function M._textA(384,10911
+function M._textA(_textA384,10911
+function M._printA(405,11363
+function M._printA(_printA405,11363
+function M._print2D(424,11762
+function M._print2D(_print2D424,11762
+function M.flush(441,12159
+function M.flush(flush441,12159
+function M._printT(445,12204
+function M._printT(_printT445,12204
+
+tools/declare.lua,85
+function declare(38,1669
+function isDefined(46,1894
+function isNotDefined(50,1960
+
+tools/Banner.lua,291
+local function l_new(51,1998
+function M.singleton(64,2252
+function M.singleton(singleton64,2252
+function M.width(77,2561
+function M.width(width77,2561
+function M.border(85,2864
+function M.border(border85,2864
+function M.bannerStr(102,3442
+function M.bannerStr(bannerStr102,3442
+
+tools/deepcopy.lua,24
+function deepcopy(3,19
+
+tools/haveTermSupport.lua,67
+function haveTermSupport(44,1846
+function connected2Term(53,1985
+
+tools/string_utils.lua,755
+function string.escape(44,1901
+function string.escape(escape44,1901
+function string.split(59,2362
+function string.split(split59,2362
+   local function l_getter(62,2467
+   local function l_splitter(66,2633
+function string.trim(72,2763
+function string.trim(trim72,2763
+function string.caseIndependent(85,3141
+function string.caseIndependent(caseIndependent85,3141
+function string.multiEscaped(106,3808
+function string.multiEscaped(multiEscaped106,3808
+function string.doubleQuoteString(119,4234
+function string.doubleQuoteString(doubleQuoteString119,4234
+function string.atSymbolEscaped(132,4587
+function string.atSymbolEscaped(atSymbolEscaped132,4587
+function string.fillWords(144,5004
+function string.fillWords(fillWords144,5004
+
+tools/MF_Base.lua,972
+function M.name(56,2255
+function M.name(name56,2255
+function M.build(65,2508
+function M.build(build65,2508
+local function l_safe_eval(79,2859
+function M.process(101,3539
+function M.process(process101,3539
+local function l_extractAliases(136,4738
+function M.processAliases(152,5222
+function M.processAliases(processAliases152,5222
+local function l_extractFuncs(173,5944
+function M.processFuncs(190,6454
+function M.processFuncs(processFuncs190,6454
+local function l_extractComplete(212,7164
+function M.processComplete(236,7923
+function M.processComplete(processComplete236,7923
+function M.processExportFuncs(251,8445
+function M.processExportFuncs(processExportFuncs251,8445
+function l_indexPath(265,8823
+function l_splice(320,9839
+function M.processVars(334,10002
+function M.processVars(processVars334,10002
+function M.complete(404,12090
+function M.complete(complete404,12090
+function M.header(407,12145
+function M.header(header407,12145
+
+tools/fileOps.lua,612
+local function l_argsPack(45,1815
+function findInPath(54,2215
+function find_exec_path(91,3197
+function isDir(126,4072
+function isFile(145,4572
+function exists(156,4791
+function isExec(169,5127
+function dirname(178,5432
+function extname(193,5813
+function removeExt(210,6200
+function barefilename(227,6609
+function splitFileName(244,7041
+function pathJoin(264,7571
+function mkdir_recursive(306,8605
+local function l_abspath 334,9248
+function realpath(377,10237
+function path_regularize(389,10585
+local function l_walk_dir(456,11978
+local function l_walker(477,12576
+function dir_walk(485,12756
+
+tools/inherits.lua,116
+function inheritsFrom(38,1646
+    function new_class:create(49,2022
+    function new_class:create(create49,2022
+
+tools/Cosmic.lua,748
+function M.singleton(54,2164
+function M.singleton(singleton54,2164
+function M.init(68,2375
+function M.init(init68,2375
+local function l_build_string(121,3733
+function M.reportChangesFromDefault(131,3916
+function M.reportChangesFromDefault(reportChangesFromDefault131,3916
+function M.assign(155,4467
+function M.assign(assign155,4467
+function M.get(165,4648
+function M.get(get165,4648
+function M.value(170,4748
+function M.value(value170,4748
+function M.default(175,4870
+function M.default(default175,4870
+function M.changed(179,4938
+function M.changed(changed179,4938
+function M.get_key(184,5058
+function M.get_key(get_key184,5058
+function M.set_key(188,5110
+function M.set_key(set_key188,5110
+function l_new(192,5168
+
+tools/MF_TCL.lua,673
+function MF_TCL.setenv(59,2444
+function MF_TCL.setenv(setenv59,2444
+function MF_TCL.prepend_path(68,2716
+function MF_TCL.prepend_path(prepend_path68,2716
+function MF_TCL.append_path(78,3000
+function MF_TCL.append_path(append_path78,3000
+function MF_TCL.alias(82,3094
+function MF_TCL.alias(alias82,3094
+function MF_TCL.shell_function(86,3180
+function MF_TCL.shell_function(shell_function86,3180
+function MF_TCL.complete(90,3279
+function MF_TCL.complete(complete90,3279
+function MF_TCL.header(95,3400
+function MF_TCL.header(header95,3400
+function MF_TCL.export_shell_function(99,3451
+function MF_TCL.export_shell_function(export_shell_function99,3451
+
+tools/BeautifulTbl.lua,199
+function M.new(89,3873
+function M.new(new89,3873
+function M._build_tbl(120,4857
+function M._build_tbl(_build_tbl120,4857
+function M.build_tbl(184,6533
+function M.build_tbl(build_tbl184,6533
+
+tools/Optiks.lua,1471
+local function l_argsPack(33,1446
+function Optiks_Error(42,1780
+function Optiks_Exit(52,1983
+local function l_prt(81,2671
+local function l_prtend(85,2723
+function M.new(92,2916
+function M.new(new92,2916
+function M.add_option(154,4398
+function M.add_option(add_option154,4398
+function M._getValue(190,5592
+function M._getValue(_getValue190,5592
+function M.store(216,6400
+function M.store(store216,6400
+function M.store_true(229,6911
+function M.store_true(store_true229,6911
+function M.append(242,7429
+function M.append(append242,7429
+function M.store_false(259,8019
+function M.store_false(store_false259,8019
+function M.count(272,8534
+function M.count(count272,8534
+function M.display_store(282,8834
+function M.display_store(display_store282,8834
+function M.display_flag(302,9350
+function M.display_flag(display_flag302,9350
+function M.display_count(315,9704
+function M.display_count(display_count315,9704
+function M.setDefaults(323,9971
+function M.setDefaults(setDefaults323,9971
+function M.parseOpt(338,10513
+function M.parseOpt(parseOpt338,10513
+function M.buildHelpMsg(351,10964
+function M.buildHelpMsg(buildHelpMsg351,10964
+function M.printHelp(374,11588
+function M.printHelp(printHelp374,11588
+function M.buildManPod(379,11669
+function M.buildManPod(buildManPod379,11669
+function M.parseEnvArg(406,12421
+function M.parseEnvArg(parseEnvArg406,12421
+function M.parse(461,13773
+function M.parse(parse461,13773
+
+tools/.luatools_modules.list,12
+fileA=4,36
+
+tools/Stack.lua,159
+function M.new(40,1754
+function M.new(new40,1754
+function M.push(51,1943
+function M.push(push51,1943
+function M.pop(58,2091
+function M.pop(pop58,2091
+
+tools/capture.lua,26
+function capture(46,2022
+
+tools/replaceStr.lua,125
+local function l_replaceStrValue(30,1315
+                 function(prev,(prev32,1396
+local function l_replaceStr(42,1640
+
+tools/strict.lua,30
+local function l_what 18,496
+
+tools/i18n/init.lua,1175
+local function dotSplit(21,511
+local function isPluralTable(30,688
+local function isPresent(34,783
+local function assertPresent(38,862
+local function assertPresentOrPlural(45,1126
+local function assertPresentOrTable(52,1443
+local function assertFunctionOrNil(59,1749
+local function defaultPluralizeFunction(66,2047
+local function pluralize(70,2159
+local function treatNode(78,2379
+local function recursiveLoad(87,2595
+local function localizedTranslate(101,2996
+function i18n.set(115,3271
+function i18n.set(set115,3271
+function i18n.translate(132,3604
+function i18n.translate(translate132,3604
+function i18n.setLocale(147,3968
+function i18n.setLocale(setLocale147,3968
+function i18n.setFallbackLocale(154,4256
+function i18n.setFallbackLocale(setFallbackLocale154,4256
+function i18n.getFallbackLocale(159,4426
+function i18n.getFallbackLocale(getFallbackLocale159,4426
+function i18n.getLocale(163,4489
+function i18n.getLocale(getLocale163,4489
+function i18n.reset(167,4536
+function i18n.reset(reset167,4536
+function i18n.load(174,4665
+function i18n.load(load174,4665
+function i18n.loadFile(178,4722
+function i18n.loadFile(loadFile178,4722
+
+tools/i18n/variants.lua,365
+local function reverse(3,21
+local function concat(9,159
+function variants.ancestry(16,293
+function variants.ancestry(ancestry16,293
+function variants.isParent(26,548
+function variants.isParent(isParent26,548
+function variants.root(30,646
+function variants.root(root30,646
+function variants.fallbacks(34,714
+function variants.fallbacks(fallbacks34,714
+
+tools/i18n/plural.lua,444
+local function assertPresentString(5,67
+local function assertNumber(12,378
+local function words(20,720
+local function isInteger(29,888
+local function between(33,949
+local function inside(37,1033
+function plural.get(261,6911
+function plural.get(get261,6911
+function plural.setDefaultFunction(270,7136
+function plural.setDefaultFunction(setDefaultFunction270,7136
+function plural.reset(274,7201
+function plural.reset(reset274,7201
+
+tools/i18n/interpolate.lua,195
+local function interpolateValue(4,122
+    function (previous,(previous6,216
+local function interpolateField(16,415
+    function (previous,(previous18,529
+local function interpolate(27,727
+
+tools/json.lua,592
+function json.encode 67,2820
+function json.encode encode67,2820
+function json.decode(123,4461
+function json.decode(decode123,4461
+function null(153,5535
+function decode_scanArray(168,6263
+function decode_scanComment(195,7381
+function decode_scanConstant(208,8104
+function decode_scanNumber(228,8971
+function decode_scanObject(249,9899
+function decode_scanString(303,12201
+function decode_scanWhitespace(356,14628
+function json_private.encodeString(381,15364
+function json_private.encodeString(encodeString381,15364
+function isArray(394,16044
+function isEncodable(421,17321
+
+tools/base64.lua,242
+local function lsh(17,307
+local function rsh(22,393
+local function bit(27,497
+local function lor(32,594
+function M.encode64(49,1545
+function M.encode64(encode6449,1545
+function M.decode64(76,3032
+function M.decode64(decode6476,3032
+
+tools/MF_Lua.lua,616
+function MF_Lmod.setenv(54,2234
+function MF_Lmod.setenv(setenv54,2234
+function MF_Lmod.prepend_path(64,2548
+function MF_Lmod.prepend_path(prepend_path64,2548
+function MF_Lmod.append_path(74,2873
+function MF_Lmod.append_path(append_path74,2873
+function MF_Lmod.alias(78,3008
+function MF_Lmod.alias(alias78,3008
+function MF_Lmod.shell_function(82,3135
+function MF_Lmod.shell_function(shell_function82,3135
+function MF_Lmod.complete(86,3285
+function MF_Lmod.complete(complete86,3285
+function MF_Lmod.export_shell_function(90,3465
+function MF_Lmod.export_shell_function(export_shell_function90,3465
+
+tools/Optiks_Option.lua,263
+function M.optionNames(65,2309
+function M.optionNames(optionNames65,2309
+function M.bless(83,2750
+function M.bless(bless83,2750
+function M.setDefault(120,3792
+function M.setDefault(setDefault120,3792
+function M.new(135,4362
+function M.new(new135,4362
+
+INSTALL,759
+         Lmod and install lua-X.X.X.tar.gz file.  It contains the lua command,13,371
+      following rpms;31,1013
+         $ luarocks install luaposix;44,1322
+      by lua.  On our Centos system,47,1471
+        ./?.lua;/usr/share/lua/5.1/?.lua;lua51,1602
+        ./?.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua;lua51,1602
+        ./?.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua;/usr/lib64/lua/5.1/?.lua;lua51,1602
+        ./?.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua;/usr/lib64/lua/5.1/?.lua;/usr/lib64/lua/5.1/?/init.lua;lua51,1602
+        ./?.so;/usr/lib64/lua/5.1/?.so;so56,1817
+        ./?.so;/usr/lib64/lua/5.1/?.so;/usr/lib64/lua/5.1/loadall.so;so56,1817
+         LUAROCKS_PREFIX=66,2149
+
+spec/Var/Var_spec.lua,64
+         function()(12,231
+               function()(14,284
+
+spec/Avail/Avail_spec.lua,64
+         function()(20,486
+               function()(22,556
+
+spec/MRC/MRC_spec.lua,100
+         function()(23,610
+               function()(25,669
+               function()(48,2104
+
+spec/ModuleA/ModuleA_spec.lua,102
+         function()(25,705
+               function()(27,765
+               function()(295,15184
+
+spec/Spider/Spider_spec.lua,101
+         function()(24,657
+               function()(26,715
+               function()(149,6918
+
+spec/MT/MT_spec.lua,64
+         function()(15,348
+               function()(17,413
+
+spec/DirTree/DirTree_spec.lua,178
+         function()(14,316
+               function()(16,387
+               function()(181,10243
+               function()(238,12905
+               function()(301,15911
+
+spec/MName/MName_spec.lua,101
+         function()(25,628
+               function()(27,702
+               function()(141,7860
+
+spec/MainControl/MainControl_spec.lua,100
+         function()(28,732
+               function()(30,783
+               function()(68,2221
+
+spec/LocationT/LocationT_spec.lua,176
+         function()(24,655
+               function()(26,721
+               function()(119,5477
+               function()(177,8421
+               function()(239,11686
+
+README_lua_modulefiles.txt,19
+   whatis(52,1780
+
+ML_README.txt,184
+                                  module load baz goo;13,312
+Unless you know what you are doing,79,1763
+alias provided above on a system where Lmod is installed.  Therefore,80,1833
+
+README.new,32
+              entry in 32,2236
+
+logos/4x/Lmod-black@4x.png,34
+ﬁ©_äˆ_ä4,1309
+>™I‡îI‡6,1739
+
+logos/4x/Lmod-White@4x.png,144
+¯◊´øÈΩvµ†§¯˛òÃÆÚ˜©)ÅP˘ıP˘7,1003
+¯◊´øÈΩvµ†§¯˛òÃÆÚ˜©)ÅP˘ıp¸u´Øõq,~ú~7,1003
+¯◊´øÈΩvµ†§¯˛òÃÆÚ˜©)ÅP˘ıp¸u´Øõq,~ú,|éqa;qa7,1003
+
+logos/4x/Lmod-4color@4x.png,287
+-åŸ)FÚF7,1043
+|\≥ñNY‘ë˜ÖáÚoº-ˇ˙ã]™ë§ÔOï Ç,Éÿ[∂‡ÈÊ“˘O±°¡∞d?ë‚öµ≠ÈŸSd®"Öºf∆3f∆15,4578
+ä¯‚‰7‘Å-M÷…°	åDà¢y|1–zLƒÿ2ä+ßÏ7íUiƒ§õ„'–¥‰ˇ≠º¡ºH·ﬁ=u⁄îEdì˘ÃÈw¸§Nøª4Ïcë•¯Òæ%um±Ë‹6 kB"%(‚õ“222,Am◊yÊ^CC16,4988
+v\3çO}Aˆ°A•&NøÎßïg‹ı”ò˙‹R6„ôA◊R|ı›—´ÁkK9íWãFkK9íWã18,5361
+
+logos/2x/Lmod-black@2x.png,110
+NKKÎvÌ⁄µÿ››c‰O˘{àØCÉÛ~˝}ÎJ®Îi(eñ√8ÜìÈ©FBçê=û_X4ç‡Å$»…°ßñ9ç–}h·„∏¨”<`ÈAÍxZœﬂÑfÊdtVzAÍxZœﬂÑfÊdtV5,2308
+
+logos/2x/Lmod-White@2x.png,19
+˝≠Ñã˝ÑOO5,587
 
 tcl/tacc/TACC,34
 set MODULEPATH_ROOT  env(49,1350
-
-tcl/tacc/apps/TERAGRID-BASIC,46
-setenv TG_CLUSTER_HOME          $env(28,1128
 
 tcl/tacc/apps/mycluster/0.9.9,16
 } else 30,1356
@@ -2888,6 +1550,9 @@ setenv    GLOBUS_TCP_PORT_RANGE 37,1633
 tcl/tacc/apps/gridshell/0.9.9,16
 } else 30,1356
 
+tcl/tacc/apps/TERAGRID-BASIC,46
+setenv TG_CLUSTER_HOME          $env(28,1128
+
 tcl/modulecmd.tcl,153
 set g_debug 38,1355
 set error_count 39,1401
@@ -2896,168 +1561,63 @@ set flag_default_mf 47,1846
 set DEF_COLUMNS 70,2245
 set ignoreDir(84,2711
 
-bugReport/bug_report_template.sh,24
-export MODULEPATH=7,66
-
-debian/gbp.conf,23
-pristine-tar=tar2,10
-
-debian/rules,12
-TDIR=7,103
-
-debian/lmod.substvars,26
-misc:Depends=Depends1,0
-
-debian/control,39
-Build-Depends: autotools-dev,dev5,97
-
-debian/patches/change_paths,32
- prefix	4,56
--PKGV	PKGV7,211
-
-debian/patches/set_modulespath,45
-     export LMOD_FULL_SETTARG_SUPPORT=9,215
-
-debian/changelog,2045
-lmod (8.7.34) unstable;1,0
-lmod (8.7.34) unstable; urgency=1,0
-lmod (8.7.32) unstable; urgency=8,152
-lmod (8.7.31) unstable; urgency=15,304
-lmod (8.7.30) unstable; urgency=22,456
-lmod (8.7.29) unstable; urgency=29,608
-lmod (8.7.28) unstable; urgency=36,760
-lmod (8.7.27) unstable; urgency=43,912
-lmod (8.7.25) unstable; urgency=50,1064
-lmod (8.7.24) unstable; urgency=57,1216
-lmod (8.7.23) unstable; urgency=64,1368
-lmod (8.7.22) unstable; urgency=71,1520
-lmod (8.7.21) unstable; urgency=78,1672
-lmod (8.7.20) unstable; urgency=85,1824
-lmod (8.7.19) unstable; urgency=92,1976
-lmod (8.7.18) unstable; urgency=99,2128
-lmod (8.7.17) unstable; urgency=106,2280
-lmod (8.7.15) unstable; urgency=113,2432
-lmod (8.7.14) unstable; urgency=120,2584
-lmod (8.7.13) unstable; urgency=127,2736
-lmod (8.7.12) unstable; urgency=134,2888
-lmod (8.7.11) unstable; urgency=141,3040
-lmod (8.7.8) unstable; urgency=148,3192
-lmod (8.7.7) unstable; urgency=155,3342
-lmod (8.7.6) unstable; urgency=162,3492
-lmod (8.7.5) unstable; urgency=169,3642
-lmod (8.7.4) unstable; urgency=176,3792
-lmod (8.7.3) unstable; urgency=183,3942
-lmod (8.7.2) unstable; urgency=190,4092
-lmod (8.7) unstable; urgency=197,4242
-lmod (8.6.17) unstable; urgency=204,4388
-lmod (8.6.15) unstable; urgency=211,4540
-lmod (8.6.14) unstable; urgency=218,4692
-lmod (8.6.12) unstable; urgency=225,4844
-lmod (8.6.9) unstable; urgency=232,4996
-lmod (8.6.8) unstable; urgency=239,5146
-lmod (8.6.7) unstable; urgency=246,5296
-lmod (8.6.6) unstable; urgency=253,5446
-lmod (8.6.5) unstable; urgency=260,5596
-lmod (8.6.4) unstable; urgency=267,5746
-lmod (8.6.3) unstable; urgency=274,5896
-lmod (8.6.2) unstable; urgency=281,6046
-lmod (8.6.1) unstable; urgency=288,6196
-lmod (8.5.25) unstable; urgency=295,6346
-lmod (6.6-0.3) unstable; urgency=302,6513
-lmod (6.6-0.2) unstable; urgency=310,6776
-lmod (6.6-0.1) unstable; urgency=317,6981
-lmod (5.8-1) unstable; urgency=335,7681
-lmod (5.6.2-1) unstable; urgency=345,7992
-lmod (5.5.1-1) unstable; urgency=354,8234
-
-shells/CMake.lua,537
-function CMake.alias(52,2291
-function CMake.alias(alias52,2291
-function CMake.shellFunc(56,2389
-function CMake.shellFunc(shellFunc56,2389
-function CMake.echo(60,2501
-function CMake.echo(echo60,2501
-function CMake.expandVar(64,2555
-function CMake.expandVar(expandVar64,2555
-function CMake.unset(76,2882
-function CMake.unset(unset76,2882
-function CMake.report_failure(86,3122
-function CMake.report_failure(report_failure86,3122
-function CMake.report_success(92,3249
-function CMake.report_success(report_success92,3249
-
-shells/Lisp.lua,547
-function Lisp.alias(57,2437
-function Lisp.alias(alias57,2437
-function Lisp.shellFunc(66,2806
-function Lisp.shellFunc(shellFunc66,2806
-function Lisp.expandVar(75,3083
-function Lisp.expandVar(expandVar75,3083
-function Lisp.unset(96,3658
-function Lisp.unset(unset96,3658
-function Lisp.real_shell(109,4099
-function Lisp.real_shell(real_shell109,4099
-function Lisp.report_failure(113,4151
-function Lisp.report_failure(report_failure113,4151
-function Lisp.report_failure(119,4259
-function Lisp.report_failure(report_failure119,4259
-
-shells/JsonShell.lua,602
-function Json.initialize(58,2301
-function Json.initialize(initialize58,2301
-function Json.alias(63,2472
-function Json.alias(alias63,2472
-function Json.shellFunc(69,2594
-function Json.shellFunc(shellFunc69,2594
-function Json.expandVar(75,2724
-function Json.expandVar(expandVar75,2724
-function Json.unset(81,2855
-function Json.unset(unset81,2855
-function Json.echo(87,2995
-function Json.echo(echo87,2995
-function Json.report_failure(91,3048
-function Json.report_failure(report_failure91,3048
-function Json.report_success(97,3183
-function Json.report_success(report_success97,3183
+shells/Rc.lua,342
+function Rc.set_alias(62,2683
+function Rc.set_alias(set_alias62,2683
+function Rc.expandVar(82,3248
+function Rc.expandVar(expandVar82,3248
+function Rc.echo(100,3725
+function Rc.echo(echo100,3725
+function Rc.unset(124,4423
+function Rc.unset(unset124,4423
+function Rc.real_shell(136,4710
+function Rc.real_shell(real_shell136,4710
 
 shells/Bare.lua,67
 function Bare.expand(45,1956
 function Bare.expand(expand45,1956
 
-shells/Bash.lua,597
-function Bash.alias(58,2477
-function Bash.alias(alias58,2477
-local function l_build_shell_func(70,2799
-function Bash.shellFunc(84,3271
-function Bash.shellFunc(shellFunc84,3271
-function Bash.expandVar(102,3837
-function Bash.expandVar(expandVar102,3837
-function Bash.unset(132,4594
-function Bash.unset(unset132,4594
-function Bash.complete(140,4749
-function Bash.complete(complete140,4749
-function Bash.export_shell_function(159,5314
-function Bash.export_shell_function(export_shell_function159,5314
-function Bash.real_shell(183,6128
-function Bash.real_shell(real_shell183,6128
+shells/Python.lua,486
+function Python.echo(51,2247
+function Python.echo(echo51,2247
+function Python.expandVar(55,2302
+function Python.expandVar(expandVar55,2302
+function Python.unset(68,2680
+function Python.unset(unset68,2680
+function Python.initialize(83,3144
+function Python.initialize(initialize83,3144
+function Python.report_failure(89,3256
+function Python.report_failure(report_failure89,3256
+function Python.report_success(95,3380
+function Python.report_success(report_success95,3380
 
-shells/Csh.lua,487
-function Csh.alias(60,2587
-function Csh.alias(alias60,2587
-function Csh.shellFunc(77,3121
-function Csh.shellFunc(shellFunc77,3121
-function Csh.expandVar(85,3373
-function Csh.expandVar(expandVar85,3373
-function Csh.echo(108,3954
-function Csh.echo(echo108,3954
-function Csh.unset(117,4212
-function Csh.unset(unset117,4212
-function Csh.complete(134,4580
-function Csh.complete(complete134,4580
-function Csh.real_shell(161,5356
-function Csh.real_shell(real_shell161,5356
+shells/Fish.lua,390
+function Fish.set_alias(57,2434
+function Fish.set_alias(set_alias57,2434
+function Fish.set_shell_func(74,3050
+function Fish.set_shell_func(set_shell_func74,3050
+function Fish.expandVar(89,3535
+function Fish.expandVar(expandVar89,3535
+function Fish.unset(110,4156
+function Fish.unset(unset110,4156
+function Fish.real_shell(121,4534
+function Fish.real_shell(real_shell121,4534
 
-shells/BaseShell.lua,1353
+shells/Ruby.lua,462
+function Ruby.echo(51,2237
+function Ruby.echo(echo51,2237
+function Ruby.expandVar(55,2290
+function Ruby.expandVar(expandVar55,2290
+function Ruby.unset(68,2658
+function Ruby.unset(unset68,2658
+function Ruby.initialize(78,2909
+function Ruby.initialize(initialize78,2909
+function Ruby.report_failure(81,2945
+function Ruby.report_failure(report_failure81,2945
+function Ruby.report_success(87,3067
+function Ruby.report_success(report_success87,3067
+
+shells/BaseShell.lua,1961
 function M.name(71,2923
 function M.name(name71,2923
 function M.type(75,2973
@@ -3078,192 +1638,1766 @@ function M.report_failure(123,4325
 function M.report_failure(report_failure123,4325
 function M.report_success(129,4434
 function M.report_success(report_success129,4434
-function M.expand(141,5003
-function M.expand(expand141,5003
-function M.expandMT(210,7091
-function M.expandMT(expandMT210,7091
-function M.export_shell_function(240,7828
-function M.export_shell_function(export_shell_function240,7828
-function M.complete(246,8015
-function M.complete(complete246,8015
-function M.echo(252,8189
-function M.echo(echo252,8189
-function M._echo(273,8787
-function M._echo(_echo273,8787
-local function l_valid_shell(284,9091
-local function l_createShellTbl(293,9276
-function M.isValid(334,11137
-function M.isValid(isValid334,11137
-function M.build(342,11378
-function M.build(build342,11378
+function M.set_var(134,4506
+function M.set_var(set_var134,4506
+function M.set_complete_delay(149,4794
+function M.set_complete_delay(set_complete_delay149,4794
+function M.set_alias(155,4951
+function M.set_alias(set_alias155,4951
+function M.set_shell_function(159,5003
+function M.set_shell_function(set_shell_function159,5003
+function M.set_complete(163,5064
+function M.set_complete(set_complete163,5064
+function M.set_export_shell_function(166,5118
+function M.set_export_shell_function(set_export_shell_function166,5118
+function M.set_path(172,5188
+function M.set_path(set_path172,5188
+function M.expand(202,6201
+function M.expand(expand202,6201
+function M.expandMT(268,8185
+function M.expandMT(expandMT268,8185
+function M.export_shell_function(298,8922
+function M.export_shell_function(export_shell_function298,8922
+function M.complete(304,9109
+function M.complete(complete304,9109
+function M.echo(310,9283
+function M.echo(echo310,9283
+function M._echo(331,9881
+function M._echo(_echo331,9881
+local function l_valid_shell(342,10185
+local function l_createShellTbl(351,10370
+function M.isValid(394,12336
+function M.isValid(isValid394,12336
+function M.build(402,12577
+function M.build(build402,12577
 
-shells/Ruby.lua,602
-function Ruby.alias(51,2237
-function Ruby.alias(alias51,2237
-function Ruby.shellFunc(55,2335
-function Ruby.shellFunc(shellFunc55,2335
-function Ruby.echo(59,2447
-function Ruby.echo(echo59,2447
-function Ruby.expandVar(63,2500
-function Ruby.expandVar(expandVar63,2500
-function Ruby.unset(76,2868
-function Ruby.unset(unset76,2868
-function Ruby.initialize(86,3126
-function Ruby.initialize(initialize86,3126
-function Ruby.report_failure(89,3162
-function Ruby.report_failure(report_failure89,3162
-function Ruby.report_success(95,3284
-function Ruby.report_success(report_success95,3284
+shells/Nushell.lua,432
+function Nushell.alias(57,2450
+function Nushell.alias(alias57,2450
+function Nushell.shellFunc(73,3031
+function Nushell.shellFunc(shellFunc73,3031
+local function l_quoteValue(98,3712
+function Nushell.expandVar(112,4007
+function Nushell.expandVar(expandVar112,4007
+function Nushell.unset(158,5365
+function Nushell.unset(unset158,5365
+function Nushell.real_shell(169,5771
+function Nushell.real_shell(real_shell169,5771
 
-shells/Fish.lua,363
-function Fish.alias(57,2434
-function Fish.alias(alias57,2434
-function Fish.shellFunc(73,2993
-function Fish.shellFunc(shellFunc73,2993
-function Fish.expandVar(89,3482
-function Fish.expandVar(expandVar89,3482
-function Fish.unset(112,4124
-function Fish.unset(unset112,4124
-function Fish.real_shell(123,4502
-function Fish.real_shell(real_shell123,4502
+shells/CMake.lua,393
+function CMake.echo(52,2291
+function CMake.echo(echo52,2291
+function CMake.expandVar(56,2345
+function CMake.expandVar(expandVar56,2345
+function CMake.unset(68,2672
+function CMake.unset(unset68,2672
+function CMake.report_failure(78,2905
+function CMake.report_failure(report_failure78,2905
+function CMake.report_success(84,3032
+function CMake.report_success(report_success84,3032
 
-shells/R.lua,481
-function R.alias(50,2193
-function R.alias(alias50,2193
-function R.shellFunc(54,2284
-function R.shellFunc(shellFunc54,2284
-function R.echo(58,2389
-function R.echo(echo58,2389
-function R.expandVar(62,2439
-function R.expandVar(expandVar62,2439
-function R.unset(75,2776
-function R.unset(unset75,2776
-function R.report_failure(80,2902
-function R.report_failure(report_failure80,2902
-function R.report_success(86,3021
-function R.report_success(report_success86,3021
+shells/Lisp.lua,403
+function Lisp.expandVar(56,2345
+function Lisp.expandVar(expandVar56,2345
+function Lisp.unset(77,2920
+function Lisp.unset(unset77,2920
+function Lisp.real_shell(90,3354
+function Lisp.real_shell(real_shell90,3354
+function Lisp.report_failure(94,3406
+function Lisp.report_failure(report_failure94,3406
+function Lisp.report_failure(100,3514
+function Lisp.report_failure(report_failure100,3514
 
-shells/Python.lua,636
-function Python.alias(51,2247
-function Python.alias(alias51,2247
-function Python.shellFunc(55,2347
-function Python.shellFunc(shellFunc55,2347
-function Python.echo(59,2461
-function Python.echo(echo59,2461
-function Python.expandVar(63,2516
-function Python.expandVar(expandVar63,2516
-function Python.unset(76,2894
-function Python.unset(unset76,2894
-function Python.initialize(89,3275
-function Python.initialize(initialize89,3275
-function Python.report_failure(95,3387
-function Python.report_failure(report_failure95,3387
-function Python.report_success(101,3511
-function Python.report_success(report_success101,3511
+shells/Perl.lua,383
+function Perl.echo(50,2200
+function Perl.echo(echo50,2200
+function Perl.expandVar(54,2253
+function Perl.expandVar(expandVar54,2253
+function Perl.unset(68,2594
+function Perl.unset(unset68,2594
+function Perl.report_failure(73,2710
+function Perl.report_failure(report_failure73,2710
+function Perl.report_success(79,2830
+function Perl.report_success(report_success79,2830
 
-shells/Perl.lua,523
-function Perl.alias(50,2200
-function Perl.alias(alias50,2200
-function Perl.shellFunc(54,2297
-function Perl.shellFunc(shellFunc54,2297
-function Perl.echo(58,2408
-function Perl.echo(echo58,2408
-function Perl.expandVar(62,2461
-function Perl.expandVar(expandVar62,2461
-function Perl.unset(76,2802
-function Perl.unset(unset76,2802
-function Perl.report_failure(81,2925
-function Perl.report_failure(report_failure81,2925
-function Perl.report_success(87,3045
-function Perl.report_success(report_success87,3045
+shells/Csh.lua,538
+function Csh.set_alias(60,2587
+function Csh.set_alias(set_alias60,2587
+function Csh.set_shell_function(78,3189
+function Csh.set_shell_function(set_shell_function78,3189
+function Csh.expandVar(88,3506
+function Csh.expandVar(expandVar88,3506
+function Csh.echo(106,3972
+function Csh.echo(echo106,3972
+function Csh.unset(115,4230
+function Csh.unset(unset115,4230
+function Csh.set_complete(128,4504
+function Csh.set_complete(set_complete128,4504
+function Csh.real_shell(155,5284
+function Csh.real_shell(real_shell155,5284
 
-shells/Rc.lua,404
-function Rc.alias(62,2683
-function Rc.alias(alias62,2683
-function Rc.shellFunc(82,3318
-function Rc.shellFunc(shellFunc82,3318
-function Rc.expandVar(100,3947
-function Rc.expandVar(expandVar100,3947
-function Rc.echo(118,4424
-function Rc.echo(echo118,4424
-function Rc.unset(142,5122
-function Rc.unset(unset142,5122
-function Rc.real_shell(154,5416
-function Rc.real_shell(real_shell154,5416
+shells/Bash.lua,660
+function Bash.set_alias(58,2477
+function Bash.set_alias(set_alias58,2477
+local function l_build_shell_func(70,2837
+function Bash.set_shell_function(84,3330
+function Bash.set_shell_function(set_shell_function84,3330
+function Bash.expandVar(101,3895
+function Bash.expandVar(expandVar101,3895
+function Bash.unset(129,4602
+function Bash.unset(unset129,4602
+function Bash.set_complete(137,4750
+function Bash.set_complete(set_complete137,4750
+function Bash.set_export_shell_function(156,5319
+function Bash.set_export_shell_function(set_export_shell_function156,5319
+function Bash.real_shell(180,6158
+function Bash.real_shell(real_shell180,6158
 
-debian/lmod.lintian-overrides,0
+shells/R.lua,353
+function R.echo(50,2193
+function R.echo(echo50,2193
+function R.expandVar(54,2243
+function R.expandVar(expandVar54,2243
+function R.unset(67,2580
+function R.unset(unset67,2580
+function R.report_failure(72,2699
+function R.report_failure(report_failure72,2699
+function R.report_success(78,2818
+function R.report_success(report_success78,2818
 
-debian/source/format,0
+shells/JsonShell.lua,641
+function Json.initialize(58,2301
+function Json.initialize(initialize58,2301
+function Json.set_alias(63,2472
+function Json.set_alias(set_alias63,2472
+function Json.set_shell_function(69,2603
+function Json.set_shell_function(set_shell_function69,2603
+function Json.expandVar(76,2748
+function Json.expandVar(expandVar76,2748
+function Json.unset(82,2879
+function Json.unset(unset82,2879
+function Json.echo(88,3012
+function Json.echo(echo88,3012
+function Json.report_failure(92,3065
+function Json.report_failure(report_failure92,3065
+function Json.report_success(98,3200
+function Json.report_success(report_success98,3200
 
-debian/tests/control,0
+config.ld,41
+project 1,0
+topics 8,194
+format=9,288
 
-debian/tests/load-test,0
+src/Version.lua,325
+function M.branch(2,11
+function M.branch(branch2,11
+function M.branchStr(5,52
+function M.branchStr(branchStr5,52
+function M.tag(12,195
+function M.tag(tag12,195
+function M.git(13,235
+function M.git(git13,235
+function M.date(19,403
+function M.date(date19,403
+function M.name(20,458
+function M.name(name20,458
 
-debian/patches/series,0
+src/CTimer.lua,212
+local function l_new(47,1925
+function M.singleton(69,2644
+function M.singleton(singleton69,2644
+function M.test(79,3006
+function M.test(test79,3006
+function M.done(101,3595
+function M.done(done101,3595
 
-debian/docs,0
+src/HookArray.lua,125
+function M.register(48,2082
+function M.register(register48,2082
+function M.apply(55,2324
+function M.apply(apply55,2324
 
-debian/files,0
+src/cmdfuncs.lua,1145
+local function l_Access(77,3299
+local function l_findNamedCollections(103,4168
+function Avail(143,5565
+function Category(152,5796
+   local function add_module(164,6083
+function Overview(279,9097
+function Help(291,9447
+function IsAvail(308,9834
+function IsLoaded(322,10115
+function Keyword(339,10560
+function List(375,11763
+local function l_usrLoad(545,16617
+function Load_Try(602,18126
+function Load_Usr(610,18336
+function Purge_Usr(618,18545
+function purgeFlg(625,18636
+function Purge(631,18852
+function Refresh(642,19238
+function Reset(655,19716
+   local function cmp(695,20563
+local function l_collectionDir(735,21333
+local function l_find_a_collection(751,21670
+function CollectionLst(770,22288
+function GetDefault(810,23775
+function Restore(832,24597
+function Save(914,26984
+function SaveList(989,29007
+function SearchCmd(1035,30269
+function Show(1043,30612
+function SpiderCmd(1071,31516
+function Swap(1111,32794
+function TableList(1155,33923
+function Disable(1175,34520
+function Update(1202,35263
+function Use(1213,35671
+function UnUse(1278,37521
+function UnLoad(1300,38114
+function Whatis(1310,38454
 
-debian/copyright,0
+src/ModuleA.lua,1644
+local function l_addPV(67,2795
+local function l_GroupIntoModules(110,4170
+local function l_build(140,5337
+local function l_check_depth(159,5903
+local function l_find_vA(198,7047
+local function l_find_vB(272,9090
+local function l_search(319,10392
+function M.applyWeights(343,11199
+function M.applyWeights(applyWeights343,11199
+function M.__find_all_defaults(374,12207
+function M.__find_all_defaults(__find_all_defaults374,12207
+   local function l_find_all_defaults_helper(383,12484
+function M.build_availA(460,15278
+function M.build_availA(build_availA460,15278
+   local function l_build_availA_helper(464,15387
+function M.inherited_search(506,16904
+function M.inherited_search(inherited_search506,16904
+   local function l_inherited_search_helper(509,17041
+function M.search(563,18657
+function M.search(search563,18657
+local function l_checkforNV(580,19128
+local function l_build_from_spiderT(589,19284
+function M.update(620,20336
+function M.update(update620,20336
+function M.__new(695,22894
+function M.__new(__new695,22894
+function M.moduleA(727,23829
+function M.moduleA(moduleA727,23829
+function M.isNVV(731,23884
+function M.isNVV(isNVV731,23884
+function M.setSpiderBuilt(735,23935
+function M.setSpiderBuilt(setSpiderBuilt735,23935
+function M.spiderBuilt(739,24009
+function M.spiderBuilt(spiderBuilt739,24009
+function M.locationT(743,24072
+function M.locationT(locationT743,24072
+function M.defaultT(753,24288
+function M.defaultT(defaultT753,24288
+function M.singleton(765,24554
+function M.singleton(singleton765,24554
+function M.__clear(798,25695
+function M.__clear(__clear798,25695
 
-debian/compat,0
+src/tcl2lua.tcl,175
+global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode g_shellType g_outputA,37,1648
+   set resultA(373,10500
+proc loadcmd 763,19678
+set g_help $params(1254,32404
 
-debian/modulespath,0
+src/FrameStk.lua,1303
+local function l_new(47,1953
+function M.singleton(63,2323
+function M.singleton(singleton63,2323
+function M.__clear(77,2674
+function M.__clear(__clear77,2674
+function M.resetMPATH2system(87,2884
+function M.resetMPATH2system(resetMPATH2system87,2884
+function M.push(96,3125
+function M.push(push96,3125
+function M.LmodBreak(107,3465
+function M.LmodBreak(LmodBreak107,3465
+function M.pop(114,3689
+function M.pop(pop114,3689
+function M.empty(126,4063
+function M.empty(empty126,4063
+function M.atTop(130,4121
+function M.atTop(atTop130,4121
+function M.stackDepth(134,4179
+function M.stackDepth(stackDepth134,4179
+function M.fullName(138,4239
+function M.fullName(fullName138,4239
+function M.mname(144,4387
+function M.mname(mname144,4387
+function M.userName(149,4479
+function M.userName(userName149,4479
+function M.fn(155,4627
+function M.fn(fn155,4627
+function M.sn(161,4763
+function M.sn(sn161,4763
+function M.version(167,4899
+function M.version(version167,4899
+function M.mt(173,5045
+function M.mt(mt173,5045
+function M.origMT(178,5131
+function M.origMT(origMT178,5131
+function M.varT(182,5184
+function M.varT(varT182,5184
+function M.count(187,5274
+function M.count(count187,5274
+function M.traceBack(191,5325
+function M.traceBack(traceBack191,5325
 
-debian/dirs,0
+src/MN_Between.lua,174
+function M.steps(50,1930
+function M.steps(steps50,1930
+function M.show(57,2118
+function M.show(show57,2118
+function M.prereq(75,2575
+function M.prereq(prereq75,2575
 
-bugReport/my_modules/Core/gcc/10.0.lua,0
+src/clearLMOD_cmd.in.lua,290
+function optionTbl(96,3118
+function cmdDir(100,3166
+function bash_unset(104,3207
+function csh_unset(108,3302
+function python_unset(112,3374
+function bash_export(116,3408
+function csh_setenv(133,3745
+function python_setenv(149,4061
+function options(168,4497
+function main(206,5299
 
-bugReport/my_modules/Compiler/gcc/10/boost/1.9.lua,0
+src/MainControl.lua,8230
+local function l_registerUserLoads(82,3419
+local function l_unRegisterUserLoads(95,3830
+local function l_compareRequestedLoadsWithActual(115,4422
+local function l_check_for_valid_name(135,4990
+local function l_check_for_valid_alias_name(143,5206
+local function l_createStackName(149,5361
+local function l_error_on_missing_loaded_modules(153,5439
+function M.name(216,7307
+function M.name(name216,7307
+function M.MNameType(223,7489
+function M.MNameType(MNameType223,7489
+function M.MNamePrereqType(230,7698
+function M.MNamePrereqType(MNamePrereqType230,7698
+function M.tcl_mode(237,7956
+function M.tcl_mode(tcl_mode237,7956
+local function l_valid_name(245,8206
+function M._setMode(252,8469
+function M._setMode(_setMode252,8469
+function M.build(262,8844
+function M.build(build262,8844
+function M.pushModule(306,10733
+function M.pushModule(pushModule306,10733
+function M.popModule(312,10860
+function M.popModule(popModule312,10860
+function M.isEmpty(323,11177
+function M.isEmpty(isEmpty323,11177
+function M.setenv(337,11698
+function M.setenv(setenv337,11698
+function M.setenv_env(364,12443
+function M.setenv_env(setenv_env364,12443
+function M.unsetenv(385,13110
+function M.unsetenv(unsetenv385,13110
+function M.pushenv(422,14247
+function M.pushenv(pushenv422,14247
+function M.popenv(475,15872
+function M.popenv(popenv475,15872
+function M.prepend_path(517,17050
+function M.prepend_path(prepend_path517,17050
+function M.append_path(547,18048
+function M.append_path(append_path547,18048
+function M.remove_path(577,19066
+function M.remove_path(remove_path577,19066
+function M.remove_path_first(611,20244
+function M.remove_path_first(remove_path_first611,20244
+function M.remove_path_last(620,20536
+function M.remove_path_last(remove_path_last620,20536
+function M.set_alias(633,20925
+function M.set_alias(set_alias633,20925
+function M.unset_alias(655,21566
+function M.unset_alias(unset_alias655,21566
+function M.set_shell_function(675,22185
+function M.set_shell_function(set_shell_function675,22185
+function M.unset_shell_function(698,22990
+function M.unset_shell_function(unset_shell_function698,22990
+function M.mode(717,23633
+function M.mode(mode717,23633
+function M.execute(725,23926
+function M.execute(execute725,23926
+function M.myShellName(744,24442
+function M.myShellName(myShellName744,24442
+function M.myShellType(748,24519
+function M.myShellType(myShellType748,24519
+function M.myFileName(757,24764
+function M.myFileName(myFileName757,24764
+function M.myModuleFullName(765,25046
+function M.myModuleFullName(myModuleFullName765,25046
+function M.myModuleUsrName(774,25411
+function M.myModuleUsrName(myModuleUsrName774,25411
+function M.myModuleName(783,25716
+function M.myModuleName(myModuleName783,25716
+function M.myModuleVersion(792,26035
+function M.myModuleVersion(myModuleVersion792,26035
+local function l_generateMsg(797,26143
+function M.msg_raw(828,26952
+function M.msg_raw(msg_raw828,26952
+function M.message(842,27255
+function M.message(message842,27255
+function M.warning(865,27983
+function M.warning(warning865,27983
+function M.error(881,28531
+function M.error(error881,28531
+function M.quiet(931,30003
+function M.quiet(quiet931,30003
+function M.mustLoad(935,30052
+function M.mustLoad(mustLoad935,30052
+function M.registerDependencyCk(945,30259
+function M.registerDependencyCk(registerDependencyCk945,30259
+function M.performDependencyCk(949,30327
+function M.performDependencyCk(performDependencyCk949,30327
+function M.dependencyCk(960,30671
+function M.dependencyCk(dependencyCk960,30671
+function M.dependencyCk_any(982,31222
+function M.dependencyCk_any(dependencyCk_any982,31222
+function M.addMissingDepModule(1014,32058
+function M.addMissingDepModule(addMissingDepModule1014,32058
+function M.reportMissingDepModules(1020,32202
+function M.reportMissingDepModules(reportMissingDepModules1020,32202
+function M.depends_on(1042,32850
+function M.depends_on(depends_on1042,32850
+function M.depends_on_any(1086,33904
+function M.depends_on_any(depends_on_any1086,33904
+function M.forgo(1140,35459
+function M.forgo(forgo1140,35459
+function M.forgo_any(1171,36315
+function M.forgo_any(forgo_any1171,36315
+function M.load_usr(1219,37781
+function M.load_usr(load_usr1219,37781
+function mAList(1241,38406
+function M.load(1249,38539
+function M.load(load1249,38539
+function M.load_any(1266,38850
+function M.load_any(load_any1266,38850
+function M.mgrload(1296,39426
+function M.mgrload(mgrload1296,39426
+function M.mgr_unload(1313,39794
+function M.mgr_unload(mgr_unload1313,39794
+function M.try_load(1328,40290
+function M.try_load(try_load1328,40290
+function M.unload(1339,40620
+function M.unload(unload1339,40620
+function M.build_unload(1354,40908
+function M.build_unload(build_unload1354,40908
+function M.do_not_build_unload(1360,41066
+function M.do_not_build_unload(do_not_build_unload1360,41066
+function M.unload_usr(1371,41403
+function M.unload_usr(unload_usr1371,41403
+function M.fake_load(1389,41881
+function M.fake_load(fake_load1389,41881
+function M.fake_depends_on(1397,42071
+function M.fake_depends_on(fake_depends_on1397,42071
+function M.fake_depends_on_any(1409,42362
+function M.fake_depends_on_any(fake_depends_on_any1409,42362
+function M.conflict(1429,42860
+function M.conflict(conflict1429,42860
+function M.removeConflict(1463,43818
+function M.removeConflict(removeConflict1463,43818
+function M.prereq(1480,44365
+function M.prereq(prereq1480,44365
+function M.prereq_any(1507,45113
+function M.prereq_any(prereq_any1507,45113
+function M.familyStackPush(1538,45990
+function M.familyStackPush(familyStackPush1538,45990
+function M.familyStackTop(1555,46686
+function M.familyStackTop(familyStackTop1555,46686
+function M.familyStackPop(1565,46993
+function M.familyStackPop(familyStackPop1565,46993
+function M.processFamilyStack(1576,47328
+function M.processFamilyStack(processFamilyStack1576,47328
+function M.familyStackEmpty(1586,47637
+function M.familyStackEmpty(familyStackEmpty1586,47637
+function M.family(1595,47948
+function M.family(family1595,47948
+function M.unset_family(1623,48882
+function M.unset_family(unset_family1623,48882
+function M.registerAdminMsg(1630,49078
+function M.registerAdminMsg(registerAdminMsg1630,49078
+function M.reportAdminMsgs(1667,50198
+function M.reportAdminMsgs(reportAdminMsgs1667,50198
+function M.loaded_modules(1697,51238
+function M.loaded_modules(loaded_modules1697,51238
+function M.add_property(1712,51706
+function M.add_property(add_property1712,51706
+function M.remove_property(1726,52168
+function M.remove_property(remove_property1726,52168
+function purgeFlg(1735,52436
+function M.purge(1740,52483
+function M.purge(purge1740,52483
+function M.tcl_mode(1771,53144
+function M.tcl_mode(tcl_mode1771,53144
+function M.is_spider(1778,53380
+function M.is_spider(is_spider1778,53380
+function M.inherit(1789,53806
+function M.inherit(inherit1789,53806
+function M.source_sh(1796,53963
+function M.source_sh(source_sh1796,53963
+function M.un_source_sh(1821,54831
+function M.un_source_sh(un_source_sh1821,54831
+function M.complete(1836,55440
+function M.complete(complete1836,55440
+function M.uncomplete(1852,55912
+function M.uncomplete(uncomplete1852,55912
+function M.export_shell_function(1868,56388
+function M.export_shell_function(export_shell_function1868,56388
+function M.unexport_shell_function(1879,56771
+function M.unexport_shell_function(unexport_shell_function1879,56771
+function M.color_banner(1890,57158
+function M.color_banner(color_banner1890,57158
+function M.set_errorFunc(1900,57386
+function M.set_errorFunc(set_errorFunc1900,57386
+function M.LmodBreak(1905,57496
+function M.LmodBreak(LmodBreak1905,57496
+function M.userInGroups(1937,58526
+function M.userInGroups(userInGroups1937,58526
+function M.add_missing_module(1956,58969
+function M.add_missing_module(add_missing_module1956,58969
+function M.remove_missing_module(1963,59230
+function M.remove_missing_module(remove_missing_module1963,59230
+function M.haveDynamicMPATH(1971,59513
+function M.haveDynamicMPATH(haveDynamicMPATH1971,59513
 
-bugReport/my_modules/Compiler/gcc/10/mpich/10.0.lua,0
+src/Timer.lua,222
+local function l_new(55,2293
+function M.singleton(66,2572
+function M.singleton(singleton66,2572
+function M.deltaT(78,2916
+function M.deltaT(deltaT78,2916
+function M.report(88,3303
+function M.report(report88,3303
 
-bugReport/my_modules/MPI/gcc/10/mpich/10/phdf5/1.14.lua,0
+src/update_lmod_system_cache_files.in,292
+DEBUG=51,1790
+error(89,2344
+warning(95,2419
+print_help(101,2520
+parse_cmdline(131,3622
+set_defaults(184,4903
+check_parameters(211,5790
+new_timestamp(228,6216
+install_new_cache(246,6824
+run_spider(268,7448
+update_cache(297,8447
+    PYTHON=342,9792
+  LMOD_REVERSEMAPT_DIR=348,9869
 
-tcl/tacc/Linux,0
+src/MN_Exact.lua,58
+function M.steps(47,1865
+function M.steps(steps47,1865
 
-tcl/tacc/cluster,0
+src/computeHashSum.in.lua,105
+function cmdDir(89,3231
+function optionTbl(121,3988
+function main(126,4037
+function options(183,5968
 
-tcl/tacc/apps/CTSSV4,0
+src/Hook.lua,190
+function M.register(90,4910
+function M.register(register90,4910
+function M.apply(126,5941
+function M.apply(apply126,5941
+function M.exists(136,6148
+function M.exists(exists136,6148
 
-tcl/tacc/apps/GLOBUS-4.0,0
+src/Exec.lua,213
+local function l_new(49,2022
+function M.exec(62,2314
+function M.exec(exec62,2314
+function M.register(74,2612
+function M.register(register74,2612
+function M.expand(89,2992
+function M.expand(expand89,2992
 
-tcl/tacc/apps/srb-client/3.4.1,0
+src/MN_Latest.lua,174
+function M.show(49,2034
+function M.show(show49,2034
+function M.steps(62,2238
+function M.steps(steps62,2238
+function M.prereq(69,2440
+function M.prereq(prereq69,2440
 
-tcl/tacc/apps/tgproxy/0.9.1,0
+src/Hub.lua,1527
+local function l_new(72,2814
+function M.singleton(85,3097
+function M.singleton(singleton85,3097
+function M.access(103,3741
+function M.access(access103,3741
+local function l_registerLoaded(172,6033
+local function l_registerUnloaded(198,6813
+function M.inheritModule(222,7401
+function M.inheritModule(inheritModule222,7401
+function M.mgrload(277,8868
+function M.mgrload(mgrload277,8868
+function M.load(302,9577
+function M.load(load302,9577
+local function l_missingFn_action(497,17376
+function M.unload(523,18200
+function M.unload(unload523,18200
+function M.reloadAll(620,21778
+function M.reloadAll(reloadAll620,21778
+function M.refresh(739,26776
+function M.refresh(refresh739,26776
+function M.dependencyCk(770,27760
+function M.dependencyCk(dependencyCk770,27760
+function M.reload_sticky(790,28331
+function M.reload_sticky(reload_sticky790,28331
+function M.safeToUpdate(852,30194
+function M.safeToUpdate(safeToUpdate852,30194
+local function l_availEntry(856,30248
+local function mark_as_default(891,31095
+local function regroup_avail_blocks(896,31241
+local function l_build_searchA(969,33092
+function M.overview(984,33426
+function M.overview(overview984,33426
+   local function print_overview_block(1041,35002
+   local function register_sn_count_in_b(1057,35630
+function M.buildExtA(1114,37262
+function M.buildExtA(buildExtA1114,37262
+function M.terse_avail(1162,38590
+function M.terse_avail(terse_avail1162,38590
+function M.avail(1230,40714
+function M.avail(avail1230,40714
 
-tcl/tacc/apps/TERAGRID-DEV,0
+src/Spider.lua,2195
+function M.new(70,2736
+function M.new(new70,2736
+local function l_nothing(79,2859
+local function l_process(82,2891
+function processLPATH(96,3278
+function processPATH(100,3341
+function processDIR(104,3402
+local function l_processNewModulePATH(108,3461
+function Spider_dynamic_mpath(133,4259
+function Spider_append_path(141,4493
+local function l_loadMe(170,5367
+local function l_findModules(192,6222
+local function l_findChangeMPATH_modules(211,6902
+function M.searchSpiderDB(232,7672
+function M.searchSpiderDB(searchSpiderDB232,7672
+function M.findAllModules(292,9274
+function M.findAllModules(findAllModules292,9274
+function extend(409,12737
+function reverse(417,12860
+function copy(426,12987
+local function l_build_parentT(483,15133
+   local function l_build_parentT_helper(488,15299
+local function l_build_mpathParentT(537,16724
+local function l_search_mpathParentT(567,17532
+local function l_build_keepT(583,17878
+function M.buildDbT(604,18435
+function M.buildDbT(buildDbT604,18435
+   local function l_cmp(621,19045
+   local function l_buildDbT_helper(624,19106
+function M.buildProvideByT(683,20950
+function M.buildProvideByT(buildProvideByT683,20950
+   local function l_cmp(716,22314
+function M.Level0_terse(737,22721
+function M.Level0_terse(Level0_terse737,22721
+function M.Level0(777,23934
+function M.Level0(Level0777,23934
+local function l_case_independent_cmp_by_name(803,24561
+local function l_computeColor(814,24775
+function M.Level0Helper(828,25117
+function M.Level0Helper(Level0Helper828,25117
+function M.setExactMatch(913,27988
+function M.setExactMatch(setExactMatch913,27988
+function M.getExactMatch(917,28053
+function M.getExactMatch(getExactMatch917,28053
+function M.spiderSearch(921,28111
+function M.spiderSearch(spiderSearch921,28111
+function M._Level1(1084,33023
+function M._Level1(_Level11084,33023
+   local function l_countEntries(1101,33613
+      local function cmp(1138,34649
+function M._Level2(1344,40839
+function M._Level2(_Level21344,40839
+function M.listModules(1529,46327
+function M.listModules(listModules1529,46327
+function M.dictModules(1540,46509
+function M.dictModules(dictModules1540,46509
 
-tcl/example,0
+src/MC_Access.lua,198
+function M.setAccessMode(65,2706
+function M.setAccessMode(setAccessMode65,2706
+function M.help(72,2943
+function M.help(help72,2943
+function M.whatis(86,3329
+function M.whatis(whatis86,3329
 
-proj_mgmt/tcl_version_string.tcl,0
+src/utils.lua,2119
+function argsPack(76,2914
+function __FILE__(82,3070
+function __LINE__(86,3133
+local function l_prequire(91,3203
+function buildMsg(104,3520
+function build_fullName(172,5202
+function build_MT_envT(176,5295
+function build_i18n_messages(197,5809
+   function cmdDir(233,6827
+function findLuaProg(240,7040
+function colorizePropA(261,7780
+function expert(353,10695
+function extractFullName(360,10814
+function extractVersion(365,10955
+function findAdminFn(377,11285
+function readAdmin(394,11946
+function getMT(466,14152
+function getModuleRCT(494,14833
+function isMarked(547,16710
+function length(558,17008
+function optionTbl(567,17210
+function paired2pathT(573,17281
+function path2pathA(614,18420
+function quiet(658,19440
+function regular_cmp(665,19579
+local function l_sanizatizeTbl(670,19633
+function sanizatizeTbl(703,20461
+function setenv_lmod_version(716,20797
+function ShowCmdA(743,21565
+local function l_arg2str(759,21954
+function s_indent(781,22481
+function ShowCmdStr(789,22777
+function ShowCmdTbl(817,23519
+function ShowHelpStr(838,24185
+function decorateModule(860,24667
+function UUIDString(900,25717
+function case_independent_cmp(928,26561
+function activateWarning(945,27057
+function deactivateWarning(951,27229
+function haveWarnings(957,27407
+function setStatusFlag(963,27566
+function getStatusFlag(970,27755
+local function l_restoreEnv(974,27804
+local function l_runTCLprog(1002,28363
+local function l_build_runTCLprog(1022,29066
+function usingFastTCLInterp(1036,29415
+local function l_build_accept_function(1042,29652
+local function l_build_allow_dups_function(1056,29949
+local function l_build_epoch_function(1069,30239
+local function l_build_prepend_order_function(1104,31203
+function setSyntaxMode(1126,31726
+function checkSyntaxMode(1129,31789
+local function l_build_quarantineT(1135,31873
+function save_set_env(1148,32208
+function reset_env(1158,32426
+function initialize_lmod(1173,32748
+function tracing_msg(1238,35075
+function dynamic_shell(1252,35448
+function locatePkg(1301,36821
+function wrap_kind(1313,37054
+function unwrap_kind(1316,37126
 
-proj_mgmt/conf_py_update_patternA.lua,0
+src/MC_CheckSyntax.lua,162
+function M.add_property(107,4627
+function M.add_property(add_property107,4627
+function M.userInGroups(120,5080
+function M.userInGroups(userInGroups120,5080
+
+src/pager.lua,86
+function bypassPager(60,2474
+function usePager(71,2779
+function buildPager(83,3167
+
+src/printEnvT.lua,78
+function cmdDir(46,1093
+function programName(50,1134
+function main(62,1344
+
+src/ReadLmodRC.lua,428
+local function l_buildRC(55,2172
+local function l_new(108,3524
+function M.validPropValue(120,3716
+function M.validPropValue(validPropValue120,3716
+function M.singleton(143,4490
+function M.singleton(singleton143,4490
+function M.propT(152,4684
+function M.propT(propT152,4684
+function M.scDescriptT(156,4735
+function M.scDescriptT(scDescriptT156,4735
+function M.rcFileA(160,4798
+function M.rcFileA(rcFileA160,4798
+
+src/MC_ComputeHash.lua,1054
+local function l_ShowCmd(68,3169
+function M.always_load(113,5067
+function M.always_load(always_load113,5067
+function M.always_unload(121,5348
+function M.always_unload(always_unload121,5348
+function M.prepend_path(129,5628
+function M.prepend_path(prepend_path129,5628
+function M.append_path(139,5978
+function M.append_path(append_path139,5978
+function M.remove_path(149,6326
+function M.remove_path(remove_path149,6326
+function M.load(159,6666
+function M.load(load159,6666
+function M.mgrload(166,6847
+function M.mgrload(mgrload166,6847
+function M.depends_on(173,7140
+function M.depends_on(depends_on173,7140
+function M.depends_on_any(181,7417
+function M.depends_on_any(depends_on_any181,7417
+function M.load_usr(189,7690
+function M.load_usr(load_usr189,7690
+function M.load_any(197,7951
+function M.load_any(load_any197,7951
+function M.try_load(205,8216
+function M.try_load(try_load205,8216
+function M.inherit(214,8454
+function M.inherit(inherit214,8454
+function M.unload(222,8711
+function M.unload(unload222,8711
+
+src/Var.lua,1829
+local function l_extract_Lmod_var_table(73,2903
+local function l_dynamicMP(106,3797
+local function l_dynamicMRC(128,4654
+local function l_processDynamicVars(150,5344
+local function l_extract(167,6101
+function M.new(239,8427
+function M.new(new239,8427
+function M.myName(255,8788
+function M.myName(myName255,8788
+local function l_remFunc(264,9143
+function M.remove(306,10481
+function M.remove(remove306,10481
+local function l_insertFunc(348,11956
+function M.prepend(392,13345
+function M.prepend(prepend392,13345
+function M.append(444,14950
+function M.append(append444,14950
+function M.complete(488,16281
+function M.complete(complete488,16281
+function M.uncomplete(495,16455
+function M.uncomplete(uncomplete495,16455
+function M.export_shell_function(502,16587
+function M.export_shell_function(export_shell_function502,16587
+function M.unset_shell_function(508,16754
+function M.unset_shell_function(unset_shell_function508,16754
+function M.set(519,17102
+function M.set(set519,17102
+function M.pop(533,17588
+function M.pop(pop533,17588
+function M.prt(588,19046
+function M.prt(prt588,19046
+function M.set_ref_countT(620,20022
+function M.set_ref_countT(set_ref_countT620,20022
+function M.refCountT(627,20164
+function M.refCountT(refCountT627,20164
+function M.unset(641,20469
+function M.unset(unset641,20469
+function M.expandT(653,20699
+function M.expandT(expandT653,20699
+function M.expand(670,21411
+function M.expand(expand670,21411
+function M.setAlias(803,24757
+function M.setAlias(setAlias803,24757
+function M.unsetAlias(813,25042
+function M.unsetAlias(unsetAlias813,25042
+function M.setShellFunction(824,25397
+function M.setShellFunction(setShellFunction824,25397
+function M.unsetShellFunction(833,25722
+function M.unsetShellFunction(unsetShellFunction833,25722
+
+src/MT.lua,6774
+function M.name(77,2958
+function M.name(name77,2958
+local function l_mt_version(81,3002
+local function l_new(86,3050
+function M.singleton(201,6101
+function M.singleton(singleton201,6101
+function M.__clearMT(219,6504
+function M.__clearMT(__clearMT219,6504
+function M.__convertMT(226,6632
+function M.__convertMT(__convertMT226,6632
+function __removeEnvMT(250,7322
+function M.add(264,7737
+function M.add(add264,7737
+function M.reportContents(304,9322
+function M.reportContents(reportContents304,9322
+function M.changeMPATH(333,10110
+function M.changeMPATH(changeMPATH333,10110
+function M.set_MPATH_change_flag(337,10173
+function M.set_MPATH_change_flag(set_MPATH_change_flag337,10173
+function M.reset_MPATH_change_flag(342,10295
+function M.reset_MPATH_change_flag(reset_MPATH_change_flag342,10295
+function M.add_actionA(347,10372
+function M.add_actionA(add_actionA347,10372
+function M.get_actionA(356,10614
+function M.get_actionA(get_actionA356,10614
+function M.add_sh2mf_cmds(365,10792
+function M.add_sh2mf_cmds(add_sh2mf_cmds365,10792
+function M.get_sh2mf_cmds(380,11158
+function M.get_sh2mf_cmds(get_sh2mf_cmds380,11158
+function M.setStatus(396,11586
+function M.setStatus(setStatus396,11586
+function M.status(407,11847
+function M.status(status407,11847
+function M.exists(415,11982
+function M.exists(exists415,11982
+function M.moduleKindT(423,12198
+function M.moduleKindT(moduleKindT423,12198
+function M.setRebuildTime(435,12586
+function M.setRebuildTime(setRebuildTime435,12586
+local function l_setLoadOrder(445,12949
+function M.serializeTbl(456,13147
+function M.serializeTbl(serializeTbl456,13147
+function M.encodeMT(509,14449
+function M.encodeMT(encodeMT509,14449
+function M.remove(518,14728
+function M.remove(remove518,14728
+local function l_build_AB(523,14803
+function M.list(548,15718
+function M.list(list548,15718
+   local function l_loadOrder_cmp(608,18299
+function M.empty(634,18704
+function M.empty(empty634,18704
+function M.add_property(647,19038
+function M.add_property(add_property647,19038
+function M.remove_property(674,19848
+function M.remove_property(remove_property674,19848
+function M.list_w_property(716,21267
+function M.list_w_property(list_w_property716,21267
+function M.haveProperty(746,22335
+function M.haveProperty(haveProperty746,22335
+function M.have(760,22814
+function M.have(have760,22814
+function M.find_possible_sn(768,22992
+function M.find_possible_sn(find_possible_sn768,22992
+function M.lookup_w_userName(787,23374
+function M.lookup_w_userName(lookup_w_userName787,23374
+function M.userName(814,23957
+function M.userName(userName814,23957
+function M.fullName(822,24096
+function M.fullName(fullName822,24096
+function M.wV(830,24235
+function M.wV(wV830,24235
+function M.fn(838,24362
+function M.fn(fn838,24362
+function M.version(846,24489
+function M.version(version846,24489
+function M.stackDepth(854,24646
+function M.stackDepth(stackDepth854,24646
+function M.safely_incr_ref_count(862,24793
+function M.safely_incr_ref_count(safely_incr_ref_count862,24793
+function M.decr_ref_count(880,25409
+function M.decr_ref_count(decr_ref_count880,25409
+function M.get_ref_count(892,25790
+function M.get_ref_count(get_ref_count892,25790
+function M.get_depends_on_anyA(901,26039
+function M.get_depends_on_anyA(get_depends_on_anyA901,26039
+function M.save_depends_on_any(909,26218
+function M.save_depends_on_any(save_depends_on_any909,26218
+function M.pop_depends_on_any(917,26426
+function M.pop_depends_on_any(pop_depends_on_any917,26426
+function M.pop_depends_on_any_ck(927,26698
+function M.pop_depends_on_any_ck(pop_depends_on_any_ck927,26698
+function M.updateMPathA(945,27289
+function M.updateMPathA(updateMPathA945,27289
+function M.modulePathA(956,27617
+function M.modulePathA(modulePathA956,27617
+function M.maxDepthT(960,27673
+function M.maxDepthT(maxDepthT960,27673
+function M.getShortTime(967,27861
+function M.getShortTime(getShortTime967,27861
+function M.getRebuildTime(974,28055
+function M.getRebuildTime(getRebuildTime974,28055
+function M.setRebuildTime(983,28380
+function M.setRebuildTime(setRebuildTime983,28380
+function M.addStickyA(994,28758
+function M.addStickyA(addStickyA994,28758
+function M.getStickyA(1004,29133
+function M.getStickyA(getStickyA1004,29133
+function M.userLoad(1017,29622
+function M.userLoad(userLoad1017,29622
+local function l_columnList(1025,29876
+function M.reportChanges(1044,30541
+function M.reportChanges(reportChanges1044,30541
+local function l_buildFamilyPrefix(1109,32497
+function M.setfamily(1127,32938
+function M.setfamily(setfamily1127,32938
+function M.unsetfamily(1143,33419
+function M.unsetfamily(unsetfamily1143,33419
+function M.getfamily(1157,33819
+function M.getfamily(getfamily1157,33819
+function M.pushInheritFn(1169,34157
+function M.pushInheritFn(pushInheritFn1169,34157
+function M.popInheritFn(1184,34743
+function M.popInheritFn(popInheritFn1184,34743
+function M.hideHash(1201,35279
+function M.hideHash(hideHash1201,35279
+function M.getHash(1215,35637
+function M.getHash(getHash1215,35637
+function M.setHashSum(1227,35965
+function M.setHashSum(setHashSum1227,35965
+function M.getMTfromFile(1294,38170
+function M.getMTfromFile(getMTfromFile1294,38170
+function M.extractModulesFiles(1515,45607
+function M.extractModulesFiles(extractModulesFiles1515,45607
+function M.setMpathRefCountT(1544,46285
+function M.setMpathRefCountT(setMpathRefCountT1544,46285
+function M.hideMpathRefCountT(1547,46370
+function M.hideMpathRefCountT(hideMpathRefCountT1547,46370
+function M.resetMPATH2system(1551,46451
+function M.resetMPATH2system(resetMPATH2system1551,46451
+function M.name_w_possible_alias(1557,46628
+function M.name_w_possible_alias(name_w_possible_alias1557,46628
+function M.registerConflicts(1575,47200
+function M.registerConflicts(registerConflicts1575,47200
+function M.removeConflicts(1591,47695
+function M.removeConflicts(removeConflicts1591,47695
+function M.haveDSConflict(1600,47912
+function M.haveDSConflict(haveDSConflict1600,47912
+function M.record_depends_on(1628,48798
+function M.record_depends_on(record_depends_on1628,48798
+function M.record_depends_on_any(1649,49347
+function M.record_depends_on_any(record_depends_on_any1649,49347
+local function l_boolCk(1679,50089
+local function l_fixedCk(1684,50191
+local function l_lessthan(1696,50453
+local function l_lessthan_equal(1700,50505
+local function l_build_test(1704,50564
+local function l_betweenCk(1714,50777
+local function l_boolNameRpt(1733,51471
+local function l_fixedNameRpt(1737,51539
+local function l_betweenNameRpt(1741,51642
+function M.check_deps(1782,52679
+function M.check_deps(check_deps1782,52679
+
+src/Configuration.lua,249
+local function l_new(68,2538
+function M.singleton(302,18944
+function M.singleton(singleton302,18944
+function M.report(314,19285
+function M.report(report314,19285
+function M.report_json(421,22517
+function M.report_json(report_json421,22517
+
+src/myConfig.lua,27
+function myConfig(37,1727
+
+src/MC_Spider.lua,1258
+function argsPack(99,4112
+function M.myFileName(108,4437
+function M.myFileName(myFileName108,4437
+function M.myModuleFullName(119,4858
+function M.myModuleFullName(myModuleFullName119,4858
+function M.myModuleName(130,5234
+function M.myModuleName(myModuleName130,5234
+function M.myModuleVersion(140,5602
+function M.myModuleVersion(myModuleVersion140,5602
+function M.help(156,6235
+function M.help(help156,6235
+function M.haveDynamicMPATH(167,6561
+function M.haveDynamicMPATH(haveDynamicMPATH167,6561
+function M.extensions(176,6892
+function M.extensions(extensions176,6892
+function M.whatis(200,7585
+function M.whatis(whatis200,7585
+function M.setenv(228,8490
+function M.setenv(setenv228,8490
+function M.pushenv(270,9592
+function M.pushenv(pushenv270,9592
+function M.prepend_path(283,9970
+function M.prepend_path(prepend_path283,9970
+function M.append_path(295,10322
+function M.append_path(append_path295,10322
+function M.is_spider(305,10642
+function M.is_spider(is_spider305,10642
+function M.family(316,10917
+function M.family(family316,10917
+function M.add_property(332,11464
+function M.add_property(add_property332,11464
+function M.remove_property(351,12178
+function M.remove_property(remove_property351,12178
+
+src/modfuncs.lua,3242
+local function l_stringCk(77,3164
+local function l_stringValueCk(81,3246
+local function l_booleanCk(86,3394
+local function l_valid_nameCk(90,3479
+local function l_trim_first_arg(102,3753
+local function l_trim_all_strings_args(108,3871
+local function l_priorityCk(116,4036
+local function l_delimCk(132,4606
+local function l_trim_string(149,5078
+local function l_cleanupPathArgs(156,5206
+local function l_modeCk(172,5647
+local function l_checkForbiddenEnv(193,6396
+local function l_checkInvalidFuncKey(217,7312
+local function l_build_argTable(233,7908
+local function l_check_argT(266,8916
+local function l_build_check_argT(304,10187
+local function l_chose_mcp(311,10445
+local function l_concatTbl(404,13086
+local function l_validateStringArgs(426,13670
+local function l_validateStringTable(441,14167
+local function l_validateArgsWithValue(471,15048
+local function l_validateModules(495,15783
+function load_module(521,16542
+function mgrload(542,17063
+function load_any(551,17241
+local function l_convert2table(568,17757
+function prepend_path(587,18198
+function append_path(608,18666
+function remove_path(630,19265
+function pushenv(652,19782
+function setenv(670,20192
+function unsetenv(691,20707
+function execute(711,21232
+function family(725,21679
+function loaded_modules(735,21974
+function inherit(747,22295
+function mode(756,22514
+function haveDynamicMPATH(761,22571
+function is_spider(770,22835
+function isloaded(780,23094
+function isAvail(788,23308
+function export_shell_function(799,23616
+function myFileName(807,23880
+function myModuleFullName(813,24047
+function myModuleName(819,24236
+function myModuleUsrName(825,24427
+function myModuleVersion(831,24603
+function isPending(839,24858
+function LmodError(847,25123
+function LmodWarning(854,25311
+function LmodMessage(861,25478
+function LmodMsgRaw(868,25645
+function LmodVersion(875,25824
+function myShellName(881,25985
+function myShellType(885,26041
+function whatis(891,26205
+function help(901,26485
+function userInGroups(909,26634
+function convertToCanonical(922,27048
+function prereq(933,27417
+function prereq_any(944,27853
+function conflict(954,28241
+function atleast(967,28685
+function atmost(981,29074
+function between(996,29495
+function latest(1008,29849
+function set_alias(1021,30134
+function unset_alias(1031,30453
+function set_shell_function(1041,30791
+function unset_shell_function(1051,31146
+function add_property(1063,31534
+function remove_property(1072,31855
+function hierarchyA(1084,32294
+function moduleStackTraceBack(1130,33328
+function requireFullName(1155,33983
+function LmodErrorExit(1164,34283
+function LmodSystemError(1171,34464
+function try_load(1180,34895
+function unload_usr_internal(1195,35235
+function unload_internal(1212,35703
+function unload(1233,36374
+function always_load(1246,36748
+function always_unload(1261,37189
+function depends_on(1268,37347
+function depends_on_any(1276,37597
+function extensions(1284,37867
+function color_banner(1292,38083
+function source_sh(1297,38145
+function complete(1304,38343
+function uncomplete(1311,38610
+function LmodBreak(1318,38865
+function purge(1325,39059
+function dofile_not_supported(1332,39175
+function subprocess(1339,39286
+
+src/Cache.lua,443
+local function l_resetSpiderT(92,3956
+local function l_new(110,4622
+local function l_uuid(206,7586
+function M.singleton(231,8549
+function M.singleton(singleton231,8549
+local function l_readCacheFile(281,10106
+local function l_writeUserSpiderCacheWhenNecessary(386,13345
+function M.build(524,19262
+function M.build(build524,19262
+   local function l_cmp(607,21857
+function M.__clear(678,23843
+function M.__clear(__clear678,23843
+
+src/check_module_tree_syntax.in.lua,420
+function cmdDir(89,3155
+local function l_nothing(127,4250
+function walk_spiderT(130,4282
+   local function l_walk_moduleA_helper(134,4425
+function too_many_defaultA_entries(166,5410
+function check_syntax(171,5549
+   local function l_loadMe(178,5868
+function check_syntax_error_handler(204,6741
+local function l_OptError(228,7694
+local function l_prt(235,7819
+function options(239,7874
+function main(274,8811
+
+src/MRC.lua,2529
+local function l_new(79,2967
+function M.singleton(112,4243
+function M.singleton(singleton112,4243
+local function l_convertOldtm(142,4895
+local function l_convertStr2TM(163,5332
+local function l_convertTimeStr_to_epoch(175,5612
+function M.__clear(192,6009
+function M.__clear(__clear192,6009
+function l_build(198,6115
+local function l_save_su_weights(212,6446
+   local function l_su_weight_helper(220,6611
+function M.parseModA(235,6963
+function M.parseModA(parseModA235,6963
+local function l_build_reverse_maps_from_v2mT(277,8477
+local function l_build_m2vT_f2aT(312,9283
+local function l_findKeyA(329,9890
+function M.pairsForMRC_aliases(357,10520
+function M.pairsForMRC_aliases(pairsForMRC_aliases357,10520
+local function l_find_alias_value(383,11164
+function M.resolve(400,11571
+function M.resolve(resolve400,11571
+function M.search_mapT(419,12183
+function M.search_mapT(search_mapT419,12183
+local function l_store_mpathT(427,12477
+function M.parseModA_for_moduleA(438,12769
+function M.parseModA_for_moduleA(parseModA_for_moduleA438,12769
+function M.fullNameDfltT(495,15103
+function M.fullNameDfltT(fullNameDfltT495,15103
+function M.mrcMpathT(499,15170
+function M.mrcMpathT(mrcMpathT499,15170
+function M.extract(503,15226
+function M.extract(extract503,15226
+function M.export(510,15433
+function M.export(export510,15433
+local function l_find_resultT(519,15785
+local function l_findHiddenState(555,16848
+local function l_findForbiddenState(584,17717
+function M.import(599,18211
+function M.import(import599,18211
+local function l_intersection(615,18655
+local function l_check_time_range(626,18862
+local function l_check_user_groups(644,19532
+local function l_check_forbidden_modifiers(666,20318
+local function l_check_hidden_modifiers(681,20784
+function M.isVisible(709,21746
+function M.isVisible(isVisible709,21746
+function M.isForbidden(784,24645
+function M.isForbidden(isForbidden784,24645
+function M.update(822,25803
+function M.update(update822,25803
+function l_find_all_su_defaults(829,25951
+function M.find_wght_for_fullName(843,26313
+function M.find_wght_for_fullName(find_wght_for_fullName843,26313
+function M.applyWeights(897,27565
+function M.applyWeights(applyWeights897,27565
+function M.set_display_mode(975,29549
+function M.set_display_mode(set_display_mode975,29549
+function M.sane_show_hidden(988,29758
+function M.sane_show_hidden(sane_show_hidden988,29758
+function M.show_hidden(1003,30148
+function M.show_hidden(show_hidden1003,30148
+
+src/mrc_sandbox.lua,74
+local function l_mrc_run5_1(83,3579
+local function l_mrc_run5_2(96,4255
+
+src/Options.lua,134
+local function l_prt(73,2966
+local function l_nothing(81,3178
+function M.singleton(90,3486
+function M.singleton(singleton90,3486
+
+src/PkgBase.lua,646
+function M.build(47,1929
+function M.build(build47,1929
+function M.pkgBaseName(52,2009
+function M.pkgBaseName(pkgBaseName52,2009
+function M.new(62,2188
+function M.new(new62,2188
+function M.setPkgInfo(92,2875
+function M.setPkgInfo(setPkgInfo92,2875
+function M.setStandardPaths(121,3584
+function M.setStandardPaths(setStandardPaths121,3584
+function M.pkgName(153,4366
+function M.pkgName(pkgName153,4366
+function M.pkgDisplayName(157,4420
+function M.pkgDisplayName(pkgDisplayName157,4420
+function M.pkgVersion(161,4486
+function M.pkgVersion(pkgVersion161,4486
+function M.pkgBase(165,4546
+function M.pkgBase(pkgBase165,4546
+
+src/sandbox.lua,251
+function sandbox_registration(277,11056
+function sandbox_set_os_exit(286,11246
+function turn_off_stdio(290,11316
+      function(f,(f294,11482
+function turn_on_stdio(302,11641
+local function l_run5_1(312,11996
+local function l_run5_2(325,12664
+
+src/sh_to_modulefile.in.lua,257
+function cmdDir(115,4252
+function programName(119,4293
+function optionTbl(157,5143
+local function l_cleanPath(161,5191
+function l_cleanEnv(216,6385
+function main(229,6662
+function usage(272,7673
+function my_error(277,7787
+function options(287,7943
+
+src/DirTree.lua,474
+local function l_keepFile(79,2635
+local function l_checkValidTCLModulefileReal(109,3345
+local function l_checkValidTCLModulefileFake(121,3561
+local function l_walk_link(130,3847
+local function l_versionFile(151,4468
+local function l_walk(173,5164
+local function l_find_default(244,8123
+local function l_walk_tree(254,8285
+local function l_build(283,9162
+function M.new(305,9812
+function M.new(new305,9812
+function M.dirA(313,9955
+function M.dirA(dirA313,9955
+
+src/colorize.lua,123
+function full_colorize(80,2912
+function plain(115,3983
+function colorize_kind(127,4185
+function colorize_init(132,4242
+
+src/StandardPackage.lua,159
+local function l_site_name_hook(59,2453
+local function l_msg(68,2676
+local function l_groupName(88,3104
+local function l_reverseMapPathFilterHook(124,3745
+
+src/convertSh2MF.lua,39
+local function l_convertSh2MF(84,2149
+
+src/MC_Show.lua,3019
+local function l_ShowCmd(71,2885
+local function l_Show_help(93,3418
+function M.help(100,3619
+function M.help(help100,3619
+function M.extensions(107,3811
+function M.extensions(extensions107,3811
+function M.whatis(115,4051
+function M.whatis(whatis115,4051
+function M.export_shell_function(123,4303
+function M.export_shell_function(export_shell_function123,4303
+function show_exit(131,4568
+function M.execute(139,4818
+function M.execute(execute139,4818
+function M.prepend_path(153,5204
+function M.prepend_path(prepend_path153,5204
+function M.add_property(162,5511
+function M.add_property(add_property162,5511
+function M.remove_property(171,5834
+function M.remove_property(remove_property171,5834
+function M.message(178,6067
+function M.message(message178,6067
+function M.msg_raw(185,6277
+function M.msg_raw(msg_raw185,6277
+function M.set_alias(194,6578
+function M.set_alias(set_alias194,6578
+function M.pushenv(203,6893
+function M.pushenv(pushenv203,6893
+function M.unset_alias(217,7284
+function M.unset_alias(unset_alias217,7284
+function M.append_path(225,7522
+function M.append_path(append_path225,7522
+function M.setenv(234,7827
+function M.setenv(setenv234,7827
+function M.unsetenv(249,8262
+function M.unsetenv(unsetenv249,8262
+function M.remove_path(259,8553
+function M.remove_path(remove_path259,8553
+function M.load(267,8815
+function M.load(load267,8815
+function M.load_any(275,9071
+function M.load_any(load_any275,9071
+function M.mgrload(283,9334
+function M.mgrload(mgrload283,9334
+function M.depends_on(291,9627
+function M.depends_on(depends_on291,9627
+function M.depends_on_any(299,9901
+function M.depends_on_any(depends_on_any299,9901
+function M.try_load(311,10274
+function M.try_load(try_load311,10274
+function M.inherit(320,10536
+function M.inherit(inherit320,10536
+function M.family(333,10887
+function M.family(family333,10887
+function M.unload(341,11138
+function M.unload(unload341,11138
+function M.always_load(349,11400
+function M.always_load(always_load349,11400
+function M.always_unload(357,11675
+function M.always_unload(always_unload357,11675
+function M.prereq(365,11947
+function M.prereq(prereq365,11947
+function M.prereq_any(373,12209
+function M.prereq_any(prereq_any373,12209
+function M.conflict(381,12477
+function M.conflict(conflict381,12477
+function M.haveDynamicMPATH(389,12741
+function M.haveDynamicMPATH(haveDynamicMPATH389,12741
+function M.set_shell_function(396,12968
+function M.set_shell_function(set_shell_function396,12968
+function M.unset_shell_function(412,13466
+function M.unset_shell_function(unset_shell_function412,13466
+function M.LmodBreak(416,13554
+function M.LmodBreak(LmodBreak416,13554
+function M.source_sh(420,13622
+function M.source_sh(source_sh420,13622
+function M.complete(425,13758
+function M.complete(complete425,13758
+function M.uncomplete(429,13824
+function M.uncomplete(uncomplete429,13824
+function M.purge(433,13894
+function M.purge(purge433,13894
+
+src/MName.lua,3350
+function M.className(53,2153
+function M.className(className53,2153
+local function l_lessthan(57,2208
+local function l_lessthan_equal(61,2260
+function M.new(70,2487
+function M.new(new70,2487
+local function l_overRide_sType(167,5503
+function M.buildA(176,5823
+function M.buildA(buildA176,5823
+local function l_lazyEval(191,6142
+function M.valid(313,10218
+function M.valid(valid313,10218
+function M.moduleKindT(320,10330
+function M.moduleKindT(moduleKindT320,10330
+function M.isVisible(333,10671
+function M.isVisible(isVisible333,10671
+function M.userName(341,10847
+function M.userName(userName341,10847
+function M.origUserName(345,10904
+function M.origUserName(origUserName345,10904
+function M.sn(349,10969
+function M.sn(sn349,10969
+function M.fn(358,11128
+function M.fn(fn358,11128
+function M.version(367,11298
+function M.version(version367,11298
+function M.wV(374,11417
+function M.wV(wV374,11417
+function M.stackDepth(381,11526
+function M.stackDepth(stackDepth381,11526
+function M.setStackDepth(389,11718
+function M.setStackDepth(setStackDepth389,11718
+function M.set_ref_count(393,11790
+function M.set_ref_count(set_ref_count393,11790
+function M.set_depends_on_anyA(397,11861
+function M.set_depends_on_anyA(set_depends_on_anyA397,11861
+function M.get_depends_on_anyA(401,11964
+function M.get_depends_on_anyA(get_depends_on_anyA401,11964
+function M.ref_count(408,12107
+function M.ref_count(ref_count408,12107
+function M.fullName(415,12230
+function M.fullName(fullName415,12230
+local function l_find_exact_match(476,14576
+function M.find_exact_match(530,16732
+function M.find_exact_match(find_exact_match530,16732
+function M.find_exact_match_meta_module(543,17366
+function M.find_exact_match_meta_module(find_exact_match_meta_module543,17366
+local function l_find_highest_by_key(551,17761
+   local function l_cmp_pV(566,18243
+   local function l_cmp_wV(570,18308
+function M.find_highest(624,20095
+function M.find_highest(find_highest624,20095
+function M.find_latest(628,20187
+function M.find_latest(find_latest628,20187
+function M.find_between(632,20277
+function M.find_between(find_between632,20277
+local function l_rangeCk(679,21791
+function M.isloaded(709,22976
+function M.isloaded(isloaded709,22976
+function M.isPending(741,23923
+function M.isPending(isPending741,23923
+function M.defaultKind(754,24272
+function M.defaultKind(defaultKind754,24272
+function M.prereq(769,24575
+function M.prereq(prereq769,24575
+function M.conflictCk(803,25476
+function M.conflictCk(conflictCk803,25476
+function M.downstreamConflictCk(829,26291
+function M.downstreamConflictCk(downstreamConflictCk829,26291
+function M.forbiddenT(853,27002
+function M.forbiddenT(forbiddenT853,27002
+function M.set_depends_on_flag(857,27063
+function M.set_depends_on_flag(set_depends_on_flag857,27063
+function M.get_depends_on_flag(868,27318
+function M.get_depends_on_flag(get_depends_on_flag868,27318
+function M.reset(873,27444
+function M.reset(reset873,27444
+function M.actionName(881,27609
+function M.actionName(actionName881,27609
+function M.show(889,27825
+function M.show(show889,27825
+function M.print(893,27892
+function M.print(print893,27892
+function M.get_version_description(903,28143
+function M.get_version_description(get_version_description903,28143
+
+src/loadModuleFile.lua,33
+function loadModuleFile(62,2641
+
+src/addto.in.lua,228
+function cmdDir(101,3340
+function optionTbl(105,3381
+function isDir(109,3427
+function myInsert(115,3572
+function myClean(131,4011
+function main(149,4489
+   local function l_build_array(177,5144
+function options(253,6980
+
+src/LocationT.lua,263
+local function l_merge_locationT(46,1884
+local function l_build(73,2691
+function M.new(106,3532
+function M.new(new106,3532
+function M.locationT(116,3756
+function M.locationT(locationT116,3756
+function M.search(120,3815
+function M.search(search120,3815
+
+src/mrc_load.lua,56
+function myMRC_file(45,1913
+function mrc_load(49,1955
+
+src/lmod.in.lua,128
+function cmdDir(97,3490
+function cmdName(103,3648
+function Usage(139,4804
+function version(235,9425
+function main(244,9761
+
+src/PkgTACC.lua,140
+function M.name(45,1866
+function M.name(name45,1866
+function M._build_pkgBase(49,1913
+function M._build_pkgBase(_build_pkgBase49,1913
+
+src/parseVersion.lua,96
+function parseVersion(84,4011
+function parseVersionParts(128,5315
+      function()(134,5466
+
+src/ml_cmd.in.lua,111
+function cmdDir(92,3409
+local function l_quoteWrap(106,3718
+function usage(112,3889
+function main(123,4267
+
+src/chkJson,23
+function main(59,1566
+
+src/mrc_funcs.lua,262
+local function l_validateStringArgs(44,1984
+function module_version(57,2332
+function module_alias(65,2638
+function hide_version(71,2862
+function hide_modulefile(78,3063
+local function l_hide_forbid(83,3231
+function hide(169,6037
+function forbid(185,6557
+
+src/spider.in.lua,1032
+function cmdDir(89,3126
+local function l_keepThisPath(132,4446
+local function l_add2map(179,5661
+function l_version(227,7359
+local function l_rptList(239,7716
+local function l_rptSpiderT(249,8026
+local function l_buildReverseMapT(261,8589
+local function l_buildXALTrmapT(294,9506
+local function l_buildLibMapA(308,9877
+local function l_rptReverseMapT(338,10583
+local function l_rptReverseMapTJson(353,11319
+local function l_rptXALTRmapTJson(370,11966
+local function l_rptSoftwarePageJson(387,12602
+local function l_rptSoftwarePageLua(400,13034
+local function l_rptSoftwarePageXml(408,13367
+local function l_rptDbT(415,13640
+local function l_rptDbTJson(425,14125
+function main(438,14497
+function softwarePage(537,17506
+function convertEntry(545,17644
+   local function l_cmp_wV(585,18558
+local function l_Error(632,19563
+local function l_prt(639,19682
+function options(643,19734
+function xmlSoftwarePage(726,21882
+function splitNV(772,22926
+function findLatestV(783,23144
+function localSoftware(810,23737
+
+src/collectionFileA.lua,31
+function collectFileA(40,1743
+
+src/spiderCacheSupport.in.lua,149
+function cmdDir(88,2893
+function main(100,3100
+function buildFromEnvVars(127,3872
+function buildFromDescript(143,4215
+function options(170,4846
+
+src/Pkg.lua,255
+function M.name(52,2060
+function M.name(name52,2060
+function M._build_pkgBase(56,2103
+function M._build_pkgBase(_build_pkgBase56,2103
+local function l_digit_rule_pattern(74,2581
+function M.moduleDir(85,2791
+function M.moduleDir(moduleDir85,2791
+
+src/MN_Match.lua,58
+function M.steps(48,1991
+function M.steps(steps48,1991
+
+Hermes.db,18
+ProjectData 3,52
+
+configure.ac,1304
+FOLLOW_READLINK 23,294
+ERR_MSG=45,690
+PATH_TO_SRC=48,741
+    AC_MSG_RESULT(688,28132
+    AC_MSG_RESULT(705,28676
+  FAST_TCL_INTERP=728,29441
+  TCL_PKG_CONFIG_DIR=742,29784
+   OS=747,29900
+      export PKG_CONFIG_PATH=762,30539
+      DIR=770,30910
+            TCL_INCLUDE=776,31189
+              TCL_INCLUDE=794,31701
+      FOUND_ERROR=808,32111
+     AC_SEARCH_LIBS(814,32764
+  mode=843,33520
+MSG=846,33596
+AC_PATH_PROG(868,33985
+AC_PATH_PROGS(877,34183
+AC_PATH_PROGS(886,34383
+AC_PATH_PROGS(895,34617
+AC_PATH_PROG(904,34783
+  PATH_TO_HASHSUM=911,35084
+AC_PATH_PROGS(920,35309
+   PATH_TO_LUA=939,35840
+      mismatch=945,36055
+      mismatch=948,36176
+  AC_PATH_PROG(964,36549
+  AC_PATH_PROG(975,36844
+  lmodV=986,37273
+   LUA_PATH=1004,37772
+    missingModules=1026,38672
+  AC_SUBST(1043,39008
+      missingModules=1051,39243
+    lfsV=1058,39347
+       AC_SUBST(1063,39531
+      missingModules=1072,39753
+    AC_SUBST(1079,39873
+PATH_TO_LUA_DIR=1090,40010
+   LUA_INCLUDE=1095,40079
+  AC_PATH_PROG(1099,40161
+      PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1102,40270
+        LUA_INCLUDE=1104,40359
+        LUA_INCLUDE=1114,40666
+  exit 1146,41396
+AC_SUBST(1149,41416
+  resultA=1155,41554
+     result=1169,41805
+   ORIG_ZSH_VERSION=1189,42275
+   ZSH_FPATH=1203,42506
+
+aclocal.m4,0
 
 MF/lmod.version.lua,0
 
 MF/settarg.version.lua,0
 
-spec/MRC/dot.modulerc.lua,0
+Transition_to_Lmod7.txt,0
+
+src/MC_MgrLoad.lua,0
+
+src/MC_Unload.lua,0
+
+src/RC2lua.tcl,0
+
+src/SitePackage.lua,0
+
+src/myGlobals.lua,0
+
+src/MC_Load.lua,0
+
+src/MC_Quiet.lua,0
+
+src/MC_Refresh.lua,0
+
+tcl/tacc/Linux,0
+
+tcl/tacc/apps/tgproxy/0.9.1,0
+
+tcl/tacc/apps/GLOBUS-4.0,0
+
+tcl/tacc/apps/CTSSV4,0
+
+tcl/tacc/apps/TERAGRID-DEV,0
+
+tcl/tacc/apps/srb-client/3.4.1,0
+
+tcl/tacc/cluster,0
+
+tcl/example,0
+
+logos/SVG/Lmod-black.svg,0
+
+logos/SVG/Lmod-White.svg,0
+
+logos/SVG/Lmod-4color.svg,0
+
+logos/2x/Lmod-4color@2x.png,0
+
+spec/DirTree/mf_underscore/B/2.0.lua,0
+
+spec/DirTree/mf_underscore/_A/1.0.lua,0
 
 spec/DirTree/mf3/Foo/2.0.lua,0
 
 spec/DirTree/mf3/Foo/1.0.lua,0
 
-spec/DirTree/mf_icr/icr/64/3.8,0
-
 spec/DirTree/mf_icr/icr/64/3.9,0
 
-spec/DirTree/mf_icr/icr/.version,0
+spec/DirTree/mf_icr/icr/64/3.8,0
 
 spec/DirTree/mf_icr/icr/32/3.8,0
 
 spec/DirTree/mf_icr/icr/32/3.7,0
 
-spec/DirTree/mf_underscore/B/2.0.lua,0
-
-spec/DirTree/mf_underscore/_A/1.0.lua,0
+spec/DirTree/mf_icr/icr/.version,0
 
 spec/DirTree/boost/.version.1.46.0,0
 
@@ -3279,74 +3413,84 @@ spec/ModuleA/boost/.version.1.46.0,0
 
 spec/ModuleA/boost/1.46.0.lua,0
 
+spec/MRC/dot.modulerc.lua,0
+
 tools/i18n/version.lua,0
 
 README.md,0
+
+proj_mgmt/conf_py_update_patternA.lua,0
+
+proj_mgmt/clean_gold_files/err.in,0
+
+proj_mgmt/tcl_version_string.tcl,0
+
+bugReport/my_modules/Compiler/gcc/10/mpich/10.0.lua,0
+
+bugReport/my_modules/Compiler/gcc/10/boost/1.9.lua,0
+
+bugReport/my_modules/MPI/gcc/10/mpich/10/phdf5/1.14.lua,0
+
+bugReport/my_modules/Core/gcc/10.0.lua,0
 
 pkgs/term/term/cursor.lua,0
 
 pkgs/term/term/init.lua,0
 
-.readthedocs.yml,0
-
 License,0
 
-aclocal.m4,0
+messageDir/en.lua,0
+
+messageDir/de.lua,0
+
+messageDir/fr.lua,0
+
+messageDir/zh.lua,0
+
+messageDir/es.lua,0
+
+messageDir/template.lua,0
+
+.readthedocs.yml,0
 
 .versionDate,0
 
-init/perl,0
+debian/lmod.lintian-overrides,0
 
-init/lmodrc.lua,0
+debian/source/format,0
 
-init/csh.in,0
+debian/modulespath,0
 
-init/profile.rc.in,0
+debian/patches/series,0
+
+debian/docs,0
+
+debian/compat,0
+
+debian/dirs,0
+
+debian/tests/load-test,0
+
+debian/tests/control,0
+
+debian/files,0
+
+debian/copyright,0
 
 init/env_modules_ruby.rb.in,0
 
 init/profile.fish.in,0
 
-logos/SVG/Lmod-White.svg,0
+init/perl,0
 
-logos/SVG/Lmod-4color.svg,0
+init/csh.in,0
 
-logos/SVG/Lmod-black.svg,0
+init/lmodrc.lua,0
 
-logos/2x/Lmod-4color@2x.png,0
-
-src/MC_Unload.lua,0
-
-src/MC_MgrLoad.lua,0
-
-src/myGlobals.lua,0
-
-src/SitePackage.lua,0
-
-src/MC_Load.lua,0
-
-src/MC_DependencyCk.lua,0
-
-src/RC2lua.tcl,0
-
-src/MC_Refresh.lua,0
-
-messageDir/fr.lua,0
-
-messageDir/es.lua,0
-
-messageDir/zh.lua,0
-
-messageDir/template.lua,0
-
-messageDir/en.lua,0
-
-messageDir/de.lua,0
+init/profile.rc.in,0
 
 settarg/settarg_rc.lua,0
 
 settarg/targ.in,0
 
 settarg/csh.settarg,0
-
-Transition_to_Lmod7.txt,0

@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2018 Robert McLay
+--  Copyright (C) 2008-2025 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -153,7 +153,7 @@ Sinon, vous pouvez définir la variable d'environnement LMOD_DISABLE_SAME_NAME_A
      m_Activate_Modules    = "\nChargement des modules :\n",
      m_Additional_Variants = "\n    Des variantes additionnelles de ce module peuvent être chargées après le chargement des modules suivants :\n",
      m_Collection_disable  = nil,
-     m_Depend_Mods         = "\n    Vous devrez charger tous les modules de l'un des lignes suivantes avant de pouvoir charger le module \"%{fullName}\".\n",
+     m_Depend_Mods         = "\n    Vous devrez charger tous les modules de l'une des lignes suivantes avant de pouvoir charger le module \"%{fullName}\".\n",
      m_Description         = "    Description:\n%{descript}\n\n",
      m_Direct_Load         = "\n    Ce module peut être chargé directement : module load %{fullName}\n",
      m_Extensions_head     = nil,

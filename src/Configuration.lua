@@ -17,7 +17,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2018 Robert McLay
+--  Copyright (C) 2008-2025 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -74,8 +74,8 @@ local function l_new(self)
    local locSitePkg = locatePkg("SitePackage") or "unknown"
 
    if (locSitePkg ~= "unknown") then
-      local std_sha1 = "1fa3d8f24793042217b8474904136fdde72d42dd"
-      local std_md5  = "3c785db2ee60bc8878fe1b576c890a0f"
+      local std_sha1 = "219922f578b6ed46bf0f0998736e62ce0f5fbb2c"
+      local std_md5  = "eecfd1922d4a1c6b4218591088f6150a"
 
       local std_hashsum = (HashSum:find("md5") ~= nil) and std_md5 or std_sha1
 
@@ -343,9 +343,16 @@ function M.report(self, t)
    else
       lmod_version = lmod_version:gsub("[)(]","")
    end
+   local os_name  = "<N/A>"
+   local print_os = pathJoin(cmdDir(),"print_os.sh")
+   if (isFile(print_os)) then
+      os_name = capture(print_os)
+   end
+
    b[#b+1] = "Lmod Version: " .. lmod_version
    b[#b+1] = "Lua Version:  " .. _VERSION:gsub("Lua ","")
    b[#b+1] = "MODULEPATH:   " .. (os.getenv("MODULEPATH") or "<unknown>")
+   b[#b+1] = "OS Name:      " .. os_name
    b[#b+1] = "\n"
 
    b[#b+1] = "Changes from Default Configuration"

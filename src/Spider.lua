@@ -13,7 +13,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2018 Robert McLay
+--  Copyright (C) 2008-2025 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -1051,6 +1051,10 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
    end
 
    if (next(matchT) == nil) then
+      if (optionTbl.terse) then
+         dbg.fini("Spider:spiderSearch")
+         return ""
+      end
       LmodSystemError{msg="e_Failed_2_Find", name=origUserSearchPat}
    end
 
@@ -1073,6 +1077,10 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
       end
    end
    if (#a < 1) then
+      if (optionTbl.terse) then
+         dbg.fini("Spider:spiderSearch")
+         return ""
+      end
       LmodError{msg="e_No_Matching_Mods"}
       dbg.fini("Spider:spiderSearch")
    end
@@ -1217,7 +1225,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    if ((m_count == 1 and p_count == 0) or (m_count == 0 and p_count == 1) or
        (numNames == 1)) then
       --io.stderr:write("going level 2: fullName: ",fullName,"\n")
-      local s = self:_Level2(sn, fullName, entryMA, entryPA, possibleA, tailMsg)
+      local s = self:_Level2(sn, fullName, entryMA, entryPA, possibleA, tailMsg, key)
       dbg.fini("Spider:_Level1")
       return s
    end
@@ -1341,8 +1349,8 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    return concatTbl(a,"")
 end
 
-function M._Level2(self, sn, fullName, entryA, entryPA, possibleA, tailMsg)
-   dbg.start{"Spider:_Level2(\"",sn,"\", \"",fullName,"\", entryA, entryPA, possibleA, tailMsg)"}
+function M._Level2(self, sn, fullName, entryA, entryPA, possibleA, tailMsg, key)
+   dbg.start{"Spider:_Level2(\"",sn,"\", \"",fullName,"\", entryA, entryPA, possibleA, tailMsg, key: \"",key or "nil","\")"}
    --dbg.printT("entryA",entryA)
 
    local optionTbl    = optionTbl()
@@ -1371,6 +1379,21 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA, tailMsg)
 
    dbg.printT("entryA[1]", entryT)
    dbg.printT("entryPA", entryPA)
+
+   -- Early return for terse mode:
+   -- - If user searched for a specific module/version (key == fullName), show prerequisites
+   -- - If user searched for a module name and got one match (key != fullName), show module name
+   -- This fixes the asymmetry issue while preserving the expected behavior for specific version searches
+   if (terse and fullName and (next(entryA) ~= nil or next(entryPA) ~= nil)) then
+      -- If key matches fullName, user searched for specific version - show prerequisites
+      if (key and key == fullName) then
+         -- Fall through to show prerequisites (existing behavior)
+      else
+         -- User searched for module name, got one match - show module name (fix asymmetry)
+         dbg.fini("Spider:_Level2")
+         return fullName .. "\n"
+      end
+   end
 
    ia = ia + 1; a[ia] = "\n"
    ia = ia + 1; a[ia] = border

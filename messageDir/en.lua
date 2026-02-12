@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2018 Robert McLay
+--  Copyright (C) 2008-2025 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -134,7 +134,7 @@ Also make sure that all modulefiles written in TCL start with the string #%Modul
 ]==],
      e_Failed_Load_2       = [==[These module(s) or extension(s) exist but cannot be loaded as requested: %{kA}
    Try: "module spider %{kB}" to see how to load the module(s).
-]==],
+%{suggest_cmd}]==],
      e_Failed_Load_any     = [==[The load_any function failed because it could not find any of the following modules : %{module_list}
 
 Please check the spelling or version number. Also try "module spider ..."

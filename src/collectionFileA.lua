@@ -10,7 +10,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2018 Robert McLay
+--  Copyright (C) 2008-2025 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -39,7 +39,7 @@ require("utils")
 local dbg    = require("Dbg"):dbg()
 function collectFileA(sn, versionStr, extended_default, v, fileA)
    dbg.start{"collectFileA(sn: \"",sn,"\", versionStr: ", versionStr,", v,fileA)"}
-   dbg.printT("v",v)
+   --dbg.printT("v",v)
    --assert(versionStr ~= "default","wtf")
    if (v.fileT and next(v.fileT) ~= nil ) then
       local found  = false
@@ -50,7 +50,7 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
          if (vv) then
             fileA[#fileA+1] = { sn = sn, fullName = build_fullName(sn, versionStr),
                                 version = versionStr, fn = vv.fn, wV = vv.wV, pV = vv.pV, mpath = vv.mpath }
-            dbg.printT("fileA",fileA)
+            --dbg.printT("fileA",fileA)
             dbg.fini("collectFileA exact match")
             return
          end
@@ -76,7 +76,7 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
          if (found and (not (v.dirT and next(v.dirT) ~= nil))) then
             -- We can return if we found something or the version string is not /default 
             -- and there are no entries in v.dirT
-            dbg.printT("fileA",fileA)
+            --dbg.printT("fileA",fileA)
             dbg.fini("collectFileA via found or versionStr ~= \"default\"")
             return
          end
@@ -88,7 +88,7 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
                                 wV = vv.wV, pV = vv.pV, mpath = vv.mpath }
          end
       end
-      dbg.printT("fileA",fileA)
+      --dbg.printT("fileA",fileA)
    end
    if (v.dirT and next(v.dirT) ~= nil) then
       for k, vv in pairs(v.dirT) do

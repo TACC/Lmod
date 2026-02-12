@@ -14,7 +14,7 @@ try:
 except:
   import ConfigParser as configparser
 
-import mysql.connector, getpass
+import pymysql, getpass
 import warnings, inspect
 from BeautifulTbl import BeautifulTbl
 warnings.filterwarnings("ignore", "Unknown table.*")
@@ -93,7 +93,7 @@ class LMODdb(object):
       self.__readFromUser()
 
     try: 
-      self.__conn = mysql.connector.connect(
+      self.__conn = pymysql.connect(
         host     = self.__host,
         user     = self.__user,
         password = self.__passwd,
@@ -135,14 +135,13 @@ class LMODdb(object):
       module  = dataT.get('module')
       path    = dataT.get('path')
       syshost = dataT.get('syshost')
-      dateStr = dataT.get('date')
+      dateStr = dataT.get('date').replace("'",'')
       if (not (user and module and path and syshost and dateStr)):
         continue
       user    = user[:64].encode("ascii","ignore")
       module  = module[:64].encode("ascii","ignore")
       path    = path[:1024].encode("ascii","ignore")
       syshost = syshost[:32].encode("ascii","ignore")
-      dateStr = dateStr.encode("ascii","ignore")
       dateTm  = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dateStr)))
       a = [ user,  module, path,  syshost, dateTm ]
       dataA.append(a)
@@ -178,10 +177,10 @@ class LMODdb(object):
     return dateTest
 
   def build_patterns_query(self, label, itemlist):
-      n = max(1, len(itemlist))
-      return "( " + " OR ".join(label + " LIKE %s" for _ in range(n))  + " )"
+    n = max(1, len(itemlist))
+    return "( " + " OR ".join(label + " LIKE %s" for _ in range(n))  + " )"
 
-  def counts(self, sqlPattern, syshost, startDate, endDate, allmodulesFn):
+  def counts(self, sqlPatternA, syshostA, startDate, endDate, allmodulesFn):
     query = ""
     try:
       conn   = self.connect()
@@ -189,18 +188,18 @@ class LMODdb(object):
       query  = "USE "+self.db()
       cursor.execute(query)
 
-      dateTest = self.build_dateTest(startDate, endDate)
-      pathQuery = self.build_patterns_query( "path", sqlPatterns )
-      hostQuery = self.build_patterns_query( "syshost", syshosts )
+      dateTest  = self.build_dateTest(startDate, endDate)
+      pathQuery = self.build_patterns_query( "path",    sqlPatternA )
+      hostQuery = self.build_patterns_query( "syshost", syshostA )
 
-      sqlPatterns = ["%"] if not sqlPatterns else sqlPatterns
-      syshosts = ["%"] if not syshosts else syshosts
+      sqlPatternA = ["%"] if not sqlPatternA else sqlPatternA
+      syshostA    = ["%"] if not syshostA    else syshostA
 
       query = "SELECT path, count(distinct(user)) as counts from moduleT " +\
-              "where " + pathQuery + " and " + hostQuery + " " + dateTest +\
-              " group by path order by counts desc"
+        "where " + pathQuery + " and " + hostQuery + " " + dateTest +\
+        " group by path order by counts desc"
 
-      cursor.execute(query, (sqlPattern, syshost))
+      cursor.execute(query, (*sqlPatternA, *syshostA))
       myResultA = cursor.fetchall()
 
       resultT = {}
@@ -211,14 +210,14 @@ class LMODdb(object):
           lineA = fp.readlines()
           for moduleNm in lineA:
             moduleNm          = moduleNm.strip()
-            resultT[moduleNm] = { 'syshost' : syshost, 'nUsers' : 0 }
+            resultT[moduleNm] = { 'syshost' : syshostA, 'nUsers' : 0 }
             sT[moduleNm]      = 0
-      
+            
       for row in myResultA:
         moduleNm = row[0]
-        resultT[moduleNm] = { 'syshost' : syshost, 'nUsers' : row[1] }
+        resultT[moduleNm] = { 'syshost' : syshostA, 'nUsers' : row[1] }
         sT[moduleNm]      = row[1]
-  
+        
       resultA = []
       resultA.append(["Module path", "Syshost", "Distinct Users" ])
       resultA.append(["-----------", "-------", "--------------"])
@@ -230,13 +229,13 @@ class LMODdb(object):
       conn.close()
 
       return resultA
-      
+    
     except Exception as e:
       print("counts(): ",e)
       sys.exit(1)
 
 
-  def usernames(self, sqlPattern, syshost, startDate, endDate):
+  def usernames(self, sqlPatternA, syshostA, startDate, endDate):
     query = ""
     try:
       conn   = self.connect()
@@ -244,17 +243,18 @@ class LMODdb(object):
       query  = "USE "+self.db()
       cursor.execute(query)
 
-      dateTest = self.build_dateTest(startDate, endDate)
-      pathQuery = self.build_patterns_query( "path", sqlPatterns )
-      hostQuery = self.build_patterns_query( "syshost", syshosts )
+      dateTest  = self.build_dateTest(startDate, endDate)
+      pathQuery = self.build_patterns_query( "path",    sqlPatternA )
+      hostQuery = self.build_patterns_query( "syshost", syshostA )
 
-      sqlPatterns = ["%"] if not sqlPatterns else sqlPatterns
-      syshosts = ["%"] if not syshosts else syshosts
+      sqlPatternA = ["%"] if not sqlPatternA else sqlPatternA
+      syshostA    = ["%"] if not syshostA    else syshostA
 
       query = "SELECT path, user from moduleT where " + pathQuery + " and " +\
-              hostQuery + " " + dateTest + " group by user, path order by path"
+        hostQuery + " " + dateTest + " group by user, path order by path"
 
-      cursor.execute(query, (sqlPattern, syshost))
+      
+      cursor.execute(query, (*sqlPatternA, *syshostA))
       myResultA = cursor.fetchall()
 
       resultA = []
@@ -262,7 +262,7 @@ class LMODdb(object):
       resultA.append(["-----------", "-------", "---------"])
 
       for row in myResultA:
-        resultA.append([row[0],syshost,row[1]])
+        resultA.append([row[0],syshostA,row[1]])
 
       conn.close()
       return resultA
@@ -271,7 +271,7 @@ class LMODdb(object):
       print("usernames(): ",e)
       sys.exit(1)
 
-  def modules_used_by(self, username, syshost, startDate, endDate):
+  def modules_used_by(self, usernameA, syshostA, startDate, endDate):
     query = ""
     try:
       conn   = self.connect()
@@ -279,16 +279,15 @@ class LMODdb(object):
       query  = "USE "+self.db()
       cursor.execute(query)
 
-      dateTest = self.build_dateTest(startDate, endDate)
-      userQuery = self.build_patterns_query( "user", usernames )
-      hostQuery = self.build_patterns_query( "syshost", syshosts )
-      
-      syshosts = ["%"] if not syshosts else syshosts
+      dateTest  = self.build_dateTest(startDate, endDate)
+      userQuery = self.build_patterns_query( "user",    usernameA )
+      hostQuery = self.build_patterns_query( "syshost", syshostA )
+      syshostA  = ["%"] if not syshostA else syshostA
 
       query = "SELECT path, user from moduleT where " + userQuery + " and " +\
-              hostQuery+ " " + dateTest + " group by user,path order by path"
+        hostQuery+ " " + dateTest + " group by user,path order by path"
 
-      cursor.execute(query, ( username, syshost ))
+      cursor.execute(query, ( *usernameA, *syshostA ))
       myResultA = cursor.fetchall()
 
       resultA = []
@@ -297,7 +296,7 @@ class LMODdb(object):
 
 
       for row in myResultA:
-        resultA.append([row[0],syshost,row[1]])
+        resultA.append([row[0],syshostA,row[1]])
 
       conn.close()
 
@@ -308,7 +307,7 @@ class LMODdb(object):
       print("modules_used_by(): ",e)
       sys.exit(1)
 
-  def delete_old_records(self, debug, syshost, startDate, endDate):
+  def delete_old_records(self, debug, syshostA, startDate, endDate):
     query = ""
     try:
       conn   = self.connect()
@@ -316,11 +315,13 @@ class LMODdb(object):
       query  = "USE "+self.db()
       cursor.execute(query)
 
-      dateTest = self.build_dateTest(startDate, endDate)
-    
-      query = "DELETE FROM moduleT where syshost like %s  " + dateTest
+      dateTest  = self.build_dateTest(startDate, endDate)
+      hostQuery = self.build_patterns_query( "syshost", syshostA )
+      syshostA  = ["%"] if not syshostA else syshostA
+      
+      query = "DELETE FROM moduleT where " + hostQuery + " " + dateTest
       print(query)
-      cursor.execute(query, [syshost])
+      cursor.execute(query, syshostA)
       conn.commit()
       print(cursor.rowcount, "record(s) deleted")
 

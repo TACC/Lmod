@@ -594,7 +594,7 @@ world_update:
 	elif [ $(srcdir)/configure -ot $(srcdir)/configure.ac ]; then                  \
 	    echo "configure is out of date => try again";                              \
 	else                                                                           \
-	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`;         \
+	    branchName=`git branch --show-current`                                     \
 	    git push        github $$branchName;                                       \
 	    git push --tags github $$branchName;                                       \
 	    pid=$$$$;                                                                  \
@@ -633,7 +633,7 @@ gittag:
                                                                                 $(VDateFn)  \
                                                                             $(VERSION_SRC); \
 	    git tag -a $(TAG) -m 'Setting TAG_VERSION to $(TAG)'                          ; \
-	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`             ; \
+	    branchName=`git branch --show-current`                                        ; \
 	    git push        origin $$branchName                                           ; \
 	    git push --tags origin $$branchName                                           ; \
 	  fi                                                                              ; \

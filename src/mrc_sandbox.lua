@@ -21,7 +21,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2018 Robert McLay
+--  Copyright (C) 2008-2025 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -58,7 +58,9 @@ local mrc_sandbox_env = {
    module_alias    = module_alias,
    module_version  = module_version,
    forbid          = forbid,
+   forbidRegex     = forbidRegex,
    hide            = hide,
+   hideRegex       = hideRegex,
    hide_version    = hide_version,
    hide_modulefile = hide_modulefile,
    myConfig        = myConfig,

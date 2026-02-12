@@ -31,6 +31,9 @@
 --  THE SOFTWARE.
 --
 --------------------------------------------------------------------------
+_G._DEBUG             = false               -- Required by the new lua posix
+local posix           = require("posix")
+
 require("strict")
 require("serializeTbl")
 require("myGlobals")

@@ -204,3 +204,249 @@ _LMFILES_=ProjectDIR/rt/cached_loads/mf2/compilers/intel/2025.2.lua:ProjectDIR/r
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={prgenvs="toolchain",},mT={intel={actionA={[[append_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf2/flavours/intel/2025.2")]],},fn="ProjectDIR/rt/cached_loads/mf2/compilers/intel/2025.2.lua",fullName="intel/2025.2",loadOrder=1,propT={},stackDepth=1,status="active",userName="intel",wV="000002025.000000002.*zfinal",},netcdf={fn="ProjectDIR/rt/cached_loads/mf2/flavours/intel/2025.2/netcdf/4.9.3.lua",fullName="netcdf/4.9.3",loadOrder=3,propT={},stackDepth=0,status="active",userName="netcdf",wV="000000004.000000009.000000003.*zfinal",},toolchain={actionA={[[append_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf2/compilers")]],},fn="ProjectDIR/rt/cached_loads/mf2/toolchains/toolchain/intel.lua",fullName="toolchain/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="toolchain/intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/cached_loads/mf2/toolchains","ProjectDIR/rt/cached_loads/mf2/compilers","ProjectDIR/rt/cached_loads/mf2/flavours/intel/2025.2",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf2/toolchains",}';
 export _ModuleTable_;
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LMOD_FAMILY_PRGENVS;
+unset LMOD_FAMILY_PRGENVS_VERSION;
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cached_loads/mf2/toolchains:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cached_loads/mf2/toolchains;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/cached_loads/mf2/toolchains",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf2/toolchains",}';
+export _ModuleTable_;
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/cached_loads/empty_dir
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cached_loads/empty_dir:1\;ProjectDIR/rt/cached_loads/mf2/toolchains:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cached_loads/empty_dir:ProjectDIR/rt/cached_loads/mf2/toolchains;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/cached_loads/empty_dir","ProjectDIR/rt/cached_loads/mf2/toolchains",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf2/toolchains",}';
+export _ModuleTable_;
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load toolchain/gcc
+===========================
+LMOD_FAMILY_PRGENVS=toolchain;
+export LMOD_FAMILY_PRGENVS;
+LMOD_FAMILY_PRGENVS_VERSION=gcc;
+export LMOD_FAMILY_PRGENVS_VERSION;
+LOADEDMODULES=gcc/12.3:toolchain/gcc;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cached_loads/empty_dir:1\;ProjectDIR/rt/cached_loads/mf2/toolchains:1\;ProjectDIR/rt/cached_loads/mf2/compilers:1\;ProjectDIR/rt/cached_loads/mf2/flavours/gcc/12.3:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cached_loads/empty_dir:ProjectDIR/rt/cached_loads/mf2/toolchains:ProjectDIR/rt/cached_loads/mf2/compilers:ProjectDIR/rt/cached_loads/mf2/flavours/gcc/12.3;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=/apps/gcc/12.3/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/apps/gcc/12.3/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_LMFILES_=ProjectDIR/rt/cached_loads/mf2/compilers/gcc/12.3.lua:ProjectDIR/rt/cached_loads/mf2/toolchains/toolchain/gcc.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={prgenvs="toolchain",},mT={gcc={actionA={[[append_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf2/flavours/gcc/12.3")]],},fn="ProjectDIR/rt/cached_loads/mf2/compilers/gcc/12.3.lua",fullName="gcc/12.3",loadOrder=1,propT={},stackDepth=1,status="active",userName="gcc",wV="000000012.000000003.*zfinal",},toolchain={actionA={[[append_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf2/compilers")]],},fn="ProjectDIR/rt/cached_loads/mf2/toolchains/toolchain/gcc.lua",fullName="toolchain/gcc",loadOrder=2,propT={},stackDepth=0,status="active",userName="toolchain/gcc",wV="*gcc.*zfinal",},},mpathA={"ProjectDIR/rt/cached_loads/empty_dir","ProjectDIR/rt/cached_loads/mf2/toolchains","ProjectDIR/rt/cached_loads/mf2/compilers","ProjectDIR/rt/cached_loads/mf2/flavours/gcc/12.3",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf2/toolchains",}';
+export _ModuleTable_;
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LMOD_FAMILY_PRGENVS;
+unset LMOD_FAMILY_PRGENVS_VERSION;
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cached_loads/empty_dir:1\;ProjectDIR/rt/cached_loads/mf2/toolchains:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cached_loads/empty_dir:ProjectDIR/rt/cached_loads/mf2/toolchains;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/cached_loads/empty_dir","ProjectDIR/rt/cached_loads/mf2/toolchains",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf2/toolchains",}';
+export _ModuleTable_;
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load toolchain/gcc
+===========================
+LMOD_FAMILY_PRGENVS=toolchain;
+export LMOD_FAMILY_PRGENVS;
+LMOD_FAMILY_PRGENVS_VERSION=gcc;
+export LMOD_FAMILY_PRGENVS_VERSION;
+LOADEDMODULES=gcc/12.3:toolchain/gcc;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cached_loads/empty_dir:1\;ProjectDIR/rt/cached_loads/mf2/toolchains:1\;ProjectDIR/rt/cached_loads/mf2/compilers:1\;ProjectDIR/rt/cached_loads/mf2/flavours/gcc/12.3:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cached_loads/empty_dir:ProjectDIR/rt/cached_loads/mf2/toolchains:ProjectDIR/rt/cached_loads/mf2/compilers:ProjectDIR/rt/cached_loads/mf2/flavours/gcc/12.3;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=/apps/gcc/12.3/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/apps/gcc/12.3/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_LMFILES_=ProjectDIR/rt/cached_loads/mf2/compilers/gcc/12.3.lua:ProjectDIR/rt/cached_loads/mf2/toolchains/toolchain/gcc.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={prgenvs="toolchain",},mT={gcc={actionA={[[append_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf2/flavours/gcc/12.3")]],},fn="ProjectDIR/rt/cached_loads/mf2/compilers/gcc/12.3.lua",fullName="gcc/12.3",loadOrder=1,propT={},stackDepth=1,status="active",userName="gcc",wV="000000012.000000003.*zfinal",},toolchain={actionA={[[append_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf2/compilers")]],},fn="ProjectDIR/rt/cached_loads/mf2/toolchains/toolchain/gcc.lua",fullName="toolchain/gcc",loadOrder=2,propT={},stackDepth=0,status="active",userName="toolchain/gcc",wV="*gcc.*zfinal",},},mpathA={"ProjectDIR/rt/cached_loads/empty_dir","ProjectDIR/rt/cached_loads/mf2/toolchains","ProjectDIR/rt/cached_loads/mf2/compilers","ProjectDIR/rt/cached_loads/mf2/flavours/gcc/12.3",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf2/toolchains",}';
+export _ModuleTable_;
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/cached_loads/fallback_test_dir
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cached_loads/fallback_test_dir:1\;ProjectDIR/rt/cached_loads/empty_dir:1\;ProjectDIR/rt/cached_loads/mf2/toolchains:1\;ProjectDIR/rt/cached_loads/mf2/compilers:1\;ProjectDIR/rt/cached_loads/mf2/flavours/gcc/12.3:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cached_loads/fallback_test_dir:ProjectDIR/rt/cached_loads/empty_dir:ProjectDIR/rt/cached_loads/mf2/toolchains:ProjectDIR/rt/cached_loads/mf2/compilers:ProjectDIR/rt/cached_loads/mf2/flavours/gcc/12.3;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={prgenvs="toolchain",},mT={gcc={actionA={[[append_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf2/flavours/gcc/12.3")]],},fn="ProjectDIR/rt/cached_loads/mf2/compilers/gcc/12.3.lua",fullName="gcc/12.3",loadOrder=1,propT={},stackDepth=1,status="active",userName="gcc",wV="000000012.000000003.*zfinal",},toolchain={actionA={[[append_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf2/compilers")]],},fn="ProjectDIR/rt/cached_loads/mf2/toolchains/toolchain/gcc.lua",fullName="toolchain/gcc",loadOrder=2,propT={},stackDepth=0,status="active",userName="toolchain/gcc",wV="*gcc.*zfinal",},},mpathA={"ProjectDIR/rt/cached_loads/fallback_test_dir","ProjectDIR/rt/cached_loads/empty_dir","ProjectDIR/rt/cached_loads/mf2/toolchains","ProjectDIR/rt/cached_loads/mf2/compilers","ProjectDIR/rt/cached_loads/mf2/flavours/gcc/12.3",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf2/toolchains",}';
+export _ModuleTable_;
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load toolchain/gcc
+===========================
+LMOD_FAMILY_PRGENVS=toolchain;
+export LMOD_FAMILY_PRGENVS;
+LMOD_FAMILY_PRGENVS_VERSION=gcc;
+export LMOD_FAMILY_PRGENVS_VERSION;
+MODULEPATH=ProjectDIR/rt/cached_loads/fallback_test_dir:ProjectDIR/rt/cached_loads/empty_dir:ProjectDIR/rt/cached_loads/mf2/toolchains:ProjectDIR/rt/cached_loads/mf2/compilers:ProjectDIR/rt/cached_loads/mf2/flavours/gcc/12.3;
+export MODULEPATH;
+PATH=/apps/gcc/12.3/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={prgenvs="toolchain",},mT={gcc={actionA={[[append_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf2/flavours/gcc/12.3")]],},fn="ProjectDIR/rt/cached_loads/mf2/compilers/gcc/12.3.lua",fullName="gcc/12.3",loadOrder=1,propT={},stackDepth=1,status="active",userName="gcc",wV="000000012.000000003.*zfinal",},toolchain={actionA={[[append_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf2/compilers")]],},fn="ProjectDIR/rt/cached_loads/mf2/toolchains/toolchain/gcc.lua",fullName="toolchain/gcc",loadOrder=2,propT={},stackDepth=0,status="active",userName="toolchain/gcc",wV="*gcc.*zfinal",},},mpathA={"ProjectDIR/rt/cached_loads/fallback_test_dir","ProjectDIR/rt/cached_loads/empty_dir","ProjectDIR/rt/cached_loads/mf2/toolchains","ProjectDIR/rt/cached_loads/mf2/compilers","ProjectDIR/rt/cached_loads/mf2/flavours/gcc/12.3",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf2/toolchains",}';
+export _ModuleTable_;
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LMOD_FAMILY_PRGENVS;
+unset LMOD_FAMILY_PRGENVS_VERSION;
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cached_loads/fallback_test_dir:1\;ProjectDIR/rt/cached_loads/empty_dir:1\;ProjectDIR/rt/cached_loads/mf2/toolchains:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cached_loads/fallback_test_dir:ProjectDIR/rt/cached_loads/empty_dir:ProjectDIR/rt/cached_loads/mf2/toolchains;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/cached_loads/fallback_test_dir","ProjectDIR/rt/cached_loads/empty_dir","ProjectDIR/rt/cached_loads/mf2/toolchains",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf2/toolchains",}';
+export _ModuleTable_;
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load modA modB
+===========================
+LOADEDMODULES=modA/1.0:modB/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cached_loads/mf3/NewPath:1\;ProjectDIR/rt/cached_loads/mf3/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cached_loads/mf3/NewPath:ProjectDIR/rt/cached_loads/mf3/Core;
+export MODULEPATH;
+MODULE_B_LOADED=yes;
+export MODULE_B_LOADED;
+_LMFILES_=ProjectDIR/rt/cached_loads/mf3/Core/modA/1.0.lua:ProjectDIR/rt/cached_loads/mf3/NewPath/modB/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={modA={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf3/NewPath")]],},fn="ProjectDIR/rt/cached_loads/mf3/Core/modA/1.0.lua",fullName="modA/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="modA",wV="000000001.*zfinal",},modB={fn="ProjectDIR/rt/cached_loads/mf3/NewPath/modB/1.0.lua",fullName="modB/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="modB",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/cached_loads/mf3/NewPath","ProjectDIR/rt/cached_loads/mf3/Core",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf3/Core",}';
+export _ModuleTable_;
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/cached_loads/mf3/NewPath:ProjectDIR/rt/cached_loads/mf3/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={modA={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf3/NewPath")]],},fn="ProjectDIR/rt/cached_loads/mf3/Core/modA/1.0.lua",fullName="modA/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="modA",wV="000000001.*zfinal",},modB={fn="ProjectDIR/rt/cached_loads/mf3/NewPath/modB/1.0.lua",fullName="modB/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="modB",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/cached_loads/mf3/NewPath","ProjectDIR/rt/cached_loads/mf3/Core",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf3/Core",}';
+export _ModuleTable_;
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/cached_loads/mf3/NewPath:ProjectDIR/rt/cached_loads/mf3/Core;
+export MODULEPATH;
+unset MODULE_B_LOADED;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/cached_loads/mf3/NewPath","ProjectDIR/rt/cached_loads/mf3/Core",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf3/Core",}';
+export _ModuleTable_;
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load modA modB
+===========================
+LOADEDMODULES=modA/1.0:modB/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cached_loads/mf3/NewPath:2\;ProjectDIR/rt/cached_loads/mf3/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cached_loads/mf3/NewPath:ProjectDIR/rt/cached_loads/mf3/Core;
+export MODULEPATH;
+MODULE_B_LOADED=yes;
+export MODULE_B_LOADED;
+_LMFILES_=ProjectDIR/rt/cached_loads/mf3/Core/modA/1.0.lua:ProjectDIR/rt/cached_loads/mf3/NewPath/modB/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={modA={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf3/NewPath")]],},fn="ProjectDIR/rt/cached_loads/mf3/Core/modA/1.0.lua",fullName="modA/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="modA",wV="000000001.*zfinal",},modB={fn="ProjectDIR/rt/cached_loads/mf3/NewPath/modB/1.0.lua",fullName="modB/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="modB",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/cached_loads/mf3/NewPath","ProjectDIR/rt/cached_loads/mf3/Core",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf3/Core",}';
+export _ModuleTable_;
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/cached_loads/mf3/NewPath:ProjectDIR/rt/cached_loads/mf3/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={modA={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf3/NewPath")]],},fn="ProjectDIR/rt/cached_loads/mf3/Core/modA/1.0.lua",fullName="modA/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="modA",wV="000000001.*zfinal",},modB={fn="ProjectDIR/rt/cached_loads/mf3/NewPath/modB/1.0.lua",fullName="modB/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="modB",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/cached_loads/mf3/NewPath","ProjectDIR/rt/cached_loads/mf3/Core",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf3/Core",}';
+export _ModuleTable_;
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/cached_loads/mf3/NewPath:ProjectDIR/rt/cached_loads/mf3/Core;
+export MODULEPATH;
+unset MODULE_B_LOADED;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/cached_loads/mf3/NewPath","ProjectDIR/rt/cached_loads/mf3/Core",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf3/Core",}';
+export _ModuleTable_;
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load modA
+===========================
+LOADEDMODULES=modA/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cached_loads/mf3/NewPath:3\;ProjectDIR/rt/cached_loads/mf3/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cached_loads/mf3/NewPath:ProjectDIR/rt/cached_loads/mf3/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/cached_loads/mf3/Core/modA/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={modA={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf3/NewPath")]],},fn="ProjectDIR/rt/cached_loads/mf3/Core/modA/1.0.lua",fullName="modA/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="modA",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/cached_loads/mf3/NewPath","ProjectDIR/rt/cached_loads/mf3/Core",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf3/Core",}';
+export _ModuleTable_;
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/cached_loads/mf3/NewPath:ProjectDIR/rt/cached_loads/mf3/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={modA={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf3/NewPath")]],},fn="ProjectDIR/rt/cached_loads/mf3/Core/modA/1.0.lua",fullName="modA/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="modA",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/cached_loads/mf3/NewPath","ProjectDIR/rt/cached_loads/mf3/Core",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf3/Core",}';
+export _ModuleTable_;
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load modB
+===========================
+LOADEDMODULES=modA/1.0:modB/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/cached_loads/mf3/NewPath:ProjectDIR/rt/cached_loads/mf3/Core;
+export MODULEPATH;
+MODULE_B_LOADED=yes;
+export MODULE_B_LOADED;
+_LMFILES_=ProjectDIR/rt/cached_loads/mf3/Core/modA/1.0.lua:ProjectDIR/rt/cached_loads/mf3/NewPath/modB/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={modA={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf3/NewPath")]],},fn="ProjectDIR/rt/cached_loads/mf3/Core/modA/1.0.lua",fullName="modA/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="modA",wV="000000001.*zfinal",},modB={fn="ProjectDIR/rt/cached_loads/mf3/NewPath/modB/1.0.lua",fullName="modB/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="modB",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/cached_loads/mf3/NewPath","ProjectDIR/rt/cached_loads/mf3/Core",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf3/Core",}';
+export _ModuleTable_;
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/cached_loads/mf3/NewPath:ProjectDIR/rt/cached_loads/mf3/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={modA={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/cached_loads/mf3/NewPath")]],},fn="ProjectDIR/rt/cached_loads/mf3/Core/modA/1.0.lua",fullName="modA/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="modA",wV="000000001.*zfinal",},modB={fn="ProjectDIR/rt/cached_loads/mf3/NewPath/modB/1.0.lua",fullName="modB/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="modB",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/cached_loads/mf3/NewPath","ProjectDIR/rt/cached_loads/mf3/Core",},systemBaseMPATH="ProjectDIR/rt/cached_loads/mf3/Core",}';
+export _ModuleTable_;

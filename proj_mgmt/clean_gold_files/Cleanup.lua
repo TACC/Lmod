@@ -1,4 +1,3 @@
-
 local posix      = require("posix")
 _G._DEBUG        = false
 
@@ -100,6 +99,8 @@ local function l_init_envTable(self)
       {"^ *=============================* *", banner               },
       {"  *$",                                ""                   },
       {"^ *$",                                ""                   }, 
+      {"\\9",                                 "\t"                 }, 
+      {"\t",                                  "    "               }, 
    }
 
    s_remove_pathA = {
@@ -142,6 +143,7 @@ local s_removeA = {
    "^.*Using your spider cache file",
    "^_ModuleTable_Sz_=.*",
    "^set.* _ModuleTable_Sz_ .*",
+   "^OS Name.*",
    "^%-%%%%%-.*",
    "^%-%-%%%%%-%-.*",
    "^ *$",

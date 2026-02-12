@@ -14,7 +14,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2018 Robert McLay
+--  Copyright (C) 2008-2025 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -179,7 +179,7 @@ local function l_extractFuncs(shellName, funcs)
       local is, ie, Nm, Strt = funcs:find(namePatt)
       if (not is) then break end
       local js, je, End      = funcs:find(trailingPatt, ie+1)
-      funcT[Nm]              = funcs:sub(ie+1,js):gsub("\t","    ")
+      funcT[Nm]              = funcs:sub(ie+1,js)
       funcs                  = funcs:sub(je+1,-1)
    end
 

@@ -3,7 +3,7 @@ step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
-    by Robert McLay mclay@tacc.utexas.edu
+    https://lmod.readthedocs.io
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/broken_modulerc/mf/Core

@@ -51,6 +51,39 @@ testdescript = {
      export MODULEPATH=$MODULEPATH_ROOT/Core
      runLmod load Default                  #22
      runLmod list                          #23
+     
+     #-------------------------------------------
+     # Test for Issue #789
+
+     runLmod purge                         #24
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf3
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     runLmod load gcc/10 boost             #25
+     runLmod load gcc/11 boost             #26
+     runLmod list                          #27
+
+     #-------------------------------------------
+     # Test for Issue #789 part 2
+
+     runLmod purge                         #28
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf4
+     export MODULEPATH=$MODULEPATH_ROOT/base
+     runLmod load meta/10 gcc/10 CMake     #29
+     runLmod list                          #30
+     runLmod load meta/10 gcc/11 CMake     #31
+
+     #-------------------------------------------
+     # Test for Issue #789 part 3
+
+     runLmod purge                         #32
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf5
+     export MODULEPATH=$MODULEPATH_ROOT/base
+     runLmod load meta/10 gcc/10 CMake     #33
+     runLmod list                          #34
+     runLmod load meta/10 gcc/11 CMake;    #35
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
