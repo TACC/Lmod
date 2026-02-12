@@ -168,7 +168,9 @@ Overview and Internal Structure of Lmod
    454_framestack_deepdive
    455_mt_deepdive
    456_vart_deepdive
-   
+   457_load_failure_suggestions
+
+
 
 
 Topics yet to be written
