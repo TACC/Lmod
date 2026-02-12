@@ -3,165 +3,104 @@
 Markdown in Module Help and Whatis
 ==================================
 
-Lmod automatically detects and formats markdown in the content passed to
-``help()`` and ``whatis()``. When users run ``module help <name>`` or
-``module whatis <name>``, formatted help text is displayed in the terminal.
-There is no configuration toggle: detection and processing are always active
-when displaying help and whatis content.
+Lmod detects and formats markdown in ``help()`` and ``whatis()`` strings.
+When you run ``module help <name>`` or ``module whatis <name>``, the output
+shows formatted text (bold, headers, lists, etc.) in the terminal. No
+configuration is needed; detection runs automatically.
 
-Overview
---------
+How it works
+------------
 
-The markdown feature works in two stages:
+First Lmod decides whether the content looks like markdown. It scores
+things like headers, lists, and emphasis. Plain text (e.g., environment
+variable dumps) usually scores low and is left as-is. If the score is
+high enough, Lmod converts the markdown to ANSI formatting for the
+terminal.
 
-1. **Detection**: Lmod analyzes the content to determine whether it appears to
-   be written in markdown. Detection uses heuristic scoring to avoid
-   formatting plain text (e.g., environment variable lists or technical
-   output) as markdown.
+What you can use
+----------------
 
-2. **Processing**: If content is detected as markdown, Lmod converts it to
-   terminal-friendly output using ANSI formatting (bold, italic, colors)
-   when the terminal supports it. During regression testing, colors are
-   disabled.
-
-Supported Markdown Elements
----------------------------
-
-The following markdown syntax is recognized and formatted:
-
-* **Headers** — ATX style (``#``, ``##``, ``###``) and Setext style (underline
-  with ``===`` or ``---``)
-* **Lists** — Unordered (``-``, ``*``, ``+``) and ordered (``1.``, ``2.``)
-  with up to 3 spaces of indentation
-* **Emphasis** — Bold (``*text*``, ``**text**``, ``__text__``) and italic
-  (``*text*`` or ``_text_``)
-* **Inline code** — Single backticks around text
-* **Code blocks** — Triple backticks (fenced blocks)
+* **Headers** — ``#``, ``##``, ``###`` or underline with ``===`` or ``---``
+* **Lists** — ``-``, ``*``, ``+`` or ``1.``, ``2.`` (up to 3 spaces indent)
+* **Emphasis** — ``*bold*``, ``**bold**``, ``_italic_``
+* **Inline code** — single backticks
+* **Code blocks** — triple backticks
 * **Links** — ``[text](url)``
-* **Images** — ``![alt](url)``, displayed as ``[Image: alt] (url)`` in the
-  terminal
+* **Images** — ``![alt](url)`` (shown as ``[Image: alt] (url)`` in the terminal)
 
 Example
 -------
 
-The following modulefile uses markdown in its ``help()`` string to produce
-formatted output when users run ``module help scientific_computing/2.0``::
+A modulefile might look like::
 
     help([[
-    # Scientific Computing Suite
+    # LAMMPS
 
     ## Description
-    This module provides a comprehensive suite of **scientific computing tools**
-    for *high-performance computing* workloads. Optimized libraries and
-    development tools for numerical computing are included.
-
-    ## Features
-    - Optimized `BLAS` and `LAPACK` libraries
-    - **MPI** support for parallel computing
-    - GPU acceleration with `CUDA` and `OpenCL`
-    - Advanced profiling and debugging tools
+    **LAMMPS** is a molecular dynamics simulator. It supports many
+    *interatomic potentials* and simulation styles.
 
     ## Quick Start
     ```bash
-    module load scientific_computing/2.0
-    export OMP_NUM_THREADS=8
-    ./run_simulation.sh
+    module load lammps/1.0
+    lmp -in in.lj
     ```
 
-    ## Resources
-    For more information, visit the [project website](https://docs.example.com/scicomp).
-    See the [user guide](https://docs.example.com/guide.pdf) for detailed usage.
-
-    ## Architecture
-    ![Module Architecture Diagram](https://docs.example.com/arch.png)
-    ![Dependency Graph](deps.png)
-
-    ### Installation Notes
-    1. Ensure `gcc/9.0` or later is loaded
-    2. Verify **CUDA** drivers are installed
-    3. Run `make test` to verify installation
+    See the [manual](https://docs.lammps.org/) for details.
     ]])
 
-The rendered output in the terminal shows formatted headers, bullet lists,
-code blocks, links, and image references. A visual example is available in
-``markdown_demo.html``; open it in a browser to preview the output style, or
-see the screenshot below.
+The terminal shows formatted headers, lists, and code. The screenshot
+below shows the same content rendered in a web interface.
 
 .. figure:: _static/lammps_help_example.png
-   :alt: LAMMPS module help rendered in a web interface with markdown formatting
+   :alt: LAMMPS module help rendered in a web interface
    :width: 90%
    :align: center
 
-   Example of formatted module help output (LAMMPS module) showing headers, the
-   embedded logo, lists, code blocks, links, and emphasis.
+   Example of formatted module help (LAMMPS).
 
-Capabilities and Limitations
-----------------------------
+What works and what doesn't
+---------------------------
 
-**Capabilities**
+Output uses ANSI colors when your terminal supports it (e.g., ``xterm``,
+``screen``) or when ``LMOD_COLORIZE=yes``. Bold, italic, and code work
+inside list items. The parser is pure Lua.
 
-* Output is optimized for terminal display. When ``TERM`` indicates color
-  support (e.g., ``xterm``, ``screen``) or ``LMOD_COLORIZE=yes``, ANSI codes
-  are used for emphasis and structure.
-* Inline formatting (bold, italic, code) works within list items.
-* The parser is pure Lua with no external dependencies.
-
-**Limitations**
-
-* Content shorter than 30 characters is always treated as plain text.
-* Only a subset of CommonMark is implemented. Tables, blockquotes, and
-  footnotes are not supported.
-* Images are rendered as ``[Image: alt text] (url)``; actual image display
-  is not supported in the terminal.
-* Heuristic detection may occasionally treat structured plain text as
-  markdown or fail to detect marginal markdown. See :ref:`markdown_detection`
-  for details.
+Content under 30 characters is never treated as markdown. Tables,
+blockquotes, and footnotes are not supported. Images show as
+``[Image: alt text] (url)``; terminals can't display them. Sometimes
+Lmod misses markdown or formats plain text by mistake. See below for how
+the scoring works.
 
 .. _markdown_detection:
 
-How Detection Works
+How detection works
 -------------------
 
-Lmod uses a heuristic scoring system to decide whether content is markdown.
-Indicators (ATX headers, setext headers, lists, emphasis, code, links, images,
-and paragraph structure) contribute to a score. Content is treated as
-markdown if the score reaches **3 or higher**.
+Lmod scores the content. Each markdown-like pattern adds points: headers (+3),
+code blocks (+3), links (+2), images (+2), lists (+2), emphasis (+1).
+If the score reaches 3 or more, the content is formatted as markdown.
 
-**Indicator scores**
-
-* ATX headers (``#``): +3
-* Setext headers (``===``, ``---``): +3
-* Code blocks (triple backticks): +3
-* Links: +2
-* Images: +2
-* Lists (more than one list item): +2
-* Emphasis (``*bold*``, ``_italic_``): +1
-* Structure (paragraphs plus other indicators): +1
-
-Detection is conservative to avoid formatting plain text as markdown. For
-example, list-like patterns with more than 3 spaces of indentation are
-ignored, and structure alone does not increase the score unless other
-markdown indicators are present.
+The scoring is conservative. List items with more than 3 spaces of
+indentation are ignored. Structure alone doesn't add points. This reduces
+false positives (e.g., formatting a variable list as markdown).
 
 Troubleshooting
----------------
+----------------
 
-**Content is displayed as plain text when I expect markdown**
+**Content shows as plain text**
 
-* Ensure the content is at least 30 characters long.
-* Add more markdown elements (e.g., headers, multiple list items, or
-  emphasis) to raise the detection score.
-* Check that list items use 0–3 spaces of indentation; heavier indentation
-  may be treated as prose.
+* Make sure it's at least 30 characters.
+* Add more markdown (headers, lists, emphasis) to raise the score.
+* Keep list indentation to 0–3 spaces.
 
-**Debugging detection**
+**Inspecting detection**
 
-Use Lmod's debug flag to inspect detection::
+Use the debug flag::
 
    % module -D help <moduleName> 2> debug.log
 
-Search for ``MarkdownDetector`` in the log to see the detection score and
-indicator breakdown when debugging why content is or is not detected as
-markdown.
+Search for ``MarkdownDetector`` in the log to see the score and which
+indicators were found.
 
 For implementation details, see :ref:`deepdive_markdown`.

@@ -3,120 +3,64 @@
 Markdown Detection and Processing in Help and Whatis
 ====================================================
 
-When users run ``module help <name>`` or ``module whatis <name>``, Lmod
-displays content from the modulefile's ``help()`` and ``whatis()`` calls.
-This content may be formatted as markdown. Two components handle this:
+When you run ``module help <name>`` or ``module whatis <name>``, Lmod gets
+the raw string from the modulefile's ``help()`` or ``whatis()`` (via the
+sandbox). Two pieces handle markdown: **MarkdownDetector** decides if the
+content looks like markdown, and **MarkdownProcessor** converts it to ANSI
+output for the terminal.
 
-1. **MarkdownDetector** determines whether the content appears to be markdown.
-2. **MarkdownProcessor** converts markdown to terminal-friendly ANSI output.
+Flow
+----
 
-Data Flow
----------
+``src/MC_Access.lua`` handles ``module help``; ``src/MC_Show.lua`` handles
+``module show`` and the whatis portion of module display. Both get the
+string from the modulefile and pass it to ``MarkdownDetector.isMarkdown()``.
+If that returns true, the content goes to ``MarkdownProcessor.toTerminal()``.
+The result is appended to the output buffer and printed. If it's not
+markdown, the content is shown as plain text. For ``toPlainText()`` (used
+when stripping formatting), images become ``[Image: alt] (url)``.
 
-*   **Entry points**: ``src/MC_Access.lua`` handles ``module help``; ``src/MC_Show.lua``
-    handles ``module show`` and the whatis portion of module display. Both obtain
-    the raw string content from the modulefile (via the sandbox evaluation of
-    ``help()`` and ``whatis()``).
-
-*   **Detection**: Before displaying, the content is passed to
-    ``MarkdownDetector.isMarkdown(content)``. If it returns ``true``, the content
-    is treated as markdown.
-
-*   **Processing**: When content is detected as markdown, it is passed to
-    ``MarkdownProcessor.toTerminal(content)``, which converts markdown elements
-    to ANSI-formatted text. When not markdown, the content is shown as plain text.
-    For ``toPlainText()`` (used when stripping formatting), images are rendered
-    as ``[Image: alt] (url)``.
-
-*   **Output**: The resulting string is appended to the output buffer and
-    eventually printed to the user's terminal (or stderr during ``module show``).
-
-Key Files
----------
-
-*   ``src/MarkdownDetector.lua``: Heuristic detection logic.
-*   ``src/MarkdownProcessor.lua``: Conversion of markdown to terminal output.
-*   ``src/MC_Access.lua``: Calls detector and processor for ``help()`` content.
-*   ``src/MC_Show.lua``: Calls detector and processor for ``show`` and whatis.
+Key files: ``src/MarkdownDetector.lua`` (detection), ``src/MarkdownProcessor.lua``
+(conversion), ``src/MC_Access.lua``, ``src/MC_Show.lua``.
 
 MarkdownDetector
 ----------------
 
-The detector uses heuristic scoring to decide if content is markdown. It is
-designed to avoid false positives (e.g., formatting environment variable
-lists or technical output as markdown).
+The detector scores the content. Things like headers, lists, emphasis, code
+blocks, and links add points. If the score reaches 3 or more, the content
+is treated as markdown. This avoids formatting plain text (e.g., env var
+dumps) as markdown.
 
-**Line Splitting**
+**Line splitting:** Content is split into lines with ``splitLines()``, which
+uses ``string.find()`` instead of ``string.gmatch()``. Lua's ``gmatch()``
+behaves differently across 5.1–5.4 for some patterns; ``find()`` gives
+consistent behavior.
 
-Content is split into lines using a ``splitLines()`` helper that relies on
-``string.find()`` rather than ``string.gmatch()``. This gives consistent
-behavior across Lua 5.1–5.4; see ``LUA_GMATCH_BEHAVIOR.md`` in the project
-root for the rationale.
-
-**Indicators and Scoring**
-
-The detector counts the following indicators:
-
-*   **atx_headers**: Lines matching ``^#+%s+%S`` (e.g., ``# Header``).
-*   **setext_headers**: Underlines ``^===+$`` or ``^---+$`` with a non-empty
-    line above.
-*   **lists**: Lines matching ``^[-*+]%s+%S`` or ``^%d+\.%s+%S`` with 0–3
-    spaces of indentation. Heavier indentation is ignored to reduce false
-    positives.
-*   **emphasis**: ``**bold**``, ``*italic*``, ``__bold__``, ``_italic_``.
-*   **code**: Inline (single backticks) and fenced (triple backticks) blocks.
-*   **links**: ``[text](url)``.
-*   **images**: ``![alt](url)``.
-*   **structure**: Paragraph structure (empty lines, long lines) when other
-    markdown indicators are present.
-
-Each indicator contributes to a score. Content is marked as markdown if the
-score is **≥ 3**. The threshold and scoring logic are in
-``MarkdownDetector.isMarkdown()``.
-
-**False Positive Prevention**
-
-*   Content shorter than 30 characters is never treated as markdown.
-*   List detection is limited to 0–3 spaces of indentation.
-*   Structure contributes only when other markdown indicators exist.
-*   Setext underlines must have a non-empty line immediately above (possibly
-    with blank lines in between).
+**Indicators:** atx_headers (``^#+%s+%S``), setext_headers (``^===+$`` or
+``^---+$`` with a non-empty line above), lists (``^[-*+]%s+%S`` or
+``^%d+\.%s+%S`` with 0–3 spaces), emphasis, code, links, images, structure.
+Heavier list indentation is ignored. Content under 30 characters is never
+markdown. Setext underlines must have a non-empty line above.
 
 MarkdownProcessor
 -----------------
 
-The processor walks the content line by line and converts markdown to ANSI
-output.
+The processor goes through the content line by line and converts markdown
+to ANSI.
 
-**Processing Order**
+**Order:** Code blocks first (dim/cyan), then setext headers, ATX headers,
+list items, then inline elements (code, emphasis, images, links) within
+paragraphs and lists.
 
-1.  Code blocks (triple backticks) are handled first; lines inside are output with
-    dim/cyan styling.
-2.  Setext headers are detected by checking if the next line is an underline;
-    the header text is formatted (bold/cyan for ``=``, bold for ``-``).
-3.  ATX headers are stripped of ``#`` and formatted by level.
-4.  List items (``-``, ``*``, ``+``, ``1.``) are prefixed with bullets or
-    numbers and support inline formatting.
-5.  Inline elements (code, emphasis, images, links) are processed within
-    paragraph and list content.
+**Color:** Used when ``supportsColor()`` returns true (``TERM`` has
+``xterm`` or ``color``, or ``LMOD_COLORIZE=yes``). Disabled during
+regression tests (``optionTbl().rt == true``). Codes live in the ``ANSI``
+table in ``MarkdownProcessor.lua``.
 
-**ANSI and Color**
+**Images:** ``![alt](url)`` becomes ``[Image: alt] (url)`` in cyan.
+Processed before links to avoid conflicts.
 
-Colors are used when ``supportsColor()`` returns true (e.g., ``TERM`` contains
-``xterm`` or ``color``, or ``LMOD_COLORIZE=yes``). During regression testing
-(``optionTbl().rt == true``), color is disabled so tests are reproducible.
-ANSI codes are defined in the ``ANSI`` table in ``MarkdownProcessor.lua``.
-
-**Images**
-
-Image syntax ``![alt](url)`` is rendered as ``[Image: alt] (url)`` in cyan,
-since terminals cannot display images. Processing runs before link processing
-to avoid conflicts.
-
-Regression Tests
+Regression tests
 ----------------
 
-The markdown feature is exercised in ``rt/markdown/``. Tests cover detection
-(both positive and false-positive cases), processing of various elements, and
-behavior of ``help``, ``show``, and ``whatis``. See ``rt/markdown/markdown.tdesc``
-and ``LMOD_TESTING.md`` for how to run them.
+See :ref:`lmod_testing_guide` for how to run the markdown tests.
