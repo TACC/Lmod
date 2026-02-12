@@ -62,6 +62,29 @@ A library module might look like::
     prepend_path("PATH","/apps/intel17/boost/1.64/bin")
 
 
+Help content can use markdown. Lmod detects it and formats the output
+(headers, lists, bold/italic, code blocks, links). See
+:ref:`markdown_help-label` for what is supported.::
+
+    help([[
+    # LAMMPS
+
+    ## Description
+    **LAMMPS** is a molecular dynamics simulator. Supports many
+    *interatomic potentials* and simulation styles.
+
+    ## Quick Start
+    ```bash
+    module load lammps/1.0
+    lmp -in in.lj
+    ```
+
+    See the [manual](https://docs.lammps.org/) for details.
+    ]])
+
+    prepend_path("PATH", "/apps/lammps/1.0/bin")
+
+
 .. _generic_modules-label:
 
 Introspection

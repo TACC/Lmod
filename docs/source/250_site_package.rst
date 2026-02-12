@@ -40,6 +40,14 @@ Then inside your /home/user/Lmod/SitePackage.lua do::
 Each require statement can only ``require`` one name.  So make sure
 that you symlink to a new name in your personal SitePackage.lua directory.
     
+SitePackage.lua can now be placed in /etc/lmod
+----------------------------------------------
+
+As of Lmod 9.0.7+ Lmod looks in the LMOD_CONFIG_DIR which defaults to
+/etc/lmod
+
+
+
 Checking if you have setup SitePackage.lua correctly
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

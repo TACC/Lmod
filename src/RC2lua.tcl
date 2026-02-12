@@ -180,10 +180,41 @@ proc module-hide {args} {
    }
 }
 
+proc module-hide-regex {args} {
+   lassign [parseMyArgs {*}$args] argT extraArgA
+   
+   foreach name $extraArgA {
+      set str "\{action=\"hideRegex\",name="
+      append str "\"$name\","
+   
+      dict for {key value} $argT {
+         append str "$key=$value,"
+      }
+      append str "\},"
+      set str [regsub -all ",\}" $str "\}"]
+      myPuts $str
+   }
+}
+
 proc module-forbid {args} {
    lassign [parseMyArgs {*}$args] argT extraArgA
    foreach name $extraArgA {
       set str "\{action=\"forbid\",name="
+      append str "\"$name\","
+
+      dict for {key value} $argT {
+         append str "$key=$value,"
+      }
+      append str "\},"
+      set str [regsub -all ",\}" $str "\}"]
+      myPuts $str
+   }
+}
+
+proc module-forbid-regex {args} {
+   lassign [parseMyArgs {*}$args] argT extraArgA
+   foreach name $extraArgA {
+      set str "\{action=\"forbidRegex\",name="
       append str "\"$name\","
 
       dict for {key value} $argT {

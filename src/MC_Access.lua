@@ -46,7 +46,9 @@ require("strict")
 require("utils")
 require("myGlobals")
 
-local MainControl     = require("MainControl")
+local MainControl       = require("MainControl")
+local MarkdownDetector  = require("MarkdownDetector")
+local MarkdownProcessor = require("MarkdownProcessor")
 MC_Access             = inheritsFrom(MainControl)
 MC_Access.my_name     = "MC_Access"
 MC_Access.my_sType    = "load"
@@ -73,7 +75,12 @@ function M.help(self, ...)
    local argA = pack(...)
    if (self.accessT.help == true) then
       for i = 1, argA.n do
-         A[#A+1] = argA[i]
+         local content = argA[i]
+         local isMarkdown = MarkdownDetector.isMarkdown(content)
+         if isMarkdown then
+            content = MarkdownProcessor.toTerminal(content)
+         end
+         A[#A+1] = content
       end
       A[#A+1] = "\n"
    end
@@ -85,6 +92,12 @@ end
 -- @param msg The message string.
 function M.whatis(self, msg)
    if (self.accessT.whatis) then
+      local processedMsg = msg
+      local isMarkdown = MarkdownDetector.isMarkdown(msg)
+      if isMarkdown then
+         processedMsg = MarkdownProcessor.toTerminal(msg)
+      end
+
       local nm     = FullName or ""
       local l      = nm:len()
       local nblnks
@@ -95,7 +108,7 @@ function M.whatis(self, msg)
       end
       local prefix = nm .. string.rep(" ",nblnks) .. ": "
       A[#A+1] = prefix
-      A[#A+1] = msg
+      A[#A+1] = processedMsg
       A[#A+1] = "\n"
    end
 end

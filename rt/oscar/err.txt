@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.61 2025-06-20 16:09 -05:00
+Modules based on Lua: Version 9.0.2 2025-10-20 21:00 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -13,7 +13,7 @@ step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show oscar
 ===========================
    ProjectDIR/rt/oscar/mf/Core/oscar.lua:
-help([[	This module sets up the OSCAR modules subsystem.]])
+help([[    This module sets up the OSCAR modules subsystem.]])
 whatis("Description: Sets up the OSCAR modules subsystem.")
 prepend_path("MODULEPATH","ProjectDIR/rt/oscar/mf/Oscar")
 load("a")

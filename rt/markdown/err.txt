@@ -1,0 +1,641 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help plain_text/1.0
+===========================
+Module Specific Help for "plain_text/1.0"
+This is plain text help content without any markdown formatting.
+It contains just regular sentences and basic information about the module.
+No special formatting should be applied to this content.
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show plain_text/1.0
+===========================
+   ProjectDIR/rt/markdown/mf/Core/plain_text/1.0.lua:
+help([[This is plain text help content without any markdown formatting.
+It contains just regular sentences and basic information about the module.
+No special formatting should be applied to this content.]])
+whatis("Name: Plain Text Module")
+whatis("Version: 1.0")
+whatis("Description: Simple module with plain text help")
+setenv("PLAIN_TEXT_VERSION","1.0")
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis plain_text/1.0
+===========================
+plain_text/1.0      : Name: Plain Text Module
+plain_text/1.0      : Version: 1.0
+plain_text/1.0      : Description: Simple module with plain text help
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help markdown_content/2.0
+===========================
+Module Specific Help for "markdown_content/2.0"
+MARKDOWN MODULE
+Description
+This module demonstrates markdown formatting in help content.
+Features
+• Italicized feature descriptions
+• Bold important notes
+• inline code examples
+• Structured content with headers
+Usage
+Code:
+  module load markdown_content/2.0
+For more information, visit the project website (...).
+Installation Notes
+1. First step in installation
+2. Second step with important details
+3. Final configuration step
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show markdown_content/2.0
+===========================
+   ProjectDIR/rt/markdown/mf/Core/markdown_content/2.0.lua:
+ This help content will be processed as markdown in terminal display
+help([[# Markdown Module
+## Description
+This module demonstrates **markdown formatting** in help content.
+## Features
+ *Italicized* feature descriptions
+ **Bold** important notes
+ `inline code` examples
+ Structured content with headers
+## Usage
+```bash
+module load markdown_content/2.0
+```
+For more information, visit the [project website](https://example.com).
+### Installation Notes
+1. First step in installation
+2. Second step with **important** details
+3. Final configuration step
+]])
+whatis("Name: Markdown Module")
+whatis("Version: 2.0")
+whatis("Description: Module demonstrating markdown help content")
+setenv("MARKDOWN_VERSION","2.0")
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis markdown_content/2.0
+===========================
+markdown_content/2.0                      : Name: Markdown Module
+markdown_content/2.0                      : Version: 2.0
+markdown_content/2.0                      : Description: Module demonstrating markdown help content
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help mixed_content/1.5
+===========================
+Module Specific Help for "mixed_content/1.5"
+MIXED CONTENT MODULE
+This module has some structure that might trigger markdown detection.
+Some text with * characters for * emphasis * but not proper markdown.
+Also has someunderscoresin_text that aren't intended as formatting.
+Features:
+• Item one (this is a list)
+• Item two with details
+• Item three
+But also has regular paragraphs without special formatting.
+This tests the boundary between markdown and plain text detection.
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show mixed_content/1.5
+===========================
+   ProjectDIR/rt/markdown/mf/Core/mixed_content/1.5.lua:
+ This help content will be processed as markdown in terminal display
+help([[Mixed Content Module
+===================
+This module has some structure that might trigger markdown detection.
+Some text with * characters for * emphasis * but not proper markdown.
+Also has some_underscores_in_text that aren't intended as formatting.
+Features:
+ Item one (this is a list)
+ Item two with details
+ Item three
+But also has regular paragraphs without special formatting.
+This tests the boundary between markdown and plain text detection.
+]])
+whatis("Name: Mixed Content Module")
+whatis("Version: 1.5")
+whatis("Description: Module with content that tests markdown detection boundaries.
+It has some structured elements but also plain text portions.")
+setenv("MIXED_VERSION","1.5")
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis mixed_content/1.5
+===========================
+mixed_content/1.5   : Name: Mixed Content Module
+mixed_content/1.5   : Version: 1.5
+mixed_content/1.5   : Description: Module with content that tests markdown detection boundaries.
+It has some structured elements but also plain text portions.
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help short_content/0.1
+===========================
+Module Specific Help for "short_content/0.1"
+Short help message.
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show short_content/0.1
+===========================
+   ProjectDIR/rt/markdown/mf/Core/short_content/0.1.lua:
+help([[Short help message.]])
+whatis("Name: Short Module")
+whatis("Version: 0.1")
+whatis("Description: Brief module")
+setenv("SHORT_VERSION","0.1")
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis short_content/0.1
+===========================
+short_content/0.1   : Name: Short Module
+short_content/0.1   : Version: 0.1
+short_content/0.1   : Description: Brief module
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help false_positive_code/1.0
+===========================
+Module Specific Help for "false_positive_code/1.0"
+This module demonstrates code-like patterns that should remain plain text.
+The module uses C preprocessor directives like #include <stdio.h> and #define MAX_SIZE 1024.
+It also includes shell script shebangs like #!/bin/bash and version numbers like 1.2.3.
+File paths are common: /usr/local/bin/program and ./scripts/install.sh.
+Command line options use dashes: --help, -v, -D for debugging.
+Version ranges appear as 1.0-2.0 and multiplication uses asterisks like 2 * 3 = 6.
+Wildcards use asterisks: *.lua files and file_*.txt patterns.
+This content has structure but should NOT be processed as markdown.
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show false_positive_code/1.0
+===========================
+   ProjectDIR/rt/markdown/mf/Core/false_positive_code/1.0.lua:
+help([[This module demonstrates code-like patterns that should remain plain text.
+The module uses C preprocessor directives like #include <stdio.h> and #define MAX_SIZE 1024.
+It also includes shell script shebangs like #!/bin/bash and version numbers like 1.2.3.
+File paths are common: /usr/local/bin/program and ./scripts/install.sh.
+Command line options use dashes: --help, -v, -D for debugging.
+Version ranges appear as 1.0-2.0 and multiplication uses asterisks like 2 * 3 = 6.
+Wildcards use asterisks: *.lua files and file_*.txt patterns.
+This content has structure but should NOT be processed as markdown.]])
+whatis("Name: False Positive Code Test")
+whatis("Version: 1.0")
+whatis("Description: Tests code-like patterns that should not trigger markdown detection")
+setenv("FALSE_POSITIVE_CODE_VERSION","1.0")
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis false_positive_code/1.0
+===========================
+false_positive_code/1.0                         : Name: False Positive Code Test
+false_positive_code/1.0                         : Version: 1.0
+false_positive_code/1.0                         : Description: Tests code-like patterns that should not trigger markdown detection
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help false_positive_vars/1.0
+===========================
+Module Specific Help for "false_positive_vars/1.0"
+This module sets up environment variables and paths.
+Environment variables use equals signs: PATH=/usr/bin:/usr/local/bin
+Module variables include: MODULE_VERSION=1.0 and LUA_PATH=/usr/share/lua/5.3/?.lua
+Variable names use underscores: MODULE_NAME, FILE_PATH, USER_HOME
+Variable references use dollar signs: $HOME, ${PATH}, $MODULE_VERSION
+Assignment statements appear as: export VAR=value and setenv("KEY", "VALUE")
+Configuration lines use equals: option=value and setting = enabled
+This content has many equals signs and underscores but should NOT be markdown.
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show false_positive_vars/1.0
+===========================
+   ProjectDIR/rt/markdown/mf/Core/false_positive_vars/1.0.lua:
+help([[This module sets up environment variables and paths.
+Environment variables use equals signs: PATH=/usr/bin:/usr/local/bin
+Module variables include: MODULE_VERSION=1.0 and LUA_PATH=/usr/share/lua/5.3/?.lua
+Variable names use underscores: MODULE_NAME, FILE_PATH, USER_HOME
+Variable references use dollar signs: $HOME, ${PATH}, $MODULE_VERSION
+Assignment statements appear as: export VAR=value and setenv("KEY", "VALUE")
+Configuration lines use equals: option=value and setting = enabled
+This content has many equals signs and underscores but should NOT be markdown.]])
+whatis("Name: False Positive Variables Test")
+whatis("Version: 1.0")
+whatis("Description: Tests variable patterns that should not trigger markdown detection")
+setenv("FALSE_POSITIVE_VARS_VERSION","1.0")
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis false_positive_vars/1.0
+===========================
+false_positive_vars/1.0                         : Name: False Positive Variables Test
+false_positive_vars/1.0                         : Version: 1.0
+false_positive_vars/1.0                         : Description: Tests variable patterns that should not trigger markdown detection
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help false_positive_urls/1.0
+===========================
+Module Specific Help for "false_positive_urls/1.0"
+This module provides information about external resources.
+Visit https://example.com/documentation for more details.
+The project homepage is at http://www.example.org/project.
+Email support at user@example.com for assistance.
+File paths include /usr/local/share/data and ./config/settings.txt.
+Relative paths like ../scripts/run.sh are also common.
+This content has URLs and paths but no markdown link syntax, so it should remain plain text.
+The URLs are just plain text, not formatted with markdown link syntax.
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show false_positive_urls/1.0
+===========================
+   ProjectDIR/rt/markdown/mf/Core/false_positive_urls/1.0.lua:
+help([[This module provides information about external resources.
+Visit https://example.com/documentation for more details.
+The project homepage is at http://www.example.org/project.
+Email support at user@example.com for assistance.
+File paths include /usr/local/share/data and ./config/settings.txt.
+Relative paths like ../scripts/run.sh are also common.
+This content has URLs and paths but no markdown link syntax, so it should remain plain text.
+The URLs are just plain text, not formatted with markdown link syntax.]])
+whatis("Name: False Positive URLs Test")
+whatis("Version: 1.0")
+whatis("Description: Tests URL patterns that should not trigger markdown detection")
+setenv("FALSE_POSITIVE_URLS_VERSION","1.0")
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis false_positive_urls/1.0
+===========================
+false_positive_urls/1.0                         : Name: False Positive URLs Test
+false_positive_urls/1.0                         : Version: 1.0
+false_positive_urls/1.0                         : Description: Tests URL patterns that should not trigger markdown detection
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help false_positive_lists/1.0
+===========================
+Module Specific Help for "false_positive_lists/1.0"
+This module demonstrates list-like patterns in plain text.
+Version ranges use dashes: 1.0 - 2.0 and compatibility 3.0-4.0.
+Command options are dash-separated: -v, -h, -D for verbose, help, debug.
+Numbered steps appear in prose: Step 1. Do this first, then step 2. Continue.
+Bullet-like text appears: The - symbol is used for subtraction.
+Dashes in ranges: version 1.0-2.0 is supported.
+Options listed: Available options include -a, -b, and -c.
+This content has dashes and numbers but should NOT be detected as markdown lists
+because they don't follow proper markdown list syntax at line start.
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show false_positive_lists/1.0
+===========================
+   ProjectDIR/rt/markdown/mf/Core/false_positive_lists/1.0.lua:
+help([[This module demonstrates list-like patterns in plain text.
+Version ranges use dashes: 1.0 - 2.0 and compatibility 3.0-4.0.
+Command options are dash-separated: -v, -h, -D for verbose, help, debug.
+Numbered steps appear in prose: Step 1. Do this first, then step 2. Continue.
+Bullet-like text appears: The - symbol is used for subtraction.
+Dashes in ranges: version 1.0-2.0 is supported.
+Options listed: Available options include -a, -b, and -c.
+This content has dashes and numbers but should NOT be detected as markdown lists
+because they don't follow proper markdown list syntax at line start.]])
+whatis("Name: False Positive Lists Test")
+whatis("Version: 1.0")
+whatis("Description: Tests list-like patterns that should not trigger markdown detection")
+setenv("FALSE_POSITIVE_LISTS_VERSION","1.0")
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis false_positive_lists/1.0
+===========================
+false_positive_lists/1.0                          : Name: False Positive Lists Test
+false_positive_lists/1.0                          : Version: 1.0
+false_positive_lists/1.0                          : Description: Tests list-like patterns that should not trigger markdown detection
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help false_positive_emphasis/1.0
+===========================
+Module Specific Help for "false_positive_emphasis/1.0"
+This module shows text with asterisks and underscores that aren't markdown.
+Asterisks appear in version strings: version 1.0 * beta release.
+Multiplication uses asterisks: 2 * 3 = 6 and 10 * 5 = 50.
+Wildcards use asterisks: *.lua files and file_*.txt patterns.
+Underscores appear in variable names: MODULE_NAME, FILE_PATH, USER_HOME.
+File names use underscores: my_file.txt, test_data.csv, config_file.lua.
+Function names: load_module(), get_version(), set_path().
+This content has asterisks and underscores but they're not markdown emphasis
+because they don't follow proper markdown emphasis syntax patterns.
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show false_positive_emphasis/1.0
+===========================
+   ProjectDIR/rt/markdown/mf/Core/false_positive_emphasis/1.0.lua:
+help([[This module shows text with asterisks and underscores that aren't markdown.
+Asterisks appear in version strings: version 1.0 * beta release.
+Multiplication uses asterisks: 2 * 3 = 6 and 10 * 5 = 50.
+Wildcards use asterisks: *.lua files and file_*.txt patterns.
+Underscores appear in variable names: MODULE_NAME, FILE_PATH, USER_HOME.
+File names use underscores: my_file.txt, test_data.csv, config_file.lua.
+Function names: load_module(), get_version(), set_path().
+This content has asterisks and underscores but they're not markdown emphasis
+because they don't follow proper markdown emphasis syntax patterns.]])
+whatis("Name: False Positive Emphasis Test")
+whatis("Version: 1.0")
+whatis("Description: Tests emphasis-like patterns that should not trigger markdown detection")
+setenv("FALSE_POSITIVE_EMPHASIS_VERSION","1.0")
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis false_positive_emphasis/1.0
+===========================
+false_positive_emphasis/1.0                             : Name: False Positive Emphasis Test
+false_positive_emphasis/1.0                             : Version: 1.0
+false_positive_emphasis/1.0                             : Description: Tests emphasis-like patterns that should not trigger markdown detection
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help false_positive_structure/1.0
+===========================
+Module Specific Help for "false_positive_structure/1.0"
+This module has well-structured content with paragraphs and formatting.
+The first paragraph provides an overview of the module functionality.
+It explains what the module does and why it might be useful.
+The second paragraph goes into more detail about specific features.
+It describes how to use the module and what to expect.
+The third paragraph covers advanced usage and configuration options.
+It provides examples and best practices for optimal results.
+This content has multiple paragraphs, empty lines, and long sentences
+but lacks markdown syntax, so it should remain plain text.
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show false_positive_structure/1.0
+===========================
+   ProjectDIR/rt/markdown/mf/Core/false_positive_structure/1.0.lua:
+help([[This module has well-structured content with paragraphs and formatting.
+The first paragraph provides an overview of the module functionality.
+It explains what the module does and why it might be useful.
+The second paragraph goes into more detail about specific features.
+It describes how to use the module and what to expect.
+The third paragraph covers advanced usage and configuration options.
+It provides examples and best practices for optimal results.
+This content has multiple paragraphs, empty lines, and long sentences
+but lacks markdown syntax, so it should remain plain text.]])
+whatis("Name: False Positive Structure Test")
+whatis("Version: 1.0")
+whatis("Description: Tests structured text that should not trigger markdown detection")
+setenv("FALSE_POSITIVE_STRUCTURE_VERSION","1.0")
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis false_positive_structure/1.0
+===========================
+false_positive_structure/1.0                              : Name: False Positive Structure Test
+false_positive_structure/1.0                              : Version: 1.0
+false_positive_structure/1.0                              : Description: Tests structured text that should not trigger markdown detection
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help false_positive_edge/1.0
+===========================
+Module Specific Help for "false_positive_edge/1.0"
+Exactly thirty chars!!
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help false_positive_edge/2.0
+===========================
+Module Specific Help for "false_positive_edge/2.0"
+Twenty-nine characters here!
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help false_positive_edge/3.0
+===========================
+Module Specific Help for "false_positive_edge/3.0"
+This is exactly thirty-one characters long!
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help markdown_with_images/1.0
+===========================
+Module Specific Help for "markdown_with_images/1.0"
+MODULE WITH IMAGES
+Overview
+This module demonstrates markdown with image support.
+Screenshots
+[Image: Module Architecture] (...)
+[Image: Logo] (...)
+[Image: Screenshot] (...)
+Features
+• Feature one with bold text
+• Feature two with italic text
+• Feature three with code examples
+For more information, visit the project website (...).
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show markdown_with_images/1.0
+===========================
+   ProjectDIR/rt/markdown/mf/Core/markdown_with_images/1.0.lua:
+ This help content will be processed as markdown in terminal display
+help([[# Module with Images
+## Overview
+This module demonstrates markdown with image support.
+## Screenshots
+![Module Architecture](https://example.com/arch.png)
+![Logo](logo.png)
+![Screenshot](screenshots/main.png)
+## Features
+ Feature one with **bold** text
+ Feature two with *italic* text
+ Feature three with `code` examples
+For more information, visit the [project website](https://example.com).
+]])
+whatis("Name: Markdown with Images Test")
+whatis("Version: 1.0")
+whatis("Description: Tests markdown content with images")
+setenv("MARKDOWN_WITH_IMAGES_VERSION","1.0")
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis markdown_with_images/1.0
+===========================
+markdown_with_images/1.0                          : Name: Markdown with Images Test
+markdown_with_images/1.0                          : Version: 1.0
+markdown_with_images/1.0                          : Description: Tests markdown content with images
+===========================
+step 37
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help nested_markdown_lists/1.0
+===========================
+Module Specific Help for "nested_markdown_lists/1.0"
+NESTED MARKDOWN IN LISTS
+Overview
+This module tests that nested markdown formatting (bold, italic, code) within list items is correctly processed and rendered.
+Unordered Lists with Nested Formatting
+• Feature with bold text
+• Feature with italic text
+• Feature with code examples
+• Feature with bold and italic together
+• Feature with code and bold text
+• Feature with a link (...) inside
+Ordered Lists with Nested Formatting
+1. First item with bold emphasis
+2. Second item with italic emphasis
+3. Third item with code formatting
+4. Fourth item combining bold, italic, and code
+5. Fifth item with a link (...) and bold text
+Mixed Nested Formatting
+• Regular text without formatting
+• Text with bold only
+• Text with italic only
+• Text with code only
+• Text with bold and italic combined
+• Text with all three: bold, italic, and code
+• Text with links (...) and bold formatting
+Expected Behavior
+All nested formatting should be rendered correctly:
+• Bold text should appear bold
+• Italic text should appear italic
+• Code should appear with code formatting
+• Links (...) should be formatted as links
+If you see raw markdown syntax (like bold or italic) in the output, the nested formatting is not being processed correctly.
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show nested_markdown_lists/1.0
+===========================
+   ProjectDIR/rt/markdown/mf/Core/nested_markdown_lists/1.0.lua:
+ This help content will be processed as markdown in terminal display
+help([[# Nested Markdown in Lists
+## Overview
+This module tests that nested markdown formatting (bold, italic, code) within list items is correctly processed and rendered.
+## Unordered Lists with Nested Formatting
+ Feature with **bold** text
+ Feature with *italic* text
+ Feature with `code` examples
+ Feature with **bold** and *italic* together
+ Feature with `code` and **bold** text
+ Feature with a [link](https://example.com) inside
+## Ordered Lists with Nested Formatting
+1. First item with **bold** emphasis
+2. Second item with *italic* emphasis
+3. Third item with `code` formatting
+4. Fourth item combining **bold**, *italic*, and `code`
+5. Fifth item with a [link](https://example.com) and **bold** text
+## Mixed Nested Formatting
+ Regular text without formatting
+ Text with **bold** only
+ Text with *italic* only
+ Text with `code` only
+ Text with **bold** and *italic* combined
+ Text with all three: **bold**, *italic*, and `code`
+ Text with [links](https://example.com) and **bold** formatting
+## Expected Behavior
+All nested formatting should be rendered correctly:
+ **Bold** text should appear bold
+ *Italic* text should appear italic
+ `Code` should appear with code formatting
+ [Links](https://example.com) should be formatted as links
+If you see raw markdown syntax (like `**bold**` or `*italic*`) in the output, the nested formatting is not being processed correctly.
+]])
+whatis("Name: Nested Markdown Lists Test")
+whatis("Version: 1.0")
+whatis("Description: Tests nested markdown formatting within list items")
+setenv("NESTED_MARKDOWN_LISTS_VERSION","1.0")
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis nested_markdown_lists/1.0
+===========================
+nested_markdown_lists/1.0                           : Name: Nested Markdown Lists Test
+nested_markdown_lists/1.0                           : Version: 1.0
+nested_markdown_lists/1.0                           : Description: Tests nested markdown formatting within list items
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help diagnostic_test/1.0
+===========================
+Module Specific Help for "diagnostic_test/1.0"
+Short content.
+Features:
+ Feature one
+ Feature two
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show diagnostic_test/1.0
+===========================
+   ProjectDIR/rt/markdown/mf/Core/diagnostic_test/1.0.lua:
+help([[Short content.
+Features:
+ Feature one
+ Feature two
+]])
+whatis("Name: Diagnostic Test Module")
+whatis("Version: 1.0")
+whatis("Description: Tests diagnostic output when markdown detection fails")
+setenv("DIAGNOSTIC_TEST_VERSION","1.0")
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis diagnostic_test/1.0
+===========================
+diagnostic_test/1.0 : Name: Diagnostic Test Module
+diagnostic_test/1.0 : Version: 1.0
+diagnostic_test/1.0 : Description: Tests diagnostic output when markdown detection fails
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help markdown_content/2.0
+===========================
+Module Specific Help for "markdown_content/2.0"
+\\033[1m\\033[36mMARKDOWN MODULE\\033[0m
+\\033[1mDescription\\033[0m
+This module demonstrates \\033[1mmarkdown formatting\\033[0m in help content.
+\\033[1mFeatures\\033[0m
+\\033[36m•\\033[0m \\033[3mItalicized\\033[0m feature descriptions
+\\033[36m•\\033[0m \\033[1mBold\\033[0m important notes
+\\033[36m•\\033[0m \\033[2m\\033[36minline code\\033[0m examples
+\\033[36m•\\033[0m Structured content with headers
+\\033[1mUsage\\033[0m
+\\033[2mCode:\\033[0m
+  \\033[2m\\033[36mmodule load markdown_content/2.0\\033[0m
+For more information, visit the \\033[34m\\033[4mproject website\\033[0m (...).
+\\033[4mInstallation Notes\\033[0m
+\\033[36m1.\\033[0m First step in installation
+\\033[36m2.\\033[0m Second step with \\033[1mimportant\\033[0m details
+\\033[36m3.\\033[0m Final configuration step
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis markdown_content/2.0
+===========================
+markdown_content/2.0                      : Name: Markdown Module
+markdown_content/2.0                      : Version: 2.0
+markdown_content/2.0                      : Description: Module demonstrating markdown help content
+===========================
+step 45
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help markdown_with_images/1.0
+===========================
+Module Specific Help for "markdown_with_images/1.0"
+\\033[1m\\033[36mMODULE WITH IMAGES\\033[0m
+\\033[1mOverview\\033[0m
+This module demonstrates markdown with image support.
+\\033[1mScreenshots\\033[0m
+\\033[36m[Image: Module Architecture]\\033[0m (...)
+\\033[36m[Image: Logo]\\033[0m (...)
+\\033[36m[Image: Screenshot]\\033[0m (...)
+\\033[1mFeatures\\033[0m
+\\033[36m•\\033[0m Feature one with \\033[1mbold\\033[0m text
+\\033[36m•\\033[0m Feature two with \\033[3mitalic\\033[0m text
+\\033[36m•\\033[0m Feature three with \\033[2m\\033[36mcode\\033[0m examples
+For more information, visit the \\033[34m\\033[4mproject website\\033[0m (...).
+===========================
+step 46
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help nested_markdown_lists/1.0
+===========================
+Module Specific Help for "nested_markdown_lists/1.0"
+\\033[1m\\033[36mNESTED MARKDOWN IN LISTS\\033[0m
+\\033[1mOverview\\033[0m
+This module tests that nested markdown formatting (bold, italic, code) within list items is correctly processed and rendered.
+\\033[1mUnordered Lists with Nested Formatting\\033[0m
+\\033[36m•\\033[0m Feature with \\033[1mbold\\033[0m text
+\\033[36m•\\033[0m Feature with \\033[3mitalic\\033[0m text
+\\033[36m•\\033[0m Feature with \\033[2m\\033[36mcode\\033[0m examples
+\\033[36m•\\033[0m Feature with \\033[1mbold\\033[0m and \\033[3mitalic\\033[0m together
+\\033[36m•\\033[0m Feature with \\033[2m\\033[36mcode\\033[0m and \\033[1mbold\\033[0m text
+\\033[36m•\\033[0m Feature with a \\033[34m\\033[4mlink\\033[0m (...) inside
+\\033[1mOrdered Lists with Nested Formatting\\033[0m
+\\033[36m1.\\033[0m First item with \\033[1mbold\\033[0m emphasis
+\\033[36m2.\\033[0m Second item with \\033[3mitalic\\033[0m emphasis
+\\033[36m3.\\033[0m Third item with \\033[2m\\033[36mcode\\033[0m formatting
+\\033[36m4.\\033[0m Fourth item combining \\033[1mbold\\033[0m, \\033[3mitalic\\033[0m, and \\033[2m\\033[36mcode\\033[0m
+\\033[36m5.\\033[0m Fifth item with a \\033[34m\\033[4mlink\\033[0m (...) and \\033[1mbold\\033[0m text
+\\033[1mMixed Nested Formatting\\033[0m
+\\033[36m•\\033[0m Regular text without formatting
+\\033[36m•\\033[0m Text with \\033[1mbold\\033[0m only
+\\033[36m•\\033[0m Text with \\033[3mitalic\\033[0m only
+\\033[36m•\\033[0m Text with \\033[2m\\033[36mcode\\033[0m only
+\\033[36m•\\033[0m Text with \\033[1mbold\\033[0m and \\033[3mitalic\\033[0m combined
+\\033[36m•\\033[0m Text with all three: \\033[1mbold\\033[0m, \\033[3mitalic\\033[0m, and \\033[2m\\033[36mcode\\033[0m
+\\033[36m•\\033[0m Text with \\033[34m\\033[4mlinks\\033[0m (...) and \\033[1mbold\\033[0m formatting
+\\033[1mExpected Behavior\\033[0m
+All nested formatting should be rendered correctly:
+\\033[36m•\\033[0m \\033[1mBold\\033[0m text should appear bold
+\\033[36m•\\033[0m \\033[3mItalic\\033[0m text should appear italic
+\\033[36m•\\033[0m \\033[2m\\033[36mCode\\033[0m should appear with code formatting
+\\033[36m•\\033[0m \\033[34m\\033[4mLinks\\033[0m (...) should be formatted as links
+If you see raw markdown syntax (like \\033[2m\\033[36m\\033[1mbold\\033[0m\\033[0m or \\033[2m\\033[36m\\033[3mitalic\\033[0m\\033[0m) in the output, the nested formatting is not being processed correctly.

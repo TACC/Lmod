@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.61 2025-06-20 16:09 -05:00
+Modules based on Lua: Version 9.0.2 2025-10-20 21:00 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -1380,6 +1380,62 @@ ProjectDIR/rt/modulerc/mfG/Core
    cluster/A (H)    cluster/B (H)    cluster/C (H)
   Where:
    H:  Hidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 120
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 121
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
+===========================
+ProjectDIR/rt/modulerc/mfH/Core
+   AA/1.0         Bar/1.1  (H)      Gpu-app/2.0 (F)    Junk/2.0 (D)
+   BB/2.0  (F)    Bar/2.0  (D)      Hpu-app/4.0 (F)
+   BB/3.0  (D)    Foo/2.0  (H)      Junk/1.0    (H)
+   Bar/1.0 (H)    Foo/3.14 (H,D)    Junk/1.1    (H)
+  Where:
+   D:  Default Module
+   F:  Forbidden Module
+   H:  Hidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 122
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+ProjectDIR/rt/modulerc/mfH/Core
+   AA/1.0        BB/3.0  (D)    Gpu-app/2.0 (F)    Junk/2.0
+   BB/2.0 (F)    Bar/2.0        Hpu-app/4.0 (F)
+  Where:
+   D:  Default Module
+   F:  Forbidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 123
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
+===========================
+ProjectDIR/rt/modulerc/mfH/Core
+   AA/1.0         Bar/1.1  (H)      Gpu-app/2.0 (F)    Junk/2.0 (D)
+   BB/2.0  (F)    Bar/2.0  (D)      Hpu-app/4.0 (F)
+   BB/3.0  (D)    Foo/2.0  (s)      Junk/1.0    (H)
+   Bar/1.0 (H)    Foo/3.14 (H,D)    Junk/1.1    (H)
+  Where:
+   D:  Default Module
+   F:  Forbidden Module
+   H:  Hidden Module
+   s:  Soft Hidden Module
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
