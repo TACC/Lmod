@@ -24,6 +24,9 @@ $(SONAME):
 $(LIBRARY): $(OBJ)
 	$(CC) $(CFLAGS) $(LIB_OPTION) -o $(LIBRARY) $(OBJ) $(LDFLAGS) -lc $(LIBS) $(TCL_LIBS)
 
+# Shared-library versioning: install only the real library (LIBRARY), then create
+# symlinks SONAMEV->LIBRARY and SONAME->SONAMEV. Using "install *.so*" would
+# copy symlink targets into full duplicates; we explicitly install + ln -s instead.
 install: all
 	install -m $(MODE_R) $(LIBRARY) $(LIB)
 	$(RM) -f $(LIB)/$(SONAMEV) $(LIB)/$(SONAME)
