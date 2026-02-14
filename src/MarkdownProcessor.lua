@@ -50,7 +50,7 @@ local MarkdownProcessor = {}
 -- Split text into lines using string.find (version-independent; see LUA_GMATCH_BEHAVIOR.md)
 -- @param text The text to split
 -- @return array of lines (untrimmed)
-local function splitLines(text)
+local function l_splitLines(text)
    local lines = {}
    local pos = 1
    local len = text:len()
@@ -86,9 +86,9 @@ local ANSI = {
 }
 
 -- Check if terminal supports color
-local function supportsColor()
+local function l_supportsColor()
    -- Check if we're in regression testing mode (use Lmod's standard way)
-   local function isRegressionTesting()
+   local function l_isRegressionTesting()
       local status, optionTbl = pcall(require, "utils")
       if status and optionTbl and type(optionTbl) == "function" then
          local opts = optionTbl()
@@ -98,7 +98,7 @@ local function supportsColor()
    end
    
    -- Disable colors during regression testing
-   if isRegressionTesting() then
+   if (l_isRegressionTesting()) then
       return false
    end
    
@@ -111,14 +111,14 @@ local function supportsColor()
           term:match("screen")
 end
 
-local USE_COLOR = supportsColor()
+local USE_COLOR = l_supportsColor()
 
 --------------------------------------------------------------------------
 -- Apply terminal formatting if color is supported
 -- @param text The text to format
 -- @param ansiCode The ANSI code to apply
 -- @return formatted text
-local function applyFormat(text, ansiCode)
+local function l_applyFormat(text, ansiCode)
    if USE_COLOR then
       return ansiCode .. text .. ANSI.RESET
    else
@@ -130,8 +130,8 @@ end
 -- Convert markdown headers to terminal format
 -- @param line The line containing a header
 -- @return formatted header line
-local function processHeader(line)
-   dbg.start{"processHeader(", line, ")"}
+local function l_processHeader(line)
+   dbg.start{"l_processHeader(", line, ")"}
    
    local success, result = pcall(function()
       -- ATX headers (# ## ###)
@@ -140,11 +140,11 @@ local function processHeader(line)
          local headerText = text
          if level:len() == 1 then
             -- Use string.upper() for Lua 5.1 compatibility
-            headerText = applyFormat(string.upper(headerText), ANSI.BOLD .. ANSI.CYAN)
+            headerText = l_applyFormat(string.upper(headerText), ANSI.BOLD .. ANSI.CYAN)
          elseif level:len() == 2 then
-            headerText = applyFormat(headerText, ANSI.BOLD)
+            headerText = l_applyFormat(headerText, ANSI.BOLD)
          else
-            headerText = applyFormat(headerText, ANSI.UNDERLINE)
+            headerText = l_applyFormat(headerText, ANSI.UNDERLINE)
          end
          return headerText
       end
@@ -152,11 +152,11 @@ local function processHeader(line)
    end)
    
    if not success then
-      dbg.fini("processHeader")
+      dbg.fini("l_processHeader")
       return line
    end
    
-   dbg.fini("processHeader")
+   dbg.fini("l_processHeader")
    return result
 end
 
@@ -165,7 +165,7 @@ end
 -- @param lines Array of lines
 -- @param i Current line index
 -- @return true if next line is underline, underline character
-local function isSetextHeader(lines, i)
+local function l_isSetextHeader(lines, i)
    if i >= #lines then return false end
    local nextLine = lines[i + 1]
    if nextLine:match("^===+$") then
@@ -180,40 +180,40 @@ end
 -- Process markdown emphasis (bold, italic)
 -- @param text The text to process
 -- @return text with emphasis converted to terminal format
-local function processEmphasis(text)
-   dbg.start{"processEmphasis()"}
+local function l_processEmphasis(text)
+   dbg.start{"l_processEmphasis()"}
    
    -- Bold: **text**
    text = text:gsub("(%*%*)([^*]+)(%*%*)", function(start, content, ending)
-      return applyFormat(content, ANSI.BOLD)
+      return l_applyFormat(content, ANSI.BOLD)
    end)
    
    -- Bold: __text__
    text = text:gsub("(__)([^_]+)(__)", function(start, content, ending)
-      return applyFormat(content, ANSI.BOLD)
+      return l_applyFormat(content, ANSI.BOLD)
    end)
    
    -- Italic: *text* (but not **text**)
    text = text:gsub("([^*])(%*)([^*%s][^*]*)(%*)([^*])", function(before, start, content, ending, after)
-      return before .. applyFormat(content, ANSI.ITALIC) .. after
+      return before .. l_applyFormat(content, ANSI.ITALIC) .. after
    end)
    
    -- Italic at start of line: *text*
    text = text:gsub("^(%*)([^*%s][^*]*)(%*)", function(start, content, ending)
-      return applyFormat(content, ANSI.ITALIC)
+      return l_applyFormat(content, ANSI.ITALIC)
    end)
    
    -- Italic: _text_ (but not __text__)
    text = text:gsub("([^_])(_)([^_%s][^_]*)(_)([^_])", function(before, start, content, ending, after)
-      return before .. applyFormat(content, ANSI.ITALIC) .. after
+      return before .. l_applyFormat(content, ANSI.ITALIC) .. after
    end)
    
    -- Italic at start of line: _text_
    text = text:gsub("^(_)([^_%s][^_]*)(_)", function(start, content, ending)
-      return applyFormat(content, ANSI.ITALIC)
+      return l_applyFormat(content, ANSI.ITALIC)
    end)
    
-   dbg.fini("processEmphasis")
+   dbg.fini("l_processEmphasis")
    return text
 end
 
@@ -221,14 +221,14 @@ end
 -- Process inline code
 -- @param text The text to process
 -- @return text with code converted to terminal format
-local function processInlineCode(text)
-   dbg.start{"processInlineCode()"}
+local function l_processInlineCode(text)
+   dbg.start{"l_processInlineCode()"}
    
    text = text:gsub("`([^`]+)`", function(code)
-      return applyFormat(code, ANSI.DIM .. ANSI.CYAN)
+      return l_applyFormat(code, ANSI.DIM .. ANSI.CYAN)
    end)
    
-   dbg.fini("processInlineCode")
+   dbg.fini("l_processInlineCode")
    return text
 end
 
@@ -236,8 +236,8 @@ end
 -- Process markdown links
 -- @param text The text to process
 -- @return text with links converted to terminal format
-local function processLinks(text)
-   dbg.start{"processLinks()"}
+local function l_processLinks(text)
+   dbg.start{"l_processLinks()"}
    
    local success, result = pcall(function()
       return text:gsub("%[([^%]]+)%]%([^%)]*%)", function(linkText, url)
@@ -246,7 +246,7 @@ local function processLinks(text)
             url = "..."
          end
          if USE_COLOR then
-            return applyFormat(linkText, ANSI.BLUE .. ANSI.UNDERLINE) .. " (" .. url .. ")"
+            return l_applyFormat(linkText, ANSI.BLUE .. ANSI.UNDERLINE) .. " (" .. url .. ")"
          else
             return linkText .. " (" .. url .. ")"
          end
@@ -254,11 +254,11 @@ local function processLinks(text)
    end)
    
    if not success then
-      dbg.fini("processLinks")
+      dbg.fini("l_processLinks")
       return text
    end
    
-   dbg.fini("processLinks")
+   dbg.fini("l_processLinks")
    return result
 end
 
@@ -266,8 +266,8 @@ end
 -- Process markdown images
 -- @param text The text to process
 -- @return text with images converted to terminal format (alt text + URL)
-local function processImages(text)
-   dbg.start{"processImages()"}
+local function l_processImages(text)
+   dbg.start{"l_processImages()"}
    
    local success, result = pcall(function()
       return text:gsub("!%[([^%]]*)%]%([^%)]*%)", function(altText, url)
@@ -281,7 +281,7 @@ local function processImages(text)
             displayText = "Image"
          end
          if USE_COLOR then
-            return applyFormat("[Image: " .. displayText .. "]", ANSI.CYAN) .. " (" .. url .. ")"
+            return l_applyFormat("[Image: " .. displayText .. "]", ANSI.CYAN) .. " (" .. url .. ")"
          else
             return "[Image: " .. displayText .. "] (" .. url .. ")"
          end
@@ -289,11 +289,11 @@ local function processImages(text)
    end)
    
    if not success then
-      dbg.fini("processImages")
+      dbg.fini("l_processImages")
       return text
    end
    
-   dbg.fini("processImages")
+   dbg.fini("l_processImages")
    return result
 end
 
@@ -301,8 +301,8 @@ end
 -- Process a list item
 -- @param line The line containing a list item
 -- @return formatted list item
-local function processListItem(line)
-   dbg.start{"processListItem(", line, ")"}
+local function l_processListItem(line)
+   dbg.start{"l_processListItem(", line, ")"}
    
    local success, result = pcall(function()
       -- Unordered lists
@@ -310,12 +310,12 @@ local function processListItem(line)
       if indent and marker and content then
          -- Process inline formatting in the content
          -- Process images before links to avoid pattern conflicts
-         content = processInlineCode(content)
-         content = processEmphasis(content)
-         content = processImages(content)
-         content = processLinks(content)
+         content = l_processInlineCode(content)
+         content = l_processEmphasis(content)
+         content = l_processImages(content)
+         content = l_processLinks(content)
          
-         local bullet = USE_COLOR and applyFormat("•", ANSI.CYAN) or "•"
+         local bullet = USE_COLOR and l_applyFormat("•", ANSI.CYAN) or "•"
          return indent .. bullet .. " " .. content
       end
       
@@ -324,12 +324,12 @@ local function processListItem(line)
       if indent and marker and content then
          -- Process inline formatting in the content
          -- Process images before links to avoid pattern conflicts
-         content = processInlineCode(content)
-         content = processEmphasis(content)
-         content = processImages(content)
-         content = processLinks(content)
+         content = l_processInlineCode(content)
+         content = l_processEmphasis(content)
+         content = l_processImages(content)
+         content = l_processLinks(content)
          
-         local numberedMarker = USE_COLOR and applyFormat(marker, ANSI.CYAN) or marker
+         local numberedMarker = USE_COLOR and l_applyFormat(marker, ANSI.CYAN) or marker
          return indent .. numberedMarker .. " " .. content
       end
       
@@ -337,11 +337,11 @@ local function processListItem(line)
    end)
    
    if not success then
-      dbg.fini("processListItem")
+      dbg.fini("l_processListItem")
       return line
    end
    
-   dbg.fini("processListItem")
+   dbg.fini("l_processListItem")
    return result
 end
 
@@ -376,7 +376,7 @@ end
 -- @param markdownText The markdown content to convert
 -- @return converted text suitable for terminal display
 function MarkdownProcessor._processInternal(markdownText)
-   local lines = splitLines(markdownText)
+   local lines = l_splitLines(markdownText)
    
    local result = {}
    local inCodeBlock = false
@@ -389,7 +389,7 @@ function MarkdownProcessor._processInternal(markdownText)
       if line:match("^```") then
          inCodeBlock = not inCodeBlock
          if inCodeBlock then
-            table.insert(result, applyFormat("Code:", ANSI.DIM))
+            table.insert(result, l_applyFormat("Code:", ANSI.DIM))
          else
             table.insert(result, "")
          end
@@ -398,21 +398,21 @@ function MarkdownProcessor._processInternal(markdownText)
          -- Inside code block - output as-is with formatting
          -- Skip empty lines to avoid empty ANSI formatting
          if line ~= "" then
-         table.insert(result, "  " .. applyFormat(line, ANSI.DIM .. ANSI.CYAN))
+         table.insert(result, "  " .. l_applyFormat(line, ANSI.DIM .. ANSI.CYAN))
          else
             table.insert(result, "")
          end
          i = i + 1
       else
          -- Handle setext headers (check before processing line)
-      local isHeader, headerType = isSetextHeader(lines, i)
+      local isHeader, headerType = l_isSetextHeader(lines, i)
       if isHeader then
          local headerText = lines[i]
          if headerType == "=" then
                -- Use string.upper() for Lua 5.1 compatibility
-               headerText = applyFormat(string.upper(headerText), ANSI.BOLD .. ANSI.CYAN)
+               headerText = l_applyFormat(string.upper(headerText), ANSI.BOLD .. ANSI.CYAN)
          else
-            headerText = applyFormat(headerText, ANSI.BOLD)
+            headerText = l_applyFormat(headerText, ANSI.BOLD)
          end
          table.insert(result, headerText)
          i = i + 2 -- Skip the underline
@@ -425,18 +425,18 @@ function MarkdownProcessor._processInternal(markdownText)
       
       -- Headers (ATX style)
       if line:match("^#+%s") then
-         processedLine = processHeader(line)
+         processedLine = l_processHeader(line)
       -- List items
       elseif line:match("^%s*[-*+]%s") or line:match("^%s*%d+%.%s") then
-         processedLine = processListItem(line)
+         processedLine = l_processListItem(line)
       -- Regular text
       else
          -- Apply inline formatting
                -- Process images before links to avoid pattern conflicts
-         processedLine = processInlineCode(processedLine)
-         processedLine = processEmphasis(processedLine)
-               processedLine = processImages(processedLine)
-         processedLine = processLinks(processedLine)
+         processedLine = l_processInlineCode(processedLine)
+         processedLine = l_processEmphasis(processedLine)
+         processedLine = l_processImages(processedLine)
+         processedLine = l_processLinks(processedLine)
       end
       
       table.insert(result, processedLine)

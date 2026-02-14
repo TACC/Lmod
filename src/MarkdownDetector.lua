@@ -50,7 +50,7 @@ local MarkdownDetector = {}
 -- empty strings). Returns lines (trimmed) and originalLines.
 -- @param text The text to split
 -- @return lines, originalLines
-local function splitLines(text)
+local function l_splitLines(text)
    local lines = {}
    local originalLines = {}
    local pos = 1
@@ -87,7 +87,7 @@ function MarkdownDetector.isMarkdown(text)
    end
    
    -- Split into lines for analysis (version-independent: see LUA_GMATCH_BEHAVIOR.md)
-   local lines, originalLines = splitLines(text)
+   local lines, originalLines = l_splitLines(text)
    
    dbg.print{"Analyzing ", #lines, " lines"}
    
