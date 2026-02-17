@@ -71,7 +71,9 @@ jobs:
         with:
           luaVersion: ${{ matrix.luaVersion }}
       - name: install luarocks
-        uses: leafo/gh-actions-luarocks@v4
+        uses: leafo/gh-actions-luarocks@v6
+        with:
+          luaRocksVersion: ${{ matrix.luaVersion == '5.5.0' && '3.13.0' || '3.12.2' }}
       - name: install lua dependencies
         run: |
           luarocks install luaposix
