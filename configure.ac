@@ -990,8 +990,8 @@ fi
 
 IntLuaV=$( $PATH_TO_LUA  -e "_,_,M,m=_VERSION:gsub('Lua%s+',''):find('(%d+)%.(%d)'); print(math.floor(tonumber(M)*1000+tonumber(m)))")
 
-if test $IntLuaV -lt 5001 -o $IntLuaV -gt 5004; then
-  echo "Error: Lmod requires versions 5.1, 5.2, 5.3, or 5.4 You have: $LuaV"
+if test $IntLuaV -lt 5001 -o $IntLuaV -gt 5005; then
+  echo "Error: Lmod requires versions 5.1, 5.2, 5.3, 5.4, or 5.5 You have: $LuaV"
   rm -f makefile
   exit 1
 fi
