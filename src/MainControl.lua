@@ -394,28 +394,58 @@ local function l_format_dependency_commands(kA, kB, dbT)
          end
       end
    else
-      -- Fallback: generate individual commands per module
+      -- Fallback: no common path (disjoint hierarchies). Suggest only paths from
+      -- the most-constrained module(s), i.e. those with the fewest paths.
+      -- This avoids suggesting paths that would fail for other requested modules
+      -- (e.g., Python under GCCcore when QGIS only exists under GCC/OpenMPI).
+      local pathCountT = {}
+      local minCount   = math.huge
       for i = 1, #kB do
-         local userName = kB[i]
-         local parentAA = l_collect_all_parentAA(userName, dbT)
+         local userName  = kB[i]
+         local parentAA  = l_collect_all_parentAA(userName, dbT)
+         local nPaths    = (parentAA and #parentAA > 0) and #parentAA or 0
+         pathCountT[i]   = {userName = userName, parentAA = parentAA, n = nPaths}
+         if (nPaths > 0 and nPaths < minCount) then
+            minCount = nPaths
+         end
+      end
 
-         if (parentAA and #parentAA > 0) then
-            for j = 1, #parentAA do
-               local parentA = parentAA[j]
+      -- Collect candidate paths from most-constrained modules
+      local candidates = {}
+      for i = 1, #kB do
+         local entry = pathCountT[i]
+         if (entry.n > 0 and entry.n == minCount and entry.parentAA) then
+            for j = 1, #entry.parentAA do
+               local parentA = entry.parentAA[j]
                if (parentA and #parentA > 0) then
-                  local modulesToInclude = l_build_modules_for_path(parentA, failingSet)
-                  local cmd = "module load " .. concatTbl(parentA, " ") .. " " .. concatTbl(modulesToInclude, " ")
-                  local found = false
-                  for k = 1, #allCommands do
-                     if (allCommands[k] == cmd) then
-                        found = true
-                        break
-                     end
-                  end
-                  if (not found) then
-                     allCommands[#allCommands + 1] = cmd
-                  end
+                  candidates[#candidates + 1] = parentA
                end
+            end
+         end
+      end
+      -- When multiple modules tie (e.g. both n=1), prefer the longest path.
+      -- Longer paths are more specific and more likely to satisfy all modules
+      -- (e.g. GCC/OpenMPI pulls in GCCcore via depends_on).
+      local maxPathLen = 0
+      for i = 1, #candidates do
+         if (#candidates[i] > maxPathLen) then
+            maxPathLen = #candidates[i]
+         end
+      end
+      for i = 1, #candidates do
+         local parentA = candidates[i]
+         if (#parentA >= maxPathLen) then
+            local modulesToInclude = l_build_modules_for_path(parentA, failingSet)
+            local cmd = "module load " .. concatTbl(parentA, " ") .. " " .. concatTbl(modulesToInclude, " ")
+            local found = false
+            for k = 1, #allCommands do
+               if (allCommands[k] == cmd) then
+                  found = true
+                  break
+               end
+            end
+            if (not found) then
+               allCommands[#allCommands + 1] = cmd
             end
          end
       end
