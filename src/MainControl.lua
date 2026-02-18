@@ -426,6 +426,13 @@ local function l_format_dependency_commands(kA, kB, dbT)
       -- When multiple modules tie (e.g. both n=1), prefer the longest path.
       -- Longer paths are more specific and more likely to satisfy all modules
       -- (e.g. GCC/OpenMPI pulls in GCCcore via depends_on).
+      local nContributors = 0
+      for i = 1, #kB do
+         if (pathCountT[i].n > 0 and pathCountT[i].n == minCount) then
+            nContributors = nContributors + 1
+         end
+      end
+      local filterCandidates = (nContributors > 1)
       local maxPathLen = 0
       for i = 1, #candidates do
          if (#candidates[i] > maxPathLen) then
@@ -435,19 +442,46 @@ local function l_format_dependency_commands(kA, kB, dbT)
       for i = 1, #candidates do
          local parentA = candidates[i]
          if (#parentA >= maxPathLen) then
-            local modulesToInclude = l_build_modules_for_path(parentA, failingSet)
-            local cmd = "module load " .. concatTbl(parentA, " ") .. " " .. concatTbl(modulesToInclude, " ")
-            local found = false
-            for k = 1, #allCommands do
-               if (allCommands[k] == cmd) then
-                  found = true
-                  break
+            if (filterCandidates) then
+               local worksForAll = true
+               for j = 1, #kB do
+                  local otherAA = pathCountT[j].parentAA
+                  if (otherAA and #otherAA > 0) then
+                     local hasCompatible = false
+                     for k = 1, #otherAA do
+                        if (l_paths_compatible(parentA, otherAA[k])) then
+                           hasCompatible = true
+                           break
+                        end
+                     end
+                     if (not hasCompatible) then
+                        worksForAll = false
+                        break
+                     end
+                  end
+               end
+               if (not worksForAll) then
+                  parentA = nil
                end
             end
-            if (not found) then
-               allCommands[#allCommands + 1] = cmd
+            if (parentA and #parentA > 0) then
+               local modulesToInclude = l_build_modules_for_path(parentA, failingSet)
+               local cmd = "module load " .. concatTbl(parentA, " ") .. " " .. concatTbl(modulesToInclude, " ")
+               local found = false
+               for k = 1, #allCommands do
+                  if (allCommands[k] == cmd) then
+                     found = true
+                     break
+                  end
+               end
+               if (not found) then
+                  allCommands[#allCommands + 1] = cmd
+               end
             end
          end
+      end
+      if (#allCommands == 0 and filterCandidates and nContributors >= 2) then
+         return "   These modules cannot be loaded together - they require incompatible toolchains.\n"
       end
    end
 

@@ -48,6 +48,17 @@ The suggestion must include all user-requested modules that make sense with each
 
 Example: User runs ``module load gcc/10.0 gcc/11 boost/1.75.0``. Only ``boost`` fails. The dependency path is ``gcc/10.0``. We include ``boost/1.75.0`` (failing) but not ``gcc/11`` (same short name as path, different version).
 
+Disjoint Hierarchies (Issue #805)
+---------------------------------
+
+When modules live in disjoint hierarchies (e.g., Python under GCCcore, QGIS under GCC/OpenMPI), there is no common path. The **fallback** logic applies:
+
+1. **Most-constrained modules**: Collect paths only from modules with the fewest paths. For Python (3 paths) + QGIS (1 path), only QGIS contributes. We suggest ``module load GCC/12.3.0 OpenMPI/4.1.5 Python QGIS`` (which works via depends_on).
+
+2. **Incompatible toolchains**: When multiple modules contribute candidates (both n=1), we filter: keep only paths that are compatible with *all* failing modules (``l_paths_compatible``). If no path passes, we show: *"These modules cannot be loaded together - they require incompatible toolchains."* instead of invalid suggestions.
+
+See `rt/load_suggest_cmd_805/` for regression tests (Python+QGIS and CubeWriter+QGIS).
+
 Key Functions
 -------------
 
