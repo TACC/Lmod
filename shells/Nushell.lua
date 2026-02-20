@@ -115,7 +115,7 @@ function Nushell.expandVar(self, k, v, vType)
    
    -- Handle path-like variables by converting to nushell list format
    -- BUT: __LMOD_REF_COUNT_* variables are encoded strings, not actual paths
-   if (vType == "path" and not k:match("^__LMOD_REF_COUNT_")) then
+   if (vType == "path" and not k:match("^__LMOD_REF_COUNT_")) and k ~= "MODULEPATH" then
       lineA[#lineA + 1] = "$env."
       lineA[#lineA + 1] = k
       lineA[#lineA + 1] = " = ["
