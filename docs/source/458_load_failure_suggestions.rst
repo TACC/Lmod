@@ -57,7 +57,9 @@ When modules live in disjoint hierarchies (e.g., Python under GCCcore, QGIS unde
 
 2. **Incompatible toolchains**: When multiple modules contribute candidates (both n=1), we filter: keep only paths that are compatible with *all* failing modules (``l_paths_compatible``). If no path passes, we show: *"These modules cannot be loaded together - they require incompatible toolchains."* instead of invalid suggestions.
 
-See `rt/load_suggest_cmd_805/` for regression tests (Python+QGIS and CubeWriter+QGIS).
+3. **Pre-loaded toolchain**: When the user has already loaded a toolchain (e.g., ``GCC/12.3.0 OpenMPI/4.1.5``) and a failing module requires a different one (e.g., ``CubeWriter`` under ``GCCcore/13.3.0``), we filter out suggestions that conflict with the loaded paths. If all suggestions are filtered, we show: *"The requested module(s) require a toolchain that is incompatible with the currently loaded environment."*
+
+See `rt/load_suggest_cmd_805/` for regression tests (Python+QGIS, CubeWriter+QGIS, and pre-loaded toolchain case).
 
 Key Functions
 -------------

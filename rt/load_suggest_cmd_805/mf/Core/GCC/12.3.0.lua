@@ -22,7 +22,7 @@ conflict("GCC")
 
 depends_on("GCCcore/12.3.0")
 
-depends_on("binutils/2.40")
+-- depends_on("binutils/2.40")  -- omitted in minimal test tree
 local mroot = os.getenv("MODULEPATH_ROOT") or ""
 prepend_path("MODULEPATH", pathJoin(mroot, "Compiler", "GCC", "12.3.0"))
 if isDir(pathJoin(os.getenv("HOME") or "HOME_NOT_DEFINED", pathJoin("easybuild/modules", "all", "Compiler/GCC/12.3.0"))) then

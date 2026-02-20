@@ -350,13 +350,59 @@ local function l_build_modules_for_path(path, failingSet)
 end
 
 --------------------------------------------------------------------------
+-- Collect parent paths of currently loaded modules from MT.
+-- Used to filter suggestions that would conflict with the loaded toolchain.
+-- @param mt Module table (FrameStk:mt())
+-- @param dbT Spider database
+-- @return Array of path arrays, or empty if none
+local function l_collect_loaded_paths(mt, dbT)
+   if (not mt or not dbT) then return {} end
+   local activeA = mt:list("fullName", "active")
+   if (not activeA or #activeA == 0) then return {} end
+   local loadedPathsAA = {}
+   local seen = {}
+   for i = 1, #activeA do
+      local fullName = activeA[i]
+      if (type(fullName) == "table") then fullName = fullName.fullName end
+      local parentAA = l_collect_all_parentAA(fullName, dbT)
+      if (parentAA) then
+         for j = 1, #parentAA do
+            local p = parentAA[j]
+            if (p and #p > 0) then
+               local key = concatTbl(p, "|")
+               if (not seen[key]) then
+                  seen[key] = true
+                  loadedPathsAA[#loadedPathsAA + 1] = p
+               end
+            end
+         end
+      end
+   end
+   return loadedPathsAA
+end
+
+--------------------------------------------------------------------------
+-- Check if a path is compatible with at least one loaded path.
+-- Used to reject suggestions that would conflict with the current toolchain.
+local function l_path_compatible_with_loaded(path, loadedPathsAA)
+   if (not loadedPathsAA or #loadedPathsAA == 0) then return true end
+   for i = 1, #loadedPathsAA do
+      if (l_paths_compatible(path, loadedPathsAA[i])) then
+         return true
+      end
+   end
+   return false
+end
+
+--------------------------------------------------------------------------
 -- Helper function to format dependency commands for display
 -- Returns formatted string with ready-to-copy-paste commands, or nil if
 -- no dependencies found.
 -- @param kA Array of failing module show names
 -- @param kB Array of failing module user names
 -- @param dbT The spider database table
-local function l_format_dependency_commands(kA, kB, dbT)
+-- @param loadedPathsAA Paths of currently loaded modules (optional, for filtering)
+local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA)
    if (not dbT or next(dbT) == nil) then
       return nil
    end
@@ -377,7 +423,7 @@ local function l_format_dependency_commands(kA, kB, dbT)
       -- Generate combined commands with all modules
       for i = 1, #commonPaths do
          local path = commonPaths[i]
-         if (path and #path > 0) then
+         if (path and #path > 0 and l_path_compatible_with_loaded(path, loadedPathsAA)) then
             local modulesToInclude = l_build_modules_for_path(path, failingSet)
             local cmd = "module load " .. concatTbl(path, " ") .. " " .. concatTbl(modulesToInclude, " ")
             -- Avoid duplicates
@@ -464,7 +510,7 @@ local function l_format_dependency_commands(kA, kB, dbT)
                   parentA = nil
                end
             end
-            if (parentA and #parentA > 0) then
+            if (parentA and #parentA > 0 and l_path_compatible_with_loaded(parentA, loadedPathsAA)) then
                local modulesToInclude = l_build_modules_for_path(parentA, failingSet)
                local cmd = "module load " .. concatTbl(parentA, " ") .. " " .. concatTbl(modulesToInclude, " ")
                local found = false
@@ -483,6 +529,10 @@ local function l_format_dependency_commands(kA, kB, dbT)
       if (#allCommands == 0 and filterCandidates and nContributors >= 2) then
          return "   These modules cannot be loaded together - they require incompatible toolchains.\n"
       end
+   end
+
+   if (#allCommands == 0 and loadedPathsAA and #loadedPathsAA > 0) then
+      return "   The requested module(s) require a toolchain that is incompatible with the currently loaded environment.\n"
    end
 
    if (#allCommands == 0) then
@@ -579,7 +629,9 @@ local function l_error_on_missing_loaded_modules(aa, bb)
                   return s, d
                end)
                if (build_ok and dbT and next(dbT) ~= nil) then
-                  cmdText = l_format_dependency_commands(kA, kB, dbT)
+                  local mt = FrameStk:singleton():mt()
+                  local loadedPathsAA = l_collect_loaded_paths(mt, dbT)
+                  cmdText = l_format_dependency_commands(kA, kB, dbT, loadedPathsAA)
                end
             end
          end

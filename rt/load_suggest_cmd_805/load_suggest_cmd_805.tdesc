@@ -45,6 +45,12 @@ testdescript = {
      runLmod load CubeWriter QGIS                                    # 2
 
      ############################################################
+     # Test: load GCC/OpenMPI then CubeWriter QGIS - wrong toolchain already loaded.
+     # CubeWriter needs GCCcore/13.3.0; GCC/12.3.0 OpenMPI is loaded.
+     # Expected: "incompatible with the currently loaded environment" (no invalid suggestion)
+     runLmod load GCC/12.3.0 OpenMPI/4.1.5 CubeWriter QGIS             # 3
+
+     ############################################################
      # Cleanup and result processing
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

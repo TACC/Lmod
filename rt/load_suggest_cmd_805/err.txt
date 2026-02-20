@@ -13,3 +13,10 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CubeWriter QGIS
 Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "CubeWriter", "QGIS"
    Try: "module spider CubeWriter QGIS" to see how to load the module(s).
    These modules cannot be loaded together - they require incompatible toolchains.
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load GCC/12.3.0 OpenMPI/4.1.5 CubeWriter QGIS
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "CubeWriter"
+   Try: "module spider CubeWriter" to see how to load the module(s).
+   The requested module(s) require a toolchain that is incompatible with the currently loaded environment.
