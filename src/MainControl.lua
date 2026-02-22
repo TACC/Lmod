@@ -362,17 +362,36 @@ local function l_collect_loaded_paths(mt, dbT)
    local loadedPathsAA = {}
    local seen = {}
    for i = 1, #activeA do
-      local fullName = activeA[i]
-      if (type(fullName) == "table") then fullName = fullName.fullName end
-      local parentAA = l_collect_all_parentAA(fullName, dbT)
-      if (parentAA) then
-         for j = 1, #parentAA do
-            local p = parentAA[j]
-            if (p and #p > 0) then
-               local key = concatTbl(p, "|")
-               if (not seen[key]) then
-                  seen[key] = true
-                  loadedPathsAA[#loadedPathsAA + 1] = p
+      local obj = activeA[i]
+      local sn = (type(obj) == "table") and obj.sn or nil
+      local fn = (type(obj) == "table") and obj.fn or nil
+      if (sn and fn) then
+         local moduleData = dbT[sn]
+         local entry = nil
+         if (moduleData) then
+            entry = moduleData[fn]
+            if (not entry and path_regularize) then
+               local fnNorm = path_regularize(fn)
+               for k, v in pairs(moduleData) do
+                  if (path_regularize(k) == fnNorm) then
+                     entry = v
+                     break
+                  end
+               end
+            end
+         end
+         if (entry) then
+            local parentAA = entry.parentAA
+            if (parentAA) then
+               for j = 1, #parentAA do
+                  local p = parentAA[j]
+                  if (p and #p > 0) then
+                     local key = concatTbl(p, "|")
+                     if (not seen[key]) then
+                        seen[key] = true
+                        loadedPathsAA[#loadedPathsAA + 1] = p
+                     end
+                  end
                end
             end
          end

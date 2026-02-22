@@ -3,6 +3,12 @@
 -- Test for Issue #805: Disjoint hierarchy (Python under GCCcore, QGIS under
 -- GCC+OpenMPI). When commonPaths is empty, suggest only paths from the
 -- most-constrained module (QGIS has 1 path, Python has 3).
+--
+-- Step 3 also regresses the full-stack scenario: ml GCC/OpenMPI QGIS CubeWriter
+-- when CubeWriter needs a different toolchain. Must show "incompatible with
+-- currently loaded environment", not "module load GCCcore/13.3.0 ...".
+-- To validate with reporter's full tree (f_m_s.tar.gz): extract, set
+-- MODULEPATH_ROOT and MODULEPATH, run: ml GCC/12.3.0 OpenMPI/4.1.5 QGIS CubeWriter
 ------------------------------------------------------------------------------
 
 local testName = "load_suggest_cmd_805"
