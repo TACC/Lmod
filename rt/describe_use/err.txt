@@ -21,10 +21,8 @@ step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing describe foobar
 ===========================
 Collection "foobar" contains:
-
   Module paths (run these first):
-    module use ProjectDIR/rt/describe_use/mf/Extra
-
+   module use ProjectDIR/rt/describe_use/mf/Extra
   Modules:
    1) foo/2.0
 ===========================
@@ -36,10 +34,8 @@ step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing describe foobar
 ===========================
 Collection "foobar" contains:
-
   Module paths (run these first):
-    module use ProjectDIR/rt/describe_use/mf/Extra
-
+   module use ProjectDIR/rt/describe_use/mf/Extra
   Modules:
    1) foo/2.0
 ===========================
@@ -56,4 +52,7 @@ step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing describe nopaths
 ===========================
 Collection "nopaths" contains:
+  Module paths (run these first):
+   module use ProjectDIR/rt/describe_use/mf/Extra
+  Modules:
    1) foo/1.0
