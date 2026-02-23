@@ -350,13 +350,78 @@ local function l_build_modules_for_path(path, failingSet)
 end
 
 --------------------------------------------------------------------------
+-- Collect parent paths of currently loaded modules from MT.
+-- Used to filter suggestions that would conflict with the loaded toolchain.
+-- @param mt Module table (FrameStk:mt())
+-- @param dbT Spider database
+-- @return Array of path arrays, or empty if none
+local function l_collect_loaded_paths(mt, dbT)
+   if (not mt or not dbT) then return {} end
+   local activeA = mt:list("fullName", "active")
+   if (not activeA or #activeA == 0) then return {} end
+   local loadedPathsAA = {}
+   local seen = {}
+   for i = 1, #activeA do
+      local obj = activeA[i]
+      local sn = (type(obj) == "table") and obj.sn or nil
+      local fn = (type(obj) == "table") and obj.fn or nil
+      if (sn and fn) then
+         local moduleData = dbT[sn]
+         local entry = nil
+         if (moduleData) then
+            entry = moduleData[fn]
+            if (not entry and path_regularize) then
+               local fnNorm = path_regularize(fn)
+               for k, v in pairs(moduleData) do
+                  if (path_regularize(k) == fnNorm) then
+                     entry = v
+                     break
+                  end
+               end
+            end
+         end
+         if (entry) then
+            local parentAA = entry.parentAA
+            if (parentAA) then
+               for j = 1, #parentAA do
+                  local p = parentAA[j]
+                  if (p and #p > 0) then
+                     local key = concatTbl(p, "|")
+                     if (not seen[key]) then
+                        seen[key] = true
+                        loadedPathsAA[#loadedPathsAA + 1] = p
+                     end
+                  end
+               end
+            end
+         end
+      end
+   end
+   return loadedPathsAA
+end
+
+--------------------------------------------------------------------------
+-- Check if a path is compatible with at least one loaded path.
+-- Used to reject suggestions that would conflict with the current toolchain.
+local function l_path_compatible_with_loaded(path, loadedPathsAA)
+   if (not loadedPathsAA or #loadedPathsAA == 0) then return true end
+   for i = 1, #loadedPathsAA do
+      if (l_paths_compatible(path, loadedPathsAA[i])) then
+         return true
+      end
+   end
+   return false
+end
+
+--------------------------------------------------------------------------
 -- Helper function to format dependency commands for display
 -- Returns formatted string with ready-to-copy-paste commands, or nil if
 -- no dependencies found.
 -- @param kA Array of failing module show names
 -- @param kB Array of failing module user names
 -- @param dbT The spider database table
-local function l_format_dependency_commands(kA, kB, dbT)
+-- @param loadedPathsAA Paths of currently loaded modules (optional, for filtering)
+local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA)
    if (not dbT or next(dbT) == nil) then
       return nil
    end
@@ -377,7 +442,7 @@ local function l_format_dependency_commands(kA, kB, dbT)
       -- Generate combined commands with all modules
       for i = 1, #commonPaths do
          local path = commonPaths[i]
-         if (path and #path > 0) then
+         if (path and #path > 0 and l_path_compatible_with_loaded(path, loadedPathsAA)) then
             local modulesToInclude = l_build_modules_for_path(path, failingSet)
             local cmd = "module load " .. concatTbl(path, " ") .. " " .. concatTbl(modulesToInclude, " ")
             -- Avoid duplicates
@@ -394,31 +459,99 @@ local function l_format_dependency_commands(kA, kB, dbT)
          end
       end
    else
-      -- Fallback: generate individual commands per module
+      -- Fallback: no common path (disjoint hierarchies). Suggest only paths from
+      -- the most-constrained module(s), i.e. those with the fewest paths.
+      -- This avoids suggesting paths that would fail for other requested modules
+      -- (e.g., Python under GCCcore when QGIS only exists under GCC/OpenMPI).
+      local pathCountT = {}
+      local minCount   = math.huge
       for i = 1, #kB do
-         local userName = kB[i]
-         local parentAA = l_collect_all_parentAA(userName, dbT)
+         local userName  = kB[i]
+         local parentAA  = l_collect_all_parentAA(userName, dbT)
+         local nPaths    = (parentAA and #parentAA > 0) and #parentAA or 0
+         pathCountT[i]   = {userName = userName, parentAA = parentAA, n = nPaths}
+         if (nPaths > 0 and nPaths < minCount) then
+            minCount = nPaths
+         end
+      end
 
-         if (parentAA and #parentAA > 0) then
-            for j = 1, #parentAA do
-               local parentA = parentAA[j]
+      -- Collect candidate paths from most-constrained modules
+      local candidates = {}
+      for i = 1, #kB do
+         local entry = pathCountT[i]
+         if (entry.n > 0 and entry.n == minCount and entry.parentAA) then
+            for j = 1, #entry.parentAA do
+               local parentA = entry.parentAA[j]
                if (parentA and #parentA > 0) then
-                  local modulesToInclude = l_build_modules_for_path(parentA, failingSet)
-                  local cmd = "module load " .. concatTbl(parentA, " ") .. " " .. concatTbl(modulesToInclude, " ")
-                  local found = false
-                  for k = 1, #allCommands do
-                     if (allCommands[k] == cmd) then
-                        found = true
-                        break
-                     end
-                  end
-                  if (not found) then
-                     allCommands[#allCommands + 1] = cmd
-                  end
+                  candidates[#candidates + 1] = parentA
                end
             end
          end
       end
+      -- When multiple modules tie (e.g. both n=1), prefer the longest path.
+      -- Longer paths are more specific and more likely to satisfy all modules
+      -- (e.g. GCC/OpenMPI pulls in GCCcore via depends_on).
+      local nContributors = 0
+      for i = 1, #kB do
+         if (pathCountT[i].n > 0 and pathCountT[i].n == minCount) then
+            nContributors = nContributors + 1
+         end
+      end
+      local filterCandidates = (nContributors > 1)
+      local maxPathLen = 0
+      for i = 1, #candidates do
+         if (#candidates[i] > maxPathLen) then
+            maxPathLen = #candidates[i]
+         end
+      end
+      for i = 1, #candidates do
+         local parentA = candidates[i]
+         if (#parentA >= maxPathLen) then
+            if (filterCandidates) then
+               local worksForAll = true
+               for j = 1, #kB do
+                  local otherAA = pathCountT[j].parentAA
+                  if (otherAA and #otherAA > 0) then
+                     local hasCompatible = false
+                     for k = 1, #otherAA do
+                        if (l_paths_compatible(parentA, otherAA[k])) then
+                           hasCompatible = true
+                           break
+                        end
+                     end
+                     if (not hasCompatible) then
+                        worksForAll = false
+                        break
+                     end
+                  end
+               end
+               if (not worksForAll) then
+                  parentA = nil
+               end
+            end
+            if (parentA and #parentA > 0 and l_path_compatible_with_loaded(parentA, loadedPathsAA)) then
+               local modulesToInclude = l_build_modules_for_path(parentA, failingSet)
+               local cmd = "module load " .. concatTbl(parentA, " ") .. " " .. concatTbl(modulesToInclude, " ")
+               local found = false
+               for k = 1, #allCommands do
+                  if (allCommands[k] == cmd) then
+                     found = true
+                     break
+                  end
+               end
+               if (not found) then
+                  allCommands[#allCommands + 1] = cmd
+               end
+            end
+         end
+      end
+      if (#allCommands == 0 and filterCandidates and nContributors >= 2) then
+         return "   These modules cannot be loaded together - they require incompatible toolchains.\n"
+      end
+   end
+
+   if (#allCommands == 0 and loadedPathsAA and #loadedPathsAA > 0) then
+      return "   The requested module(s) require a toolchain that is incompatible with the currently loaded environment.\n"
    end
 
    if (#allCommands == 0) then
@@ -520,7 +653,9 @@ local function l_error_on_missing_loaded_modules(aa, bb)
                   return s, d
                end)
                if (build_ok and dbT and next(dbT) ~= nil) then
-                  cmdText = l_format_dependency_commands(kA, kB, dbT)
+                  local mt = FrameStk:singleton():mt()
+                  local loadedPathsAA = l_collect_loaded_paths(mt, dbT)
+                  cmdText = l_format_dependency_commands(kA, kB, dbT, loadedPathsAA)
                end
             end
          end

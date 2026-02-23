@@ -44,3 +44,17 @@ by creating a file called: /path/to/site_msgs.lua::
 
 Then configure Lmod (or set env var. LMOD_SITE_MSG_FILE) to use
 /path/to/site_msg.lua.
+
+Placeholders in Error Messages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Some messages use placeholders that Lmod fills at runtime. The
+``e_Failed_Load_2`` message (shown when modules exist but cannot load due to
+missing dependencies) includes ``%{suggest_cmd}``. Lmod replaces this with
+ready-to-copy-paste ``module load`` commands, or an empty string if no
+suggestions are available (e.g., spider cache unavailable).
+
+When tailoring or translating this message, keep ``%{suggest_cmd}`` exactly as
+written. Translate the surrounding text (e.g., "Or load any one of these
+options:") as needed. See :ref:`load_failure_suggestions` for implementation
+details.

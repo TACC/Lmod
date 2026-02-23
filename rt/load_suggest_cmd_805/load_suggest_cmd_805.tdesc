@@ -1,0 +1,84 @@
+-- -*- lua -*-
+------------------------------------------------------------------------------
+-- Test for Issue #805: Disjoint hierarchy (Python under GCCcore, QGIS under
+-- GCC+OpenMPI). When commonPaths is empty, suggest only paths from the
+-- most-constrained module (QGIS has 1 path, Python has 3).
+--
+-- Step 3 also regresses the full-stack scenario: ml GCC/OpenMPI QGIS CubeWriter
+-- when CubeWriter needs a different toolchain. Must show "incompatible with
+-- currently loaded environment", not "module load GCCcore/13.3.0 ...".
+-- To validate with reporter's full tree (f_m_s.tar.gz): extract, set
+-- MODULEPATH_ROOT and MODULEPATH, run: ml GCC/12.3.0 OpenMPI/4.1.5 QGIS CubeWriter
+------------------------------------------------------------------------------
+
+local testName = "load_suggest_cmd_805"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+     Test Issue #805: Disjoint hierarchies. Python under GCCcore (many paths),
+     QGIS under GCC/OpenMPI (one path). Should suggest only the valid path.
+   ]],
+   keywords = {testName, "issue805", "load_suggest", "disjoint_hierarchy"},
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH_ROOT=$(testDir)/mf;    export MODULEPATH_ROOT
+     MODULEPATH=$MODULEPATH_ROOT/Core; export MODULEPATH
+
+     remove_generated_lmod_files
+
+     ############################################################
+     # Test: load Python QGIS with only Core - both fail.
+     # Python has 3 paths (GCCcore/12.3.0, 13.2.0, 13.3.0)
+     # QGIS has 1 path (GCC/12.3.0 OpenMPI/4.1.5)
+     # Expected: only "module load GCC/12.3.0 OpenMPI/4.1.5 Python QGIS"
+     runLmod load Python QGIS                                        # 1
+
+     ############################################################
+     # Test: load CubeWriter QGIS - incompatible toolchains.
+     # CubeWriter under GCCcore/13.3.0, QGIS under GCC/12.3.0 OpenMPI.
+     # Expected: "These modules cannot be loaded together" (no invalid suggestion)
+     runLmod load CubeWriter QGIS                                    # 2
+
+     ############################################################
+     # Test: load GCC/OpenMPI then CubeWriter QGIS - wrong toolchain already loaded.
+     # CubeWriter needs GCCcore/13.3.0; GCC/12.3.0 OpenMPI is loaded.
+     # Expected: "incompatible with the currently loaded environment" (no invalid suggestion)
+     runLmod load GCC/12.3.0 OpenMPI/4.1.5 CubeWriter QGIS             # 3
+
+     ############################################################
+     # Cleanup and result processing
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
