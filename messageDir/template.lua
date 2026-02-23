@@ -270,6 +270,8 @@ return {
      -- Other strings:
      --------------------------------------------------------------------------
      coll_contains  = nil,
+     coll_modules   = nil,
+     coll_use_paths = nil,
      currLoadedMods = nil,
      keyword_msg    = nil,
      lmodSystemName = nil,

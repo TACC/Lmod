@@ -1,0 +1,59 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing describe
+===========================
+Lmod Warning: No collection named "default" found.
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/describe_use/mf/Extra
+===========================
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/2.0
+===========================
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save foobar
+===========================
+Saved current collection of modules to: "foobar"
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing describe foobar
+===========================
+Collection "foobar" contains:
+
+  Module paths (run these first):
+    module use ProjectDIR/rt/describe_use/mf/Extra
+
+  Modules:
+   1) foo/2.0
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing describe foobar
+===========================
+Collection "foobar" contains:
+
+  Module paths (run these first):
+    module use ProjectDIR/rt/describe_use/mf/Extra
+
+  Modules:
+   1) foo/2.0
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/1.0
+===========================
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save nopaths
+===========================
+Saved current collection of modules to: "nopaths"
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing describe nopaths
+===========================
+Collection "nopaths" contains:
+   1) foo/1.0
