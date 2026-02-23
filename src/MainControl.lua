@@ -498,7 +498,12 @@ local function l_error_on_missing_loaded_modules(aa, bb)
 
 
       if (#uA > 0) then
-         mcp:report{msg="e_Failed_Load", module_list = concatTbl(uA, " ") }
+         local multi_load_hint = ""
+         if (#s_allRequestedT > 1) then
+            multi_load_hint = "\n" .. i18n("e_Failed_Load_multi_hint", {}) .. "\n"
+         end
+         mcp:report{msg="e_Failed_Load", module_list = concatTbl(uA, " "),
+                    multi_load_hint = multi_load_hint}
       end
 
       if (#kA > 0) then

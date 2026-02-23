@@ -131,7 +131,8 @@ It is also possible your cache file is out-of-date; it may help to try:
   $   module --ignore_cache load %{module_list}
 
 Also make sure that all modulefiles written in TCL start with the string #%Module
-]==],
+%{multi_load_hint}]==],
+     e_Failed_Load_multi_hint = "If this module depends on others you loaded, try loading prerequisites first, then this module in a separate command.",
      e_Failed_Load_2       = [==[These module(s) or extension(s) exist but cannot be loaded as requested: %{kA}
    Try: "module spider %{kB}" to see how to load the module(s).
 %{suggest_cmd}]==],

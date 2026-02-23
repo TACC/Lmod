@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 9.0.5 2025-12-10 11:49 -06:00
+Modules based on Lua: Version 9.1.1 2026-02-12 13:13 -06:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -178,6 +178,7 @@ Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore_cache load "nonexistent/1.0"
 Also make sure that all modulefiles written in TCL start with the string #%Module
+If this module depends on others you loaded, try loading prerequisites first, then this module in a separate command.
 ===========================
 step 23
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 boost/1.75.0 hdf5/1.12.0
@@ -322,6 +323,7 @@ Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore_cache load "nonexistent/1.0"
 Also make sure that all modulefiles written in TCL start with the string #%Module
+If this module depends on others you loaded, try loading prerequisites first, then this module in a separate command.
 ===========================
 step 44
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
