@@ -513,6 +513,8 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
      -- Other strings:
      --------------------------------------------------------------------------
      coll_contains  = "Collection \"%{collection}\" contains: \n",
+     coll_modules   = "  Modules:\n",
+     coll_use_paths = "  Module paths (run these first):\n",
      currLoadedMods = "Currently Loaded Modules",
      keyword_msg    = [==[
 %{border}

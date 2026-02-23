@@ -779,8 +779,11 @@ function CollectionLst(collection)
    local cwidth      = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
    local path        = l_find_a_collection(collection)
 
-   local a           = mt:reportContents{fn=path, name=collection}
+   local a, usePathA = mt:reportContents{fn=path, name=collection}
    if (optionTbl.terse) then
+      for i = #usePathA, 1, -1 do
+         shell:echo("module use " .. usePathA[i] .. "\n")
+      end
       for i = 1,#a do
          shell:echo(a[i].."\n")
       end
@@ -791,6 +794,15 @@ function CollectionLst(collection)
          return
       end
       shell:echo(i18n("coll_contains",{collection=collection}))
+      if (#usePathA > 0) then
+         local usePathsMsg = i18n("coll_use_paths")
+         if (usePathsMsg) then shell:echo(usePathsMsg) end
+         for i = #usePathA, 1, -1 do
+            shell:echo("   module use " .. usePathA[i] .. "\n")
+         end
+         local modulesMsg = i18n("coll_modules")
+         if (modulesMsg) then shell:echo(modulesMsg) end
+      end
       local b = {}
       for i = 1,#a do
          b[#b+1] = { "   " .. tostring(i) .. ")", a[i] }
