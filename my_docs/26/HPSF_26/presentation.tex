@@ -1,0 +1,149 @@
+
+% Lmod SC25 Booth Talk Presentation (Refined)
+% Author: Matthew Cawood (TACC)
+% Location: my_docs/25/sc_25_booth_talk/presentation.tex
+
+\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\title[Lmod at SC25]{Lmod: The Lua-Based Environment Module System}
+\subtitle{Texas Advanced Computing Center (TACC) Booth Talk -- Supercomputing 2025}
+\author[M. Cawood]{Matthew Cawood}
+\date{SC25 -- St. Louis, Missouri}
+
+\begin{document}
+
+% --- Title Slide ---
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% --- What is Lmod ---
+\begin{frame}{What is Lmod?}
+  \begin{columns}
+  \begin{column}{0.55\textwidth}
+    \begin{itemize}
+      \item Lmod is a \textbf{Lua-based environment module system} for managing software stacks on HPC systems.
+      \item Supports both \textbf{Lua and Tcl modulefiles}.
+      \item Enables \textbf{hierarchical MODULEPATHs}, \textbf{module families}, and \textbf{site policy enforcement}.
+      \item Used at major HPC centers worldwide including TACC, NERSC, CSCS, and BSC.
+    \end{itemize}
+  \end{column}
+  \begin{column}{0.45\textwidth}
+    \centering
+    \includegraphics[width=0.9\textwidth]{Lmod-4color@2x.png}
+  \end{column}
+  \end{columns}
+\end{frame}
+
+% --- Recap SC24 ---
+\begin{frame}{Recap: Where We Left Off (SC24)}
+  \begin{itemize}
+    \item Focused on improving modulefile scripting, hooks, and hierarchy handling.
+    \item Introduced the next-generation tracking database for usage collection.
+    \item Simplified configuration and policy definition for large sites.
+    \item Feedback from SC24 deployments drove the Lmod 9 feature roadmap.
+  \end{itemize}
+\end{frame}
+
+% --- Transition Slide: From 8.x to 9.x ---
+\begin{frame}{From 8.x to 9.x – What Changed Under the Hood}
+  \begin{itemize}
+    \item Consolidated over 60 feature and performance patches into the new 9.x branch.
+    \item New dependency engine reduces redundant file reads and improves load order resolution.
+    \item Tracking database re-engineered – up to \textbf{100× smaller footprint} at TACC.
+    \item Expanded site-policy features: irreversible unloads, hide/forbid logic.
+    \item Maintains full backward compatibility with existing 8.x stacks.
+  \end{itemize}
+\end{frame}
+
+% --- New Features ---
+\begin{frame}{New Features and Enhancements}
+  \begin{itemize}
+    \item \textbf{Irreversible mode}: unloading can now set environment variables for cleanup.
+    \item \textbf{depends\_on\_any()}: allows dependency on any member of a module set.
+    \item \textbf{Enhanced hide\{\}/forbid\{\}}: expression-based control by user, group, or date.
+    \item \textbf{Optional tracking v2}: database shrinks 100× while preserving analytics.
+    \item \textbf{New hooks (e.g., decorate\_module)} for module tagging and logging.
+  \end{itemize}
+\end{frame}
+
+% --- Performance ---
+\begin{frame}{Performance and Reliability}
+  \begin{itemize}
+    \item Spider cache and dependency engine now reduce `module avail` from 4s → <0.5s on 40k-module trees.
+    \item Refactored collection handling avoids NFS metadata bottlenecks.
+    \item Improved \texttt{family()} logic speeds hierarchical resolution.
+    \item Expanded compatibility: bash, zsh, fish, and nushell all supported.
+  \end{itemize}
+\end{frame}
+
+% --- Documentation ---
+\begin{frame}{Documentation and Usability}
+  \begin{itemize}
+    \item Major expansion of \href{https://lmod.readthedocs.io}{lmod.readthedocs.io} with in-depth technical docs.
+    \item Added sections on advanced hooks, tracking v2, and policy examples.
+    \item Clear migration guide from 8.x → 9.x.
+    \item Real-world stats: TACC reduced usage DB size from 1 GB/day → 10 MB/day.
+  \end{itemize}
+\end{frame}
+
+% --- Policy ---
+\begin{frame}{Site Policy and Governance}
+  \begin{itemize}
+    \item Conditional \textbf{hide()/forbid()} rules by user, group, or time window.
+    \item Deprecation warnings for outdated compilers or toolchains.
+    \item Irreversible unloads enable post-cleanup or variable resets.
+    \item Simplifies compliance and software lifecycle management.
+  \end{itemize}
+\end{frame}
+
+% --- Deployment ---
+\begin{frame}{Operational Impact at TACC and Partner Sites}
+  \begin{itemize}
+    \item On Frontera and Stampede3: module load latency \textbf{reduced by 40\%} in deep hierarchies.
+    \item Tracking database ingest reduced \textbf{100×}.
+    \item GPU/CPU module tagging integrated via site hooks for usage analytics.
+    \item Single \texttt{lmod\_config.lua} replaced multiple legacy init scripts.
+  \end{itemize}
+\end{frame}
+
+% --- Roadmap ---
+\begin{frame}{Looking Ahead}
+  \begin{itemize}
+    \item Ongoing performance profiling for massive module trees (>100k modules).
+    \item Additional shell and scheduler integration (Slurm, PBSPro).
+    \item Exploring distributed tracking and federated analytics.
+    \item Continued collaboration via GitHub and EUM workshops.
+  \end{itemize}
+\end{frame}
+
+% --- Usage by Country ---
+\begin{frame}
+  \begin{center}
+    \includegraphics[width=\textwidth]{Lmod_doc_usage_by_country.png}
+  \end{center}
+\end{frame}
+
+% --- Get Involved ---
+\begin{frame}{Get Involved}
+  \begin{itemize}
+    \item Source: \href{https://github.com/TACC/Lmod}{github.com/TACC/Lmod}
+    \item Docs: \href{https://lmod.readthedocs.io}{lmod.readthedocs.io}
+    \item Mailing lists: \texttt{lmod-announce}, \texttt{lmod-users}.
+    \item Contribute: report issues, propose hooks, share use cases.
+  \end{itemize}
+\end{frame}
+
+% --- Final Slide ---
+\begin{frame}{Thank You}
+  \begin{center}
+    \Large Questions? Feedback?\\[3mm]
+    \small Contact: \texttt{mcawood@tacc.utexas.edu} \\[3mm]
+    \href{https://lmod.readthedocs.io}{\texttt{lmod.readthedocs.io}}
+  \end{center}
+\end{frame}
+
+\end{document}
