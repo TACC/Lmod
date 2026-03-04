@@ -170,7 +170,8 @@ Overview and Internal Structure of Lmod
    455_mt_deepdive
    456_vart_deepdive
    457_markdown_deepdive
-   
+   458_load_failure_suggestions
+
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^

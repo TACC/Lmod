@@ -7,6 +7,7 @@ jobs:
       strategy:
         matrix:
           os: [ubuntu-latest, macos-latest]
+          # 5.5 excluded: luaposix/lua-term/etc lack 5.5 support (as of 2026-02)
           luaVersion: ["5.4", "5.3", "5.2", "5.1"]
       steps:
       - name: Checkout code
@@ -71,7 +72,7 @@ jobs:
         with:
           luaVersion: ${{ matrix.luaVersion }}
       - name: install luarocks
-        uses: leafo/gh-actions-luarocks@v4
+        uses: leafo/gh-actions-luarocks@v6
       - name: install lua dependencies
         run: |
           luarocks install luaposix

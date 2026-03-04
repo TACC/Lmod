@@ -351,17 +351,61 @@ local function l_readCacheFile(self, mpathA, spiderTFnA, resultT)
 
             mrc:import(_G.mrcMpathT)
 
+            -- Build set of paths in current MODULEPATH (regularized). Merge cache
+            -- entries for: (a) paths in mpathA, or (b) paths reachable from mpathA
+            -- via the module hierarchy (mpathMapT). This fixes modulerc (reject
+            -- disjoint trees like mf vs mfB) while preserving dynamic_spider
+            -- (include hierarchy-discovered paths like mf4/Compiler/gcc9 when
+            -- spidering mf4/Core).
+            local mpathT = {}
+            for i = 1, #mpathA do
+               mpathT[path_regularize(mpathA[i])] = true
+            end
+
+            local G_mpathMapT = _G.mpathMapT
+            local mpathParentT = {}
+            if (G_mpathMapT) then
+               for mpath, vv in pairs(G_mpathMapT) do
+                  local a = mpathParentT[mpath] or {}
+                  for _, parentMpath in pairs(vv) do
+                     local found = false
+                     for i = 1, #a do
+                        if (a[i] == parentMpath) then found = true; break end
+                     end
+                     if (not found) then a[#a+1] = parentMpath end
+                  end
+                  mpathParentT[mpath] = a
+               end
+            end
+
+            local function l_path_reachable(mpath, seenT)
+               seenT = seenT or {}
+               if (seenT[mpath]) then return false end
+               seenT[mpath] = true
+               if (mpathT[mpath]) then return true end
+               local parents = mpathParentT[mpath]
+               if (not parents) then return false end
+               for i = 1, #parents do
+                  if (l_path_reachable(path_regularize(parents[i]), seenT)) then
+                     return true
+                  end
+               end
+               return false
+            end
+
             local G_spiderT = _G.spiderT
             for k, v in pairs(G_spiderT) do
                --dbg.print{"spiderT dir: ", k,", mDT[k]: ",mDT[k],"\n"}
                if ( k:sub(1,1) == '/' ) then
-                  local dirTime = mDT[k] or 0
-                  if (attr.modification > dirTime) then
-                     k             = path_regularize(k)
-                     mDT[k]        = attr.modification
-                     spiderDirT[k] = true
-                     spiderT[k]    = v
-                     dirsRead      = dirsRead + 1
+                  k = path_regularize(k)
+                  if (mpathT[k] or l_path_reachable(k, {})) then
+                     local dirTime = mDT[k] or 0
+                     if (attr.modification > dirTime) then
+                        mDT[k]        = attr.modification
+                        spiderDirT[k] = true
+                        spiderT[k]    = v
+                        dirsRead      = dirsRead + 1
+                     end
                   end
                else
                   spiderT[k] = spiderT[k] or v

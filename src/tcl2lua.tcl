@@ -1293,6 +1293,9 @@ switch -regexp -- $g_shellName {
     ^(fish)$ {
 	set g_shellType fish
     }
+    ^(nushell)$ {
+	set g_shellType nushell
+    }
     ^(cmake)$ {
 	set g_shellType cmake
     }

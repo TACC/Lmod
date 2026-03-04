@@ -299,21 +299,42 @@ function M.add(self, mname, status, loadOrder)
 end
 
 --------------------------------------------------------------------------
--- Report the contents of the collection. Return an empty array if the
--- collection is not found.
+-- Extract paths from actionA strings (prepend_path/append_path MODULEPATH).
+local function l_paths_from_actionA(mT)
+   local pathT = {}
+   if (not mT) then return pathT end
+   for sn, entry in pairs(mT) do
+      local actionA = entry.actionA or {}
+      for i = 1, #actionA do
+         local path = actionA[i]:match('prepend_path%("MODULEPATH","([^"]+)"') or
+                     actionA[i]:match('append_path%("MODULEPATH","([^"]+)"')
+         if path then pathT[path] = true end
+      end
+   end
+   return pathT
+end
+
+--------------------------------------------------------------------------
+-- Report the contents of the collection. Return module names and paths
+-- added via "module use". Empty arrays if collection not found.
+-- @return moduleA Array of module names.
+-- @return usePathA Array of paths from "module use" (for display).
 function M.reportContents(self, t)
    dbg.start{"mt:reportContents(",t.fn,")"}
    local a       = {}
+   local usePathA = {}
    if (not t.fn) then
       dbg.fini("mt:reportContents")
-      return a
+      return a, usePathA
    end
    local f = io.open(t.fn,"r")
    if (not f) then
       dbg.fini("mt:reportContents")
-      return a
+      return a, usePathA
    end
    local s            = f:read("*all")
+   f:close()
+
    local l_mt         = l_new(self, s, t.fn)
    local pin_versions = cosmic:value("LMOD_PIN_VERSIONS")
    local kind         = (pin_versions == "no") and "userName" or "fullName"
@@ -322,9 +343,27 @@ function M.reportContents(self, t)
       a[#a+1] = activeA[i].name
    end
 
-   f:close()
+   -- Compute paths from "module use" (not base, not from loaded modules).
+   local mpathA = l_mt.mpathA or {}
+   if (#mpathA > 0) then
+      local clearDblSlash = true
+      local basePathT = {}
+      local baseStr  = l_mt.systemBaseMPATH
+      if (baseStr and baseStr ~= "") then
+         local baseA = path2pathA(baseStr, ':', clearDblSlash)
+         for j = 1, #baseA do basePathT[baseA[j]] = true end
+      end
+      local modulePathT = l_paths_from_actionA(l_mt.mT)
+      for i = 1, #mpathA do
+         local p = mpathA[i]
+         if (p and p ~= "" and not basePathT[p] and not modulePathT[p]) then
+            usePathA[#usePathA+1] = p
+         end
+      end
+   end
+
    dbg.fini("mt:reportContents")
-   return a
+   return a, usePathA
 end
 
 ------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.61 2025-06-20 16:09 -05:00
+Modules based on Lua: Version 9.1.1 2026-02-12 13:13 -06:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -68,6 +68,9 @@ step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing describe
 ===========================
 Collection "default" contains:
+  Module paths (run these first):
+   module use ProjectDIR/rt/saverestore/TACC2
+  Modules:
    1) TACC_symbols       3) mvapich1    5) cluster    7) pgi/7.2-5
    2) cluster_symbols    4) globus      6) TACC       8) a
 ===========================

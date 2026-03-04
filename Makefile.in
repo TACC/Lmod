@@ -212,7 +212,7 @@ ifeq ($(FAST_TCL_INTERP),yes)
   PKG_T2L := tcl2lua
 endif
 
-.PHONY: test pkgs man_pages
+.PHONY: test test-pkgs-symlinks pkgs man_pages
 
 all:
 	@echo done
@@ -475,6 +475,13 @@ _ml_dist: _distMkDir
 
 test:
 	cd rt; unset TMFuncPATH; tm .
+
+# Optional: verify built-in Lua libs (lfs, term/core, tcl2lua) are installed as
+# symlinks, not duplicated. Installs to a temp dir and runs the check.
+test-pkgs-symlinks:
+	$(RM) -rf /tmp/lmod-pkgs-symlinks-test
+	$(MAKE) DESTDIR=/tmp/lmod-pkgs-symlinks-test install
+	@sh $(srcdir)/pkgs/test-lib-symlinks.sh "/tmp/lmod-pkgs-symlinks-test$(LIB)"
 
 tags: build_tags
 	$(RM) file_list.*
