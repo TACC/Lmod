@@ -5,7 +5,7 @@ Site and user control of defaults, aliases and hidden modules
 =============================================================
 
 Lmod uses a **.modulerc.lua** or **.modulerc** file to control the
-default version and other things as describe in
+default version and other things as described in
 :ref:`setting-default-label`.  Lmod also allows sites to control the
 defaults, aliases and hidden modules from a system location.  Also
 users can override these defaults and add new aliases and hidden
