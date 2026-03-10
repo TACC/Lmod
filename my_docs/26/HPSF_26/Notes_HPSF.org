@@ -1,2 +1,83 @@
-Notes for HPSF Conference presentation: Chicogo March 18, 2026  25 minutes total
+Notes for HPSF Conference presentation: Chicogo March 18, 2026  25
+minutes total.
 
+Things to add to sc25 talk
+
+* Issue #804/#805
+two people from the Easybuild community asked that Lmod be able to
+how to load a module instead of telling a user to use "module spider".
+This request/feature is when a site is using a software hierarchy
+where a user has to load a compiler to see compiler dependent modules
+and similarly for compiler-mpi dependent modules.
+
+** "module spider" reports what compilers etc are needed to load a module
+** Interesting bug found where sometimes the spider report is wrong.
+** Lmod Maintainer Matthew Cawood (@TACC) used an AI to find the bug:
+*** Show AI_805.png
+*** Summaries: Root Cause: The bug is in the fallback: lines (396-421)
+*** ... When `commonPaths` is empty only suggest paths from the module with the fewest paths.
+** Result:
+    $ module load Python QGIS
+    Lmod has detected the following error: ...
+       Try: "module spider Python QGIS" to see how to load the module(s).
+       Or load any one of these options:
+          module load GCC/12.3.0 OpenMPI/4.1.5 Python QGIS
+
+* Slow loading of modules that have large dependencies
+** Lmod supports the function `depends_on()` to say that one module depends on one or more modules.
+** Lmod checks to see that all dependencies are met.
+** For modules with a number of dependencies this could be slow
+** Lmod passes the state of loaded module through the moduleTable which is a Lua Table (AKA Dictionary)
+** "command module --mt"
+_ModuleTable_ = {                                                                                                                                                
+  MTversion = 3,                                                                                                                                                                                                                                                                                
+  family = {                                                                                                                                            
+    MPI = "mpich",                                                                                                                                               
+    compiler = "gcc",                                                                                                                                            
+  },                                                                                                                    
+  mT = {                                                                                                                                
+    boost = {                                                                                                                                               
+      fn = "..."
+      fullName = "boost/1.76.0",                                                                                                                                 
+      loadOrder = 7,                                                                                                                                             
+      ...
+    },                                                                                                                          
+    gcc = {                                                                                                                                         
+      fn = "..."
+      fullName = "gcc/11.2.0",
+      loadOrder = 4,
+      ...
+    },
+    ...
+  },
+}
+** Lmod used to reload all currently loaded modules to check that all dependencies were met.
+** Now Lmod encodes the dependences in the moduleTable in the user's environment. 
+
+Module A:
+depends_on("x/1.0")
+depends_on_any("xx","yy/1.0")
+
+
+_ModuleTable_ = {
+  MTversion = 3,
+  mT = {
+    A = {
+      depT = {
+        depA = { { sn = "x", version = {... },}, },
+        doaA = { {
+            { sn = "xx", version = {...}, },
+            { sn = "yy", version = {...}, },
+          },
+        },
+      },
+    },
+  },
+}
+
+** Speed improvements:
+*** Not rebuilding the spider cache after a dependent load
+*** Storing dpendency tree in moduleTable
+For a module with 299 dependent modules
+Old: 40.2 senonds
+New 5.2 seconds
