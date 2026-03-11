@@ -78,7 +78,7 @@
     \item Focused on improving modulefile scripting, hooks, and hierarchy handling.
     \item Introduced the next-generation tracking database for usage collection.
     \item Simplified configuration and policy definition for large sites.
-    \item Feedback from SC24 deployments drove the Lmod 9 feature roadmap.
+    \item Feedback from SC24 and EUM25 presentations drove the Lmod 9 feature roadmap.
   \end{itemize}
 \end{frame}
 
@@ -96,7 +96,7 @@
 % --- New Features ---
 \begin{frame}{New Features and Enhancements}
   \begin{itemize}
-    \item \textbf{Irreversible mode}: unloading can now set environment variables for cleanup.
+    \item \textbf{Irreversible mode}: unloading a module can now set environment variables for cleanup.
     \item \textbf{depends\_on\_any()}: allows dependency on any member of a module set.
     \item \textbf{Enhanced hide\{\}/forbid\{\}}: expression-based
       control by user, group, or date (Stolen from Env. Modules)
@@ -112,13 +112,14 @@
   \begin{itemize}
     \item Refactored collection handling avoids NFS metadata bottlenecks.
     \item Improved \texttt{family()} logic speeds hierarchical resolution.
-    \item Expanded compatibility: bash, zsh, fish, and nushell all supported.
+    \item Expanded compatibility: bash, zsh, fish, csh and nushell all supported.
+    \item \textbf{nushell} support is new.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Performance (II)}
   \begin{itemize}
-    \item Discussion at EasyBuild Users Meeting EUM 25 at Juelich, Germany) 
+    \item Discussion at EasyBuild Users Meeting EUM 25 at J{\"u}lich, Germany
     \item Issues with modules with large dependencies ($>$ 50) loaded
       slowly
     \item Lmod supports \textbf{depends\_on()} and
@@ -136,7 +137,7 @@
     \item Lmod stores its state in the user's environment
     \item Lmod calls this the \textbf{ModuleTable}.
     \item It is a Lua Table (what Python calls a \textbf{dict})
-    \item It is base64 encoded and is \textbf{\_ModuleTable001\_} etc
+    \item It is base64 encoded and is stored in env. vars \textbf{\_ModuleTable001\_} etc
     \item \textbf{module --mt} to see it decoded.
   \end{itemize}
 \end{frame}
@@ -177,8 +178,8 @@ _ModuleTable_ = \{
     \end{semiverbatim}
 }
   \begin{itemize}
-    \item where \textbf{depA} are the list of \textbf{depend\_on} modules
-    \item and \textbf{doaA} are the list of \textbf{depend\_on\_any} modules
+    \item where \textbf{depA} contains the list of \textbf{depend\_on} modules
+    \item and \textbf{doaA} contains the list of \textbf{depend\_on\_any} modules
   \end{itemize}
 
 \end{frame}
@@ -195,7 +196,7 @@ _ModuleTable_ = \{
 \end{frame}
 
 % --- Better Error Reporting ----
-\begin{frame}{Better Error Reporting with AI help }
+\begin{frame}{Better Error Reporting with AI agent help }
   \begin{itemize}
     \item EasyBuild Community wanted better error reporting when a
       module was not found when using the software hierarchy.
@@ -215,8 +216,7 @@ _ModuleTable_ = \{
 \begin{frame}{Upshot from AI Agents}
   \begin{itemize}
     \item Root Cause: The bug is in the fallback: lines (396-421) in src/MainControls.lua
-    \item When `commonPaths` is empty only suggest paths from the module with the fewest paths.
-    \item Proposed fix: ...
+    \item Proposed fix: When \textbf{commonPaths} is empty only suggest paths from the module with the fewest paths.
   \end{itemize}
 \end{frame}
 
@@ -288,7 +288,7 @@ _ModuleTable_ = \{
     \item Docs: \href{https://lmod.readthedocs.io}{lmod.readthedocs.io}
     \item Mailing lists: \texttt{lmod-announce}, \texttt{lmod-users}.
     \item Contribute: report issues, propose hooks, share use cases.
-    \item This Talk: https://github.com/TACC/lmod/tree/main/my\_docs/26/HPSF/presentation.pdf
+    \item This Talk: https://github.com/TACC/Lmod/blob/main/my_docs/26/HPSF_26/presentation.pdf
   \end{itemize}
 \end{frame}
 
@@ -296,6 +296,7 @@ _ModuleTable_ = \{
 \begin{frame}{Thank You}
   \begin{center}
     \Large Questions? Feedback?\\[3mm]
+    \Large mclay@utexas.edu\\[3mm]
     \Large Join Lmod Mailing list: https://sourceforge.net/projects/lmod/lists/lmod-users
   \end{center}
 \end{frame}
