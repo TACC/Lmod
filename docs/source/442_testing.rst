@@ -17,8 +17,7 @@ Overview of the Testing Framework
 The ``rt/`` directory contains numerous subdirectories. Each subdirectory typically
 represents a specific test case or a group of related tests focusing on a
 particular Lmod feature or command (e.g., ``rt/load/``, ``rt/avail/``,
-``rt/purge/``). For load-failure suggestion behavior (Issue #804), see
-``rt/load_suggest_cmd/``.
+``rt/purge/``).
 
 Inside each test directory, you'll commonly find the following types of files:
 
