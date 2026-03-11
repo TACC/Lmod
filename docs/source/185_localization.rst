@@ -56,5 +56,4 @@ suggestions are available (e.g., spider cache unavailable).
 
 When tailoring or translating this message, keep ``%{suggest_cmd}`` exactly as
 written. Translate the surrounding text (e.g., "Or load any one of these
-options:") as needed. See :ref:`load_failure_suggestions` for implementation
-details.
+options:") as needed.
