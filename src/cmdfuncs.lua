@@ -181,8 +181,8 @@ function Category(...)
          local category = info.Category or ""
 
          for entry in category:split(",") do
-            entry = entry:trim()
-            add_module(entry, sn)
+            local e = entry:trim()
+            add_module(e, sn)
          end
       end
    end

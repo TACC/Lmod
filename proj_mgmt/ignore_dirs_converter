@@ -78,11 +78,11 @@ function main()
    for i=1,#arg do
       local line = arg[i]
       for s in line:split(",") do
-         s = s:trim()
-         if (s ~= "") then
-            a[#a+1] = wrapper(s)
-            if (s:len() > 8) then
-               a[#a+1] = wrapper(s:sub(1,8))
+         t = s:trim()
+         if (t ~= "") then
+            a[#a+1] = wrapper(t)
+            if (t:len() > 8) then
+               a[#a+1] = wrapper(t:sub(1,8))
             end
          end
       end

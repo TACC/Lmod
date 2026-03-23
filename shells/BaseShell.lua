@@ -321,8 +321,8 @@ function M.echo(self, ...)
             whole = whole:sub(1,-2)
          end
          for line in whole:split("\n") do
-            line = line:gsub("'","'\"'\"'"):gsub(" ","' '")
-            io.stdout:write("echo '",line,"';\n")
+            local l = line:gsub("'","'\"'\"'"):gsub(" ","' '")
+            io.stdout:write("echo '",l,"';\n")
          end
       end
    end

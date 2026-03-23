@@ -418,12 +418,12 @@ function readAdmin()
 
       for v in whole:split("\n") do
          repeat
-            v = v:gsub("^%s+$","")
-            if (v:find("^%s*#")) then
+            local w = v:gsub("^%s+$","")
+            if (w:find("^%s*#")) then
                -- ignore this comment line
                break
 
-            elseif (v:find("^%s*$")) then
+            elseif (w:find("^%s*$")) then
                if (state == "value") then
                   value             = concatTbl(a, "")
                   for i = 1, #keyA do
@@ -436,15 +436,15 @@ function readAdmin()
 
                -- Ignore blank lines
             elseif (state == "value") then
-               a[#a+1]     = v .. "\n"
+               a[#a+1]     = w .. "\n"
             else
-               local i     = v:find(":")
+               local i     = w:find(":")
                if (i) then
-                  local k = v:sub(1,i-1):trim()
+                  local k = w:sub(1,i-1):trim()
                   for key in k:split('|') do
                      keyA[#keyA+1] = key:trim()
                   end
-                  local s = v:sub(i+1)
+                  local s = w:sub(i+1)
                   if (s:len() > 0) then
                      a[#a+1]  = s
                   end
@@ -1213,13 +1213,13 @@ function initialize_lmod()
    local lmodPath = mergeEnvVars(cosmic:value("LMOD_PACKAGE_PATH"),configDir)
    if (lmodPath ~= "") then
       for path in lmodPath:split(":") do
-         path = path .. "/"
-         path = path:gsub("//+","/")
-         package.path  = path .. "?.lua;"      ..
-            path .. "?/init.lua;" ..
+         local p = path .. "/"
+         p = p:gsub("//+","/")
+         package.path  = p .. "?.lua;"      ..
+            p .. "?/init.lua;" ..
             package.path
          
-         package.cpath = path .. "../lib/?.so;"..
+         package.cpath = p .. "../lib/?.so;"..
             package.cpath
       end
    end
