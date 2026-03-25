@@ -106,7 +106,7 @@ local function l_parse_updateFn_hook(updateSystemFn, t)
    f:close()
 
    for line in whole:split("\n") do
-      line = line:trim()
+      local line = line:trim()
       if (not line:find("^[#!-]")) then
          local i =  line:find("=")
          if (i) then

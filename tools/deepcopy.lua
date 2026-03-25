@@ -8,7 +8,7 @@ function deepcopy(t)
    local r  = {}
    for k,v in pairs(t) do
       if (type(v) == 'table' and k ~= '__index') then
-         v = deepcopy(v)
+         local v = deepcopy(v)
       end
       r[k] = v
    end

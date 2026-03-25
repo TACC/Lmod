@@ -181,7 +181,7 @@ function Category(...)
          local category = info.Category or ""
 
          for entry in category:split(",") do
-            entry = entry:trim()
+            local entry = entry:trim()
             add_module(entry, sn)
          end
       end
@@ -1267,7 +1267,7 @@ function Use(...)
       if (v:sub(1,1) ~= '/') then
          local old = v
          -- If relative convert to try to convert to absolute path
-         v         = realpath(v)
+         local v   = realpath(v)
          -- If it doesn't exist then build path with current directory and relative path.
          if (not v) then
             v = pathJoin(posix.getcwd(), old)

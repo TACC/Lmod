@@ -72,7 +72,7 @@ function main()
       for i = 1,#patternA do
          local pattern = patternA[i][1]
          local value   = patternA[i][2]
-         line = line:gsub(pattern,value)
+         local line = line:gsub(pattern,value)
       end
       fh:write(line,"\n")
    end

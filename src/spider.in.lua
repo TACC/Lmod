@@ -817,7 +817,7 @@ function localSoftware(xml, name, t)
    local domain = "unknown"
    local category = t.Category or ""
    for entry in category:split(",") do
-      entry        = entry:trim()
+      local entry  = entry:trim()
       local entryL = entry:lower()
       if (value == "unknown") then
          if (entryL == "library") then

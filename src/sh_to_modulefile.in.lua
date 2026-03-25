@@ -166,7 +166,7 @@ local function l_cleanPath(value)
    local idx = 0
    for path in value:split(':') do
       idx = idx + 1
-      path = path_regularize(path)
+      local path = path_regularize(path)
       if (pathT[path] == nil) then
          pathT[path]     = { idx = idx, keep = false }
          pathA[#pathA+1] = path

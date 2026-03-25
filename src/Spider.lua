@@ -87,7 +87,7 @@ local function l_process(kind, value)
 
    local a           = moduleT[kind] or {}
    for path in value:split(":") do
-      path         = path_regularize(path)
+      local path   = path_regularize(path)
       a[path]      = 1
    end
    moduleT[kind] = a
@@ -1562,8 +1562,8 @@ end
 
 function M.dictModules(self, T,tbl)
    for kk,vv in pairs(T) do
-      kk      = kk:gsub("%.lua$","")
-      tbl[kk] = 0
+      local kk = kk:gsub("%.lua$","")
+      tbl[kk]  = 0
       if (next(vv.children)) then
          for k, v in pairs(vv.children) do
             if (type(v) == "table") then

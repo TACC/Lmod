@@ -551,7 +551,7 @@ function M.pop(self)
       --dbg.printT("vv", vv)
       if (v == imin) then
          result      = k
-         vv          = l_remFunc(vv, "first", 0, false, false)
+         local vv    = l_remFunc(vv, "first", 0, false, false)
          self.tbl[k] = vv
          if (vv ~= nil) then
             v = vv.idxA[1][1]
@@ -704,7 +704,7 @@ function M.expand(self)
    local n = 0
    for _,v in pairsByKeys(t) do
       n = n + 1
-      v = path_regularize(v)
+      local v = path_regularize(v)
       if (v == ' ') then
          v = ''
       end

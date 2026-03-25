@@ -102,7 +102,7 @@ function capture(cmd, envT)
 
 
    for k, v in pairs(newT) do
-      if (v == false) then v = nil end
+      if (v == false) then local v = nil end
       setenv_posix(k,v, true)
    end
 
