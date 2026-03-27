@@ -68,11 +68,12 @@ function main()
    fh:close()
 
    fh    = io.open(fn,"w")
-   for line in whole:split("\n") do
+   for myLine in whole:split("\n") do
+      local line = myLine
       for i = 1,#patternA do
          local pattern = patternA[i][1]
          local value   = patternA[i][2]
-         line = line:gsub(pattern,value)
+         line          = line:gsub(pattern,value)
       end
       fh:write(line,"\n")
    end

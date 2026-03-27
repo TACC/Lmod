@@ -1561,8 +1561,8 @@ end
 
 
 function M.dictModules(self, T,tbl)
-   for key,vv in pairs(T) do
-      local kk = key:gsub("%.lua$","")
+   for myKey,vv in pairs(T) do
+      local kk = myKey:gsub("%.lua$","")
       tbl[kk]  = 0
       if (next(vv.children)) then
          for k, v in pairs(vv.children) do

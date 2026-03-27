@@ -101,7 +101,8 @@ function capture(cmd, envT)
    end
 
 
-   for k, v in pairs(newT) do
+   for k, myValue in pairs(newT) do
+      local v = myValue
       if (v == false) then v = nil end
       setenv_posix(k,v, true)
    end

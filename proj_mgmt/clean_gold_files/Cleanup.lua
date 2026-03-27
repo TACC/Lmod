@@ -315,11 +315,12 @@ function M.filter(self, whole)
    local a = {}
    for myLine in whole:split("\n") do
       repeat
-         local empty = l_remove(myLine)
+         local line  = myLine
+         local empty = l_remove(line)
          if (empty) then break end
-         local line = l_remove_paths("_REF_COUNT_", myLine)
-         line       = l_remove_paths(s_path_search, line)
-         line       = l_replacement(line)
+         line = l_remove_paths("_REF_COUNT_", myLine)
+         line = l_remove_paths(s_path_search, line)
+         line = l_replacement(line)
          if (line and line:len() > 0) then
             a[#a+1] = line
          end

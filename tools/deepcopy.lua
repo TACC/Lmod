@@ -6,7 +6,8 @@ function deepcopy(t)
    end
    local mt = getmetatable(t)
    local r  = {}
-   for k,v in pairs(t) do
+   for k,myValue in pairs(t) do
+      local v = myValue
       if (type(v) == 'table' and k ~= '__index') then
          v = deepcopy(v)
       end
