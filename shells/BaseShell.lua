@@ -320,8 +320,8 @@ function M.echo(self, ...)
          if (whole:sub(-1) == "\n") then
             whole = whole:sub(1,-2)
          end
-         for line in whole:split("\n") do
-            line = line:gsub("'","'\"'\"'"):gsub(" ","' '")
+         for myLine in whole:split("\n") do
+            local line = myLine:gsub("'","'\"'\"'"):gsub(" ","' '")
             io.stdout:write("echo '",line,"';\n")
          end
       end
