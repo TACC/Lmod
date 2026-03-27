@@ -8,16 +8,50 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 
-\title[Lmod at SC25]{Lmod: The Lua-Based Environment Module System}
-\subtitle{Texas Advanced Computing Center (TACC) Booth Talk -- Supercomputing 2025}
-\author[M. Cawood]{Matthew Cawood}
-\date{SC25 -- St. Louis, Missouri}
+\title[Lmod at HPSF]{Lmod: The Lua-Based Environment Module System}
+%\subtitle{Texas Advanced Computing Center}
+\author{Robert McLay~\inst{1} \and Matthew Cawood~\inst{1} \and Xavier
+  Delaruelle~\inst{2}}
+\institute[A]{\textsuperscript{1}Texas Advanced Computing Center\\ %
+\textsuperscript{2} CEA\\ %
+}
 
+\date{HPSF -- Chicago, IL}
+
+%% page 
+%\begin{frame}{}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%\end{frame}
+%
+%% page 
+%\begin{frame}[fragile]
+%    \frametitle{}
+% {\tiny
+%    \begin{semiverbatim}
+%    \end{semiverbatim}
+%}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%
+%\end{frame}
+%
 \begin{document}
 
 % --- Title Slide ---
 \begin{frame}
   \titlepage
+\end{frame}
+
+% 
+% page 
+\begin{frame}{Thanking Xavier Delaruelle}
+  \begin{itemize}
+    \item Robert and Matthew would like to thank Xavier for presenting
+    \item Neither of us could be at HPSF.
+  \end{itemize}
 \end{frame}
 
 % --- What is Lmod ---
@@ -44,7 +78,7 @@
     \item Focused on improving modulefile scripting, hooks, and hierarchy handling.
     \item Introduced the next-generation tracking database for usage collection.
     \item Simplified configuration and policy definition for large sites.
-    \item Feedback from SC24 deployments drove the Lmod 9 feature roadmap.
+    \item Feedback from SC24 and EUM25 presentations drove the Lmod 9 feature roadmap.
   \end{itemize}
 \end{frame}
 
@@ -62,22 +96,142 @@
 % --- New Features ---
 \begin{frame}{New Features and Enhancements}
   \begin{itemize}
-    \item \textbf{Irreversible mode}: unloading can now set environment variables for cleanup.
+    \item \textbf{Irreversible mode}: unloading a module can now set environment variables for cleanup.
     \item \textbf{depends\_on\_any()}: allows dependency on any member of a module set.
-    \item \textbf{Enhanced hide\{\}/forbid\{\}}: expression-based control by user, group, or date.
+    \item \textbf{Enhanced hide\{\}/forbid\{\}}: expression-based
+      control by user, group, or date (Stolen from Env. Modules)
     \item \textbf{Optional tracking v2}: database shrinks 100× while preserving analytics.
     \item \textbf{New hooks (e.g., decorate\_module)} for module tagging and logging.
   \end{itemize}
 \end{frame}
 
 % --- Performance ---
+
+
 \begin{frame}{Performance and Reliability}
   \begin{itemize}
-    \item Spider cache and dependency engine now reduce `module avail` from 4s → <0.5s on 40k-module trees.
     \item Refactored collection handling avoids NFS metadata bottlenecks.
     \item Improved \texttt{family()} logic speeds hierarchical resolution.
-    \item Expanded compatibility: bash, zsh, fish, and nushell all supported.
+    \item Expanded compatibility: bash, zsh, fish, csh and nushell all supported.
+    \item \textbf{nushell} support is new.
   \end{itemize}
+\end{frame}
+
+\begin{frame}{Performance (II)}
+  \begin{itemize}
+    \item Discussion at EasyBuild Users Meeting EUM 25 at J{\"u}lich, Germany
+    \item Issues with modules with large dependencies ($>$ 50) loaded
+      slowly
+    \item Lmod supports \textbf{depends\_on()} and
+      \textbf{depends\_on\_any()} to handle module X depends on modules
+      A B C etc
+    \item Lmod used to re-read all currently loaded modules to report
+      any missing dependencies on module load and unload.
+    \item This could be slow on disk based systems.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{ModuleTable}
+  \begin{itemize}
+    \item Lmod stores its state in the user's environment
+    \item Lmod calls this the \textbf{ModuleTable}.
+    \item It is a Lua Table (what Python calls a \textbf{dict})
+    \item It is base64 encoded and is stored in env. vars \textbf{\_ModuleTable001\_} etc
+    \item \textbf{module --mt} to see it decoded.
+  \end{itemize}
+\end{frame}
+
+% page 
+\begin{frame}[fragile]
+    \frametitle{Changes to ModuleTable to track dependencies}
+  \begin{itemize}
+    \item To remove re-reading all loaded modules
+    \item Lmod now stores the dependencies in the ModuleTable 
+    \item As an example module A has dependencies:
+  \end{itemize}
+ {\small
+    \begin{semiverbatim}
+\$ module --raw show A
+depends_on("x/1.0")
+depends_on_any("xx","yy/1.0")
+    \end{semiverbatim}
+}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{New ModuleTable}
+ {\small
+    \begin{semiverbatim}
+_ModuleTable_ = \{
+  mT = \{
+    A = \{
+      depT = \{
+        depA = \{ \{ sn = "x", version = \{... \},\}, \},
+        doaA = \{ \{
+            \{ sn = "xx", version = \{...\}, \},
+            \{ sn = "yy", version = \{...\}, \},
+          \}, \}, \}, \},
+    ...
+  \},
+\}
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item where \textbf{depA} contains the list of \textbf{depend\_on} modules
+    \item and \textbf{doaA} contains the list of \textbf{depend\_on\_any} modules
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Performance Improvements}
+  \begin{itemize}
+    \item This and other changes improved module load times
+      considerably
+    \item Loading a module with 299 dependent modules on a Lustre
+      filesystem
+    \item Old: \textbf{40.2} seconds
+    \item New \textbf{5.2} seconds
+  \end{itemize}
+\end{frame}
+
+% --- Better Error Reporting ----
+\begin{frame}{Better Error Reporting with AI agent help }
+  \begin{itemize}
+    \item EasyBuild Community wanted better error reporting when a
+      module was not found when using the software hierarchy.
+    \item Lmod's spider cache is used to build the software hierarchy.
+    \item In some cases the spider cache had an error.
+    \item Matthew Cawood used AI agents to find bug!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+    \includegraphics[width=\textwidth]{AI_805.png}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}{Upshot from AI Agents}
+  \begin{itemize}
+    \item Root Cause: The bug is in the fallback: lines (396-421) in src/MainControls.lua
+    \item Proposed fix: When \textbf{commonPaths} is empty only suggest paths from the module with the fewest paths.
+  \end{itemize}
+\end{frame}
+
+% page 
+\begin{frame}[fragile]
+    \frametitle{Results}
+ {\small
+    \begin{semiverbatim}
+    $ module load Python QGIS
+    Lmod has detected the following error: ...
+       Try: "module spider Python QGIS" to see how to load the module(s).
+       Or load any one of these options:
+          module load GCC/12.3.0 OpenMPI/4.1.5 Python QGIS
+    \end{semiverbatim}
+}
 \end{frame}
 
 % --- Documentation ---
@@ -95,7 +249,7 @@
   \begin{itemize}
     \item Conditional \textbf{hide()/forbid()} rules by user, group, or time window.
     \item Deprecation warnings for outdated compilers or toolchains.
-    \item Irreversible unloads enable post-cleanup or variable resets.
+    \item Irreversible loads/unloads enable post-cleanup or variable resets.
     \item Simplifies compliance and software lifecycle management.
   \end{itemize}
 \end{frame}
@@ -134,15 +288,16 @@
     \item Docs: \href{https://lmod.readthedocs.io}{lmod.readthedocs.io}
     \item Mailing lists: \texttt{lmod-announce}, \texttt{lmod-users}.
     \item Contribute: report issues, propose hooks, share use cases.
+    \item This Talk: https://github.com/TACC/Lmod/blob/main/my_docs/26/HPSF_26/presentation.pdf
   \end{itemize}
 \end{frame}
 
-% --- Final Slide ---
+%% --- Final Slide ---
 \begin{frame}{Thank You}
   \begin{center}
     \Large Questions? Feedback?\\[3mm]
-    \small Contact: \texttt{mcawood@tacc.utexas.edu} \\[3mm]
-    \href{https://lmod.readthedocs.io}{\texttt{lmod.readthedocs.io}}
+    \Large mclay@utexas.edu\\[3mm]
+    \Large Join Lmod Mailing list: https://sourceforge.net/projects/lmod/lists/lmod-users
   \end{center}
 \end{frame}
 
