@@ -133,9 +133,8 @@ function buildFromEnvVars(cacheDirs, updateFn)
 
    local i = 0
    for dir in cacheDirs:split(":") do
-      dir = path_regularize(dir)
       i = i + 1
-      scDescriptT[i] = { dir = dir, timestamp = updateFn}
+      scDescriptT[i] = { dir = path_regularize(dir), timestamp = updateFn}
    end
    return scDescriptT
 end
