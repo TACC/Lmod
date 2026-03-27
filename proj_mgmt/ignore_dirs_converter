@@ -77,8 +77,8 @@ function main()
    local a = {}
    for i=1,#arg do
       local line = arg[i]
-      for s in line:split(",") do
-         s = s:trim()
+      for dir in line:split(",") do
+         s = dir:trim()
          if (s ~= "") then
             a[#a+1] = wrapper(s)
             if (s:len() > 8) then
