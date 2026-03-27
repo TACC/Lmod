@@ -86,8 +86,8 @@ local function l_process(kind, value)
    local moduleT     = moduleStack[iStack].moduleT
 
    local a           = moduleT[kind] or {}
-   for path in value:split(":") do
-      path         = path_regularize(path)
+   for myPath in value:split(":") do
+      local path   = path_regularize(myPath)
       a[path]      = 1
    end
    moduleT[kind] = a
