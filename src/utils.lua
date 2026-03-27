@@ -416,9 +416,9 @@ function readAdmin()
       local value = nil
       local a     = {}
 
-      for v in whole:split("\n") do
+      for line in whole:split("\n") do
          repeat
-            v = v:gsub("^%s+$","")
+            local v = line:gsub("^%s+$","")
             if (v:find("^%s*#")) then
                -- ignore this comment line
                break
