@@ -111,8 +111,7 @@ function Rc.echo(self, ...)
             whole = whole:sub(1,-2)
          end
          for line in whole:split("\n") do
-            line = line:gsub("'","''")
-            stdout:write("echo '",line,"';\n")
+            stdout:write("echo '",line:gsub("'","''"),"';\n")
          end
       end
    end
