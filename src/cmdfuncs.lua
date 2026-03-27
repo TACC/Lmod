@@ -180,8 +180,8 @@ function Category(...)
       for _, info in pairs(v) do
          local category = info.Category or ""
 
-         for entry in category:split(",") do
-            entry = entry:trim()
+         for myEntry in category:split(",") do
+            local entry = myEntry:trim()
             add_module(entry, sn)
          end
       end
