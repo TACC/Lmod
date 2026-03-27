@@ -315,7 +315,7 @@ function M.filter(self, whole)
    local a = {}
    for myLine in whole:split("\n") do
       repeat
-         local empty = l_remove(line)
+         local empty = l_remove(myLine)
          if (empty) then break end
          local line = l_remove_paths("_REF_COUNT_", myLine)
          line       = l_remove_paths(s_path_search, line)
