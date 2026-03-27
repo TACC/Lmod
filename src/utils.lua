@@ -1212,8 +1212,8 @@ function initialize_lmod()
 
    local lmodPath = mergeEnvVars(cosmic:value("LMOD_PACKAGE_PATH"),configDir)
    if (lmodPath ~= "") then
-      for path in lmodPath:split(":") do
-         path = path .. "/"
+      for myPath in lmodPath:split(":") do
+         local path = myPath .. "/"
          path = path:gsub("//+","/")
          package.path  = path .. "?.lua;"      ..
             path .. "?/init.lua;" ..
