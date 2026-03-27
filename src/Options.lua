@@ -108,8 +108,7 @@ function M.singleton(self, progName, usage, description)
    for s in style:split(":") do
       icnt = icnt + 1
       if (s:sub(1,1) == "<" and s:sub(-1,-1) == ">") then
-         s            = s:sub(2,-2)
-         defaultStyle = s
+         defaultStyle = s:sub(2,-2)
       elseif (icnt == 1) then
          defaultStyle = s
       end
