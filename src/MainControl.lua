@@ -2433,6 +2433,7 @@ function M.userInGroups(self, ...)
    end
    local userId = capture("id -u 2> /dev/null")
    local isRoot = tonumber(userId) == 0
+   dbg.print{"M.userInGroups: isRoot: ",isRoot,", RT: ",optionTbl().rt,"\n"}
    if (isRoot and not optionTbl().rt) then
       return true
    end
