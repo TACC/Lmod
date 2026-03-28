@@ -395,9 +395,10 @@ local function l_readCacheFile(self, mpathA, spiderTFnA, resultT)
 
             local G_spiderT = _G.spiderT
             for myKey, v in pairs(G_spiderT) do
+               local k = myKey
                --dbg.print{"spiderT dir: ", k,", mDT[k]: ",mDT[k],"\n"}
                if ( k:sub(1,1) == '/' ) then
-                  local k = path_regularize(myKey)
+                  k = path_regularize(k)
                   if (mpathT[k] or l_path_reachable(k, {})) then
                      local dirTime = mDT[k] or 0
                      if (attr.modification > dirTime) then

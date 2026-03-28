@@ -87,8 +87,7 @@ local function l_process(kind, value)
 
    local a           = moduleT[kind] or {}
    for myPath in value:split(":") do
-      local path   = path_regularize(myPath)
-      a[path]      = 1
+      a[path_regularize(myPath)] = 1
    end
    moduleT[kind] = a
 end
