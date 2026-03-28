@@ -542,7 +542,6 @@ function M.unload(self,mA)
       local fn       = mname:fn()
       local status   = mt:status(sn)
       if (tracing == "yes") then
-         local fnStr = 
          TraceCounter     = TraceCounter + 1
          tracing_msg{"(" .. tostring(TraceCounter) .. ")",
                      "(" .. tostring(ReloadAllCntr) .. ")",
