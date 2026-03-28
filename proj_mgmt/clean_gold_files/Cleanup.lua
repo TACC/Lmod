@@ -110,6 +110,8 @@ local function l_init_envTable(self)
       "/usr/local/bin",
       "/usr/bin",
       "/bin",
+      "/sbin",
+      "/usr/sbin",
       "/opt/homebrew/bin",
    }
 end

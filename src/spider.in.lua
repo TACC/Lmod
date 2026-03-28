@@ -671,10 +671,11 @@ function options()
    }
 
    cmdlineParser:add_option{
-      name   = {"--regression_testing" },
-      dest   = "rt",
-      action = "store_true",
-      help   = "Regression testing",
+      name    = {"--regression_testing" },
+      dest    = "rt",
+      action  = "store_true",
+      default = false,
+      help    = "Regression testing",
    }
 
    cmdlineParser:add_option{
