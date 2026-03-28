@@ -210,7 +210,7 @@ buildSh2MF ()
 
 runSpiderCmd ()
 {
-   $LUA_EXEC $projectDir/src/spider.in.lua "$@"
+   $LUA_EXEC $projectDir/src/spider.in.lua --regression_testing "$@"
 }
 
 runCkMTSyntax ()
