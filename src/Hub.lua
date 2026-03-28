@@ -542,11 +542,12 @@ function M.unload(self,mA)
       local fn       = mname:fn()
       local status   = mt:status(sn)
       if (tracing == "yes") then
+         local fnStr = fn or "nil"
          TraceCounter     = TraceCounter + 1
          tracing_msg{"(" .. tostring(TraceCounter) .. ")",
                      "(" .. tostring(ReloadAllCntr) .. ")",
                      "Unloading: ", userName, " (status: ",
-                     status, ") (fn: ", fn or "nil", ")" }
+                     status, ") (fn: ", fnStr, ")" }
       end
 
       dbg.print{"Trying to unload: ", userName, " sn: ", sn,"\n"}
