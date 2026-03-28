@@ -669,6 +669,14 @@ function options()
       action = "store_true",
       help   = "Tracing",
    }
+
+   cmdlineParser:add_option{
+      name   = {"--regression_testing" },
+      dest   = "rt",
+      action = "store_true",
+      help   = "Regression testing",
+   }
+
    cmdlineParser:add_option{
       name   = {'--debug'},
       dest   = 'dbglvl',
