@@ -543,8 +543,8 @@ function M.pop(self)
    end
 
    local icnt = 0
-   for k, value in pairs(self.tbl) do
-      local vv   = value
+   for k, myValue in pairs(self.tbl) do
+      local vv   = myValue
       local idxA = vv.idxA
       local v    = idxA[1][1]
       --icnt = icnt + 1

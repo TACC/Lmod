@@ -668,9 +668,9 @@ end
 
 
 local function l_sanizatizeTbl(replaceA, inT, outT)
-   for k, value in pairs(inT) do
+   for k, myValue in pairs(inT) do
       local key = k
-      local v   = value
+      local v   = myValue
       if (type(k) == "string") then
          for i = 1, #replaceA do
             local p  = replaceA[i]
