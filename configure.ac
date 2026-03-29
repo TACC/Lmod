@@ -1056,7 +1056,7 @@ else
     echo "... no"
   else
     lfsV=`$PATH_TO_LUA $ac_confdir/proj_mgmt/getLFSVersion`
-    if test "$lfsV" -lt 1008000; then
+    if test "$lfsV" -lt 1009000; then
        echo "... Too old, using providing version"
     else
        echo "... yes"    
