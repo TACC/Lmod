@@ -1,12 +1,16 @@
+#define _POSIX_C_SOURCE 200112L
+
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
-#include <unistd.h>
+#ifndef _MSC_VER
+# include <unistd.h>
+#endif
 
 static int
 lua_isatty(lua_State *L)
 {
-    FILE **fp = (FILE **) luaL_checkudata(L, -1, LUA_FILEHANDLE);
+    FILE **fp = (FILE **) luaL_checkudata(L, 1, LUA_FILEHANDLE);
 
     lua_pushboolean(L, isatty(fileno(*fp)));
     return 1;

@@ -23,4 +23,29 @@ local sformat = string.format
 local iotype  = io.type
 local stdout  = io.stdout
 
+function term.maketermfunc(sequence_fmt)
+  sequence_fmt = '\027[' .. sequence_fmt
+
+  local func
+
+  func = function(handle, ...)
+    if iotype(handle) ~= 'file' then
+      return func(stdout, handle, ...)
+    end
+
+    return handle:write(sformat(sequence_fmt, ...))
+  end
+
+  return func
+end
+
+term.colors = require 'term.colors'
+term.cursor = require 'term.cursor'
+
+term.clear    = term.maketermfunc '2J'
+term.cleareol = term.maketermfunc 'K'
+term.clearend = term.maketermfunc 'J'
+
+term.maketermfunc = nil
+
 return term
