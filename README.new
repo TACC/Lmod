@@ -12,3 +12,7 @@ Lmod 9.0+
 Lmod 9.1+
    (9.1.0)  * IS804: Show command to load module on failure - feature complete
    (9.1.1)  * added markdown documentation
+   (9.1.2)  * Allowing lua 5.5 to be acceptable to Lmod
+W.I.P.
+   (9.1.3)  * Full support for Lua 5.5 (fixing readonly loop variables)
+   
