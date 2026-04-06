@@ -394,7 +394,8 @@ local function l_readCacheFile(self, mpathA, spiderTFnA, resultT)
             end
 
             local G_spiderT = _G.spiderT
-            for k, v in pairs(G_spiderT) do
+            for myKey, v in pairs(G_spiderT) do
+               local k = myKey
                --dbg.print{"spiderT dir: ", k,", mDT[k]: ",mDT[k],"\n"}
                if ( k:sub(1,1) == '/' ) then
                   k = path_regularize(k)

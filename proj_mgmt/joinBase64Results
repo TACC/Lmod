@@ -318,8 +318,8 @@ local function l_stackVar_common(name, str, sep, a)
    local b = {}
    b[#b+1] = name
    b[#b+1] = sep
-   for v in str:split(":") do
-      v = (v ~= "false") and decode64(v) or "false"
+   for myWord in str:split(":") do
+      local v = (myWord ~= "false") and decode64(myWord) or "false"
       b[#b+1] = v:multiEscaped()
       b[#b+1] = ":"
    end
@@ -332,8 +332,8 @@ local function l_stackVar_fish(name, str, sep, a)
    local b = {}
    b[#b+1] = name
    b[#b+1] = sep
-   for v in str:split(sep) do
-      v = (v ~= "false") and decode64(v) or "false"
+   for myWord in str:split(sep) do
+      local v = (myWord ~= "false") and decode64(myWord) or "false"
       b[#b+1] = v:multiEscaped()
       b[#b+1] = " "
    end
@@ -346,8 +346,8 @@ local function l_stackVar_nushell(name, str, sep, a)
    local b = {}
    b[#b+1] = name
    b[#b+1] = " = ["
-   for v in str:split(sep) do
-      v = (v ~= "false") and decode64(v) or "false"
+   for myWord in str:split(sep) do
+      local v = (myWord ~= "false") and decode64(myWord) or "false"
       b[#b+1] = v:multiEscaped()
       b[#b+1] = ","
    end

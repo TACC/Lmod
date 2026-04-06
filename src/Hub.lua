@@ -546,7 +546,7 @@ function M.unload(self,mA)
          tracing_msg{"(" .. tostring(TraceCounter) .. ")",
                      "(" .. tostring(ReloadAllCntr) .. ")",
                      "Unloading: ", userName, " (status: ",
-                     status, ") (fn: ", fn or "nil", ")" }
+                     status or "", ") (fn: ", fn or "nil", ")" }
       end
 
       dbg.print{"Trying to unload: ", userName, " sn: ", sn,"\n"}

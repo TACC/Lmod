@@ -179,10 +179,8 @@ function Category(...)
    for sn, v in pairs(dbT) do
       for _, info in pairs(v) do
          local category = info.Category or ""
-
          for entry in category:split(",") do
-            entry = entry:trim()
-            add_module(entry, sn)
+            add_module(entry:trim(), sn)
          end
       end
    end
@@ -1258,7 +1256,8 @@ function Use(...)
       end
       iarg = iarg + 1
    end
-   for _,v in ipairs(a) do
+   for _,path in ipairs(a) do
+      local v = path
       -- Produce warning if leading minus sign(s) are found.
       if (v:find("^-+")) then
          LmodWarning{msg="w_Possible_Bad_Dir",dir=v}

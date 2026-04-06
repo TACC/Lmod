@@ -149,7 +149,7 @@ end
 -- @param defaultA - An array entries that contain: { fullName=, fn=, mpath=, luaExt=, barefn=}
 -- return the first defaultA.  All other ones are ignored.
 local function l_versionFile(mrc, mpath, defaultA)
-   --dbg.start{"DirTree:l_versionFile(mrc, mpath, defaultA)"}
+   dbg.start{"DirTree:l_versionFile(mrc, mpath, defaultA)"}
    sort(defaultA, function(x,y)
                     return x.defaultIdx < y.defaultIdx
                   end)
@@ -166,12 +166,12 @@ local function l_versionFile(mrc, mpath, defaultA)
 
       defaultT.value = mrc:parseModA_for_moduleA(name, mpath, modA)
    until true
-   --dbg.fini("DirTree:l_versionFile")
+   dbg.fini("DirTree:l_versionFile")
    return defaultA
 end
 
 local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
-   --dbg.start{"l_walk(mrc,mpath:\"",mpath,"\", path:\"",path,"\", dirA, fileT, regularFn"}
+   dbg.start{"DirTree: l_walk(mrc,mpath:\"",mpath,"\", path:\"",path,"\", dirA, fileT, regularFn"}
    local defaultA   = {}
    local permissions
    local uid
@@ -233,7 +233,7 @@ local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
       defaultA = l_versionFile(mrc, mpath, defaultA)
    end
 
-   --dbg.fini("l_walk")
+   dbg.fini("DirTree: l_walk")
    return defaultA, regularFn
 end
 
@@ -281,7 +281,7 @@ local function l_walk_tree(mrc, mpath, pathIn, dirT, regularFn)
 end
 
 local function l_build(mpathA)
-   --dbg.start{"l_build(mpathA)"}
+   dbg.start{"DirTree: l_build(mpathA)"}
    local dirA      = {}
    local mrc       = MRC:singleton()
 
@@ -298,7 +298,7 @@ local function l_build(mpathA)
          dirA[#dirA+1] = {mpath=mpath, dirT=dirT}
       end
    end
-   --dbg.fini("l_build")
+   dbg.fini("DirTree: l_build")
    return dirA
 end
 

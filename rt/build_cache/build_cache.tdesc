@@ -31,7 +31,7 @@ $(outputDir)/cacheDir: $(outputDir)/last_update
 EOF
 
      lua $(projectDir)/src/spiderCacheSupport.in.lua --descriptFn fn >> .lmodrc.lua
-     mkdir cacheDir
+     mkdir -p cacheDir
      
      mkdir -p broken_mf/test
      cp $(testDir)/bad_module.lua broken_mf/test/1.0.lua

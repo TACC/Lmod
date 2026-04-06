@@ -110,6 +110,8 @@ local function l_init_envTable(self)
       "/usr/local/bin",
       "/usr/bin",
       "/bin",
+      "/sbin",
+      "/usr/sbin",
       "/opt/homebrew/bin",
    }
 end
@@ -313,11 +315,12 @@ end
 
 function M.filter(self, whole)
    local a = {}
-   for line in whole:split("\n") do
+   for myLine in whole:split("\n") do
       repeat
+         local line  = myLine
          local empty = l_remove(line)
          if (empty) then break end
-         line = l_remove_paths("_REF_COUNT_", line)
+         line = l_remove_paths("_REF_COUNT_", myLine)
          line = l_remove_paths(s_path_search, line)
          line = l_replacement(line)
          if (line and line:len() > 0) then

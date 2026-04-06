@@ -543,9 +543,10 @@ function M.pop(self)
    end
 
    local icnt = 0
-   for k, vv in pairs(self.tbl) do
+   for k, myValue in pairs(self.tbl) do
+      local vv   = myValue
       local idxA = vv.idxA
-      local v = idxA[1][1]
+      local v    = idxA[1][1]
       --icnt = icnt + 1
       --dbg.print{"icnt: ",icnt,", v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
       --dbg.printT("vv", vv)
@@ -702,9 +703,9 @@ function M.expand(self)
    -- Step 2: Use pairByKeys to copy paths into pathA in correct order.
 
    local n = 0
-   for _,v in pairsByKeys(t) do
-      n = n + 1
-      v = path_regularize(v)
+   for _,myPath in pairsByKeys(t) do
+      n       = n + 1
+      local v = path_regularize(myPath)
       if (v == ' ') then
          v = ''
       end

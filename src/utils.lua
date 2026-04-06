@@ -416,9 +416,9 @@ function readAdmin()
       local value = nil
       local a     = {}
 
-      for v in whole:split("\n") do
+      for line in whole:split("\n") do
          repeat
-            v = v:gsub("^%s+$","")
+            local v = line:gsub("^%s+$","")
             if (v:find("^%s*#")) then
                -- ignore this comment line
                break
@@ -668,14 +668,15 @@ end
 
 
 local function l_sanizatizeTbl(replaceA, inT, outT)
-   for k, v in pairs(inT) do
+   for k, myValue in pairs(inT) do
       local key = k
+      local v   = myValue
       if (type(k) == "string") then
          for i = 1, #replaceA do
             local p  = replaceA[i]
             local s1 = p[1]
             local s2 = p[2]
-            key = key:gsub(s1,s2)
+            key      = key:gsub(s1,s2)
          end
       end
 
@@ -690,7 +691,7 @@ local function l_sanizatizeTbl(replaceA, inT, outT)
             local p  = replaceA[i]
             local s1 = p[1]
             local s2 = p[2]
-            v = v:gsub(s1,s2)
+            v        = v:gsub(s1,s2)
          end
          outT[key] = v
       else
@@ -1212,9 +1213,9 @@ function initialize_lmod()
 
    local lmodPath = mergeEnvVars(cosmic:value("LMOD_PACKAGE_PATH"),configDir)
    if (lmodPath ~= "") then
-      for path in lmodPath:split(":") do
-         path = path .. "/"
-         path = path:gsub("//+","/")
+      for myPath in lmodPath:split(":") do
+         local path    = myPath .. "/"
+         path          = path:gsub("//+","/")
          package.path  = path .. "?.lua;"      ..
             path .. "?/init.lua;" ..
             package.path
