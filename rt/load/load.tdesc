@@ -145,11 +145,15 @@ testdescript = {
      export MODULEPATH=$(testDir)/mf6
      runLmod load  longVersion                              # 75
      runLmod load  setPrompt                                # 76
-     runLmod list                                           # 77
-     runLmod avail                                          # 78
-     runLmod update                                         # 79
 
+     #------------------------------------------------------------
+     # Issue #811: protect Lmod from changes to LD_LIBRARY_PATH
 
+     runLmodProtectedVars load prependLibPath               # 77
+
+     runLmod list                                           # 78
+     runLmod avail                                          # 79
+     runLmod update                                         # 80
 
 
      HOME=$ORIG_HOME

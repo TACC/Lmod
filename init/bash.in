@@ -90,9 +90,8 @@ __lmod_internal_module_cmd()
            __LMOD_PROTECTED_LD_PRELOAD=$LD_PRELOAD           \
            LD_LIBRARY_PATH=@sys_ld_lib_path@                 \
            LD_PRELOAD=@sys_ld_preload@                       \
-           $LMOD_CMD @my_shell@ "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+           $LMOD_CMD @my_shell@ --protected_vars "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
 }
-
 
 if [ "@silence_shell_debugging@" = "no" ]; then
    module()

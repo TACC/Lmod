@@ -471,6 +471,7 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      nx_H           = "Do not print extensions",
      pin_hlp        = "When doing a restore use specified version, do not follow defaults",
      pod_H          = "Generate pod format",
+     protectedV_H   = "(Interal Use Only) When Lmod is protecting LD_PRELOAD and LD_LIBRARY_PATH",
      quiet_hlp      = "Do not print out warnings",
      raw_hlp        = "Print modulefile in raw output when used with show",
      redirect_H     = "Send the output of list, avail, spider to stdout (not stderr)",

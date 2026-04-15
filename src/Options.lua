@@ -367,6 +367,13 @@ function M.singleton(self, progName, usage, description)
    }
 
    cmdlineParser:add_option{
+      name   = {"--protected_vars"},
+      dest   = "protected_vars",
+      action = "store_true",
+      help   = i18n("protectedV_H"),
+      default = 0.0
+   }
+   cmdlineParser:add_option{
       name   = {"--loc", "--location"},
       dest   = "location",
       action = "store_true",
@@ -459,6 +466,11 @@ function M.singleton(self, progName, usage, description)
 
    if (optionTbl.show_hidden) then
       cosmic:assign("LMOD_SHOW_HIDDEN", "all")
+   end
+
+   if (optionTbl.protected_vars) then
+      local Var = require("Var")
+      Var.build_protected_varsT()
    end
 end
 
