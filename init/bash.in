@@ -86,7 +86,11 @@ __lmod_internal_module_cmd()
 {
   ############################################################
   # Run Lmod and eval results
-  eval "$($LMOD_CMD @my_shell@ "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+  eval "$( __LMOD_PROTECTED_LD_LIBRARY_PATH=$LD_LIBRARY_PATH \
+           __LMOD_PROTECTED_LD_PRELOAD=$LD_PRELOAD           \
+           LD_LIBRARY_PATH=@sys_ld_lib_path@                 \
+           LD_PRELOAD=@sys_ld_preload@                       \
+           $LMOD_CMD @my_shell@ "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
 }
 
 
@@ -114,6 +118,7 @@ else
      fi
 
      __lmod_internal_module_cmd "$@"
+     __lmod_my_status=$? 
 
      ############################################################
      # Un-silence shell debug after module command
