@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
+Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -45,6 +45,7 @@ Options:
   --spider_timeout=timeout          a timeout for spider
   -T --trace                        trace major changes such as loads
   --nx --no_extensions              Do not print extensions
+  --protected_vars                  (Interal Use Only) When Lmod is protecting LD_PRELOAD and LD_LIBRARY_PATH
   --loc --location                  Just print the file location when using show
   --terse_show_extensions           report extensions when doing a terse avail
   --pod                             Generate pod format
@@ -110,7 +111,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
+Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 3
@@ -153,6 +154,7 @@ Options:
   --spider_timeout=timeout          a timeout for spider
   -T --trace                        trace major changes such as loads
   --nx --no_extensions              Do not print extensions
+  --protected_vars                  (Interal Use Only) When Lmod is protecting LD_PRELOAD and LD_LIBRARY_PATH
   --loc --location                  Just print the file location when using show
   --terse_show_extensions           report extensions when doing a terse avail
   --pod                             Generate pod format
@@ -218,7 +220,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
+Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 4
@@ -238,7 +240,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
+Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
     https://lmod.readthedocs.io
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -421,7 +423,7 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
+Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
     https://lmod.readthedocs.io
 MODULEPATH:   ProjectDIR/rt/help/mf
 LMOD_PACKAGE_PATH            D          nil          <empty>
@@ -509,6 +511,8 @@ a timeout for spider
 trace major changes such as loads
 =item I<--nx --no_extensions>
 Do not print extensions
+=item I<--protected_vars>
+(Interal Use Only) When Lmod is protecting LD_PRELOAD and LD_LIBRARY_PATH
 =item I<--loc --location>
 Just print the file location when using show
 =item I<--terse_show_extensions>
