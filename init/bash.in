@@ -82,12 +82,18 @@ export LMOD_SETTARG_FULL_SUPPORT=@lmod_settarg_full_support@
 # See Lmod web site for more details.
 
 
+__lmod_internal_module_cmd()
+{
+  ############################################################
+  # Run Lmod and eval results
+  eval "$($LMOD_CMD @my_shell@ "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+}
+
+
 if [ "@silence_shell_debugging@" = "no" ]; then
    module()
    {
-     ############################################################
-     # Run Lmod and eval results
-     eval "$($LMOD_CMD @my_shell@ "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+      __lmod_internal_module_cmd "$@"
    }
 else
    module()
@@ -107,10 +113,7 @@ else
         echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output" 1>&2
      fi
 
-     ############################################################
-     # Run Lmod and eval results
-     eval "$($LMOD_CMD shell "$@")" && eval "$(${LMOD_SETTARG_CMD:-:} -s sh)"
-     __lmod_my_status=$?
+     __lmod_internal_module_cmd "$@"
 
      ############################################################
      # Un-silence shell debug after module command
