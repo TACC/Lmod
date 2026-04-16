@@ -16,4 +16,6 @@ Lmod 9.1+
 
 Lmod 9.2+
    (9.2)    * Lmod now support Lua 5.5: Support for readonly loop variables
+W.I.P.:
+   (9.2.1)  * Issue #812: Protect Lmod from changes to LD_PRELOAD and LD_LIBRARY_PATH
    
