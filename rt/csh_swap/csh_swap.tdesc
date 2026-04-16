@@ -156,17 +156,18 @@ cat > $(testName).csh << EOF
      lua $(projectDir)/src/$CMD csh swap gcc  intel > _stdout.19
      eval \`cat _stdout.19\`
 
-     setenv __LMOD_PROTECTED_LD_LIBRARY_PATH /def/abc:/qrtst/def; setenv LD_LIBRARY_PATH "";
-     lua $(projectDir)/src/$CMD csh --protected_vars load prependLibPath > _stdout.21
-     eval \`cat _stdout.21\`
-
-     echo "===========================" >  _stdout.22
-     echo "step 10"                     >> _stdout.22
-     echo "===========================" >> _stdout.22
+     echo "===========================" >  _stdout.20
+     echo "step 10"                     >> _stdout.20
+     echo "===========================" >> _stdout.20
 
      echo "==========================="
      echo "step 10"
      echo "==========================="
+
+     setenv __LMOD_PROTECTED_LD_LIBRARY_PATH /def/abc:/qrtst/def; setenv LD_LIBRARY_PATH "";
+     lua $(projectDir)/src/$CMD csh --protected_vars load prependLibPath > _stdout.21
+     eval \`cat _stdout.21\`
+
 
 
      cat _stdout.[012][0-9] > _stdout.orig
