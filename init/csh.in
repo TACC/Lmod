@@ -35,10 +35,13 @@ if ( $?histchars) then
   endif
 endif
 
+
+
+
 if ($?tcsh) then
-  alias module  $prefix'eval `$LMOD_CMD tcsh '$midfix $histchar'*` '$postfix $merge' eval `$LMOD_SETTARG_CMD -s csh`'
+  alias module  $prefix'eval `setenv __LMOD_PROTECTED_LD_LIBRARY_PATH $LD_LIBRARY_PATH ; setenv __LMOD_PROTECTED_LD_PRELOAD      $LD_PRELOAD; setenv LD_LIBRARY_PATH @sys_ld_lib_path@ setenv LD_PRELOAD @sys_ld_preload@;  $LMOD_CMD tcsh --protected_vars '$midfix $histchar'*` '$postfix $merge' eval `$LMOD_SETTARG_CMD -s csh`'
 else
-  alias module  $prefix'eval `$LMOD_CMD csh  '$midfix $histchar'*` '$postfix
+  alias module  $prefix'eval `setenv __LMOD_PROTECTED_LD_LIBRARY_PATH $LD_LIBRARY_PATH ; setenv __LMOD_PROTECTED_LD_PRELOAD      $LD_PRELOAD; setenv LD_LIBRARY_PATH @sys_ld_lib_path@ setenv LD_PRELOAD @sys_ld_preload@;  $LMOD_CMD csh  --protected_vars '$midfix $histchar'*` '$postfix
 endif
 alias clearMT                                'eval `'$LMOD_DIR/clearLMOD_cmd --shell csh --simple'`'
 alias clearLmod  module --force purge $merge 'eval `'$LMOD_DIR/clearLMOD_cmd --shell csh --full $histchar'*' '`'
