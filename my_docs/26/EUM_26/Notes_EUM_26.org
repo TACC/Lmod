@@ -1,7 +1,9 @@
 Here are some topics for this presentation:
 
+* Changes to Optional Lmod DB 
 * support for lua 5.5
 * support for regex in hide{}/forbid{}
 * AI bug find
 * Other AI changes
 * Better help message when module is not found in software hierarchy
+* Issue #812: protecting Lmod from changes to LD_PRELOAD LD_LIBRARY_PATH
