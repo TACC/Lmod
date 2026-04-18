@@ -10,10 +10,10 @@
 
 \title[Lmod at EUM 26]{Lmod: The Lua-Based Environment Module System}
 %\subtitle{Texas Advanced Computing Center}
-\author{Robert McLay~\inst{1} \and Matthew Cawood~\inst{2} }
+\author{Robert McLay~\inst{1} \and Matthew Cawood~\inst{2} \and Taylor Ishisaka~\inst{3}}
 \institute[A]{\textsuperscript{1}Texas Advanced Computing Center (Retired)\\ %
 \textsuperscript{2} Dell\\ %
-}
+\textsuperscript{3} Texas Advanced Computing Center}
 
 \date{April 22, 2026}
 
@@ -65,7 +65,7 @@
 \end{frame}
 
 % --- Recap SC24 ---
-\begin{frame}{Recap: Where We Left Off (EUM 26)}
+\begin{frame}{Recap: Where We Left Off (EUM '25)}
   \begin{itemize}
     \item Focused on improving modulefile scripting, hooks, and hierarchy handling.
     \item Introduced the next-generation tracking database for usage collection.
@@ -94,6 +94,8 @@
     \item \textbf{depends\_on\_any()}: allows dependency on any member of a module set.
     \item \textbf{Enhanced hide\{\}/forbid\{\}}: expression-based
       control by user, group, or date (Stolen from Env. Modules)
+    \item \textbf{Enhanced hideRegex\{\}/forbidRegex\{\}}: Hide/forbid
+      with regex module names.
     \item \textbf{Optional tracking v2}: database shrinks 100× while preserving analytics.
     \item \textbf{New hooks (e.g., decorate\_module)} for module tagging and logging.
   \end{itemize}
@@ -242,7 +244,7 @@ _ModuleTable_ = \{
 \begin{frame}{Support for Lua 5.5}
   \begin{itemize}
     \item Lua 5.5 was released late last year (2025)
-    \item Major change is readonly loop variables
+    \item The major change is readonly for-loop variables
     \item Latest version of Fedora Rawhide uses Lua 5.5
     \item Lmod 9.2 supports this change
     \item Lmod depends on luaposix to do unix system functions
@@ -256,13 +258,16 @@ _ModuleTable_ = \{
     \frametitle{Issue 812: Protecting Lmod from changes to LD\_LIBRARY\_PATH}
   \begin{itemize}
     \item Alan O'Cais request this change
+    \item Lmod uses a way to protect LD\_LIBRARY\_PATH and LD\_PRELOAD
+    \item What happens with \$PS1 and sed?
     \item The change is the following where the module command calls:
   \end{itemize}
  {\small
     \begin{semiverbatim}
 \_\_lmod\_internal\_module\_cmd () \{
-        eval "\$( \_\_LMOD\_PROTECTED\_LD\_LIBRARY\_PATH=\$LD\_LIBRARY\_PATH \
+        eval "\$( \_\_LMOD\_PROTECTED\_LD\_LIBRARY\_PATH=\$LD\_LIBRARY\_PATH 
            LD\_LIBRARY\_PATH=@sys\_ld\_path@
+           ...
            \$LMOD\_CMD zsh "\$@"\}"
 
     \end{semiverbatim}
@@ -300,15 +305,15 @@ _ModuleTable_ = \{
   \end{itemize}
 \end{frame}
 
-% --- Roadmap ---
-\begin{frame}{Looking Ahead}
-  \begin{itemize}
-    \item Ongoing performance profiling for massive module trees (>100k modules).
-    \item Additional shell and scheduler integration (Slurm, PBSPro).
-    \item Exploring distributed tracking and federated analytics.
-    \item Continued collaboration via GitHub and EUM workshops.
-  \end{itemize}
-\end{frame}
+%% --- Roadmap ---
+%\begin{frame}{Looking Ahead}
+%  \begin{itemize}
+%    \item Ongoing performance profiling for massive module trees (>100k modules).
+%    \item Additional shell and scheduler integration (Slurm, PBSPro).
+%    \item Exploring distributed tracking and federated analytics.
+%    \item Continued collaboration via GitHub and EUM workshops.
+%  \end{itemize}
+%\end{frame}
 
 % --- Usage by Country ---
 \begin{frame}
