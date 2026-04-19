@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
+Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -110,7 +110,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
+Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 3
@@ -218,7 +218,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
+Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 4
@@ -238,7 +238,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
+Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
     https://lmod.readthedocs.io
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -421,7 +421,7 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
+Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
     https://lmod.readthedocs.io
 MODULEPATH:   ProjectDIR/rt/help/mf
 LMOD_PACKAGE_PATH            D          nil          <empty>
@@ -585,6 +585,7 @@ Robert McLay mclay@tacc.utexas.edu
 step 8
 lua ProjectDIR/src/chkJson
 ===========================
+Json key: ld_preload has the wrong value: testV: libsandbox.so , v.value: <empty>
 Json is missing key: dot_files
 rcfileA is a table
 rcfileA has two entries
