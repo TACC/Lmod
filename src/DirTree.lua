@@ -91,6 +91,11 @@ local function l_keepFile(fn)
       return false
    end
 
+   local spacePattern = "%s"
+   if (fn:find(spacePattern)) then
+      return false
+   end
+
    if (firstChar == "." and fn:sub(-4,-1) == ".swp") then
       return false
    end
@@ -187,8 +192,8 @@ local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
 
    for f in lfs.dir(path) do
       repeat
-         local file = pathJoin(path, f)
          if (not l_keepFile(f)) then break end
+         local file = pathJoin(path, f)
 
          local attr = (f == "default") and lfs.symlinkattributes(file) or lfs.attributes(file)
          if (attr == nil) then break end
