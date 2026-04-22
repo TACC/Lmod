@@ -54,7 +54,7 @@
       \item Enables \textbf{hierarchical MODULEPATHs}, \textbf{module families}, and \textbf{site policy enforcement}.
       \item Used at major HPC centers worldwide including TACC, NERSC,
         CSCS, and BSC.
-      \item And Many Others
+      \item And Many Others: EasyBuild, Spack, OpenHPC
     \end{itemize}
   \end{column}
   \begin{column}{0.45\textwidth}
@@ -259,7 +259,6 @@ _ModuleTable_ = \{
   \begin{itemize}
     \item Alan O'Cais request this change
     \item Lmod uses a way to protect LD\_LIBRARY\_PATH and LD\_PRELOAD
-    \item What happens with \$PS1 and sed?
     \item The change is the following where the module command calls:
   \end{itemize}
  {\small
@@ -279,9 +278,15 @@ _ModuleTable_ = \{
 \begin{frame}{Documentation and Usability}
   \begin{itemize}
     \item Major expansion of \href{https://lmod.readthedocs.io}{lmod.readthedocs.io} with in-depth technical docs.
-    \item Added sections on advanced hooks, tracking v2, and policy examples.
+    \item Added sections on advanced hooks, tracking v2, and policy
+      examples.
+    \item Matthew Cawood used AI tools to generate much of the documentation.
     \item Clear migration guide from 8.x → 9.x.
-    \item Real-world stats: TACC reduced usage DB size from 1 GB/day → 10 MB/day.
+    \item Real-world stats: TACC reduced usage DB size from 1 GB/day →
+      10 MB/day.
+    \item This was done by deduping data: Only one user, date, module
+      per day.
+    \item TACC only stores one year of data to reduce the size of the DB.
   \end{itemize}
 \end{frame}
 
@@ -316,11 +321,11 @@ _ModuleTable_ = \{
 %\end{frame}
 
 % --- Usage by Country ---
-\begin{frame}
-  \begin{center}
-    \includegraphics[width=\textwidth]{Lmod_doc_usage_by_country.png}
-  \end{center}
-\end{frame}
+%\begin{frame}
+%  \begin{center}
+%    \includegraphics[width=\textwidth]{Lmod_doc_usage_by_country.png}
+%  \end{center}
+%\end{frame}
 
 % --- Get Involved ---
 \begin{frame}{Get Involved}
