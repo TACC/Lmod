@@ -109,6 +109,7 @@ function M.new(self, sType, name, action, is, ie)
    o.__version         = false
    o.__fn              = false
    o.__versionStr      = false
+   o.__logicalVersionForUserName = nil
    o.__dependsOn       = false
    o.__moduleKindT     = nil
    o.__ref_count       = nil
@@ -272,19 +273,25 @@ local function l_lazyEval(self)
 
 
    for i = 1, #stepA do
+      self.__logicalVersionForUserName = nil
       local func = stepA[i]
       found, fn, version, wV, moduleKindT, mpath, funcName = func(self, fileA)
       dbg.print{"found: ",found,", funcName: ",funcName,"\n"}
-      if (found) then
-         self.__fn          = fn
-         self.__version     = version
-         self.__wV          = wV
-         self.__moduleKindT = moduleKindT
-         self.__mpath       = mpath
-         if (self.__action == "latest" or self.__sn ~= self.__userName) then
-            self.__userName = build_fullName(self.__sn, version)
-         end
-         break
+         if (found) then
+            self.__fn          = fn
+            self.__version     = version
+            self.__wV          = wV
+            self.__moduleKindT = moduleKindT
+            self.__mpath       = mpath
+            if (self.__action == "latest" or self.__sn ~= self.__userName) then
+               -- Prefer the matched entry's version for userName so extended
+               -- defaults and NVV paths expand (e.g. gcc/11 -> gcc/11.4).
+               -- Dot-hidden alias sets __logicalVersionForUserName to the user's
+               -- logical spec so userName stays itk/1.2 while fullName uses .1.2.
+               local uv = self.__logicalVersionForUserName or version or self.__versionStr
+               self.__userName = build_fullName(self.__sn, uv)
+            end
+            break
       end
    end
    
@@ -502,7 +509,13 @@ local function l_find_exact_match(self, must_have_version, fileA)
                wV          = entry.wV
                fn          = entry.fn
                mpath       = entry.mpath
-               version     = entry.version or false
+               if (entry.dotHiddenCanonVs) then
+                  version     = entry.dotHiddenCanonVs
+                  self.__logicalVersionForUserName = entry.version
+               else
+                  version     = entry.version or false
+                  self.__logicalVersionForUserName = nil
+               end
                moduleKindT = resultT.moduleKindT
                found       = true
                self.__range = { pV, pV }

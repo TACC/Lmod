@@ -437,6 +437,16 @@ cosmic:init{name    = "LMOD_EXTENDED_DEFAULT",
             yn      = "yes"}
 
 ------------------------------------------------------------------------
+-- LMOD_DOT_HIDDEN_LOAD_ALIAS: If yes, a requested version such as 1.2 can
+--                               resolve to a sole sibling whose path uses
+--                               dot-leading segments (e.g. .1.2).  Exact
+--                               keys still win when present (issue #817).
+------------------------------------------------------------------------
+
+cosmic:init{name = "LMOD_DOT_HIDDEN_LOAD_ALIAS",
+            yn   = "no"}
+
+------------------------------------------------------------------------
 -- LMOD_QUARANTINE_VARS: A colon separated list of variable
 --                       that Lmod will not change.  Note
 --                       path like variables are excluded.

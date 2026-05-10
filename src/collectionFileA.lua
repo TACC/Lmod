@@ -37,6 +37,21 @@ require("strict")
 require("utils")
 
 local dbg    = require("Dbg"):dbg()
+
+local function l_normalizeDotHiddenVersion(versionStr)
+   if (not versionStr or versionStr == "") then
+      return ""
+   end
+   local a = {}
+   for part in versionStr:gmatch("[^/]+") do
+      if (part:sub(1,1) == ".") then
+         part = part:sub(2)
+      end
+      a[#a+1] = part
+   end
+   return table.concat(a, "/")
+end
+
 function collectFileA(sn, versionStr, extended_default, v, fileA)
    dbg.start{"collectFileA(sn: \"",sn,"\", versionStr: ", versionStr,", v,fileA)"}
    --dbg.printT("v",v)
@@ -54,6 +69,43 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
             dbg.fini("collectFileA exact match")
             return
          end
+
+         local cosmic = require("Cosmic"):singleton()
+         if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") == "yes") then
+            local targetNorm = l_normalizeDotHiddenVersion(versionStr)
+            local candK      = false
+            local candVv     = false
+            local ambiguous  = false
+            local snPrefix   = sn .. "/"
+            for fk, fvv in pairs(v.fileT) do
+               if (fk:sub(1, #snPrefix) == snPrefix) then
+                  local vFromKey = fk:sub(#snPrefix + 1)
+                  if (l_normalizeDotHiddenVersion(vFromKey) == targetNorm) then
+                     if (candK) then
+                        ambiguous = true
+                        candK     = false
+                        candVv    = false
+                        break
+                     end
+                     candK  = fk
+                     candVv = fvv
+                  end
+               end
+            end
+            if (candK and candVv and (not ambiguous)) then
+               local canonVs = candK:gsub("^" .. sn:escape() .. "/", "")
+               -- versionStr is the user's logical spec (e.g. 1.2); canonVs is the
+               -- key segment (e.g. .1.2). Keep both so exact-match uses logical
+               -- version for entry.version == versionStr while MT fullName uses canonVs.
+               fileA[#fileA+1] = { sn = sn, fullName = build_fullName(sn, canonVs),
+                                   version = versionStr, dotHiddenCanonVs = canonVs,
+                                   fn = candVv.fn, wV = candVv.wV,
+                                   pV = candVv.pV, mpath = candVv.mpath }
+               dbg.fini("collectFileA dot-hidden alias")
+               return
+            end
+         end
+
          if (extended_default == "yes") then
             local vp     = versionStr
             local extra  = ""

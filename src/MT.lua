@@ -1552,12 +1552,20 @@ function M.getMTfromFile(self,tt)
 end
 
 function M.extractModulesFiles(self)
-   local a = self:list("fullName","active")
+   local pin_versions = cosmic:value("LMOD_PIN_VERSIONS")
+   local kind         = "fullName"
+   if (pin_versions == "no") then
+      kind = "userName"
+      if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") ~= "yes") then
+         kind = "fullName"
+      end
+   end
+   local a            = self:list(kind,"active")
    local loadA = {}
    local fileA = {}
    local status = true
    for i = 1,#a do
-      loadA[#loadA+1] = a[i].fullName
+      loadA[#loadA+1] = a[i].name
       fileA[#fileA+1] = a[i].fn
    end
    local loadStr = nil
