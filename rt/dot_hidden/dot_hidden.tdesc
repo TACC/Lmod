@@ -1,0 +1,99 @@
+-- -*- lua -*-
+
+local testName = "dot_hidden"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	GitHub issue #817: dot-prefixed version directories remain hidden for
+	listing, but with LMOD_DOT_HIDDEN_LOAD_ALIAS=yes the logical undotted
+	version can be loaded (e.g. itk/.1.2.lua via `module load itk/1.2`).
+
+	Additional coverage: exact key wins when itk/1.2 and itk/.1.2 both exist;
+	unknown version still fails with the gate on.
+   ]],
+   keywords = { testName, "hidden", "issue817" },
+
+   active   = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+
+     remove_generated_lmod_files
+
+     export MODULEPATH=$(testDir)/mf
+     unset LMOD_DOT_HIDDEN_LOAD_ALIAS
+
+     runLmod --version                         # 1
+     runLmod avail                             # 2
+     runLmod --show_hidden avail               # 3
+     runLmod load itk/1.2                      # 4  gate off: unknown
+     runLmod purge                             # 5
+
+     unsetMT
+     export MODULEPATH=$(testDir)/mf
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod load itk/1.2                      # 6  alias load (single dotted segment)
+     runLmod purge                             # 7
+
+     unsetMT
+     export MODULEPATH=$(testDir)/mf
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod load itk/.1.2                     # 8  explicit dotted path
+
+     runLmod purge                             # 9
+
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_dup
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod load itk/1.2                      # 10 exact must beat dot-hidden alias
+     runLmod purge                             # 11
+
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_dup
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod load itk/.1.2                     # 12 dot sibling still addressable
+
+     runLmod purge                             # 13
+
+     unsetMT
+     export MODULEPATH=$(testDir)/mf
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod load itk/9.99                     # 14 gate on, still unknown
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

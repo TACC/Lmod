@@ -1,0 +1,148 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/1.2
+===========================
+false
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/1.2
+===========================
+IS817_ITK_LOADED=yes;
+export IS817_ITK_LOADED;
+LOADEDMODULES=itk/1.2;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden/mf/itk/.1.2.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={itk={fn="ProjectDIR/rt/dot_hidden/mf/itk/.1.2.lua",fullName="itk/.1.2",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="itk/1.2",wV="000000000.000000001.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden/mf",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf",}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset IS817_ITK_LOADED;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/.1.2
+===========================
+IS817_ITK_LOADED=yes;
+export IS817_ITK_LOADED;
+LOADEDMODULES=itk/.1.2;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden/mf/itk/.1.2.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={itk={fn="ProjectDIR/rt/dot_hidden/mf/itk/.1.2.lua",fullName="itk/.1.2",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="itk/.1.2",wV="000000000.000000001.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden/mf",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf",}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset IS817_ITK_LOADED;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf",}';
+export _ModuleTable_;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/1.2
+===========================
+IS817_ITK_SLOT=exact;
+export IS817_ITK_SLOT;
+LOADEDMODULES=itk/1.2;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf_dup:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_dup;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden/mf_dup/itk/1.2.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={itk={fn="ProjectDIR/rt/dot_hidden/mf_dup/itk/1.2.lua",fullName="itk/1.2",loadOrder=1,propT={},stackDepth=0,status="active",userName="itk/1.2",wV="000000001.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden/mf_dup",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_dup",}';
+export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset IS817_ITK_SLOT;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_dup;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf_dup",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_dup",}';
+export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/.1.2
+===========================
+IS817_ITK_SLOT=dot;
+export IS817_ITK_SLOT;
+LOADEDMODULES=itk/.1.2;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf_dup:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_dup;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden/mf_dup/itk/.1.2.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={itk={fn="ProjectDIR/rt/dot_hidden/mf_dup/itk/.1.2.lua",fullName="itk/.1.2",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="itk/.1.2",wV="000000000.000000001.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden/mf_dup",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_dup",}';
+export _ModuleTable_;
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset IS817_ITK_SLOT;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_dup;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf_dup",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_dup",}';
+export _ModuleTable_;
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/9.99
+===========================
+false
