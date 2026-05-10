@@ -51,6 +51,23 @@ All lua modulerc files support the following commands:
    "full_path" doesn't have to include the .lua extension.
    See the isVisible hook in :ref:`hooks` to do more complicated hiding.
 
+**module_virtual** ("virtual_name", "implementation"):
+   Equivalent to calling ``module_alias(virtual_name, implementation)``
+   followed by ``hide_version(implementation)``. Use this when several
+   version labels should resolve to the same underlying modulefile (for example a
+   single ``.stack.lua`` or ``base`` modulefile) without maintaining per-version
+   symlinks and without flipping between large ``hide_version`` lists when only
+   certain labels should appear in ``module avail``. It follows the same idea as
+   **module-virtual** in Environment Modules / Tcl modules.
+
+   ``module avail`` also counts displayed global aliases when deciding whether to
+   report that nothing matched, so an alias to a hidden implementation does not
+   simultaneously print ``Global Aliases`` and claim no modules were found.
+
+   Background and use cases are described in `Lmod issue #818`_.
+
+.. _`Lmod issue #818`: https://github.com/TACC/Lmod/issues/818
+
 The above functions are the only functions support in .modulerc.lua
 files. In particular, Lmod functions like setenv(), pushenv() are not supported.
 
@@ -241,6 +258,10 @@ modulefiles are located or in the LMOD_MODULERC files.
 **hide-modulefile** full_path
   see hide-modulefile above.
 
+**module-virtual** virtual_name implementation
+  Equivalent to **module-alias** followed by **hide-version** on the same
+  arguments; see **module_virtual** () above. Tcl ``.modulerc`` files are
+  translated through ``RC2lua.tcl``.
 
 **module-hide** *options* name1 name2 ...
    Where the *options* are::
