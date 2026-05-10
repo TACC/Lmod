@@ -67,6 +67,13 @@ function module_alias(name,mfile)
    ModA[#ModA+1] = {action="module_alias", name=name, mfile=mfile}
 end
 
+--module_virtual("name","modulefile")  -- alias + hide impl (Tmod module-virtual parity)
+function module_virtual(name, mfile)
+   if (not l_validateStringArgs("module_virtual", name, mfile)) then return end
+   module_alias(name, mfile)
+   hide_version(mfile)
+end
+
 --hide_version("full_module_version")
 function hide_version(full)
    if (not l_validateStringArgs("hide_version", full)) then return end

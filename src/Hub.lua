@@ -1343,6 +1343,13 @@ function M.avail(self, argA)
       a[#a+1] = "\n"
    end
 
+   --------------------------------------------------------------------------
+   -- Issue #818: Global aliases were printed but did not increment numFound,
+   -- so "module avail <name>" could show matching aliases and still report
+   -- no modules when every filesystem entry was hidden.
+   --------------------------------------------------------------------------
+   numFound = numFound + #b
+
 
    for k = 1,#availA do
       local A = availA[k].A

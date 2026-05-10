@@ -100,6 +100,11 @@ proc module-alias {name mfile} {
     myPuts "\{action=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
 }
 
+proc module-virtual {name mfile} {
+    module-alias $name $mfile
+    hide-version $mfile
+}
+
 proc hide-version {mfile} {
     myPuts "\{action=\"hide_version\", mfile=\"$mfile\"\},"
 }
