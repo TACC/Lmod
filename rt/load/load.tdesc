@@ -142,12 +142,19 @@ testdescript = {
 
      runLmod purge                                          # 74
      unsetMT
+
+     ############################################################
+     # Testing file with a space in its name
+     ############################################################
+
      export MODULEPATH=$(testDir)/mf6
      runLmod load  longVersion                              # 75
      runLmod load  setPrompt                                # 76
-     runLmod list                                           # 77
-     runLmod avail                                          # 78
-     runLmod update                                         # 79
+     runLmod load  acme\ products                           # 77
+     
+     runLmod list                                           # 78
+     runLmod avail                                          # 79
+     runLmod update                                         # 80
 
 
 
