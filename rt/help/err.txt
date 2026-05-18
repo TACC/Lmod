@@ -583,7 +583,7 @@ Lmod Web Sites
 Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 8
-lua ProjectDIR/src/chkJson
+lua ProjectDIR/proj_mgmt/chkJson
 ===========================
 configT matches
 rcfileA is a table

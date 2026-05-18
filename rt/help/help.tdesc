@@ -25,15 +25,16 @@ testdescript = {
 
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
-     runLmod --version                                        # 1
-     runLmod --help                                           # 2
-     runLmod help                                             # 3
-     runLmod help amber                                       # 4
-     runLmod --config                                         # 5
-     runLmod --miniConfig                                     # 6
-     runLmod --pod                                            # 7
+     runLmod --version                                              # 1
+     runLmod --help                                                 # 2
+     runLmod help                                                   # 3
+     runLmod help amber                                             # 4
+     runLmod --config                                               # 5
+     runLmod --miniConfig                                           # 6
+     runLmod --pod                                                  # 7   
+
      LD_PRELOAD= $LUA_EXEC $projectDir/src/lmod.in.lua bash --config_json 2> config.json
-     runBase $LUA_EXEC $projectDir/src/chkJson < config.json  # 8
+     runBase $LUA_EXEC $projectDir/proj_mgmt/chkJson < config.json  # 8
 
 
      HOME=$ORIG_HOME
