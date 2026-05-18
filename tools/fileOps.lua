@@ -272,7 +272,7 @@ function pathJoin(...)
             local msg = "bad argument #" .. i .." (string expected, got " .. vType .. " instead)\n"
             assert(vType ~= "string", msg)
          end
-      	 v = v:trim()
+      	 -- v = v:trim()
       	 if (v:sub(1,1) == '/' and i > 1) then
 	    if (v:len() > 1) then
 	       v = v:sub(2,-1)
@@ -458,7 +458,7 @@ local function l_walk_dir(path)
    local fileA = {}
    local attr = lfs.attributes(path)
    if (attr and type(attr) == "table" and attr.mode == "directory" and
-       access(path,"x")) then
+      access(path,"x")) then
       for file in lfs.dir(path) do
          if ( file ~= '.' and file ~= '..') then
             local fn   = pathJoin(path,file)
