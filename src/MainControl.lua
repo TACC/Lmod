@@ -623,6 +623,12 @@ local function l_error_on_missing_loaded_modules(aa, bb)
          end
       end
 
+      dbg.printT("uA",uA)
+      dbg.printT("iA",iA)
+      dbg.printT("kA",kA)
+      dbg.printT("kB",kB)
+
+
       local a = {}
 
       if (#iA > 0) then
