@@ -91,8 +91,7 @@ local function l_keepFile(fn)
       return false
    end
 
-   local spacePattern = "%s"
-   if (fn:find(spacePattern)) then
+   if (fn:find("^%s") or fn:find("%s$")) then
       return false
    end
 
