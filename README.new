@@ -16,4 +16,6 @@ Lmod 9.1+
 
 Lmod 9.2+
    (9.2)    * Lmod now support Lua 5.5: Support for readonly loop variables
+   (9.2.1)  * Update proj_mgmt/clean_gold_files/Cleanup.lua to handle gentoo output for end2end test.
+   
    
