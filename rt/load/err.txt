@@ -125,20 +125,16 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload boost
 step 18
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.33.0
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "boost/1.33.0"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "boost/1.33.0"
-Also make sure that all modulefiles written in TCL start with the string #%Module
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost/1.33.0"
+   Try: "module spider boost/1.33.0" to see how to load the module(s).
+   The requested module(s) require a toolchain that is incompatible with the currently loaded environment.
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.57.0
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "boost/1.57.0"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "boost/1.57.0"
-Also make sure that all modulefiles written in TCL start with the string #%Module
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost/1.57.0"
+   Try: "module spider boost/1.57.0" to see how to load the module(s).
+   The requested module(s) require a toolchain that is incompatible with the currently loaded environment.
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost
@@ -213,11 +209,9 @@ Currently Loaded Modules:
 step 30
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load DoesNotExist
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "DoesNotExist"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "DoesNotExist"
-Also make sure that all modulefiles written in TCL start with the string #%Module
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "DoesNotExist"
+   Try: "module spider DoesNotExist" to see how to load the module(s).
+   The requested module(s) require a toolchain that is incompatible with the currently loaded environment.
 ===========================
 step 31
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
@@ -334,29 +328,23 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load go
 step 39
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bad_symlink
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "bad_symlink"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "bad_symlink"
-Also make sure that all modulefiles written in TCL start with the string #%Module
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "bad_symlink"
+   Try: "module spider bad_symlink" to see how to load the module(s).
+   The requested module(s) require a toolchain that is incompatible with the currently loaded environment.
 ===========================
 step 40
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load empty
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "empty"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "empty"
-Also make sure that all modulefiles written in TCL start with the string #%Module
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "empty"
+   Try: "module spider empty" to see how to load the module(s).
+   The requested module(s) require a toolchain that is incompatible with the currently loaded environment.
 ===========================
 step 41
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load version_only
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "version_only"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "version_only"
-Also make sure that all modulefiles written in TCL start with the string #%Module
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "version_only"
+   Try: "module spider version_only" to see how to load the module(s).
+   The requested module(s) require a toolchain that is incompatible with the currently loaded environment.
 ===========================
 step 42
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load dflt
