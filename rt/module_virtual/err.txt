@@ -35,8 +35,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail foo
 ===========================
-Global Aliases
-   foo/24.4.0 -> foo/.stack
+ProjectDIR/rt/module_virtual/mf/virtual_fn/Core
+   foo/24.4.0
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
@@ -62,8 +62,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail foo
 ===========================
-Global Aliases
-   foo/24.4.0 -> foo/.stack
+ProjectDIR/rt/module_virtual/mf/tcl_rc/Core
+   foo/24.4.0
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.

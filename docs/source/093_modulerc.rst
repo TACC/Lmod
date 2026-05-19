@@ -60,9 +60,9 @@ All lua modulerc files support the following commands:
    certain labels should appear in ``module avail``. It follows the same idea as
    **module-virtual** in Environment Modules / Tcl modules.
 
-   ``module avail`` also counts displayed global aliases when deciding whether to
-   report that nothing matched, so an alias to a hidden implementation does not
-   simultaneously print ``Global Aliases`` and claim no modules were found.
+   In ``module avail``, virtual names are listed under their modulepath like
+   ordinary modules (the hidden implementation is not shown with an arrow).
+   ``module_alias`` entries continue to appear under ``Global Aliases``.
 
    Background and use cases are described in `Lmod issue #818`_.
 

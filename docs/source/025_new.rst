@@ -5,7 +5,8 @@ New Features in Lmod
    Lua ``.modulerc.lua`` files support ``module_virtual ("virtual_name",
    "implementation")``, and Tcl ``.modulerc`` files support ``module-virtual``,
    matching Environment Modules style virtual names that map to one hidden
-   implementation module. See :ref:`modulerc-label`. Rationale:
+   implementation module. Virtual names appear under their modulepath in
+   ``module avail`` (not under ``Global Aliases``). See :ref:`modulerc-label`. Rationale:
    `Lmod issue #818 <https://github.com/TACC/Lmod/issues/818>`__.
 
 **Lmod now looks for /etc/lmod/SitePackage.lua**
