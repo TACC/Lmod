@@ -1,7 +1,7 @@
 # -*- python -*-
 from __future__ import print_function
 from subprocess import PIPE, Popen
-import os, sys 
+import os, sys
 
 
 def module(command, *arguments, **kwargs):
