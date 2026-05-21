@@ -1,5 +1,7 @@
 os.environ['FOOBAR']:  "1.0.1"
 os.environ['M']:  "^ucx.yalla"
+os.environ['LD_LIBRARY_PATH']:  "/abc/def:/ghi/def"
+os.environ['LD_PRELOAD']:  "/qrst/def:/rt/def"
 ProjectDIR/rt/python/mf/Core
    A/1.0 (L)    B/1.1 (L)    bad/1.0    bar/2.0 (L)    foobar/1.0 (L)
   Where:

@@ -25,7 +25,7 @@ def module(command, *arguments, **kwargs):
     module('load', 'gcc cmake', show_environ_updates=True)
     """
     numArgs = len(arguments)
-    A = ['@PKG@/libexec/lmod', 'python', command]
+    A = ['@PKG@/libexec/lmod', 'python', '--protected_vars', command]
     if (numArgs == 1):
         A += arguments[0].split()
     else:
@@ -35,9 +35,14 @@ def module(command, *arguments, **kwargs):
     status         = proc.returncode 
     stdout, stderr = proc.communicate()
     err_out        = sys.stderr
+    
     if (os.environ.get('LMOD_REDIRECT','@redirect@') != 'no'):
         err_out=sys.stdout
 
+    os.environ['__LMOD_PROTECTED_LD_LIBRARY_PATH'] = os.environ.get('LD_LIBRARY_PATH','')
+    os.environ['__LMOD_PROTECTED_LD_PRELOAD']      = os.environ.get('LD_PRELOAD','')
+    os.environ['LD_LIBRARY_PATH']                  = '@sys_ld_lib_path@'
+    os.environ['LD_PRELOAD']                       = '@sys_ld_preload@'
     print(stderr.decode(),file=err_out)
     
     if ('show_environ_updates' in kwargs):

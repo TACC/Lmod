@@ -20,6 +20,8 @@ testdescript = {
      initStdEnvVars
      MODULEPATH_ROOT=$(testDir)/mf;       export MODULEPATH_ROOT
      MODULEPATH="$MODULEPATH_ROOT/Core";  export MODULEPATH
+     LD_PRELOAD="/rt/def";                export LD_PRELOAD
+     LD_LIBRARY_PATH="/ghi/def";          export LD_LIBRARY_PATH
 
      rm -rf init .cache .config
      mkdir init
@@ -57,6 +59,8 @@ module("load","A","B")
 
 print ("os.environ['FOOBAR']: ",'"' + os.environ['FOOBAR'] + '"')
 print ("os.environ['M']: ", '"' + os.environ['M'] + '"')
+print ("os.environ['LD_LIBRARY_PATH']: ", '"' + os.environ['LD_LIBRARY_PATH'] + '"')
+print ("os.environ['LD_PRELOAD']: ", '"' + os.environ['LD_PRELOAD'] + '"')
 
 module("avail");
 os.environ['LMOD_REDIRECT'] = 'yes'
