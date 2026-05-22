@@ -1,3 +1,5 @@
+MAKEFLAGS += --warn-undefined-variables
+
 srcdir                    := @srcdir@
 prefix                    := @prefix@
 SYS_LUA_PATH              := @SYS_LUA_PATH@
