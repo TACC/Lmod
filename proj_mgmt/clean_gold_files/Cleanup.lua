@@ -95,7 +95,7 @@ local function l_init_envTable(self)
       {"attempt to call.*WTF.*",              ""                   },
       {".*_AST_FEATURES.*",                   ""                   },
       {"[(]file \"ProjectDIR/rt/end2end.*",   ""                   },
-      {"[(]file \"OutputDIR/lmod/lmod/.*",    ""                   },
+      {"[(]file \"OutputDIR/lmo.*",           ""                   },
       {"^ *=============================* *", banner               },
       {"  *$",                                ""                   },
       {"^ *$",                                ""                   }, 

@@ -38,5 +38,5 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --pod
 ===========================
 ===========================
 step 8
-lua ProjectDIR/src/chkJson
+lua ProjectDIR/proj_mgmt/chkJson
 ===========================

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
+Modules based on Lua: Version 9.2.1 2026-05-15 10:21 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -111,7 +111,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
+Modules based on Lua: Version 9.2.1 2026-05-15 10:21 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 3
@@ -220,8 +220,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
-    https://lmod.readthedocs.io
+Modules based on Lua: Version 9.2.1 2026-05-15 10:21 -05:00
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing help amber
@@ -240,7 +239,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
+Modules based on Lua: Version 9.2.1 2026-05-15 10:21 -05:00
     https://lmod.readthedocs.io
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -423,7 +422,7 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
+Modules based on Lua: Version 9.2.1 2026-05-15 10:21 -05:00
     https://lmod.readthedocs.io
 MODULEPATH:   ProjectDIR/rt/help/mf
 LMOD_PACKAGE_PATH            D          nil          <empty>
@@ -587,9 +586,9 @@ Lmod Web Sites
 Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 8
-lua ProjectDIR/src/chkJson
+lua ProjectDIR/proj_mgmt/chkJson
 ===========================
-Json is missing key: dot_files
+configT matches
 rcfileA is a table
 rcfileA has two entries
 propT is a table

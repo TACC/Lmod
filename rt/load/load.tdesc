@@ -142,18 +142,24 @@ testdescript = {
 
      runLmod purge                                          # 74
      unsetMT
+
+     ############################################################
+     # Testing file with a space in its name
+     ############################################################
+
      export MODULEPATH=$(testDir)/mf6
      runLmod load  longVersion                              # 75
      runLmod load  setPrompt                                # 76
-
+     runLmod load  acme\ products                           # 77
+     
      #------------------------------------------------------------
      # Issue #811: protect Lmod from changes to LD_LIBRARY_PATH
 
-     runLmodProtectedVars load prependLibPath               # 77
+     runLmodProtectedVars load prependLibPath               # 78
 
-     runLmod list                                           # 78
-     runLmod avail                                          # 79
-     runLmod update                                         # 80
+     runLmod list                                           # 79
+     runLmod avail                                          # 80
+     runLmod update                                         # 81
 
 
      HOME=$ORIG_HOME

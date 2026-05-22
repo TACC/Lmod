@@ -76,7 +76,7 @@ También es posible que su archivo de cache estea desactualizado. Intente:
 ]==],
      e_Failed_Load_2       = [==[Estos módulos existen pero no pueden ser cargados como ha solicitado: %{kA}
    Intente: "module spider %{kB}" para ver como cargar los módulos.
-]==],
+%{suggest_cmd}]==],
      e_Failed_Load_any     = nil,
      e_Family_Conflict     = [==[Sólo puede tener un módulo %{name} cargado a la vez.
 Ya tiene %{oldName} cargado.
