@@ -11,9 +11,9 @@ help([[
 
 local version = "11.0"
 
-prepend_path('PATH',            '/vol/local/intel/cc/cc/bin')
-prepend_path('PATH',            '/vol/local/intel/fc/fc/bin')
-prepend_path('PATH',            '/vol/local/intel/idb/idb/bin')
+prepend_path('PATH',            '/unknown/vol/local/intel/cc/cc/bin')
+prepend_path('PATH',            '/unknown/vol/local/intel/fc/fc/bin')
+prepend_path('PATH',            '/unknown/vol/local/intel/idb/idb/bin')
 prepend_path('LD_LIBRARY_PATH', '/vol/local/intel/cc/cc/lib')
 prepend_path('LD_LIBRARY_PATH', '/vol/local/intel/fc/fc/lib')
 prepend_path('LD_LIBRARY_PATH', '/vol/local/intel/idb/idb/lib')
