@@ -49,7 +49,7 @@ testdescript = {
      runLmod avail                                          # 15
      runLmod -d avail                                       # 16
      runLmod unload boost                                   # 17
-     runLmod load boost/1.33.0                              # 18
+     runLmod -D load boost/1.33.0                              # 18
      runLmod load boost/1.57.0                              # 19
      runLmod load boost                                     # 20
      runLmod load alex                                      # 21
