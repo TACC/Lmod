@@ -1,0 +1,69 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CuPy
+===========================
+false
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules/releases:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules/releases;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"/tmp/modules/releases",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04
+===========================
+LOADEDMODULES=release/24.04;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules/r24.04/all/Core:1\;/tmp/modules/releases:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules/r24.04/all/Core:/tmp/modules/releases;
+export MODULEPATH;
+_LMFILES_=/tmp/modules/releases/release/24.04.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={release={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Core")]],},fn="/tmp/modules/releases/release/24.04.lua",fullName="release/24.04",loadOrder=1,propT={},stackDepth=0,status="active",userName="release/24.04",wV="000000024.000000004.*zfinal",},},mpathA={"/tmp/modules/r24.04/all/Core","/tmp/modules/releases",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CuPy
+===========================
+false
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules/releases:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules/releases;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"/tmp/modules/releases",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04 GCC/14.2.0
+===========================
+LOADEDMODULES=release/24.04:GCCcore/14.2.0:GCC/14.2.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules/r24.04/all/Compiler/GCC/14.2.0:1\;/tmp/modules/r24.04/all/Compiler/GCCcore/14.2.0:1\;/tmp/modules/r24.04/all/Core:1\;/tmp/modules/releases:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules/r24.04/all/Compiler/GCC/14.2.0:/tmp/modules/r24.04/all/Compiler/GCCcore/14.2.0:/tmp/modules/r24.04/all/Core:/tmp/modules/releases;
+export MODULEPATH;
+_LMFILES_=/tmp/modules/releases/release/24.04.lua:/tmp/modules/r24.04/all/Core/GCCcore/14.2.0.lua:/tmp/modules/r24.04/all/Core/GCC/14.2.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={GCC={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Compiler/GCC/14.2.0")]],},depT={depA={{sn="GCCcore",version={kind="fixed",value="14.2.0",},},},},fn="/tmp/modules/r24.04/all/Core/GCC/14.2.0.lua",fullName="GCC/14.2.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="GCC/14.2.0",wV="000000014.000000002.*zfinal",},GCCcore={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Compiler/GCCcore/14.2.0")]],},fn="/tmp/modules/r24.04/all/Core/GCCcore/14.2.0.lua",fullName="GCCcore/14.2.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="GCCcore/14.2.0",wV="000000014.000000002.*zfinal",},release={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Core")]],},fn="/tmp/modules/releases/release/24.04.lua",fullName="release/24.04",loadOrder=1,propT={},stackDepth=0,status="active",userName="release/24.04",wV="000000024.000000004.*zfinal",},},mpathA={"/tmp/modules/r24.04/all/Compiler/GCC/14.2.0","/tmp/modules/r24.04/all/Compiler/GCCcore/14.2.0","/tmp/modules/r24.04/all/Core","/tmp/modules/releases",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CuPy
+===========================
+false
