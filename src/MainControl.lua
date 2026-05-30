@@ -414,6 +414,48 @@ local function l_path_compatible_with_loaded(path, loadedPathsAA)
 end
 
 --------------------------------------------------------------------------
+-- Set of active module fullNames from the module table.
+local function l_collect_active_fullName_set(mt)
+   local activeSet = {}
+   if (not mt) then return activeSet end
+   local activeA = mt:list("fullName", "active")
+   if (not activeA or #activeA == 0) then return activeSet end
+   for i = 1, #activeA do
+      local obj = activeA[i]
+      local fullName = (type(obj) == "table") and obj.fullName or obj
+      if (fullName) then
+         activeSet[fullName] = true
+      end
+   end
+   return activeSet
+end
+
+--------------------------------------------------------------------------
+-- Drop path elements already active in the MT. Returns nil if nothing stripped.
+local function l_strip_active_from_path(path, activeSet)
+   if (not path or #path == 0) then return nil end
+   local stripped = {}
+   local strippedAny = false
+   for i = 1, #path do
+      if (activeSet[path[i]]) then
+         strippedAny = true
+      else
+         stripped[#stripped + 1] = path[i]
+      end
+   end
+   if (not strippedAny) then return nil end
+   return stripped
+end
+
+local function l_cmd_token_count(cmd)
+   local n = 0
+   for _ in cmd:gmatch("%S+") do
+      n = n + 1
+   end
+   return n
+end
+
+--------------------------------------------------------------------------
 -- Helper function to format dependency commands for display
 -- Returns formatted string with ready-to-copy-paste commands, or nil if
 -- no dependencies found.
@@ -421,13 +463,77 @@ end
 -- @param kB Array of failing module user names
 -- @param dbT The spider database table
 -- @param loadedPathsAA Paths of currently loaded modules (optional, for filtering)
-local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA)
+-- @param mt Module table (for active fullName set when building minimal suggestions)
+local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
    if (not dbT or next(dbT) == nil) then
       return nil
    end
 
-   local allCommands = {}
+   local suggestions = {}
+   local seenCmd = {}
    local maxCommands = 5  -- Limit number of suggestions to avoid overwhelming output
+
+   local function l_add_suggestion(cmd, swapRequired)
+      if (seenCmd[cmd]) then return end
+      seenCmd[cmd] = true
+      suggestions[#suggestions + 1] = {
+         cmd    = cmd,
+         tokens = l_cmd_token_count(cmd),
+         swap   = swapRequired and 1 or 0,
+      }
+   end
+
+   local function l_is_release_stack_swap(path, activeSet)
+      if (#path < 1) then return false end
+      local first = path[1]
+      if (not first:match("^release/")) then return false end
+      for fullName, _ in pairs(activeSet) do
+         if (fullName:match("^release/") and fullName ~= first) then
+            return true
+         end
+      end
+      return false
+   end
+
+   local function l_should_show_swap_candidate(path, loadedPathsAA, activeSet)
+      if (l_path_compatible_with_loaded(path, loadedPathsAA)) then
+         return true
+      end
+      if (l_is_release_stack_swap(path, activeSet)) then
+         return true
+      end
+      for i = 1, #path do
+         if (activeSet[path[i]]) then
+            return false
+         end
+         local sn = l_extract_sn(path[i])
+         for fullName, _ in pairs(activeSet) do
+            if (l_extract_sn(fullName) == sn and fullName ~= path[i]) then
+               return false
+            end
+         end
+      end
+      return true
+   end
+
+   local function l_add_path_suggestions(path, failingSet, activeSet)
+      if (not path or #path == 0) then return end
+      if (not l_should_show_swap_candidate(path, loadedPathsAA, activeSet)) then
+         return
+      end
+      local swapRequired = not l_path_compatible_with_loaded(path, loadedPathsAA)
+      local modulesToInclude = l_build_modules_for_path(path, failingSet)
+      local suffix = (#modulesToInclude > 0) and (" " .. concatTbl(modulesToInclude, " ")) or ""
+      local explicitCmd = "module load " .. concatTbl(path, " ") .. suffix
+      l_add_suggestion(explicitCmd, swapRequired)
+      local strippedPath = l_strip_active_from_path(path, activeSet)
+      if (strippedPath and #strippedPath > 0) then
+         local minimalCmd = "module load " .. concatTbl(strippedPath, " ") .. suffix
+         if (minimalCmd ~= explicitCmd) then
+            l_add_suggestion(minimalCmd, swapRequired)
+         end
+      end
+   end
 
    -- Build set of failing userNames for quick lookup
    local failingSet = {}
@@ -435,28 +541,15 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA)
       failingSet[kB[i]] = true
    end
 
+   local activeSet = l_collect_active_fullName_set(mt)
+
    -- Try to find common paths for all failing modules
    local commonPaths = l_find_common_paths(kB, dbT)
 
    if (#commonPaths > 0) then
-      -- Generate combined commands with all modules
+      -- List all spider parent paths (minimal + explicit); sort ranks swap-required last.
       for i = 1, #commonPaths do
-         local path = commonPaths[i]
-         if (path and #path > 0 and l_path_compatible_with_loaded(path, loadedPathsAA)) then
-            local modulesToInclude = l_build_modules_for_path(path, failingSet)
-            local cmd = "module load " .. concatTbl(path, " ") .. " " .. concatTbl(modulesToInclude, " ")
-            -- Avoid duplicates
-            local found = false
-            for k = 1, #allCommands do
-               if (allCommands[k] == cmd) then
-                  found = true
-                  break
-               end
-            end
-            if (not found) then
-               allCommands[#allCommands + 1] = cmd
-            end
-         end
+         l_add_path_suggestions(commonPaths[i], failingSet, activeSet)
       end
    else
       -- Fallback: no common path (disjoint hierarchies). Suggest only paths from
@@ -532,34 +625,33 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA)
             if (parentA and #parentA > 0 and l_path_compatible_with_loaded(parentA, loadedPathsAA)) then
                local modulesToInclude = l_build_modules_for_path(parentA, failingSet)
                local cmd = "module load " .. concatTbl(parentA, " ") .. " " .. concatTbl(modulesToInclude, " ")
-               local found = false
-               for k = 1, #allCommands do
-                  if (allCommands[k] == cmd) then
-                     found = true
-                     break
-                  end
-               end
-               if (not found) then
-                  allCommands[#allCommands + 1] = cmd
-               end
+               l_add_suggestion(cmd, false)
             end
          end
       end
-      if (#allCommands == 0 and filterCandidates and nContributors >= 2) then
+      if (#suggestions == 0 and filterCandidates and nContributors >= 2) then
          return "   These modules cannot be loaded together - they require incompatible toolchains.\n"
       end
    end
 
-   if (#allCommands == 0 and loadedPathsAA and #loadedPathsAA > 0) then
+   if (#suggestions == 0 and loadedPathsAA and #loadedPathsAA > 0) then
       return "   The requested module(s) require a toolchain that is incompatible with the currently loaded environment.\n"
    end
 
-   if (#allCommands == 0) then
+   if (#suggestions == 0) then
       return nil
    end
 
-   -- Sort commands alphabetically for deterministic output
-   table.sort(allCommands)
+   table.sort(suggestions, function(a, b)
+      if (a.tokens ~= b.tokens) then return a.tokens < b.tokens end
+      if (a.swap ~= b.swap) then return a.swap < b.swap end
+      return a.cmd < b.cmd
+   end)
+
+   local allCommands = {}
+   for i = 1, #suggestions do
+      allCommands[i] = suggestions[i].cmd
+   end
 
    -- Limit number of commands shown
    local cmdsToShow = {}
@@ -661,7 +753,7 @@ local function l_error_on_missing_loaded_modules(aa, bb)
                if (build_ok and dbT and next(dbT) ~= nil) then
                   local mt = FrameStk:singleton():mt()
                   local loadedPathsAA = l_collect_loaded_paths(mt, dbT)
-                  cmdText = l_format_dependency_commands(kA, kB, dbT, loadedPathsAA)
+                  cmdText = l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
                end
             end
          end
