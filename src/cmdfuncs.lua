@@ -454,8 +454,14 @@ function List(...)
       local entry    = activeA[i]
       local fullName = entry.fullName
       local origName = entry.origUserName or ""
+      -- A hidden entry that was loaded by alias name is the module_virtual /
+      -- (module_alias + hide_version) case: if hidden_loaded is also set on
+      -- top of it, keep it visible (no --show_hidden required) and do not
+      -- contribute to the "hidden loaded modules" footer. Plain virtual loads
+      -- (no hidden_loaded) already pass through this filter unchanged.
+      local isVirtual = (origName ~= "") and entry.moduleKindT.kind == "hidden"
       local showMe   = true
-      if (entry.moduleKindT.hidden_loaded) then
+      if (entry.moduleKindT.hidden_loaded and not isVirtual) then
          showMe       = show_hidden
          have_hiddenL = not show_hidden
       end

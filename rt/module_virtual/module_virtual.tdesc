@@ -6,7 +6,8 @@ testdescript = {
    product = "modules",
    description = [[
       Issue #818: module_virtual / alias + hide_version avail messaging,
-      Tcl module-virtual via RC2lua, full avail (no search), and terse avail.
+      Tcl module-virtual via RC2lua, full avail (no search), terse avail,
+      and module list displays the virtual name without (H).
    ]],
    keywords = { testName },
 
@@ -29,27 +30,33 @@ testdescript = {
      runLmod avail foo                                                     # 2
      runLmod load foo/24.4.0                                               # 3
      runLmod list                                                          # 4
+     runLmod --show_hidden list                                            # 5
+     runLmod -t list                                                       # 6
 
-     runLmod purge                                                         # 5
+     runLmod purge                                                         # 7
      unsetMT
      export MODULEPATH=$(testDir)/mf/virtual_fn/Core
-     runLmod avail foo                                                     # 6
-     runLmod load foo/24.4.0                                               # 7
-     runLmod list                                                          # 8
-
-     runLmod purge                                                         # 9
-     unsetMT
-     export MODULEPATH=$(testDir)/mf/tcl_rc/Core
-     runLmod avail foo                                                     #10
-     runLmod load foo/24.4.0                                              #11
-     runLmod list                                                          #12
+     runLmod avail foo                                                     # 8
+     runLmod load foo/24.4.0                                               # 9
+     runLmod list                                                          #10
+     runLmod --show_hidden list                                            #11
+     runLmod -t list                                                       #12
 
      runLmod purge                                                         #13
      unsetMT
+     export MODULEPATH=$(testDir)/mf/tcl_rc/Core
+     runLmod avail foo                                                     #14
+     runLmod load foo/24.4.0                                              #15
+     runLmod list                                                          #16
+     runLmod --show_hidden list                                            #17
+     runLmod -t list                                                       #18
+
+     runLmod purge                                                         #19
+     unsetMT
      export MODULEPATH=$(testDir)/mf/alias_hide/Core
-     runLmod avail                                                         #14
-     runLmod -t avail foo                                                 #15
-     runLmod -t avail                                                      #16
+     runLmod avail                                                         #20
+     runLmod -t avail foo                                                 #21
+     runLmod -t avail                                                      #22
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

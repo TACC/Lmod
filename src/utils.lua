@@ -264,12 +264,32 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT, forbiddenT)
    local propDisplayT = readLmodRC:propT()
    local iprop        = 0
    local pA           = {}
-   local moduleName   = mt:name_w_possible_alias(modT, "full")
    propT              = propT or {}
    forbiddenT         = forbiddenT or {}
 
-   local resultT = mrc:isVisible(modT)
-   if (resultT.moduleKindT.kind ~= "normal") then
+   local resultT       = mrc:isVisible(modT)
+   -- A module_virtual / (module_alias + hide_version) load is recognised here
+   -- by the MT-resident signal that survives across processes: origUserName
+   -- is set (alias/virtual resolution happened) AND the resolved fullName is
+   -- hidden. Querying MRC for virtual2modT does not work for `module list`
+   -- because that subcommand runs in a fresh Lua process which never parses
+   -- .modulerc files. `not mrc:show_hidden()` preserves the impl name display
+   -- under `module --show_hidden list` so power users can still see foo/.stack.
+   local isVirtualLoad = modT.origUserName
+                      and resultT.moduleKindT.kind == "hidden"
+                      and not mrc:show_hidden()
+
+   local moduleName
+   if (isVirtualLoad) then
+      moduleName = modT.origUserName
+      if (style ~= "terse") then
+         moduleName = hook.apply("colorize_fullName", moduleName, modT.sn) or moduleName
+      end
+   else
+      moduleName = mt:name_w_possible_alias(modT, "full")
+   end
+
+   if (not isVirtualLoad and resultT.moduleKindT.kind ~= "normal") then
       local i18n = require("i18n")
       local H    = "H"
       local msg  = "HiddenM"
