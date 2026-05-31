@@ -76,6 +76,10 @@ local s_defaultFnT = {
    ['.version']      = 4,
 }
 
+local function l_hasLeadingOrTrailingWS(fn)
+   return fn:find("^%s") or fn:find("%s$")
+end
+
 local function l_keepFile(fn)
    if (s_defaultFnT[fn]) then
       return true
@@ -91,7 +95,7 @@ local function l_keepFile(fn)
       return false
    end
 
-   if (fn:find("^%s") or fn:find("%s$")) then
+   if (l_hasLeadingOrTrailingWS(fn)) then
       return false
    end
 
@@ -191,6 +195,10 @@ local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
 
    for f in lfs.dir(path) do
       repeat
+         if (l_hasLeadingOrTrailingWS(f)) then
+            LmodWarning{msg="w_Ignore_Whitespace_Fn", fn=string.format("%q", f), dir=path}
+            break
+         end
          if (not l_keepFile(f)) then break end
          local file = pathJoin(path, f)
 

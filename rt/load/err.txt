@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 9.2.1 2026-05-15 10:21 -05:00
+Modules based on Lua: Version 9.2.2 2026-05-18 18:21 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -562,14 +562,17 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 step 75
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load longVersion
 ===========================
+Lmod Warning: Ignoring module tree entry with leading or trailing whitespace: ProjectDIR/rt/load/mf6/spaceFn/" ". Please rename or remove this file.
 ===========================
 step 76
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load setPrompt
 ===========================
+Lmod Warning: Ignoring module tree entry with leading or trailing whitespace: ProjectDIR/rt/load/mf6/spaceFn/" ". Please rename or remove this file.
 ===========================
 step 77
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load acme products
 ===========================
+Lmod Warning: Ignoring module tree entry with leading or trailing whitespace: ProjectDIR/rt/load/mf6/spaceFn/" ". Please rename or remove this file.
 ===========================
 step 78
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
@@ -599,3 +602,4 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 step 80
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing update
 ===========================
+Lmod Warning: Ignoring module tree entry with leading or trailing whitespace: ProjectDIR/rt/load/mf6/spaceFn/" ". Please rename or remove this file.
