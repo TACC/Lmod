@@ -138,11 +138,9 @@ local function l_new(self, s, restoreFn)
 
    if (not ok or type(_ModuleTable_) ~= "table" ) then
       if (restoreFn) then
-         io.stderr:write(i18n("e_coll_corrupt",{fn=restoreFn}))
-         LmodErrorExit()
+         LmodErrorExit(i18n("e_coll_corrupt",{fn=restoreFn}))
       else
-         io.stderr:write(i18n("e_MT_corrupt",{}))
-         LmodErrorExit()
+         LmodErrorExit(i18n("e_MT_corrupt",{}))
       end
    end
 
@@ -1336,7 +1334,7 @@ function M.getMTfromFile(self,tt)
    local msg            = tt.msg
    local collectionName = tt.name
    if (not f) then
-      LmodErrorExit()
+      LmodErrorExit(i18n("e_Failed_2_Find",{name=tt.fn}))
    end
    local s = f:read("*all")
    f:close()
@@ -1378,7 +1376,7 @@ function M.getMTfromFile(self,tt)
    if (self.systemBaseMPATH ~= savedBaseMPATH) then
       LmodWarning{msg="w_MPATH_Coll"}
       if (collectionName ~= "default") then
-         LmodErrorExit()
+         LmodErrorExit(i18n("e_Failed_default"))
       end
       dbg.fini("MT:getMTfromFile")
       return false
@@ -1526,10 +1524,10 @@ function M.getMTfromFile(self,tt)
 
    if (#aa > 0) then
       sort(aa)
-      LmodWarning{msg="w_Broken_Coll", collectionName = collectionName, module_list = concatTbl(aa,"\", \"")}
       if (collectionName ~= "default") then
-         LmodErrorExit()
+         LmodError{msg="w_Broken_Coll",collectionName = collectionName, module_list = concatTbl(aa,"\", \"")}
       end
+      LmodWarning{msg="w_Broken_Coll", collectionName = collectionName, module_list = concatTbl(aa,"\", \"")}
       return false
    end
 

@@ -20,7 +20,5 @@ Lmod 9.2+
    (9.2.2)  * Change src/chkJson to be in proj_mgmt
             * chkJson: Only check that values exist for ld_lib_path and ld_preload
             * chkJson: do not check for dotfiles
-            
-            
-
+   (9.2.3)  * Issue #820: support for new command "module last-error"
    

@@ -24,6 +24,15 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load c
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Cannot\ load\ module\ \"c\"\ because\ these\ module\(s\)\ are\ loaded:"
+"\ \ \ b"
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ c\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/conflict/mf/c.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 4
@@ -33,10 +42,20 @@ MODULEPATH=ProjectDIR/rt/conflict/mf;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/conflict/mf/a.lua",fullName="a",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="M.*zfinal",},b={fn="ProjectDIR/rt/conflict/mf/b.lua",fullName="b",loadOrder=2,propT={},stackDepth=0,status="active",userName="b",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf",},systemBaseMPATH="ProjectDIR/rt/conflict/mf",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing swap a c
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Cannot\ load\ module\ \"c\"\ because\ these\ module\(s\)\ are\ loaded:"
+"\ \ \ b"
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ c\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/conflict/mf/c.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 6
@@ -46,6 +65,7 @@ MODULEPATH=ProjectDIR/rt/conflict/mf;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/conflict/mf/a.lua",fullName="a",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="M.*zfinal",},b={fn="ProjectDIR/rt/conflict/mf/b.lua",fullName="b",loadOrder=2,propT={},stackDepth=0,status="active",userName="b",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf",},systemBaseMPATH="ProjectDIR/rt/conflict/mf",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load e/2.0
@@ -64,6 +84,15 @@ export e;
 step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load d
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Cannot\ load\ module\ \"d/1.0\"\ because\ these\ module\(s\)\ are\ loaded:"
+"\ \ \ e/2.0"
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ d/1.0\ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/conflict/mf/d/1.0.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 9
@@ -77,6 +106,7 @@ _LMFILES_=ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua:Projec
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/conflict/mf/a.lua",fullName="a",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="M.*zfinal",},b={fn="ProjectDIR/rt/conflict/mf/b.lua",fullName="b",loadOrder=2,propT={},stackDepth=0,status="active",userName="b",wV="M.*zfinal",},e={fn="ProjectDIR/rt/conflict/mf/e/1.0.lua",fullName="e/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="e/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf",},systemBaseMPATH="ProjectDIR/rt/conflict/mf",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 e=1.0;
 export e;
 ===========================
@@ -121,6 +151,15 @@ export _ModuleTable_;
 step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load y
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Cannot\ load\ module\ \"y/1.0\"\ because\ these\ module\(s\)\ are\ loaded:"
+"\ \ \ x/1.5"
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ y/1.0\ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/conflict/mf/y/1.0.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 14
@@ -134,12 +173,22 @@ _LMFILES_=ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua:Projec
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/conflict/mf/a.lua",fullName="a",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="M.*zfinal",},b={fn="ProjectDIR/rt/conflict/mf/b.lua",fullName="b",loadOrder=2,propT={},stackDepth=0,status="active",userName="b",wV="M.*zfinal",},d={fn="ProjectDIR/rt/conflict/mf/d/1.0.lua",fullName="d/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="d",wV="000000001.*zfinal",},e={fn="ProjectDIR/rt/conflict/mf/e/1.0.lua",fullName="e/1.0",loadOrder=6,propT={},stackDepth=0,status="active",userName="e/1.0",wV="000000001.*zfinal",},f={fn="ProjectDIR/rt/conflict/mf/f.lua",fullName="f",loadOrder=4,propT={},stackDepth=0,status="active",userName="f",wV="M.*zfinal",},x={fn="ProjectDIR/rt/conflict/mf/x/1.5.lua",fullName="x/1.5",loadOrder=5,propT={},stackDepth=0,status="active",userName="x/1.5",wV="000000001.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf",},systemBaseMPATH="ProjectDIR/rt/conflict/mf",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 e=1.0;
 export e;
 ===========================
 step 15
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cc
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Cannot\ load\ module\ \"cc\"\ because\ these\ module\(s\)\ are\ loaded:"
+"\ \ \ e/1.0"
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ cc\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/conflict/mf/cc.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 16
@@ -153,6 +202,7 @@ _LMFILES_=ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua:Projec
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/conflict/mf/a.lua",fullName="a",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="M.*zfinal",},b={fn="ProjectDIR/rt/conflict/mf/b.lua",fullName="b",loadOrder=2,propT={},stackDepth=0,status="active",userName="b",wV="M.*zfinal",},d={fn="ProjectDIR/rt/conflict/mf/d/1.0.lua",fullName="d/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="d",wV="000000001.*zfinal",},e={fn="ProjectDIR/rt/conflict/mf/e/2.0.lua",fullName="e/2.0",loadOrder=6,propT={},stackDepth=0,status="active",userName="e/2.0",wV="000000002.*zfinal",},f={fn="ProjectDIR/rt/conflict/mf/f.lua",fullName="f",loadOrder=4,propT={},stackDepth=0,status="active",userName="f",wV="M.*zfinal",},x={fn="ProjectDIR/rt/conflict/mf/x/1.5.lua",fullName="x/1.5",loadOrder=5,propT={},stackDepth=0,status="active",userName="x/1.5",wV="000000001.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf",},systemBaseMPATH="ProjectDIR/rt/conflict/mf",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 e=2.0;
 export e;
 ===========================
@@ -253,6 +303,15 @@ export _ModuleTable_;
 step 25
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load acme
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Cannot\ load\ module\ \"acme/1.0\"\ because\ these\ module\(s\)\ are\ loaded:"
+"\ \ \ D/1.3"
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ acme/1.0\ \ \ \ \ \ \ \ \ ProjectDIR/rt/conflict/mf2/Core/acme/1.0.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 26
@@ -268,6 +327,7 @@ _LMFILES_=ProjectDIR/rt/conflict/mf2/Core/D/1.1.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={D={fn="ProjectDIR/rt/conflict/mf2/Core/D/1.1.lua",fullName="D/1.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="D/1.1",wV="000000001.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/conflict/mf2/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 27
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load acme
@@ -335,6 +395,14 @@ export _ModuleTable_;
 step 32
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D/1.3
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Cannot\ load\ module\ \"D/1.3\"\ because\ this\ module\ set\ a\ conflict:\ \"acme/1.0\""
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ D/1.3\ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/conflict/mf2/Core/D/1.3.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 33
@@ -344,15 +412,32 @@ MODULEPATH=ProjectDIR/rt/conflict/mf2/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,conflictT={acme={{action="between",ie="<3.2",is="1.1>",sType="mt",userName="D",},{action="match",ie=false,is=false,sType="mt",userName="E",},{action="match",ie=false,is=false,sType="mt",userName="F/3.1.4",},{action="atmost",ie="<3.1.5",is=false,sType="mt",userName="G",},},},depthT={},family={},mT={D={fn="ProjectDIR/rt/conflict/mf2/Core/D/3.2.lua",fullName="D/3.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="D/3.2",wV="000000003.000000002.*zfinal",},acme={fn="ProjectDIR/rt/conflict/mf2/Core/acme/1.0.lua",fullName="acme/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="acme",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/conflict/mf2/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 34
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load E
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Cannot\ load\ module\ \"E\"\ because\ this\ module\ set\ a\ conflict:\ \"acme/1.0\""
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ E/3.3\ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/conflict/mf2/Core/E/3.3.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 35
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load E/3.3
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Cannot\ load\ module\ \"E/3.3\"\ because\ this\ module\ set\ a\ conflict:\ \"acme/1.0\""
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ E/3.3\ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/conflict/mf2/Core/E/3.3.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 36
@@ -362,6 +447,7 @@ MODULEPATH=ProjectDIR/rt/conflict/mf2/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,conflictT={acme={{action="between",ie="<3.2",is="1.1>",sType="mt",userName="D",},{action="match",ie=false,is=false,sType="mt",userName="E",},{action="match",ie=false,is=false,sType="mt",userName="F/3.1.4",},{action="atmost",ie="<3.1.5",is=false,sType="mt",userName="G",},},},depthT={},family={},mT={D={fn="ProjectDIR/rt/conflict/mf2/Core/D/3.2.lua",fullName="D/3.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="D/3.2",wV="000000003.000000002.*zfinal",},acme={fn="ProjectDIR/rt/conflict/mf2/Core/acme/1.0.lua",fullName="acme/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="acme",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/conflict/mf2/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 37
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load F
@@ -390,6 +476,14 @@ export _ModuleTable_;
 step 39
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load F/3.1.4
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Cannot\ load\ module\ \"F/3.1.4\"\ because\ this\ module\ set\ a\ conflict:\ \"acme/1.0\""
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ F/3.1.4\ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/conflict/mf2/Core/F/3.1.4.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 40
@@ -399,6 +493,7 @@ MODULEPATH=ProjectDIR/rt/conflict/mf2/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,conflictT={acme={{action="between",ie="<3.2",is="1.1>",sType="mt",userName="D",},{action="match",ie=false,is=false,sType="mt",userName="E",},{action="match",ie=false,is=false,sType="mt",userName="F/3.1.4",},{action="atmost",ie="<3.1.5",is=false,sType="mt",userName="G",},},},depthT={},family={},mT={D={fn="ProjectDIR/rt/conflict/mf2/Core/D/3.2.lua",fullName="D/3.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="D/3.2",wV="000000003.000000002.*zfinal",},F={fn="ProjectDIR/rt/conflict/mf2/Core/F/4.1.4.lua",fullName="F/4.1.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="F/4.1.4",wV="000000004.000000001.000000004.*zfinal",},acme={fn="ProjectDIR/rt/conflict/mf2/Core/acme/1.0.lua",fullName="acme/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="acme",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/conflict/mf2/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 41
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload acme
@@ -462,6 +557,14 @@ export _ModuleTable_;
 step 46
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load G/3.1.4
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Cannot\ load\ module\ \"G/3.1.4\"\ because\ this\ module\ set\ a\ conflict:\ \"acme/1.0\""
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ G/3.1.4\ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/conflict/mf2/Core/G/3.1.4.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 47
@@ -477,6 +580,7 @@ _LMFILES_=ProjectDIR/rt/conflict/mf2/Core/F/4.1.4.lua:ProjectDIR/rt/conflict/mf2
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,conflictT={acme={{action="between",ie="<3.2",is="1.1>",sType="mt",userName="D",},{action="match",ie=false,is=false,sType="mt",userName="E",},{action="match",ie=false,is=false,sType="mt",userName="F/3.1.4",},{action="atmost",ie="<3.1.5",is=false,sType="mt",userName="G",},},},depthT={},family={},mT={F={fn="ProjectDIR/rt/conflict/mf2/Core/F/4.1.4.lua",fullName="F/4.1.4",loadOrder=1,propT={},stackDepth=0,status="active",userName="F/4.1.4",wV="000000004.000000001.000000004.*zfinal",},G={fn="ProjectDIR/rt/conflict/mf2/Core/G/3.1.5.lua",fullName="G/3.1.5",loadOrder=3,propT={},stackDepth=0,status="active",userName="G/3.1.5",wV="000000003.000000001.000000005.*zfinal",},acme={fn="ProjectDIR/rt/conflict/mf2/Core/acme/1.0.lua",fullName="acme/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="acme",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/conflict/mf2/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 48
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list

@@ -202,6 +202,11 @@ export _ModuleTable_;
 step 21
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ module\ avail\ is\ not\ possible.\ MODULEPATH\ is\ not\ set\ or\ not\ set\ with\ valid\ paths."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 22
@@ -213,6 +218,7 @@ MODULEPATH=ProjectDIR/rt/avail/mf/Core3;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/avail/mf/Core3",},systemBaseMPATH="ProjectDIR/rt/avail/mf/Core3",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 23
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load TACC

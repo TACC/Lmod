@@ -490,6 +490,7 @@ build_tags:
 	find . \( -regex '.*~$$\|.*/\.git\|.*/\.git/' -prune \)  \
 	       -o -type f > file_list.1.txt
 	sed -e 's|.*/.git.*||g'                                  \
+	    -e 's|.*acme products.*||g'                          \
 	    -e 's|.*/embed/.*||g'                                \
 	    -e 's|.*/rt/.*/t1/.*||g'                             \
 	    -e 's|./rt/funny_files/mf/.*||g'                     \

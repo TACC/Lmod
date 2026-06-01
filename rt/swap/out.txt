@@ -893,4 +893,17 @@ export _ModuleTable_;
 step 34
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel unknown
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"unknown\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"unknown\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+"If\ this\ module\ depends\ on\ others\ you\ loaded,\ try\ loading\ prerequisites\ first,\ then\ this\ module\ in\ a\ separate\ command."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false

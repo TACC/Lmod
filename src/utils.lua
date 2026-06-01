@@ -1328,3 +1328,7 @@ function unwrap_kind(kind, name)
    local i,j,n = name:find(kind .. "<([^<]*)>")
    return n
 end
+
+function lastErrorVarName()
+   return "__LMOD_LAST_ERROR"
+end

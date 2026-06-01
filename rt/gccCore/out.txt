@@ -40,9 +40,19 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider GCCcore
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Unable\ to\ find:\ \"GCCcore\"."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider GCCcore/.6.3
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Unable\ to\ find:\ \"GCCcore/.6.3\"."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
