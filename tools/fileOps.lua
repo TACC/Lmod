@@ -304,20 +304,21 @@ end
 -- Allow for spaces in strings then make pathJoin do the
 -- actual joining
 function pathJoin_w_spaces(...)
-   local n
+   local n    = 0
    local a    = {}
    local argA = pack(...)
    for i = 1, argA.n  do
       local v     = argA[i]
-      local vType = type(v)
-      if (vType ~= "string") then
-         local msg = "bad argument #" .. i .." (string expected, got " .. vType .. " instead)\n"
-         assert(vType ~= "string", msg)
+      if (v and v ~= '') then
+         local vType = type(v)
+         if (vType ~= "string") then
+            local msg = "bad argument #" .. i .." (string expected, got " .. vType .. " instead)\n"
+            assert(vType ~= "string", msg)
+         end
+         n    = n + 1
+         a[n] = v:trim()
       end
-      a[#a+1] = v:trim()
-      n = i
    end
-   a.n = n
    return pathJoin(unpack(a))
 end
 
