@@ -46,7 +46,7 @@ local function l_argsPack(...)
    local argA = { n = select("#", ...), ...}
    return argA
 end
-local pack      = (_VERSION == "Lua 5.1") and l_argsPack or table.pack  -- luacheck: compat
+local pack      = (_VERSION == "Lua 5.1") and l_argsPack or table.pack   -- luacheck: compat
 local unpack    = (_VERSION == "Lua 5.1") and unpack     or table.unpack -- luacheck: compat
 --------------------------------------------------------------------------
 -- find the absolute path to an executable.
