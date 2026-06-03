@@ -301,7 +301,7 @@ function pathJoin(...)
 end
 
 ------------------------------------------------------------
--- Allow for spaces in strings then make pathJoin do the
+-- Allow for spaces in strings then make pathJoin() do the
 -- actual joining
 function pathJoin_w_spaces(...)
    local n    = 0
