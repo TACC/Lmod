@@ -46,7 +46,8 @@ local function l_argsPack(...)
    local argA = { n = select("#", ...), ...}
    return argA
 end
-local pack        = (_VERSION == "Lua 5.1") and l_argsPack or table.pack  -- luacheck: compat
+local pack      = (_VERSION == "Lua 5.1") and l_argsPack or table.pack  -- luacheck: compat
+local unpack    = (_VERSION == "Lua 5.1") and unpack     or table.unpack -- luacheck: compat
 --------------------------------------------------------------------------
 -- find the absolute path to an executable.
 -- @param exec Name of executable
@@ -272,7 +273,6 @@ function pathJoin(...)
             local msg = "bad argument #" .. i .." (string expected, got " .. vType .. " instead)\n"
             assert(vType ~= "string", msg)
          end
-      	 -- v = v:trim()
       	 if (v:sub(1,1) == '/' and i > 1) then
 	    if (v:len() > 1) then
 	       v = v:sub(2,-1)
@@ -298,6 +298,27 @@ function pathJoin(...)
    local s = concatTbl(a,"/")
    s = path_regularize(s)
    return s
+end
+
+------------------------------------------------------------
+-- Allow for spaces in strings then make pathJoin do the
+-- actual joining
+function pathJoin_w_spaces(...)
+   local n
+   local a    = {}
+   local argA = pack(...)
+   for i = 1, argA.n  do
+      local v     = argA[i]
+      local vType = type(v)
+      if (vType ~= "string") then
+         local msg = "bad argument #" .. i .." (string expected, got " .. vType .. " instead)\n"
+         assert(vType ~= "string", msg)
+      end
+      a[#a+1] = v:trim()
+      n = i
+   end
+   a.n = n
+   return pathJoin(unpack(a))
 end
 
 --------------------------------------------------------------------------

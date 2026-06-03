@@ -145,9 +145,11 @@ testdescript = {
      export MODULEPATH=$(testDir)/mf6
      runLmod load  longVersion                              # 75
      runLmod load  setPrompt                                # 76
-     runLmod list                                           # 77
-     runLmod avail                                          # 78
-     runLmod update                                         # 79
+     runLmod load  pathJoin_w_spaces                        # 77
+     runLmod list                                           # 78
+     runLmod avail                                          # 79
+     runLmod update                                         # 80
+
 
 
 
