@@ -252,8 +252,10 @@ local function l_readDotFiles()
       settarg_rc = pathJoin(optionTbl.execDir,"settarg_rc.lua")
    end
 
+   local homeDir = getenv('HOME') or ''
    local a = { settarg_rc,
-               pathJoin(getenv('HOME') or '',".settarg.lua"),
+               pathJoin(homeDir,".settarg.lua"),
+               pathJoin(homeDir,".config/settarg/settarg.lua")
    }
 
    local projectConfig = findFileInTree(".settarg.lua")

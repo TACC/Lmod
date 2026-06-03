@@ -359,6 +359,9 @@ The system default contains no modules
   $  module --force save %{name}
 ]==], --
      w_System_Reserved     = "The named collection 'system' is reserved. Please choose another name.\n",
+     w_Ignore_Whitespace_Fn = [==[
+Ignoring module tree entry with leading or trailing whitespace: %{dir}/%{fn}. Please rename or remove this file.
+]==],
      w_Too_Many_RegularFn  = [==[
 MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Please make sure that modulefiles are in their own directory and not mixed in with non-modulefiles (e.g. source code)
 ]==],

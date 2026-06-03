@@ -16,5 +16,9 @@ Lmod 9.1+
 
 Lmod 9.2+
    (9.2)    * Lmod now support Lua 5.5: Support for readonly loop variables
+   (9.2.1)  * Update proj_mgmt/clean_gold_files/Cleanup.lua to handle gentoo output for end2end test.
+   (9.2.2)  * Change src/chkJson to be in proj_mgmt
+            * chkJson: Only check that values exist for ld_lib_path and ld_preload
+            * chkJson: do not check for dotfiles
 W.I.P.:
-   (9.2.1)  * Issue #813: Ignore any files with space, tabs, etc
+   (9.2.3)  * Issue #813: module name entries with leading/trailing whitespace
