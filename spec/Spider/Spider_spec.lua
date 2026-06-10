@@ -30,12 +30,13 @@ describe("Testing Spider Class #Spider.",
                   posix.setenv("LMOD_MAXDEPTH", nil, true)
                   cosmic:assign("LMOD_MAXDEPTH",false)
 
-                  local spider  = Spider:new()
-                  local spiderT = {}
+                  local spider    = Spider:new()
+                  local spiderT   = {}
+                  local brokenT   = {}
                   local mpathMapT = {}
                   _G.mcp = MainControl.build("spider")
                   _G.MCP = MainControl.build("spider")
-                  spider:findAllModules({mpath}, spiderT, mpathMapT)
+                  spider:findAllModules({mpath}, spiderT, brokenT, mpathMapT)
                   local gold_spiderT = {
                      ["%ProjDir%/spec/Spider/mf/Core"]  = {
                         TACC = {
@@ -164,10 +165,11 @@ describe("Testing Spider Class #Spider.",
 
                   local spider    = Spider:new()
                   local spiderT   = {}
+                  local brokenT   = {}
                   local mpathMapT = {}
                   _G.mcp = MainControl.build("spider")
                   _G.MCP = MainControl.build("spider")
-                  spider:findAllModules({mpath}, spiderT, mpathMapT)
+                  spider:findAllModules({mpath}, spiderT, brokenT, mpathMapT)
                   local gold_spiderT = {
                      ["%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9"]  = {
                         mpich = {

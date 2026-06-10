@@ -95,9 +95,9 @@ local function l_keepFile(fn)
       return false
    end
 
-   if (l_hasLeadingOrTrailingWS(fn)) then
-      return false
-   end
+   --if (l_hasLeadingOrTrailingWS(fn)) then
+   --   return false
+   --end
 
    if (firstChar == "." and fn:sub(-4,-1) == ".swp") then
       return false
@@ -178,8 +178,8 @@ local function l_versionFile(mrc, mpath, defaultA)
    return defaultA
 end
 
-local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
-   dbg.start{"DirTree: l_walk(mrc,mpath:\"",mpath,"\", path:\"",path,"\", dirA, fileT, regularFn"}
+local function l_walk(mrc, mpath, path, dirA, fileT, brokenA, regularFn)
+   dbg.start{"DirTree: l_walk(mrc,mpath:\"",mpath,"\", path:\"",path,"\", dirA, fileT, brokenA, regularFn)"}
    local defaultA   = {}
    local permissions
    local uid
@@ -204,8 +204,6 @@ local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
 
          if (attr.uid == 0 and user_id == 0 and not attr.permissions:find("......r..")) then break end
 
-         --dbg.print{"file: ",file,", kind: ",kind,"\n"}
-
          if (kind == "directory" and f ~= "." and f ~= "..") then
             if (user_id == 0 or attr.permissions:find("^r.x")) then
                dirA[#dirA + 1 ] = file
@@ -213,7 +211,9 @@ local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
          elseif (kind == "file" or kind == "link") then
             local dfltIdx   = s_defaultFnT[f]
             local fullName  = extractFullName(mpath, file)
-            if (dfltIdx) then
+            if (l_hasLeadingOrTrailingWS(f)) then
+               brokenA[#brokenA+1] = { fullName = fullName, fn = file, mpath = mpath, barefn = f, issue = "hasSpaces" }
+            elseif( dfltIdx ) then
                local luaExt = f:find("%.lua$")
                local sizeFn = lfs.attributes(file,"size")
                if (f ~= "default" and not luaExt and sizeFn > 0 and (not l_checkValidTCLModulefile(file))) then break end
@@ -259,16 +259,18 @@ end
 
 
 
-local function l_walk_tree(mrc, mpath, pathIn, dirT, regularFn)
+local function l_walk_tree(mrc, mpath, pathIn, dirT, brokenA, regularFn)
 
    local defaultA
    local dirA          = {}
    local fileT         = {}
-   defaultA, regularFn = l_walk(mrc, mpath, pathIn, dirA, fileT, regularFn)
+   defaultA, regularFn = l_walk(mrc, mpath, pathIn, dirA, fileT, brokenA, regularFn)
 
    dirT.fileT    = fileT
    dirT.defaultA = defaultA
    dirT.defaultT = l_find_default(defaultA)
+
+
    dirT.dirT     = {}
 
    for i = 1,#dirA do
@@ -276,7 +278,7 @@ local function l_walk_tree(mrc, mpath, pathIn, dirT, regularFn)
       local fullName = extractFullName(mpath, path)
 
       dirT.dirT[fullName] = {}
-      regularFn = l_walk_tree(mrc, mpath, path, dirT.dirT[fullName], regularFn)
+      regularFn = l_walk_tree(mrc, mpath, path, dirT.dirT[fullName], brokenA, regularFn)
 
       ----------------------------------------------------------------
       -- if the directory is empty or bad symlinks then do not save it
@@ -297,13 +299,15 @@ local function l_build(mpathA)
       local regularFn = 0
       local mpath     = mpathA[i]
       if (isDir(mpath)) then
-         local dirT  = {}
-         regularFn = l_walk_tree(mrc, mpath, mpath, dirT, regularFn)
+         local dirT    = {}
+         local brokenA = {}
+         regularFn = l_walk_tree(mrc, mpath, mpath, dirT, brokenA, regularFn)
          --dbg.print{"regularFn: ",tostring(regularFn),"\n"}
          if (regularFn > 100) then
             LmodWarning{msg="w_Too_Many_RegularFn",mpath=mpath,regularFn=tostring(regularFn)}
          end
-         dirA[#dirA+1] = {mpath=mpath, dirT=dirT}
+         if (next(brokenA) == nil) then brokenA = nil end
+         dirA[#dirA+1] = {mpath=mpath, dirT=dirT, brokenA=brokenA}
       end
    end
    dbg.fini("DirTree: l_build")

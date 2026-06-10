@@ -492,6 +492,7 @@ local s_fnIgnorePatternsA = { "^.*~", "^#.*", "^%.#.*", "^%..*%.swp"}
 
 
 function getModuleRCT(remove_MRC_home)
+   remove_MRC_home = remove_MRC_home ~= nil and remove_MRC_home or false
    dbg.start{"getModuleRCT(remove_MRC_home: ",remove_MRC_home,")"}
    local A            = {}
    local MRC_system   = cosmic:value("LMOD_MODULERC")

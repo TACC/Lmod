@@ -92,6 +92,7 @@ local randomseed = math.randomseed
 local function l_resetSpiderT(self)
    self.mDT        = {}
    self.spiderT    = {}
+   self.brokenT    = {}
    self.mpathMapT  = {}
    self.spiderDirT = {}
 end
@@ -290,6 +291,7 @@ local function l_readCacheFile(self, mpathA, spiderTFnA, resultT)
       return 
    end
 
+   declare("brokenT")
    declare("spiderT")
    declare("mpathMapT")
    declare("mrcT")
@@ -298,6 +300,7 @@ local function l_readCacheFile(self, mpathA, spiderTFnA, resultT)
    local mpathMapT  = self.mpathMapT
    local spiderDirT = self.spiderDirT
    local spiderT    = self.spiderT
+   local brokenT    = self.brokenT
    local mrc        = MRC:singleton()
 
    dbg.print{"#spiderTFnA: ",#spiderTFnA,"\n"}
@@ -428,7 +431,7 @@ end
 --------------------------------------------------------------------------
 -- Write out spider cache to user space if it takes too much time.
 
-local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spiderT, mpathMapT)
+local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spiderT, brokenT, mpathMapT)
    local doneMsg
    local ancient   = tonumber(cosmic:value("LMOD_ANCIENT_TIME"))
    local shortTime = tonumber(cosmic:value("LMOD_SHORT_TIME"))
@@ -451,13 +454,15 @@ local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spider
    dbg.print{"prtRbMsg: ",prtRbMsg,", quiet:     ",self.quiet,"\n"}
 
 
-   local r = {}
+   local r = {dontWriteCache = false}
    hook.apply("writeCache",r)
 
    dbg.print{"self.dontWrite: ", self.dontWrite, ", r.dontWriteCache: ",
                 r.dontWriteCache, "\n"}
 
    local dontWrite = self.dontWrite or r.dontWriteCache or (cosmic:value("LMOD_IGNORE_CACHE") == "yes")
+
+   dbg.print{"dontWrite: ", dontWrite,"\n"}
 
    if (tracing == "yes") then
       tracing_msg{"completed building cache. Saving cache: ",
@@ -496,7 +501,11 @@ local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spider
          local s2 = mrc:export()
          local s3 = serializeTbl{name="spiderT",      value=spiderT,   indent=true}
          local s4 = serializeTbl{name="mpathMapT",    value=mpathMapT, indent=true}
-         f:write(s0,s1,s2,s3,s4)
+         local s5 = ""
+         if (next(brokenT) ~= nil) then
+            s5 =    serializeTbl{name="brokenT",      value=brokenT,   indent=true}
+         end
+         f:write(s0,s1,s2,s3,s4,s5)
          f:close()
          local ok, msg = os.rename(userSpiderTFN_new, userSpiderTFN)
          if (not ok) then
@@ -567,11 +576,13 @@ end
 -- @param self a Cache object
 -- @param fast if true then only read cache files, do not build them.
 function M.build(self, fast)
+   fast = fast ~= nil and fast or false
    dbg.start{"Cache:build(fast=", fast,")"}
    local ancient     = cosmic:value("LMOD_ANCIENT_TIME")
    local shortTime   = cosmic:value("LMOD_SHORT_TIME")
    local spiderT     = self.spiderT
    local dbT         = self.dbT
+   local brokenT     = self.brokenT
    local providedByT = self.providedByT
    local mpathMapT   = self.mpathMapT
    local spider      = Spider:new()
@@ -586,13 +597,13 @@ function M.build(self, fast)
    if (not self.buildCache) then
       dbg.fini("Cache:build")
       mrc:update()
-      return false, false, false, false
+      return false, false, false, false, false
    end
 
    if (next(spiderT) ~= nil) then
       dbg.print{"Using pre-built spiderT!\n"}
       dbg.fini("Cache:build")
-      return spiderT, dbT, mpathMapT, providedByT
+      return spiderT, dbT, brokenT, mpathMapT, providedByT
    end
 
    local Pairs       = dbg.active() and pairsByKeys or pairs
@@ -665,7 +676,7 @@ function M.build(self, fast)
       dbg.print{"Fast and dirsRead: ",dirsRead,"\n"}
       dbg.fini("Cache:build")
       mrc:update()
-      return false, false, false, false
+      return false, false, false, false, false
    end
 
    local userSpiderTFN = self.usrSpiderTFN
@@ -680,7 +691,7 @@ function M.build(self, fast)
    local t1            = epoch()
    local ok, msg
 
-   ok, msg       = pcall(Spider.findAllModules, spider, mpathA, spiderT, mpathMapT)
+   ok, msg       = pcall(Spider.findAllModules, spider, mpathA, spiderT, brokenT, mpathMapT)
    if (not ok) then
       if (msg) then io.stderr:write("Msg: ",msg,'\n') end
       LmodSystemError{msg="e_Spdr_Timeout"}
@@ -688,7 +699,7 @@ function M.build(self, fast)
    local t2       = epoch()
    dbg.print{"t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n", level=2}
 
-   l_writeUserSpiderCacheWhenNecessary(self, t2-t1, mpathA, spiderT, mpathMapT)
+   l_writeUserSpiderCacheWhenNecessary(self, t2-t1, mpathA, spiderT, brokenT, mpathMapT)
 
    dbg.print{"Show that these directories have been walked\n"}
    t2 = epoch()
@@ -717,7 +728,7 @@ function M.build(self, fast)
       mrc:update()
    end
    dbg.fini("Cache:build")
-   return spiderT, dbT, mpathMapT, providedByT
+   return spiderT, dbT, brokenT, mpathMapT, providedByT
 end
 
 function M.__clear()

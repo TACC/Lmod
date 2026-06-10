@@ -1413,7 +1413,7 @@ function M.avail(self, argA)
    end
 
    local cache                  = Cache:singleton{buildCache=true}
-   local spiderT,dbT,
+   local spiderT,dbT, brokenT,
          mpathMapT, providedByT = cache:build()
 
    dbg.printT("providedByT", providedByT)

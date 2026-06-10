@@ -495,7 +495,7 @@ function main()
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
                                                    buildFresh = true, noMRC=true}
    local spider                  = Spider:new()
-   local spiderT, dbT,
+   local spiderT, dbT, brokenT,
          mpathMapT, providedByT  = cache:build()
 
 

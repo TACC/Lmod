@@ -414,8 +414,8 @@ function path_regularize(value, full)
       return value
    end
    local doubleSlash = value:find("[^/]//$")
-   value = value:gsub("^%s+", " ")
-   value = value:gsub("%s+$", "")
+   --value = value:gsub("^%s+", " ")
+   --value = value:gsub("%s+$", "")
    value = value:gsub("//+" , "/")
    value = value:gsub("/%./", "/")
    value = value:gsub("/$"  , "")
