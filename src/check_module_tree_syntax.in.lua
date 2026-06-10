@@ -127,8 +127,25 @@ local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luac
 local function l_nothing()
 end
 
+function walk_brokenT(brokenT, errorT)
+   dbg.start{"walk_brokenT(brokenT,  errorT)"}
+   local function l_walk_brokenA_helper(mpath, brokenA, errorA)
+      for i = 1,#brokenA do
+         local entry = brokenA[i]
+         local msg   = i18n(entry.issue,{}) or "Unknown Error Message"
+         errorA[#errorA+1] = "ModuleName: \"" ..entry.fullName.."\", fn: \""..entry.fn.."\" Error: "..msg.."\n"
+      end
+   end
+
+   if (brokenT and next(brokenT) ~= nil) then
+      for mpath, brokenA in pairsByKeys(brokenT) do
+         l_walk_brokenA_helper(mpath, brokenA, errorT.brokenA)
+      end
+   end
+end
+
 function walk_spiderT(spiderT, mt, mList, errorT)
-   dbg.start{"walk_spiderT(spiderT, mList, errorT)"}
+   dbg.start{"walk_spiderT(spiderT, mt, mList, errorT)"}
    local mrc         = MRC:singleton()
 
    local function l_walk_moduleA_helper(mpath, sn, v)
@@ -138,7 +155,7 @@ function walk_spiderT(spiderT, mt, mList, errorT)
       end
 
       if (next(v.fileT) ~= nil) then
-         for fullName, vv in pairs(v.fileT) do
+         for fullName, vv in pairsByKeys(v.fileT) do
             local resultT = mrc:isVisible{fullName=fullName,sn=sn,fn=vv.fn, mpath = vv.mpath}
             if (resultT.isVisible) then
                check_syntax(mpath, mt, mList, sn, vv.fn, fullName, errorT.syntaxA)
@@ -146,13 +163,13 @@ function walk_spiderT(spiderT, mt, mList, errorT)
          end
       end
       if (next(v.dirT) ~= nil) then
-         for name, vv in pairs(v.dirT) do
+         for name, vv in pairsByKeys(v.dirT) do
             l_walk_moduleA_helper(mpath, name, vv)
          end
       end
    end
 
-   for mpath, vv in pairs(spiderT) do
+   for mpath, vv in pairsByKeys(spiderT) do
       if (mpath ~= "version") then
          for sn, v  in pairs(vv) do
             l_walk_moduleA_helper(mpath, sn, v)
@@ -277,7 +294,7 @@ function main()
    local optionTbl  = optionTbl()
    local pargs      = optionTbl.pargs
    local mpathA     = {}
-   local errorT     = { defaultA = {}, syntaxA = {} }
+   local errorT     = { defaultA = {}, syntaxA = {}, brokenA = {} }
 
    Shell            = BaseShell:build("bash")
 
@@ -362,6 +379,7 @@ function main()
       turn_off_stdio()
    end
    walk_spiderT(spiderT, mt, mList, errorT)
+   walk_brokenT(brokenT, errorT)
 
    sandbox_set_os_exit(exit)
    if (tracing == "no" and not dbg.active()) then
@@ -390,6 +408,16 @@ function main()
          io.stderr:write("  ",errorT.syntaxA[i],"\n")
       end
       io.stderr:write("\n")
+   end
+
+   if (next(errorT.brokenA) ~= nil) then
+      table.sort(errorT.brokenA)
+      io.stderr:write("\nThe following modulefile(s) have illegal names:\n",
+                        "-----------------------------------------------\n")
+      for i = 1,#errorT.brokenA do
+         ierr = ierr + 1
+         io.stderr:write("  ",errorT.brokenA[i],"\n")
+      end
    end
 
    dbg.fini("module_tree_check main")

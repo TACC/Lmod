@@ -513,6 +513,10 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
      noneFound = "  None found.",
 
      --------------------------------------------------------------------------
+     -- Illegal module names strings:
+     --------------------------------------------------------------------------
+     hasSpaces = "Module name has beginning and/or trailing space characters",
+     --------------------------------------------------------------------------
      -- Other strings:
      --------------------------------------------------------------------------
      coll_contains  = "Collection \"%{collection}\" contains: \n",
@@ -529,6 +533,9 @@ The following modules match your search criteria: "%{module_list}"
      namedCollList  = "Named collection list %{msgHdr}:\n",
      noModsLoaded   = "No modules loaded\n",
      specific_hlp   = "Module Specific Help for \"%{fullName}\"",
+
+     
+
 
    }
 }
