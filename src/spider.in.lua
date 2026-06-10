@@ -236,8 +236,8 @@ end
 -- @param moduleT
 -- @param timestampFn
 -- @param dbT
-local function l_rptList(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{"l_rptList(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptList(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptList(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)"}
    local spider = Spider:new()
    local tbl    = spider:listModules(dbT)
    for k in pairsByKeys(tbl) do
@@ -246,15 +246,19 @@ local function l_rptList(mpathMapT, spiderT, timestampFn, dbT, providedByT)
    dbg.fini("l_rptList")
 end
 
-local function l_rptSpiderT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "l_rptSpiderT(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptSpiderT(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptSpiderT(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)"}
    local mrc = MRC:singleton()
    local ts  = { timestampFn }
    local s1  = serializeTbl{name="timestampFn",   value=ts,         indent=true}
    local s2  = mrc:export()
    local s3  = serializeTbl{name="spiderT",       value=spiderT,    indent=true}
    local s4  = serializeTbl{name="mpathMapT",     value=mpathMapT,  indent=true}
-   io.stdout:write(s1,s2,s3,s4,"\n")
+   local s5 = ""
+   if (next(brokenT) ~= nil) then
+      s5 =    serializeTbl{name="brokenT",      value=brokenT,   indent=true}
+   end
+   io.stdout:write(s1,s2,s3,s4,s5,"\n")
    dbg.fini("l_rptSpiderT")
 end
 
@@ -335,8 +339,8 @@ end
 
 
 
-local function l_rptReverseMapT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "l_rptReverseMapT(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptReverseMapT(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptReverseMapT(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)"}
    local ts          = { timestampFn }
    local reverseMapT = l_buildReverseMapT(dbT)
    local libA        = l_buildLibMapA(reverseMapT)
@@ -350,8 +354,8 @@ local function l_rptReverseMapT(mpathMapT, spiderT, timestampFn, dbT, providedBy
    dbg.fini("l_rptReverseMapT")
 end
 
-local function l_rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "l_rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptReverseMapTJson(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptReverseMapTJson(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)"}
    if (_VERSION ~= "Lua 5.1") then
       require("declare")
       declare("loadstring")
@@ -367,8 +371,8 @@ local function l_rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT, provid
    dbg.fini("l_rptReverseMapTJson")
 end
 
-local function l_rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "l_rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptXALTRmapTJson(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptXALTRmapTJson(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)"}
    if (_VERSION ~= "Lua 5.1") then
       require("declare")
       declare("loadstring")
@@ -384,8 +388,8 @@ local function l_rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT, provided
    dbg.fini("l_rptXALTRmapTJson")
 end
 
-local function l_rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "l_rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptSoftwarePageJson(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptSoftwarePageJson(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)"}
    if (_VERSION ~= "Lua 5.1") then
       require("declare")
       declare("loadstring")
@@ -397,16 +401,16 @@ local function l_rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT, provi
    dbg.fini("l_rptSoftwarePageJson")
 end
 
-local function l_rptSoftwarePageLua(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "l_rptSoftwarePageLua(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptSoftwarePageLua(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptSoftwarePageLua(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)"}
    local spA = softwarePage(dbT)
    local s   = serializeTbl{name="spA",      value=spA,   indent=true}
    print(s)
    dbg.fini("l_rptSoftwarePageLua")
 end
 
-local function l_rptSoftwarePageXml(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "l_rptSoftwarePageXml(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptSoftwarePageXml(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptSoftwarePageXml(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)"}
    local xmlStr = xmlSoftwarePage(dbT)
    print(xmlStr)
    dbg.fini("l_rptSoftwarePageXml")
@@ -422,8 +426,8 @@ local function l_rptDbT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
    dbg.fini("l_rptDbT")
 end
 
-local function l_rptDbTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "l_rptDbTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptDbTJson(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptDbTJson(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)"}
    if (_VERSION ~= "Lua 5.1") then
       require("declare")
       declare("loadstring")
@@ -529,7 +533,7 @@ function main()
    -- grap function and run with it.
    local func = interpT[optionTbl.outputStyle]
    if (func) then
-      func(mpathMapT, spiderT, optionTbl.timestampFn, dbT, providedByT)
+      func(mpathMapT, spiderT, brokenT, optionTbl.timestampFn, dbT, providedByT)
    end
    dbg.fini()
 end
