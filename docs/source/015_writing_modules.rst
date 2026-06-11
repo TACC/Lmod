@@ -45,8 +45,8 @@ before loading the ddt modulefile::
 
 The first time we check the environment we find that there is no
 **ddt** stored there.  But the second time there we see that the PATH
-and LD_LIBRARY_PATH have been modified.  Note that we have shorten the
-path-like variables to show the important changes.  There are also
+and LD_LIBRARY_PATH have been modified.  Note that we have shortened
+the path-like variables to show the important changes.  There are also
 several environment variables which have been set.  After unloading
 the module all the references for ddt have been removed. We can see
 what the modulefile looks like by doing::
