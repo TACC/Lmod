@@ -359,6 +359,9 @@ The system default contains no modules
   $  module --force save %{name}
 ]==], --
      w_System_Reserved     = "The named collection 'system' is reserved. Please choose another name.\n",
+     w_Ignore_Whitespace_Fn = [==[
+Ignoring module tree entry with leading or trailing whitespace: %{dir}/%{fn}. Please rename or remove this file.
+]==],
      w_Too_Many_RegularFn  = [==[
 MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Please make sure that modulefiles are in their own directory and not mixed in with non-modulefiles (e.g. source code)
 ]==],
@@ -511,6 +514,10 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
      noneFound = "  None found.",
 
      --------------------------------------------------------------------------
+     -- Illegal module names strings:
+     --------------------------------------------------------------------------
+     hasSpaces = "Module name has beginning and/or trailing space characters",
+     --------------------------------------------------------------------------
      -- Other strings:
      --------------------------------------------------------------------------
      coll_contains  = "Collection \"%{collection}\" contains: \n",
@@ -527,6 +534,9 @@ The following modules match your search criteria: "%{module_list}"
      namedCollList  = "Named collection list %{msgHdr}:\n",
      noModsLoaded   = "No modules loaded\n",
      specific_hlp   = "Module Specific Help for \"%{fullName}\"",
+
+     
+
 
    }
 }

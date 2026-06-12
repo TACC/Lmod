@@ -536,7 +536,10 @@ build_tags:
 	    -e 's|./file_list\..*||g'                            \
 	    -e '/^\s*$$/d'                                       \
 	       < file_list.1.txt > file_list.2.txt
-	etags  -o TAGS.world `cat file_list.2.txt`
+	rm -f TAGS.world;                                        \
+	while IFS= read -r line; do                              \
+          etags -a -o TAGS.world "$$line";                       \
+        done < file_list.2.txt
 	sed -e 's|.*/rt/.*||g'                                   \
 	    -e 's|.*/contrib/.*||g'                              \
 	    -e 's|.*/cookbook/.*||g'                             \
@@ -548,7 +551,10 @@ build_tags:
 	    -e 's|.*/spec/.*/nv2/.*||g'                          \
 	    -e '/^\s*$$/d'                                       \
 	       < file_list.2.txt > file_list.3.txt
-	etags `cat file_list.3.txt`
+	rm -f TAGS;                                              \
+	while IFS= read -r line; do                              \
+          etags -a -o TAGS "$$line";                             \
+        done < file_list.3.txt;
 
 busted:
         ifeq ($(TAG),)

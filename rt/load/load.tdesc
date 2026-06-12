@@ -156,10 +156,11 @@ testdescript = {
      # Issue #811: protect Lmod from changes to LD_LIBRARY_PATH
 
      runLmodProtectedVars load prependLibPath               # 78
-
-     runLmod list                                           # 79
-     runLmod avail                                          # 80
-     runLmod update                                         # 81
+     runLmod load  pathJoin_w_spaces                        # 79
+     runLmod load  acme\ products                           # 80
+     runLmod list                                           # 81
+     runLmod avail                                          # 82
+     runLmod update                                         # 83
 
 
      HOME=$ORIG_HOME

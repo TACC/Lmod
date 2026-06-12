@@ -288,7 +288,7 @@ function M.searchSpiderDB(self, strA, dbT, providedByT)
    return kywdT, kywdExtsT
 end
 
-function M.findAllModules(self, mpathA, spiderT, mpathMapT)
+function M.findAllModules(self, mpathA, spiderT, brokenT, mpathMapT)
    dbg.start{"Spider:findAllModules(",concatTbl(mpathA,", "),")"}
    spiderT.version = LMOD_CACHE_VERSION
 
@@ -370,6 +370,7 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
                l_findModules(mpath, mt, mList, sn, v)
             end
             spiderT[mpath] = moduleA[1].T
+            brokenT[mpath] = moduleA[1].brokenA
          elseif (dynamicCache) then
             dbg.print{"Running l_findChangeMPATH_modules on: ", mpath,"\n"}
             if (tracing == "yes") then

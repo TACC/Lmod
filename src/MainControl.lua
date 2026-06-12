@@ -655,7 +655,7 @@ local function l_error_on_missing_loaded_modules(aa, bb)
             end)
             if (cache_ok and cache) then
                local build_ok, spiderT, dbT = pcall(function()
-                  local s, d = cache:build()
+                  local s, d, b = cache:build()
                   return s, d
                end)
                if (build_ok and dbT and next(dbT) ~= nil) then
