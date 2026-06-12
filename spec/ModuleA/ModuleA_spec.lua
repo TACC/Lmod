@@ -171,6 +171,15 @@ describe("Testing ModuleA Class #ModuleA.",
                               },
                            },
                         },
+                        brokenA = {
+                           {
+                              barefn = " ",
+                              fn = "%ProjDir%/spec/ModuleA/mf/spaceFn/ ",
+                              fullName = "spaceFn/ ",
+                              issue = "hasSpaces",
+                              mpath = "%ProjDir%/spec/ModuleA/mf",
+                           },
+                        },
                         ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
                      },
                   }
@@ -188,8 +197,8 @@ describe("Testing ModuleA Class #ModuleA.",
                   local rplmntA      = { {projDir,"%%ProjDir%%"} }
                   local _mA          = {}
                   sanizatizeTbl(rplmntA, mA, _mA)
-                  --print(serializeTbl{indent=true, name="mA",   value = _mA})
-                  --print(serializeTbl{indent=true, name="goldA",value = goldA})
+                  dbg.printT("mA",_mA)
+                  dbg.printT("goldA",goldA)
                   local iret = assert.are.same(goldA, _mA)
 
                   local defaultT = moduleA:defaultT()

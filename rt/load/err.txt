@@ -568,24 +568,30 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load setPrompt
 ===========================
 ===========================
 step 77
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing load acme products
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load pathJoin_w_spaces
 ===========================
 ===========================
 step 78
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load acme products
+===========================
+===========================
+step 79
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug
   2) setPrompt/1.0
-  3) acme products/2.0
+  3) pathJoin_w_spaces/1.0
+  4) acme products/2.0
 ===========================
-step 79
+step 80
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/load/mf6
    acme products/2.0                                                                (L)
    longVersion/branch.60200614194619_w9d09a3056a903608993972840ea4qw4d9bb0443-debug
    longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug (L,D)
+   pathJoin_w_spaces/1.0                                                            (L)
    setPrompt/1.0                                                                    (L)
   Where:
    D:  Default Module
@@ -596,6 +602,6 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 80
+step 81
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing update
 ===========================

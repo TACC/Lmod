@@ -24,18 +24,20 @@ describe("Testing Spider Class #Spider.",
          function()
             it("Core directory Test",
                function()
+                  --dbg:activateDebug(1)
                   local projDir = getenv("PROJDIR")
                   local mpath = pathJoin(projDir, testDir, "mf/Core")
                   posix.setenv("MODULEPATH",mpath,true)
                   posix.setenv("LMOD_MAXDEPTH", nil, true)
                   cosmic:assign("LMOD_MAXDEPTH",false)
 
-                  local spider  = Spider:new()
-                  local spiderT = {}
+                  local spider    = Spider:new()
+                  local spiderT   = {}
+                  local brokenT   = {}
                   local mpathMapT = {}
                   _G.mcp = MainControl.build("spider")
                   _G.MCP = MainControl.build("spider")
-                  spider:findAllModules({mpath}, spiderT, mpathMapT)
+                  spider:findAllModules({mpath}, spiderT, brokenT, mpathMapT)
                   local gold_spiderT = {
                      ["%ProjDir%/spec/Spider/mf/Core"]  = {
                         TACC = {
@@ -140,9 +142,25 @@ describe("Testing Spider Class #Spider.",
                   local rplmntA  = { {projDir,"%%ProjDir%%"} }
                   local _spiderT = {}
                   sanizatizeTbl(rplmntA, spiderT, _spiderT)
-                  -- print(serializeTbl{indent=true, name="spiderT",     value = _spiderT})
-                  -- print(serializeTbl{indent=true, name="gold_spiderT",value = gold_spiderT})
+                  dbg.printT("spiderT",      _spiderT)
+                  dbg.printT("gold_spiderT", gold_spiderT)
                   assert.are.same(gold_spiderT, _spiderT)
+                  gold_brokenT = {
+                     ["%ProjDir%/spec/Spider/mf/Core"]  = {
+                        {
+                           barefn = " ",
+                           fn = "%ProjDir%/spec/Spider/mf/Core/spaceFn/ ",
+                           fullName = "spaceFn/ ",
+                           issue = "hasSpaces",
+                           mpath = "%ProjDir%/spec/Spider/mf/Core",
+                        },
+                     },
+                  }
+                  local _brokenT = {}
+                  sanizatizeTbl(rplmntA, brokenT, _brokenT)
+                  dbg.printT("brokenT",      _brokenT)
+                  dbg.printT("gold_brokenT", gold_brokenT)
+                  assert.are.same(gold_brokenT, _brokenT)
               end)
 
             it("Hierarchy directory Test",
@@ -164,10 +182,11 @@ describe("Testing Spider Class #Spider.",
 
                   local spider    = Spider:new()
                   local spiderT   = {}
+                  local brokenT   = {}
                   local mpathMapT = {}
                   _G.mcp = MainControl.build("spider")
                   _G.MCP = MainControl.build("spider")
-                  spider:findAllModules({mpath}, spiderT, mpathMapT)
+                  spider:findAllModules({mpath}, spiderT, brokenT, mpathMapT)
                   local gold_spiderT = {
                      ["%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9"]  = {
                         mpich = {
