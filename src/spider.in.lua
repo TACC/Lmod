@@ -416,8 +416,8 @@ local function l_rptSoftwarePageXml(mpathMapT, spiderT, brokenT, timestampFn, db
    dbg.fini("l_rptSoftwarePageXml")
 end
 
-local function l_rptDbT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "l_rptDbT(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptDbT(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptDbT(mpathMapT, spiderT, brokenT, timestampFn, dbT, providedByT)"}
    local ts = { timestampFn }
    local s1 = serializeTbl{name="timestampFn",  value=ts,          indent=true}
    local s2 = serializeTbl{name="dbT",          value=dbT,         indent=true}
