@@ -66,7 +66,7 @@ function findInPath(exec, path)
    end
 
    if (cmd:find("/")) then
-      if (access(cmd,"x")) then
+      if (access(cmd,"x") and not isDir(cmd)) then
          return exec, true
       else
          return result, false
@@ -76,7 +76,7 @@ function findInPath(exec, path)
    path = path or os.getenv("PATH") or ""
    for dir in path:split(":") do
       local fullcmd = pathJoin(dir, cmd)
-      if (access(fullcmd,"x")) then
+      if (access(fullcmd,"x") and not isDir(cmd)) then
          result = fullcmd .. tail
          found  = true
          break
@@ -102,7 +102,7 @@ function find_exec_path(exec, path)
    end
 
    if (cmd:find("/")) then
-      if (access(cmd,"x")) then
+      if (access(cmd,"x") and not isDir(cmd)) then
          return exec
       else
          return result
@@ -112,7 +112,7 @@ function find_exec_path(exec, path)
    path    = path or os.getenv("PATH")
    for dir in path:split(":") do
       local fullcmd = pathJoin(dir, cmd)
-      if (access(fullcmd,"x")) then
+      if (access(fullcmd,"x") and not isDir(fullcmd)) then
          result = fullcmd .. tail
          break
       end
@@ -414,8 +414,6 @@ function path_regularize(value, full)
       return value
    end
    local doubleSlash = value:find("[^/]//$")
-   --value = value:gsub("^%s+", " ")
-   --value = value:gsub("%s+$", "")
    value = value:gsub("//+" , "/")
    value = value:gsub("/%./", "/")
    value = value:gsub("/$"  , "")
