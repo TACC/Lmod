@@ -401,6 +401,94 @@ local function l_collect_loaded_paths(mt, dbT)
 end
 
 --------------------------------------------------------------------------
+-- True when path element matches an active module (exact or regularized).
+local function l_path_element_in_active_set(element, activeSet)
+   if (not element or not activeSet) then return false end
+   if (activeSet[element]) then return true end
+   if (not path_regularize) then return false end
+   local elNorm = path_regularize(element)
+   for fullName, _ in pairs(activeSet) do
+      if (l_extract_sn(fullName) == l_extract_sn(element) and
+          path_regularize(fullName) == elNorm) then
+         return true
+      end
+   end
+   return false
+end
+
+--------------------------------------------------------------------------
+-- True when path differs from loadedPath only by a stack-root version swap
+-- (e.g. release/24.04 loaded, path starts with release/24.10).  Does not
+-- apply when a multi-element toolchain path is already loaded.
+local function l_path_second_element_requested(path)
+   if (#path < 2 or not s_allRequestedT) then return false end
+   local sn2 = l_extract_sn(path[2])
+   for i = 1, #s_allRequestedT do
+      if (s_allRequestedT[i].mname:sn() == sn2) then
+         return true
+      end
+   end
+   return false
+end
+
+local function l_block_stack_root_promo(path, loadedPathsAA, activeSet)
+   if (not path or not loadedPathsAA or #loadedPathsAA == 0) then
+      return false
+   end
+   if (l_path_second_element_requested(path)) then
+      return true
+   end
+   local hasLongPath = false
+   for i = 1, #loadedPathsAA do
+      if (#loadedPathsAA[i] > 1) then
+         hasLongPath = true
+         break
+      end
+   end
+   if (not hasLongPath) then return false end
+   for i = 1, #loadedPathsAA do
+      local lp = loadedPathsAA[i]
+      if (#lp == 1 and l_extract_sn(lp[1]) == l_extract_sn(path[1]) and
+          not l_path_element_in_active_set(path[1], activeSet)) then
+         return true
+      end
+   end
+   return false
+end
+
+local function l_path_stack_root_swap_compatible(path, loadedPath, loadedPathsAA,
+                                                 activeSet)
+   if (not path or not loadedPath or #path < 1 or #loadedPath ~= 1) then
+      return false
+   end
+   local pathSn   = l_extract_sn(path[1])
+   local loadedSn = l_extract_sn(loadedPath[1])
+   if (pathSn ~= loadedSn or path[1] == loadedPath[1]) then
+      return false
+   end
+   if (path_regularize and
+       path_regularize(path[1]) == path_regularize(loadedPath[1])) then
+      return false
+   end
+   if (l_block_stack_root_promo(path, loadedPathsAA, activeSet)) then
+      return false
+   end
+   return true
+end
+
+local function l_is_deliberate_stack_version_swap(path, activeSet)
+   if (#path < 1 or not activeSet) then return false end
+   local firstSn = l_extract_sn(path[1])
+   for fullName, _ in pairs(activeSet) do
+      if (l_extract_sn(fullName) == firstSn and
+          not l_path_element_in_active_set(path[1], activeSet)) then
+         return true
+      end
+   end
+   return false
+end
+
+--------------------------------------------------------------------------
 -- Check if a path is compatible with at least one loaded path.
 -- Used to reject suggestions that would conflict with the current toolchain.
 local function l_path_compatible_with_loaded(path, loadedPathsAA)
@@ -409,6 +497,23 @@ local function l_path_compatible_with_loaded(path, loadedPathsAA)
       if (l_paths_compatible(path, loadedPathsAA[i])) then
          return true
       end
+   end
+   return false
+end
+
+local function l_path_allowed_for_suggestion(path, loadedPathsAA, activeSet)
+   if (l_path_compatible_with_loaded(path, loadedPathsAA)) then
+      return true
+   end
+   for i = 1, #loadedPathsAA do
+      if (l_path_stack_root_swap_compatible(path, loadedPathsAA[i],
+                                            loadedPathsAA, activeSet)) then
+         return true
+      end
+   end
+   if (l_is_deliberate_stack_version_swap(path, activeSet) and
+       not l_block_stack_root_promo(path, loadedPathsAA, activeSet)) then
+      return true
    end
    return false
 end
@@ -437,7 +542,7 @@ local function l_strip_active_from_path(path, activeSet)
    local stripped = {}
    local strippedAny = false
    for i = 1, #path do
-      if (activeSet[path[i]]) then
+      if (l_path_element_in_active_set(path[i], activeSet)) then
          strippedAny = true
       else
          stripped[#stripped + 1] = path[i]
@@ -453,6 +558,35 @@ local function l_cmd_token_count(cmd)
       n = n + 1
    end
    return n
+end
+
+--------------------------------------------------------------------------
+-- Count version swaps along a spider parent path vs the active module set.
+-- Returns swapCount and earliestSwapDepth (1-based path index, 0 if none).
+local function l_path_swap_metrics(path, activeSet)
+   if (not path or #path == 0 or not activeSet) then
+      return 0, 0
+   end
+   local swapCount = 0
+   local earliestSwap = math.huge
+   for i = 1, #path do
+      if (not l_path_element_in_active_set(path[i], activeSet)) then
+         local sn = l_extract_sn(path[i])
+         for fullName, _ in pairs(activeSet) do
+            if (l_extract_sn(fullName) == sn) then
+               swapCount = swapCount + 1
+               if (i < earliestSwap) then
+                  earliestSwap = i
+               end
+               break
+            end
+         end
+      end
+   end
+   if (swapCount == 0) then
+      return 0, 0
+   end
+   return swapCount, earliestSwap
 end
 
 --------------------------------------------------------------------------
@@ -473,64 +607,35 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
    local seenCmd = {}
    local maxCommands = 5  -- Limit number of suggestions to avoid overwhelming output
 
-   local function l_add_suggestion(cmd, swapRequired)
+   local function l_add_suggestion(cmd, swapRequired, path, activeSet)
       if (seenCmd[cmd]) then return end
       seenCmd[cmd] = true
+      local swapCount, swapDepth = l_path_swap_metrics(path, activeSet)
       suggestions[#suggestions + 1] = {
-         cmd    = cmd,
-         tokens = l_cmd_token_count(cmd),
-         swap   = swapRequired and 1 or 0,
+         cmd       = cmd,
+         tokens    = l_cmd_token_count(cmd),
+         swap      = swapRequired and 1 or 0,
+         swapCount = swapCount,
+         swapDepth = swapDepth,
       }
-   end
-
-   local function l_is_release_stack_swap(path, activeSet)
-      if (#path < 1) then return false end
-      local first = path[1]
-      if (not first:match("^release/")) then return false end
-      for fullName, _ in pairs(activeSet) do
-         if (fullName:match("^release/") and fullName ~= first) then
-            return true
-         end
-      end
-      return false
-   end
-
-   local function l_should_show_swap_candidate(path, loadedPathsAA, activeSet)
-      if (l_path_compatible_with_loaded(path, loadedPathsAA)) then
-         return true
-      end
-      if (l_is_release_stack_swap(path, activeSet)) then
-         return true
-      end
-      for i = 1, #path do
-         if (activeSet[path[i]]) then
-            return false
-         end
-         local sn = l_extract_sn(path[i])
-         for fullName, _ in pairs(activeSet) do
-            if (l_extract_sn(fullName) == sn and fullName ~= path[i]) then
-               return false
-            end
-         end
-      end
-      return true
    end
 
    local function l_add_path_suggestions(path, failingSet, activeSet)
       if (not path or #path == 0) then return end
-      if (not l_should_show_swap_candidate(path, loadedPathsAA, activeSet)) then
+      if (not l_path_allowed_for_suggestion(path, loadedPathsAA, activeSet)) then
          return
       end
-      local swapRequired = not l_path_compatible_with_loaded(path, loadedPathsAA)
+      local swapCount, swapDepth = l_path_swap_metrics(path, activeSet)
+      local swapRequired = (swapCount > 0)
       local modulesToInclude = l_build_modules_for_path(path, failingSet)
       local suffix = (#modulesToInclude > 0) and (" " .. concatTbl(modulesToInclude, " ")) or ""
       local explicitCmd = "module load " .. concatTbl(path, " ") .. suffix
-      l_add_suggestion(explicitCmd, swapRequired)
+      l_add_suggestion(explicitCmd, swapRequired, path, activeSet)
       local strippedPath = l_strip_active_from_path(path, activeSet)
       if (strippedPath and #strippedPath > 0) then
          local minimalCmd = "module load " .. concatTbl(strippedPath, " ") .. suffix
          if (minimalCmd ~= explicitCmd) then
-            l_add_suggestion(minimalCmd, swapRequired)
+            l_add_suggestion(minimalCmd, swapRequired, strippedPath, activeSet)
          end
       end
    end
@@ -625,7 +730,7 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
             if (parentA and #parentA > 0 and l_path_compatible_with_loaded(parentA, loadedPathsAA)) then
                local modulesToInclude = l_build_modules_for_path(parentA, failingSet)
                local cmd = "module load " .. concatTbl(parentA, " ") .. " " .. concatTbl(modulesToInclude, " ")
-               l_add_suggestion(cmd, false)
+               l_add_suggestion(cmd, false, parentA, activeSet)
             end
          end
       end
@@ -642,9 +747,13 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
       return nil
    end
 
+   -- Fewest modules first; swap-required last; among swaps prefer fewer
+   -- conflicts and deeper (later hierarchy) swaps before root-stack swaps.
    table.sort(suggestions, function(a, b)
-      if (a.tokens ~= b.tokens) then return a.tokens < b.tokens end
       if (a.swap ~= b.swap) then return a.swap < b.swap end
+      if (a.tokens ~= b.tokens) then return a.tokens < b.tokens end
+      if (a.swapCount ~= b.swapCount) then return a.swapCount < b.swapCount end
+      if (a.swapDepth ~= b.swapDepth) then return a.swapDepth > b.swapDepth end
       return a.cmd < b.cmd
    end)
 
