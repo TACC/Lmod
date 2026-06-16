@@ -1,0 +1,46 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+Modules based on Lua: Version 9.2.4 2026-06-16 08:21 -05:00
+    https://lmod.readthedocs.io
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CuPy OpenMPI
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "CuPy", "OpenMPI"
+   Try: "module spider CuPy OpenMPI" to see how to load the module(s).
+   Or load any one of these options:
+      module load release/24.04 GCC/13.2.0 CuPy OpenMPI
+      module load release/24.04 GCC/14.2.0 CuPy OpenMPI
+      module load release/24.10 GCC/13.2.0 CuPy OpenMPI
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04 GCCcore/13.2.0
+===========================
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CuPy OpenMPI
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "OpenMPI"
+   Try: "module spider OpenMPI" to see how to load the module(s).
+   Or load any one of these options:
+      module load GCC/13.2.0 CuPy OpenMPI
+      module load GCC/14.2.0 CuPy OpenMPI
+      module load release/24.04 GCC/13.2.0 CuPy OpenMPI
+      module load release/24.04 GCC/14.2.0 CuPy OpenMPI
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+  1) release/24.04
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04 GCC/14.2.0 CuPy OpenMPI/5.6
+===========================

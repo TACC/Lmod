@@ -171,6 +171,73 @@ local function l_extract_sn(userName)
    return userName:match("([^/]+)") or userName
 end
 
+local function l_extract_version(userName)
+   return userName:match("/(.+)$")
+end
+
+--------------------------------------------------------------------------
+-- EasyBuild-style GCC and GCCcore with the same version are one toolchain.
+local function l_gcc_gcccore_siblings(elemA, elemB)
+   local snA = l_extract_sn(elemA)
+   local snB = l_extract_sn(elemB)
+   local verA = l_extract_version(elemA)
+   local verB = l_extract_version(elemB)
+   if (not verA or not verB or verA ~= verB) then
+      return false
+   end
+   return (snA == "GCCcore" and snB == "GCC") or
+          (snA == "GCC" and snB == "GCCcore")
+end
+
+--------------------------------------------------------------------------
+-- True when userName is a GCC/GCCcore sibling that conflicts with path.
+local function l_module_conflicts_with_path(userName, path)
+   for i = 1, #path do
+      local snP = l_extract_sn(path[i])
+      local snU = l_extract_sn(userName)
+      if (snP ~= snU and l_gcc_gcccore_siblings(path[i], userName)) then
+         return true
+      end
+   end
+   return false
+end
+
+--------------------------------------------------------------------------
+-- parentAA may include the module itself; keep prerequisite prefixes only.
+local function l_normalize_prereq_path(path, userName)
+   if (not path or #path == 0) then return path end
+   local sn = l_extract_sn(userName)
+   if (l_extract_sn(path[#path]) == sn) then
+      local stripped = {}
+      for i = 1, #path - 1 do
+         stripped[#stripped + 1] = path[i]
+      end
+      if (#stripped > 0) then return stripped end
+   end
+   return path
+end
+
+local function l_path_key(path)
+   return concatTbl(path, "|")
+end
+
+--------------------------------------------------------------------------
+-- When two compatible paths tie on length, prefer GCC over GCCcore.
+local function l_prefer_toolchain_path(pathA, pathB)
+   if (not pathB) then return pathA end
+   if (not pathA) then return pathB end
+   if (#pathB > #pathA) then return pathB end
+   if (#pathA > #pathB) then return pathA end
+   for i = 1, #pathA do
+      if (pathA[i] ~= pathB[i]) then
+         if (l_extract_sn(pathA[i]) == "GCC") then return pathA end
+         if (l_extract_sn(pathB[i]) == "GCC") then return pathB end
+         return pathB
+      end
+   end
+   return pathA
+end
+
 --------------------------------------------------------------------------
 -- Helper function to collect ALL parentAA entries for a module from dbT
 -- A module may exist in multiple hierarchy locations (e.g., gcc/boost and intel/boost)
@@ -184,6 +251,7 @@ local function l_collect_all_parentAA(userName, dbT)
    end
 
    local allParentAA = {}
+   local seen = {}
 
    -- Search through all entries for this short name
    for fn, entry in pairs(moduleData) do
@@ -199,7 +267,14 @@ local function l_collect_all_parentAA(userName, dbT)
       if (match and entry.parentAA) then
          -- Add all parent arrays from this entry
          for i = 1, #entry.parentAA do
-            allParentAA[#allParentAA + 1] = entry.parentAA[i]
+            local path = l_normalize_prereq_path(entry.parentAA[i], userName)
+            if (path and #path > 0) then
+               local key = l_path_key(path)
+               if (not seen[key]) then
+                  seen[key] = true
+                  allParentAA[#allParentAA + 1] = path
+               end
+            end
          end
       end
    end
@@ -224,6 +299,12 @@ local function l_paths_compatible(pathA, pathB)
    -- Check if shorter is a prefix of longer
    for i = 1, #shorter do
       if (shorter[i] ~= longer[i]) then
+         if (i == #shorter and l_gcc_gcccore_siblings(shorter[i], longer[i])) then
+            if (l_extract_sn(longer[i]) == "GCC") then
+               return longer
+            end
+            return shorter
+         end
          return nil
       end
    end
@@ -269,10 +350,7 @@ local function l_find_common_paths(failingUserNames, dbT)
             local compatible = l_paths_compatible(candidatePath, otherPaths[k])
             if (compatible) then
                foundCompatible = true
-               -- Use the longer (more specific) path
-               if (#compatible > #bestPath) then
-                  bestPath = compatible
-               end
+               bestPath = l_prefer_toolchain_path(bestPath, compatible)
                break
             end
          end
@@ -340,7 +418,8 @@ local function l_build_modules_for_path(path, failingSet)
       if (failingSet[userName]) then
          -- Failing modules are always included
          modulesToInclude[#modulesToInclude + 1] = userName
-      elseif (not pathSnSet[sn]) then
+      elseif (not pathSnSet[sn] and
+              not l_module_conflicts_with_path(userName, path)) then
          -- Non-conflicting module: safe to include
          modulesToInclude[#modulesToInclude + 1] = userName
       end
@@ -689,13 +768,6 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
       -- When multiple modules tie (e.g. both n=1), prefer the longest path.
       -- Longer paths are more specific and more likely to satisfy all modules
       -- (e.g. GCC/OpenMPI pulls in GCCcore via depends_on).
-      local nContributors = 0
-      for i = 1, #kB do
-         if (pathCountT[i].n > 0 and pathCountT[i].n == minCount) then
-            nContributors = nContributors + 1
-         end
-      end
-      local filterCandidates = (nContributors > 1)
       local maxPathLen = 0
       for i = 1, #candidates do
          if (#candidates[i] > maxPathLen) then
@@ -705,15 +777,18 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
       for i = 1, #candidates do
          local parentA = candidates[i]
          if (#parentA >= maxPathLen) then
-            if (filterCandidates) then
+            if (#kB > 1) then
                local worksForAll = true
+               local upgraded = parentA
                for j = 1, #kB do
                   local otherAA = pathCountT[j].parentAA
                   if (otherAA and #otherAA > 0) then
                      local hasCompatible = false
                      for k = 1, #otherAA do
-                        if (l_paths_compatible(parentA, otherAA[k])) then
+                        local compatible = l_paths_compatible(upgraded, otherAA[k])
+                        if (compatible) then
                            hasCompatible = true
+                           upgraded = l_prefer_toolchain_path(upgraded, compatible)
                            break
                         end
                      end
@@ -725,6 +800,8 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
                end
                if (not worksForAll) then
                   parentA = nil
+               else
+                  parentA = upgraded
                end
             end
             if (parentA and #parentA > 0 and l_path_compatible_with_loaded(parentA, loadedPathsAA)) then
@@ -734,7 +811,7 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
             end
          end
       end
-      if (#suggestions == 0 and filterCandidates and nContributors >= 2) then
+      if (#suggestions == 0 and #kB > 1) then
          return "   These modules cannot be loaded together - they require incompatible toolchains.\n"
       end
    end
