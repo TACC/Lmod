@@ -8,7 +8,7 @@ local pkg          = "openmpi/1.2.6.opt"
 local mpihome      = pathJoin(pkgRoot, compiler_dir, pkg)
 
 prepend_path('MODULEPATH',      mdir)
-prepend_path('PATH',            pathJoin(mpihome,"bin"))
+prepend_path('PATH',            pathJoin("/unknown",mpihome,"bin"))
 prepend_path('LD_LIBRARY_PATH', pathJoin(mpihome,"lib"))
 prepend_path('MANPATH',         pathJoin(mpihome,"man"))
 setenv(      'MPIHOME',         mpihome)

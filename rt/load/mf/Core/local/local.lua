@@ -1,2 +1,2 @@
 -- -*- lua -*-
-prepend_path('PATH','/usr/local/share/bin')
+prepend_path('PATH','/unknown/usr/local/share/bin')

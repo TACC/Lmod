@@ -20,7 +20,10 @@ Lmod 9.2+
    (9.2.2)  * Change src/chkJson to be in proj_mgmt
             * chkJson: Only check that values exist for ld_lib_path and ld_preload
             * chkJson: do not check for dotfiles
-            
-            
-
+   (9.2.3)  * Issue #813: module name entries with leading/trailing whitespace
+            * Issue #812: Protect Lmod from changes to LD_PRELOAD and LD_LIBRARY_PATH
+            * The building of TAGS and TAGS.world now support files that have spaces in their name
+   (9.2.4)  * PR #829: export -f __lmod_internal_module_cmd for bash
    
+
+	    

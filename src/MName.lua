@@ -68,6 +68,7 @@ local s_rangeFuncT = { ["<="] = {func = l_lessthan_equal, name = "<="},
 
 
 function M.new(self, sType, name, action, is, ie)
+   action = action ~= nil and action or false
    if (dbg.active()) then
       local n = name
       if (sType == "entryT") then

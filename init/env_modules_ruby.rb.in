@@ -5,9 +5,12 @@ class ENVModule
     else
       args = args.join(' ')
     end
-    eval `@PKG@/libexec/lmod ruby #{args}`
+    ENV["__LMOD_PROTECTED_LD_LIBRARY_PATH"] = os.environ.get('LD_LIBRARY_PATH','')
+    ENV["__LMOD_PROTECTED_LD_PRELOAD"]      = os.environ.get('LD_PRELOAD','')
+    ENV["LD_LIBRARY_PATH"]                  = '@sys_ld_lib_path@'
+    ENV["LD_PRELOAD"]                       = '@sys_ld_preload@'
+
+    eval `@PKG@/libexec/lmod ruby --protected_vars #{args}`
     return true
   end
 end
-
-      

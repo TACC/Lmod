@@ -19,11 +19,11 @@ setenv SITE_INTEL_HOME ${INTEL_BASE}
 setenv INTEL_VERSION   ${COMP_VERSION}
 
 # use GCC libs and includes 
-prepend-path   PATH             $BASE_PREFIX/$RELEASE/$CAT/gcc/$GCC_VERSION/bin
+prepend-path   PATH             /unknown$BASE_PREFIX/$RELEASE/$CAT/gcc/$GCC_VERSION/bin
 prepend-path   LD_LIBRARY_PATH  $BASE_PREFIX/$RELEASE/$CAT/gcc/$GCC_VERSION/lib64/
 prepend-path   LD_LIBRARY_PATH  $BASE_PREFIX/$RELEASE/$CAT/gcc/$GCC_VERSION/lib/
 
-prepend-path  PATH               $INTEL_BASE/bin/intel64
+prepend-path  PATH               /unknown$INTEL_BASE/bin/intel64
 prepend-path  LD_LIBRARY_PATH    $INTEL_BASE/compiler/lib/intel64
 prepend-path  MANPATH            $INTEL_BASE/man/common:$BASE_PREFIX/$RELEASE/$CAT/gcc/$GCC_VERSION/share/man
 prepend-path  LM_LICENSE_FILE    "26000@X.X.X.X"
