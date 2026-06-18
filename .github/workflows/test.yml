@@ -121,14 +121,7 @@ jobs:
          cd -
          cd /tmp/Lmod_test_suite
          sudo cp z98_StdEnv.sh /etc/profile.d
-         System=$(uname -s)
-         if [ $System = Darwin ]; then
-            key="normal"
-         else
-            key="all"
-         fi
-         echo "key: $key"
-         tm -k $key
+         tm -k normal
       - name: show output of failed suite tests
         if: ${{ failure() }}
         run: |
