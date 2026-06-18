@@ -122,6 +122,7 @@ jobs:
          cd /tmp/Lmod_test_suite
          sudo cp z98_StdEnv.sh /etc/profile.d
          [[ $(uname -s) == Darwin ]] && key="normal" || key="all"
+	 echo "key: $key"
          tm -k $key
       - name: show output of failed suite tests
         if: ${{ failure() }}
