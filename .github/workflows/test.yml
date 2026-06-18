@@ -121,7 +121,12 @@ jobs:
          cd -
          cd /tmp/Lmod_test_suite
          sudo cp z98_StdEnv.sh /etc/profile.d
-         [[ $(uname -s) == Darwin ]] && key="normal" || key="all"
+	 System=$(uname -s)
+	 if [ $System = Darwin ]; then
+           key="normal"
+	 else
+	   key="all"
+	 fi
 	 echo "key: $key"
          tm -k $key
       - name: show output of failed suite tests
