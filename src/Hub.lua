@@ -83,6 +83,7 @@ end
 -- @param self A Hub object.
 -- @param safe A flag.
 function M.singleton(self, safe)
+   safe = safe ~= nil and safe or false
    dbg.start{"Hub:singleton(safe: ",safe,")"}
    if (not s_hub) then
       s_hub = l_new(self, safe)
@@ -1413,7 +1414,7 @@ function M.avail(self, argA)
    end
 
    local cache                  = Cache:singleton{buildCache=true}
-   local spiderT,dbT,
+   local spiderT,dbT, brokenT,
          mpathMapT, providedByT = cache:build()
 
    dbg.printT("providedByT", providedByT)

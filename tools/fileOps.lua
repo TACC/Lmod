@@ -46,7 +46,8 @@ local function l_argsPack(...)
    local argA = { n = select("#", ...), ...}
    return argA
 end
-local pack        = (_VERSION == "Lua 5.1") and l_argsPack or table.pack  -- luacheck: compat
+local pack      = (_VERSION == "Lua 5.1") and l_argsPack or table.pack   -- luacheck: compat
+local unpack    = (_VERSION == "Lua 5.1") and unpack     or table.unpack -- luacheck: compat
 --------------------------------------------------------------------------
 -- find the absolute path to an executable.
 -- @param exec Name of executable
@@ -65,7 +66,7 @@ function findInPath(exec, path)
    end
 
    if (cmd:find("/")) then
-      if (access(cmd,"x")) then
+      if (access(cmd,"x") and not isDir(cmd)) then
          return exec, true
       else
          return result, false
@@ -75,7 +76,7 @@ function findInPath(exec, path)
    path = path or os.getenv("PATH") or ""
    for dir in path:split(":") do
       local fullcmd = pathJoin(dir, cmd)
-      if (access(fullcmd,"x")) then
+      if (access(fullcmd,"x") and not isDir(cmd)) then
          result = fullcmd .. tail
          found  = true
          break
@@ -101,7 +102,7 @@ function find_exec_path(exec, path)
    end
 
    if (cmd:find("/")) then
-      if (access(cmd,"x")) then
+      if (access(cmd,"x") and not isDir(cmd)) then
          return exec
       else
          return result
@@ -111,7 +112,7 @@ function find_exec_path(exec, path)
    path    = path or os.getenv("PATH")
    for dir in path:split(":") do
       local fullcmd = pathJoin(dir, cmd)
-      if (access(fullcmd,"x")) then
+      if (access(fullcmd,"x") and not isDir(fullcmd)) then
          result = fullcmd .. tail
          break
       end
@@ -272,7 +273,6 @@ function pathJoin(...)
             local msg = "bad argument #" .. i .." (string expected, got " .. vType .. " instead)\n"
             assert(vType ~= "string", msg)
          end
-      	 v = v:trim()
       	 if (v:sub(1,1) == '/' and i > 1) then
 	    if (v:len() > 1) then
 	       v = v:sub(2,-1)
@@ -298,6 +298,28 @@ function pathJoin(...)
    local s = concatTbl(a,"/")
    s = path_regularize(s)
    return s
+end
+
+------------------------------------------------------------
+-- Allow for spaces in strings then make pathJoin() do the
+-- actual joining
+function pathJoin_w_spaces(...)
+   local n    = 0
+   local a    = {}
+   local argA = pack(...)
+   for i = 1, argA.n  do
+      local v     = argA[i]
+      if (v and v ~= '') then
+         local vType = type(v)
+         if (vType ~= "string") then
+            local msg = "bad argument #" .. i .." (string expected, got " .. vType .. " instead)\n"
+            assert(vType ~= "string", msg)
+         end
+         n    = n + 1
+         a[n] = v:trim()
+      end
+   end
+   return pathJoin(unpack(a))
 end
 
 --------------------------------------------------------------------------
@@ -392,8 +414,6 @@ function path_regularize(value, full)
       return value
    end
    local doubleSlash = value:find("[^/]//$")
-   value = value:gsub("^%s+", " ")
-   value = value:gsub("%s+$", "")
    value = value:gsub("//+" , "/")
    value = value:gsub("/%./", "/")
    value = value:gsub("/$"  , "")
@@ -458,7 +478,7 @@ local function l_walk_dir(path)
    local fileA = {}
    local attr = lfs.attributes(path)
    if (attr and type(attr) == "table" and attr.mode == "directory" and
-       access(path,"x")) then
+      access(path,"x")) then
       for file in lfs.dir(path) do
          if ( file ~= '.' and file ~= '..') then
             local fn   = pathJoin(path,file)

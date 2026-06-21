@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 9.0.2 2025-10-20 21:00 -05:00
+Modules based on Lua: Version 9.2.2 2026-05-18 18:21 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -15,6 +15,8 @@ The following modulefile(s) have syntax errors:
   ModuleName: A/2.0, Fn: ProjectDIR/rt/ck_mtree_syntax/mf/A/2.0 Error: ProjectDIR/rt/ck_mtree_syntax/mf/A/2.0: (A/2.0): invalid command name "nonExistantCmd"
   ModuleName: hashrf/6.0.1, Fn: ProjectDIR/rt/ck_mtree_syntax/mf/hashrf/6.0.1.lua Error: [string "local name = "hashrf"..."]:16:
   ModuleName: papi/4.4.0, Fn: ProjectDIR/rt/ck_mtree_syntax/mf/papi/4.4.0.lua Error: command: help, one or more arguments are not strings.
+The following modulefile(s) have illegal names:
+  ModuleName: "spaceFn/ ", fn: "ProjectDIR/rt/ck_mtree_syntax/mf/spaceFn/ " Error: Module name has beginning and/or trailing space characters
 ===========================
 step 3
 runSpiderCmd -o spiderT ProjectDIR/rt/ck_mtree_syntax/mf

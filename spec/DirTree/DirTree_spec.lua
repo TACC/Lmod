@@ -21,6 +21,15 @@ describe("Testing DirTree Class: #DirTree.",
                   os.execute(cmd)
                   local goldA   = {
                      {
+                        brokenA = {
+                           {
+                              barefn = " ",
+                              fn = "%ProjDir%/spec/DirTree/mf/spaceFn/ ",
+                              fullName = "spaceFn/ ",
+                              issue = "hasSpaces",
+                              mpath = "%ProjDir%/spec/DirTree/mf",
+                           },
+                        },
                         dirT = {
                            defaultA = {},
                            defaultT = {},

@@ -1,6 +1,18 @@
 New Features in Lmod
 ====================
 
+**Lmod now ignores module names that have leading or trailing spaces characters**
+  (Lmod 9.2.3+) Module now ignores modules with leading or trailing
+  space characters.  Lmod will now report any modules with this issue
+  by using the command **$LMOD_DIR/check_module_tree_syntax**.
+
+
+**Lmod now protects itself from changes to LD_LIBRARY_PATH and LD_PRELOAD**
+  (Lmod 9.2.3+) For the shells bash, zsh, t/csh and the python
+  interface, Lmod protects itself from changes to LD_LIBRARY_PATH and
+  LD_PRELOAD.  Modules can modify these environment variables but Lmod
+  now internally uses the configure time values.
+
 **Lmod now looks for /etc/lmod/SitePackage.lua**
   (Lmod 9.0.7+): After looking for SitePackage.lua in the usual
   places, Lmod now looks in /etc/lmod for SitePackage.lua.  Actually

@@ -181,7 +181,7 @@ cosmic:init{name = "LMOD_REDIRECT",
             yn   = "no"}
 
 ------------------------------------------------------------------------
--- LMOD_DOWNSTREAM_CONFLICTS: Module confiicts are remember for later
+-- LMOD_DOWNSTREAM_CONFLICTS: Module conflicts are remembered for later
 --                            module loads
 --                            Note: this variable can only be set
 --                            at config time or via cosmic:assign() at

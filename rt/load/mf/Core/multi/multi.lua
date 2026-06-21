@@ -1,4 +1,4 @@
-prepend_path("PATH", "/a/b/c:/d/e/f:/g/h/i")
-append_path("PATH",  "/abc/def:/qrs/tuv")
+prepend_path("PATH", "/unknown/a/b/c:/unknown/d/e/f:/unknown/g/h/i")
+append_path("PATH",  "/unknown/abc/def:/unknown/qrs/tuv")
 setenv("_FOO_BAR","foo")
 

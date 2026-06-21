@@ -1,0 +1,70 @@
+-- -*- lua -*-
+------------------------------------------------------------------------------
+-- Test for Issue #822: %{suggest_cmd} must appear in localized e_Failed_Load_2
+-- templates (de, fr, es). Without it, load-failure suggestions are omitted.
+--
+-- Reuses module tree from rt/load_suggest_cmd. Golden err.txt/out.txt are
+-- placeholders until blessed after "t ." (see LMOD_TESTING.md).
+------------------------------------------------------------------------------
+
+local testName = "load_suggest_i18n_822"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+     Test Issue #822: Localized e_Failed_Load_2 must include %{suggest_cmd}
+     so dependency load suggestions are shown when LANG is not English.
+   ]],
+   keywords = {testName, "issue822", "issue804", "load_suggest", "i18n"},
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH_ROOT=$(projectDir)/rt/load_suggest_cmd/mf; export MODULEPATH_ROOT
+     MODULEPATH=$MODULEPATH_ROOT/Core; export MODULEPATH
+
+     remove_generated_lmod_files
+
+     runLmod --version                                              # 1
+     runLmod spider                                                 # 2
+
+     export LANG=de_DE
+     runLmod load boost/1.75.0                                      # 3
+
+     export LANG=fr_CA.UTF8
+     runLmod load boost/1.75.0                                      # 4
+
+     export LANG=es_ES
+     runLmod load boost/1.75.0                                      # 5
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results -bash _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

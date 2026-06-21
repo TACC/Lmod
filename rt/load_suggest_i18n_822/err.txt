@@ -1,0 +1,54 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
+    https://lmod.readthedocs.io
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
+===========================
+The following is a list of the modules and extensions currently available:
+  boost: boost/1.75.0
+  fftw: fftw/3.3
+  gcc: gcc/10.0
+  hdf5: hdf5/1.12.0
+  intel: intel/21.0
+  netcdf: netcdf/4.8.0
+  openmpi: openmpi/4.0
+  petsc: petsc/3.17
+  python: python/3.9
+  ruby: ruby/3.0
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0
+===========================
+Lmod hat den folgenden Fehler erkannt: Diese Module existieren, aber können nicht wie gewünscht geladen werden: "boost/1.75.0"
+   Versuchen Sie: "module spider boost/1.75.0" um anzuzeigen, wie die Module geladen werden.
+   Or load any one of these options:
+      module load gcc/10.0 boost/1.75.0
+      module load intel/21.0 boost/1.75.0
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0
+===========================
+Lmod a détecté l'erreur suivante : Ce ou ces module(s) existent, mais ne peuvent pas être chargés tel que demandé: "boost/1.75.0"
+   Utilisez: "module spider boost/1.75.0" pour voir la façon de les charger.
+   Or load any one of these options:
+      module load gcc/10.0 boost/1.75.0
+      module load intel/21.0 boost/1.75.0
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0
+===========================
+Lmod ha detectado el siguiente error: Estos módulos existen pero no pueden ser cargados como ha solicitado: "boost/1.75.0"
+   Intente: "module spider boost/1.75.0" para ver como cargar los módulos.
+   Or load any one of these options:
+      module load gcc/10.0 boost/1.75.0
+      module load intel/21.0 boost/1.75.0
