@@ -4,7 +4,7 @@
 -- and swap-required paths still listed (spider-like output).
 --
 -- Uses mf/ from Flamefire's modules.tar.gz reproducer (/tmp/modules symlink).
--- Golden err.txt/out.txt: run "t ." then bless per LMOD_TESTING.md.
+-- Golden err.txt/out.txt: run "t ." then update baselines per docs/source/442_testing.rst.
 ------------------------------------------------------------------------------
 
 local testName = "load_suggest_823"
