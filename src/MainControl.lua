@@ -171,32 +171,59 @@ local function l_extract_sn(userName)
    return userName:match("([^/]+)") or userName
 end
 
-local function l_extract_version(userName)
-   return userName:match("/(.+)$")
+--------------------------------------------------------------------------
+-- Look up a spider dbT entry by module fullName.
+local function l_find_db_entry(fullName, dbT)
+   if (not fullName or not dbT) then return nil end
+   local sn = l_extract_sn(fullName)
+   local moduleData = dbT[sn]
+   if (not moduleData) then return nil end
+   for _, entry in pairs(moduleData) do
+      if (entry.fullName == fullName) then
+         return entry
+      end
+   end
+   return nil
 end
 
 --------------------------------------------------------------------------
--- EasyBuild-style GCC and GCCcore with the same version are one toolchain.
-local function l_gcc_gcccore_siblings(elemA, elemB)
-   local snA = l_extract_sn(elemA)
-   local snB = l_extract_sn(elemB)
-   local verA = l_extract_version(elemA)
-   local verB = l_extract_version(elemB)
-   if (not verA or not verB or verA ~= verB) then
+-- Resolve a fixed depends_on entry to a full module name, or nil.
+local function l_dep_fixed_fullName(depEntry)
+   if (not depEntry or not depEntry.version) then return nil end
+   if (depEntry.version.kind ~= "fixed") then return nil end
+   return pathJoin(depEntry.sn, depEntry.version.value)
+end
+
+--------------------------------------------------------------------------
+-- True when childFullName has depends_on(parentFullName) with fixed version.
+local function l_module_depends_on_fixed(dbT, childFullName, parentFullName)
+   local entry = l_find_db_entry(childFullName, dbT)
+   if (not entry or not entry.depT or not entry.depT.depA) then
       return false
    end
-   return (snA == "GCCcore" and snB == "GCC") or
-          (snA == "GCC" and snB == "GCCcore")
+   for i = 1, #entry.depT.depA do
+      local depFn = l_dep_fixed_fullName(entry.depT.depA[i])
+      if (depFn == parentFullName) then
+         return true
+      end
+   end
+   return false
 end
 
 --------------------------------------------------------------------------
--- True when userName is a GCC/GCCcore sibling that conflicts with path.
-local function l_module_conflicts_with_path(userName, path)
+-- True when userName is a fixed depends_on of a path element but wrong version.
+local function l_module_conflicts_with_path(userName, path, dbT)
+   if (not dbT) then return false end
    for i = 1, #path do
-      local snP = l_extract_sn(path[i])
-      local snU = l_extract_sn(userName)
-      if (snP ~= snU and l_gcc_gcccore_siblings(path[i], userName)) then
-         return true
+      local entry = l_find_db_entry(path[i], dbT)
+      if (entry and entry.depT and entry.depT.depA) then
+         local userSn = l_extract_sn(userName)
+         for j = 1, #entry.depT.depA do
+            local depFn = l_dep_fixed_fullName(entry.depT.depA[j])
+            if (depFn and l_extract_sn(depFn) == userSn and depFn ~= userName) then
+               return true
+            end
+         end
       end
    end
    return false
@@ -222,16 +249,21 @@ local function l_path_key(path)
 end
 
 --------------------------------------------------------------------------
--- When two compatible paths tie on length, prefer GCC over GCCcore.
-local function l_prefer_toolchain_path(pathA, pathB)
+-- When two compatible paths tie on length, prefer the path whose element
+-- depends_on the other (outer toolchain over inner prerequisite).
+local function l_prefer_toolchain_path(pathA, pathB, dbT)
    if (not pathB) then return pathA end
    if (not pathA) then return pathB end
    if (#pathB > #pathA) then return pathB end
    if (#pathA > #pathB) then return pathA end
    for i = 1, #pathA do
       if (pathA[i] ~= pathB[i]) then
-         if (l_extract_sn(pathA[i]) == "GCC") then return pathA end
-         if (l_extract_sn(pathB[i]) == "GCC") then return pathB end
+         if (l_module_depends_on_fixed(dbT, pathA[i], pathB[i])) then
+            return pathA
+         end
+         if (l_module_depends_on_fixed(dbT, pathB[i], pathA[i])) then
+            return pathB
+         end
          return pathB
       end
    end
@@ -289,7 +321,7 @@ end
 -- Helper function to check if two dependency paths are compatible
 -- Two paths are compatible if one is a prefix of the other
 -- Returns the longer (more specific) path if compatible, nil otherwise
-local function l_paths_compatible(pathA, pathB)
+local function l_paths_compatible(pathA, pathB, dbT)
    if (not pathA or not pathB) then return nil end
    local lenA, lenB = #pathA, #pathB
    local shorter, longer = pathA, pathB
@@ -299,11 +331,13 @@ local function l_paths_compatible(pathA, pathB)
    -- Check if shorter is a prefix of longer
    for i = 1, #shorter do
       if (shorter[i] ~= longer[i]) then
-         if (i == #shorter and l_gcc_gcccore_siblings(shorter[i], longer[i])) then
-            if (l_extract_sn(longer[i]) == "GCC") then
+         if (dbT and i == #shorter and longer[i]) then
+            if (l_module_depends_on_fixed(dbT, longer[i], shorter[i])) then
                return longer
             end
-            return shorter
+            if (l_module_depends_on_fixed(dbT, shorter[i], longer[i])) then
+               return shorter
+            end
          end
          return nil
       end
@@ -347,10 +381,10 @@ local function l_find_common_paths(failingUserNames, dbT)
          local foundCompatible = false
          local bestPath = candidatePath
          for k = 1, #otherPaths do
-            local compatible = l_paths_compatible(candidatePath, otherPaths[k])
+            local compatible = l_paths_compatible(candidatePath, otherPaths[k], dbT)
             if (compatible) then
                foundCompatible = true
-               bestPath = l_prefer_toolchain_path(bestPath, compatible)
+               bestPath = l_prefer_toolchain_path(bestPath, compatible, dbT)
                break
             end
          end
@@ -402,7 +436,7 @@ end
 -- @param path       Array of dependency path entries (e.g., {"gcc/10.0"})
 -- @param failingSet Table of failing userNames (userName -> true)
 -- @return Array of module names to append after the dependency path
-local function l_build_modules_for_path(path, failingSet)
+local function l_build_modules_for_path(path, failingSet, dbT)
    -- Build set of short names in the dependency path
    local pathSnSet = {}
    for i = 1, #path do
@@ -419,7 +453,7 @@ local function l_build_modules_for_path(path, failingSet)
          -- Failing modules are always included
          modulesToInclude[#modulesToInclude + 1] = userName
       elseif (not pathSnSet[sn] and
-              not l_module_conflicts_with_path(userName, path)) then
+              not l_module_conflicts_with_path(userName, path, dbT)) then
          -- Non-conflicting module: safe to include
          modulesToInclude[#modulesToInclude + 1] = userName
       end
@@ -706,7 +740,7 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
       end
       local swapCount, swapDepth = l_path_swap_metrics(path, activeSet)
       local swapRequired = (swapCount > 0)
-      local modulesToInclude = l_build_modules_for_path(path, failingSet)
+      local modulesToInclude = l_build_modules_for_path(path, failingSet, dbT)
       local suffix = (#modulesToInclude > 0) and (" " .. concatTbl(modulesToInclude, " ")) or ""
       local explicitCmd = "module load " .. concatTbl(path, " ") .. suffix
       l_add_suggestion(explicitCmd, swapRequired, path, activeSet)
@@ -768,6 +802,13 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
       -- When multiple modules tie (e.g. both n=1), prefer the longest path.
       -- Longer paths are more specific and more likely to satisfy all modules
       -- (e.g. GCC/OpenMPI pulls in GCCcore via depends_on).
+      local nContributors = 0
+      for i = 1, #kB do
+         if (pathCountT[i].n > 0 and pathCountT[i].n == minCount) then
+            nContributors = nContributors + 1
+         end
+      end
+      local filterCandidates = (nContributors > 1)
       local maxPathLen = 0
       for i = 1, #candidates do
          if (#candidates[i] > maxPathLen) then
@@ -777,7 +818,7 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
       for i = 1, #candidates do
          local parentA = candidates[i]
          if (#parentA >= maxPathLen) then
-            if (#kB > 1) then
+            if (filterCandidates) then
                local worksForAll = true
                local upgraded = parentA
                for j = 1, #kB do
@@ -785,10 +826,10 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
                   if (otherAA and #otherAA > 0) then
                      local hasCompatible = false
                      for k = 1, #otherAA do
-                        local compatible = l_paths_compatible(upgraded, otherAA[k])
+                        local compatible = l_paths_compatible(upgraded, otherAA[k], dbT)
                         if (compatible) then
                            hasCompatible = true
-                           upgraded = l_prefer_toolchain_path(upgraded, compatible)
+                           upgraded = l_prefer_toolchain_path(upgraded, compatible, dbT)
                            break
                         end
                      end
@@ -805,13 +846,13 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
                end
             end
             if (parentA and #parentA > 0 and l_path_compatible_with_loaded(parentA, loadedPathsAA)) then
-               local modulesToInclude = l_build_modules_for_path(parentA, failingSet)
+               local modulesToInclude = l_build_modules_for_path(parentA, failingSet, dbT)
                local cmd = "module load " .. concatTbl(parentA, " ") .. " " .. concatTbl(modulesToInclude, " ")
                l_add_suggestion(cmd, false, parentA, activeSet)
             end
          end
       end
-      if (#suggestions == 0 and #kB > 1) then
+      if (#suggestions == 0 and filterCandidates and nContributors >= 2) then
          return "   These modules cannot be loaded together - they require incompatible toolchains.\n"
       end
    end

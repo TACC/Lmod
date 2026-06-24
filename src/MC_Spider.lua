@@ -65,8 +65,6 @@ M.build_unload          = MainControl.do_not_build_unload
 M.color_banner          = MainControl.quiet
 M.complete              = MainControl.quiet
 M.conflict              = MainControl.quiet
-M.depends_on            = MainControl.quiet
-M.depends_on_any        = MainControl.quiet
 M.error                 = MainControl.quiet
 M.execute               = MainControl.execute
 M.export_shell_function = MainControl.quiet
@@ -274,6 +272,69 @@ function M.pushenv(self, argT)
    save_set_env(name, value)
    dbg.fini("MC_Spider:pushenv")
    return true
+end
+
+--------------------------------------------------------------------------
+-- Build a depends_on entry from an MName.  During spider walks the
+-- prerequisite may not be on MODULEPATH yet, so mname:sn() can be nil
+-- even for a literal depends_on("GCCcore/13.2.0").
+local function l_dep_entry_from_mname(mname)
+   local userName = mname:userName()
+   local sn       = mname:sn()
+   if (not sn) then
+      sn = userName:match("^([^/]+)")
+   end
+   if (not sn) then return nil end
+   local version = extractVersion(userName, sn)
+   local versionDesc
+   if (version) then
+      versionDesc = { kind = "fixed", value = version }
+   else
+      versionDesc = { kind = "bool", value = true }
+   end
+   return { sn = sn, version = versionDesc }
+end
+
+--------------------------------------------------------------------------
+-- Record depends_on metadata on the spider moduleT (persisted in cache).
+function M.depends_on(self, mA)
+   dbg.start{"MC_Spider:depends_on(mA)"}
+   local moduleStack = optionTbl().moduleStack
+   local iStack      = #moduleStack
+   local moduleT     = moduleStack[iStack].moduleT
+   local depT        = moduleT.depT or { depA = {} }
+   moduleT.depT        = depT
+   local depA          = depT.depA or {}
+   depT.depA           = depA
+   for i = 1, #mA do
+      local depEntry = l_dep_entry_from_mname(mA[i])
+      if (depEntry) then
+         depA[#depA + 1] = depEntry
+      end
+   end
+   dbg.fini("MC_Spider:depends_on")
+   return {}
+end
+
+function M.depends_on_any(self, mA)
+   dbg.start{"MC_Spider:depends_on_any(mA)"}
+   local moduleStack = optionTbl().moduleStack
+   local iStack      = #moduleStack
+   local moduleT     = moduleStack[iStack].moduleT
+   local depT        = moduleT.depT or { doaA = {} }
+   moduleT.depT        = depT
+   local doaA          = depT.doaA or {}
+   depT.doaA           = doaA
+   local my_doaA       = {}
+   for i = 1, #mA do
+      local depEntry = l_dep_entry_from_mname(mA[i])
+      if (depEntry) then
+         my_doaA[#my_doaA + 1] = depEntry
+      end
+   end
+   doaA[#doaA + 1] = my_doaA
+   dbg.fini("MC_Spider:depends_on_any")
+   return {}
 end
 
 --------------------------------------------------------------------------
