@@ -827,6 +827,13 @@ function myModuleUsrName()
 end
 
 --------------------------------------------------------------------------
+-- Return the user name and the true loaded name when a dot-hidden alias
+-- load occurred; otherwise both values are the same.
+function myModuleUsrAndAliasName()
+   return mcp:myModuleUsrAndAliasName()
+end
+
+--------------------------------------------------------------------------
 -- Return the version of the module.
 function myModuleVersion()
    local version = mcp:myModuleVersion()

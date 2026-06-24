@@ -86,6 +86,34 @@ When ``LMOD_DOT_HIDDEN_LOAD_ALIAS`` is ``yes`` and ``LMOD_PIN_VERSIONS`` is
 (e.g. ``itk/.1.2``).  With the alias **off** (the default), behavior matches
 prior releases for ``LOADEDMODULES``.
 
+Inside a modulefile, ``myModuleFullName()`` and ``myModuleVersion()`` report
+the **true loaded name** (including dot-leading segments).  To obtain both the
+user's requested name and the canonical name after an alias load, call
+``myModuleUsrAndAliasName()``; it returns two values.  When no alias was used,
+both values are the same.  For example, after ``module load itk/1.2`` resolves
+to ``itk/.1.2.lua``, ``myModuleUsrAndAliasName()`` returns ``itk/1.2`` and
+``itk/.1.2``.
+
+Sites that want ``myModuleFullName()`` or ``myModuleVersion()`` to report the
+logical name when an alias load occurred may override those functions in
+``SitePackage.lua`` via ``sandbox_registration``.  For example::
+
+   local function myModuleFullName()
+      local usr, _ = myModuleUsrAndAliasName()
+      return usr
+   end
+
+   local function myModuleVersion()
+      local usr = myModuleFullName()
+      local sn  = myModuleName()
+      return extractVersion(usr, sn) or ""
+   end
+
+   sandbox_registration{
+      myModuleFullName  = myModuleFullName,
+      myModuleVersion   = myModuleVersion,
+   }
+
 Finally, if your site wishes to mark many modules as hidden, you can
 use the hook function isVisibleHook().  See :ref:`hooks` for
 details. Also see the contrib/more_hooks/SitePackage.lua file for a

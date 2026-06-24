@@ -186,6 +186,7 @@ local sandbox_env = {
   myModuleFullName      = myModuleFullName,
   myModuleName          = myModuleName,
   myModuleUsrName       = myModuleUsrName,
+  myModuleUsrAndAliasName = myModuleUsrAndAliasName,
   myModuleVersion       = myModuleVersion,
   myShellName           = myShellName,
   myShellType           = myShellType,

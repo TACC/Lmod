@@ -11,7 +11,8 @@ testdescript = {
 	version can be loaded (e.g. itk/.1.2.lua via `module load itk/1.2`).
 
 	Additional coverage: exact key wins when itk/1.2 and itk/.1.2 both exist;
-	unknown version still fails with the gate on.
+	unknown version still fails with the gate on; myModuleUsrAndAliasName()
+	returns logical vs canonical names on dot-hidden alias loads.
    ]],
    keywords = { testName, "hidden", "issue817" },
 

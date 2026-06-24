@@ -39,6 +39,10 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/1.2
 ===========================
 IS817_ITK_LOADED=yes;
 export IS817_ITK_LOADED;
+IS817_TRUE_ALIAS=itk/.1.2;
+export IS817_TRUE_ALIAS;
+IS817_USR_ALIAS=itk/1.2;
+export IS817_USR_ALIAS;
 LOADEDMODULES=itk/1.2;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf:1;
@@ -54,6 +58,8 @@ step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset IS817_ITK_LOADED;
+unset IS817_TRUE_ALIAS;
+unset IS817_USR_ALIAS;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/dot_hidden/mf;
 export MODULEPATH;
@@ -66,6 +72,10 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/.1.2
 ===========================
 IS817_ITK_LOADED=yes;
 export IS817_ITK_LOADED;
+IS817_TRUE_ALIAS=itk/.1.2;
+export IS817_TRUE_ALIAS;
+IS817_USR_ALIAS=itk/.1.2;
+export IS817_USR_ALIAS;
 LOADEDMODULES=itk/.1.2;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf:1;
@@ -81,6 +91,8 @@ step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset IS817_ITK_LOADED;
+unset IS817_TRUE_ALIAS;
+unset IS817_USR_ALIAS;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/dot_hidden/mf;
 export MODULEPATH;
@@ -93,6 +105,10 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/1.2
 ===========================
 IS817_ITK_SLOT=exact;
 export IS817_ITK_SLOT;
+IS817_TRUE_ALIAS=itk/1.2;
+export IS817_TRUE_ALIAS;
+IS817_USR_ALIAS=itk/1.2;
+export IS817_USR_ALIAS;
 LOADEDMODULES=itk/1.2;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf_dup:1;
@@ -108,6 +124,8 @@ step 11
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset IS817_ITK_SLOT;
+unset IS817_TRUE_ALIAS;
+unset IS817_USR_ALIAS;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/dot_hidden/mf_dup;
 export MODULEPATH;
@@ -120,6 +138,10 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/.1.2
 ===========================
 IS817_ITK_SLOT=dot;
 export IS817_ITK_SLOT;
+IS817_TRUE_ALIAS=itk/.1.2;
+export IS817_TRUE_ALIAS;
+IS817_USR_ALIAS=itk/.1.2;
+export IS817_USR_ALIAS;
 LOADEDMODULES=itk/.1.2;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf_dup:1;
@@ -135,6 +157,8 @@ step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset IS817_ITK_SLOT;
+unset IS817_TRUE_ALIAS;
+unset IS817_USR_ALIAS;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/dot_hidden/mf_dup;
 export MODULEPATH;

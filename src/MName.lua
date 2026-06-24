@@ -111,6 +111,7 @@ function M.new(self, sType, name, action, is, ie)
    o.__fn              = false
    o.__versionStr      = false
    o.__logicalVersionForUserName = nil
+   o.__dotHiddenAliasLoad        = false
    o.__dependsOn       = false
    o.__moduleKindT     = nil
    o.__ref_count       = nil
@@ -275,6 +276,7 @@ local function l_lazyEval(self)
 
    for i = 1, #stepA do
       self.__logicalVersionForUserName = nil
+      self.__dotHiddenAliasLoad       = false
       local func = stepA[i]
       found, fn, version, wV, moduleKindT, mpath, funcName = func(self, fileA)
       dbg.print{"found: ",found,", funcName: ",funcName,"\n"}
@@ -432,6 +434,13 @@ function M.fullName(self)
    return build_fullName(self.__sn, self.__version)
 end
 
+function M.dotHiddenAliasLoad(self)
+   if (not self.__evaluated) then
+      l_lazyEval(self)
+   end
+   return self.__dotHiddenAliasLoad
+end
+
 ------------------------------------------------------------
 -- It turns that Tmod searching all directories in MODULEPATH
 -- for an exact version match.  It stops at the first exact
@@ -513,9 +522,11 @@ local function l_find_exact_match(self, must_have_version, fileA)
                if (entry.dotHiddenCanonVs) then
                   version     = entry.dotHiddenCanonVs
                   self.__logicalVersionForUserName = entry.version
+                  self.__dotHiddenAliasLoad       = true
                else
                   version     = entry.version or false
                   self.__logicalVersionForUserName = nil
+                  self.__dotHiddenAliasLoad       = false
                end
                moduleKindT = resultT.moduleKindT
                found       = true
