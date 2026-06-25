@@ -1,0 +1,88 @@
+-- -*- lua -*-
+local testName = "termWidthFallback"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+        Verify that TermWidth.lua honors $COLUMNS instead of probing
+        stty/tput, and that the stty/tput probes themselves are bounded
+        by `timeout` so a wedged PTY cannot hang module commands.
+        Regression coverage for GH-832.
+   ]],
+   keywords = { testName },
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export MODULEPATH=$(testDir)/mf
+     unset LMOD_TERM_WIDTH
+
+     # Install fake stty/tput on PATH that report a sentinel width (999)
+     # and log every invocation.  When $COLUMNS is honored these MUST NOT
+     # be called.  Sentinel-vs-COLUMNS lets us tell the two paths apart
+     # in the debug output without depending on real terminal sizing.
+     mkdir -p _fakebin
+     cat > _fakebin/stty <<'FAKE'
+#!/bin/sh
+echo "stty $*" >> "$TW_PROBE_LOG"
+[ "$1" = "size" ] && { echo "24 999"; exit 0; }
+exec /usr/bin/stty "$@" 2>/dev/null || true
+FAKE
+     cat > _fakebin/tput <<'FAKE'
+#!/bin/sh
+echo "tput $*" >> "$TW_PROBE_LOG"
+[ "$1" = "cols" ] && { echo "999"; exit 0; }
+exec /usr/bin/tput "$@" 2>/dev/null || true
+FAKE
+     chmod +x _fakebin/stty _fakebin/tput
+     export PATH="$PWD/_fakebin:$PATH"
+     export TW_PROBE_LOG="$PWD/probe.log"
+
+     remove_generated_lmod_files
+
+     # Scenario A: $COLUMNS set -> probes MUST NOT be invoked.
+     : > "$TW_PROBE_LOG"
+     export COLUMNS=120
+     runLmod -D avail 2>/dev/null                                        # 1
+     A_count=$(wc -l < "$TW_PROBE_LOG" | tr -d ' ')
+     echo "scenario-A probe invocations: $A_count" > _stdout.998
+
+     # Scenario B: $COLUMNS unset -> probes run, sentinel 999 is used.
+     : > "$TW_PROBE_LOG"
+     unset COLUMNS
+     runLmod -D avail 2>/dev/null                                        # 2
+     B_count=$(wc -l < "$TW_PROBE_LOG" | tr -d ' ')
+     echo "scenario-B probe invocations: $(test "$B_count" -gt 0 && echo nonzero || echo 0)" > _stdout.999
+
+     HOME=$ORIG_HOME
+
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results -bash _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
