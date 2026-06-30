@@ -1,0 +1,9 @@
+#!@PATH_TO_CSH@
+if ( $?LD_LIBRARY_PATH ) then
+  echo "setenv __LMOD_PROTECTED_LD_LIBRARY_PATH $LD_LIBRARY_PATH;";
+endif
+if ( $?LD_PRELOAD )      then
+  echo "setenv __LMOD_PROTECTED_LD_PRELOAD      $LD_PRELOAD;";
+endif
+echo "setenv LD_LIBRARY_PATH @sys_ld_lib_path@;"
+echo "setenv LD_PRELOAD      @sys_ld_preload@;"
