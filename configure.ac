@@ -838,6 +838,10 @@ AC_SUBST(PATH_TO_LS)
 AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
 AC_SUBST(PATH_TO_PAGER)
+AC_SUBST(PATH_TO_ID)
+AC_SUBST(PATH_TO_UNAME)
+AC_SUBST(PATH_TO_CSH)
+
 
 if test $MODE = "user_default" ; then
   mode=0755
@@ -917,8 +921,11 @@ elif test "$PATH_TO_HASHSUM" = "UNKNOWN_HASHSUM" ; then
   exit 1
 fi
 
-AC_PATH_PROGS(PATH_TO_TR, [gtr] [tr],"")
-AC_PATH_PROGS(PATH_TO_LS, [gls] [ls], "")
+AC_PATH_PROGS(PATH_TO_TR,     [gtr]    [tr],    "")
+AC_PATH_PROGS(PATH_TO_LS,     [gls]    [ls],    "")
+AC_PATH_PROGS(PATH_TO_ID,     [gid]    [id],    "")
+AC_PATH_PROGS(PATH_TO_CSH,    [csh],            "")
+AC_PATH_PROGS(PATH_TO_UNAME], [guname] [uname], "")
 
 ##### UTILS -- end
 
