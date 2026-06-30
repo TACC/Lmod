@@ -86,10 +86,10 @@ __lmod_internal_module_cmd()
 {
   ############################################################
   # Run Lmod and eval results
-  eval "$( __LMOD_PROTECTED_LD_LIBRARY_PATH=$LD_LIBRARY_PATH \
-           __LMOD_PROTECTED_LD_PRELOAD=$LD_PRELOAD           \
-           LD_LIBRARY_PATH=@sys_ld_lib_path@                 \
-           LD_PRELOAD=@sys_ld_preload@                       \
+  eval "$( __LMOD_PROTECTED_LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-} \
+           __LMOD_PROTECTED_LD_PRELOAD=${LD_PRELOAD:-}           \
+           LD_LIBRARY_PATH=@sys_ld_lib_path@                     \
+           LD_PRELOAD=@sys_ld_preload@                           \
            $LMOD_CMD @my_shell@ --protected_vars "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
 }
 
