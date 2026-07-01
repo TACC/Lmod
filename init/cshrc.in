@@ -12,7 +12,7 @@ if ( ! $?LMOD_ALLOW_ROOT_USE ) then
   set LMOD_ALLOW_ROOT_USE=@lmod_allow_root_use@
 endif
 
-set my_id = `$PATH_TO_ID -u`
+set my_id = `@id@ -u`
 if ( $LMOD_ALLOW_ROOT_USE != yes && $my_id == 0 ) then
   exit
 endif
@@ -22,7 +22,7 @@ if ( ! $?MODULEPATH_ROOT ) then
         setenv USER $LOGNAME
     endif
 
-    set UNAME = `$PATH_TO_UNAME`
+    set UNAME = `@uname@`
     setenv LMOD_sys             $UNAME
     setenv MODULEPATH_ROOT      "@modulepath_root@"
     if ( ! $?LMOD_MODULEPATH_INIT ) then

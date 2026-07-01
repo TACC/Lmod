@@ -11,7 +11,7 @@ if test -z "$LMOD_ALLOW_ROOT_USE"
 end
 
 if test $LMOD_ALLOW_ROOT_USE != yes
-    if test ($PATH_TO_ID -u) = 0
+    if test (@id@ -u) = 0
        exit 0
     end
 end	
@@ -21,7 +21,7 @@ if test -z "$MODULEPATH_ROOT"
     if test -n "$USER"
         set -gx USER "$LOGNAME"  # make sure $USER is set
     end
-    set -gx LMOD_sys ($PATH_TO_UNAME)
+    set -gx LMOD_sys (@uname@)
 
     set -gx MODULEPATH_ROOT "@modulepath_root@"
 

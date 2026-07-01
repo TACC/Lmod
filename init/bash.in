@@ -21,8 +21,8 @@ fi
 
 ########################################################################
 # add ksh func to zsh if the account is a user and not a system account
-__uid=$($PATH_TO_ID -u)
-__system=$($PATH_TO_UNAME -s)
+__uid=$(@id@ -u)
+__system=$(@uname@ -s)
 __stat_flag='-c'
 if [ $__system = Darwin ]; then
   __stat_flag='-f'

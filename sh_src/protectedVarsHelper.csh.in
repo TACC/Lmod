@@ -1,4 +1,4 @@
-#!@PATH_TO_CSH@
+#!@csh@ -f
 if ( $?LD_LIBRARY_PATH ) then
   echo "setenv __LMOD_PROTECTED_LD_LIBRARY_PATH $LD_LIBRARY_PATH;";
 endif
