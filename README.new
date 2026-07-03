@@ -28,4 +28,5 @@ Lmod 9.2+
             * PR #836: Fix LD_LIBRARY_PATH, LD_PRELOAD when using set -u
             * Use protectedVarsHelper.csh when using t/csh
             * Issue #837: Configure time paths for uname and id
+            * Change $LMOD_SETTARG_CMD=true when using t/csh (and not using settarg)
             

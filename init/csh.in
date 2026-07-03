@@ -35,11 +35,9 @@ endif
 
 
 if ($?tcsh) then
- #alias module $prefix'set __LMOD_v=`$LMOD_DIR/protectedVarsHelper.csh`' $merge 'eval `env  $__LMOD_v $LMOD_CMD tcsh --protected_vars '$histchar'*` ' $merge ' eval `env  $__LMOD_v $LMOD_SETTARG_CMD -s csh`' #$merge unset __LMOD_v
   alias module $prefix'set __LMOD_v=`$LMOD_DIR/protectedVarsHelper.csh`' $merge 'eval `env  $__LMOD_v $LMOD_CMD tcsh --protected_vars '$histchar'*` ' $merge ' eval `env  $__LMOD_v $LMOD_SETTARG_CMD -s csh`' $merge unset __LMOD_v
- #alias module $prefix'set __LMOD_v=`$LMOD_DIR/protectedVarsHelper.csh`' $merge 'eval `env  $__LMOD_v $LMOD_CMD tcsh --protected_vars '$histchar'*` '
 else
-  alias module $prefix'set __LMOD_v=`$LMOD_DIR/protectedVarsHelper.csh`' $merge 'eval `env  $__LMOD_v $LMOD_CMD  csh --protected_vars '$histchar'*` ' #$merge unset __LMOD_v
+  alias module $prefix'set __LMOD_v=`$LMOD_DIR/protectedVarsHelper.csh`' $merge 'eval `env  $__LMOD_v $LMOD_CMD  csh --protected_vars '$histchar'*` ' $merge unset __LMOD_v
 endif
 alias clearMT    'eval `'$LMOD_DIR/clearLMOD_cmd --shell csh --simple'`'
 alias clearLmod  module --force purge $merge 'eval `'$LMOD_DIR/clearLMOD_cmd --shell csh --full $histchar'*' '`'
@@ -47,6 +45,7 @@ alias clearLmod  module --force purge $merge 'eval `'$LMOD_DIR/clearLMOD_cmd --s
 alias ml      'eval `'$LMOD_DIR/ml_cmd' '$histchar'*`'
 
 setenv LMOD_VERSION '@lmod_version@'
+setenv LMOD_SETCMD_CMD true
 
 unset SUPPORT_KSH
 unset prefix
