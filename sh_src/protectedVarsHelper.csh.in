@@ -1,9 +1,11 @@
 #!@csh@ -f
+set S=""
 if ( $?LD_LIBRARY_PATH ) then
-  echo "setenv __LMOD_PROTECTED_LD_LIBRARY_PATH $LD_LIBRARY_PATH;";
+  set S="$S __LMOD_PROTECTED_LD_LIBRARY_PATH=$LD_LIBRARY_PATH";
 endif
 if ( $?LD_PRELOAD )      then
-  echo "setenv __LMOD_PROTECTED_LD_PRELOAD      $LD_PRELOAD;";
+  set S="$S __LMOD_PROTECTED_LD_PRELOAD=$LD_PRELOAD";
 endif
-echo "setenv LD_LIBRARY_PATH @sys_ld_lib_path@;"
-echo "setenv LD_PRELOAD      @sys_ld_preload@;"
+set S="$S LD_LIBRARY_PATH=/initial/value";
+set S="$S LD_PRELOAD=";
+echo "$S"
