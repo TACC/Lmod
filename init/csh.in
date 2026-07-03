@@ -1,5 +1,5 @@
-  #!/bin/csh
-  setenv LMOD_ROOT                 "@lmod_root@"
+#!/bin/csh
+setenv LMOD_ROOT                 "@lmod_root@"
 setenv LMOD_PKG                  "@PKGV@"
 setenv LMOD_CMD                  "$LMOD_PKG/libexec/lmod"
 setenv LMOD_DIR                  "$LMOD_PKG/libexec"
@@ -8,7 +8,7 @@ setenv TARG_TITLE_BAR_PAREN      " "
 setenv LMOD_SETTARG_FULL_SUPPORT @lmod_settarg_full_support@
 
 if ( ! $?LMOD_SETTARG_CMD ) then
-  setenv LMOD_SETTARG_CMD :
+  setenv LMOD_SETTARG_CMD true
 endif
 
 set SUPPORT_KSH = "@support_ksh@"
@@ -45,7 +45,6 @@ alias clearLmod  module --force purge $merge 'eval `'$LMOD_DIR/clearLMOD_cmd --s
 alias ml      'eval `'$LMOD_DIR/ml_cmd' '$histchar'*`'
 
 setenv LMOD_VERSION '@lmod_version@'
-setenv LMOD_SETCMD_CMD true
 
 unset SUPPORT_KSH
 unset prefix
