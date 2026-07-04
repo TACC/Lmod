@@ -31,5 +31,6 @@ Lmod 9.2+
             * Change $LMOD_SETTARG_CMD=true when using t/csh (and not using settarg)
             * Protect lmod and settarg programs from incompatible $LD_LIBRARY_PATH, $LD_PRELOAD in t/csh
             * Protect settarg programs from incompatible $LD_LIBRARY_PATH, $LD_PRELOAD in bash/zsh
-
+            * Export -f clearMT and clearLmod
             
+           
