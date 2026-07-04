@@ -122,7 +122,7 @@ jobs:
          cd -
          cd /tmp/Lmod_test_suite
          sudo cp z98_StdEnv.sh /etc/profile.d
-         echo BASH_ENV $BASH_ENV
+         export BASH_ENV=/tmp/lmod/lmod/init/bash
          tm -k normal
       - name: show output of failed suite tests
         if: ${{ failure() }}
