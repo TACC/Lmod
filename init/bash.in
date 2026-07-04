@@ -134,6 +134,25 @@ else
 fi
 
 
+########################################################################
+#  clearMT removes the ModuleTable from your environment.  It is rarely
+#  needed but it useful sometimes.
+
+clearMT()
+{
+  eval $($LMOD_DIR/clearLMOD_cmd --shell bash --simple)
+}
+
+clearLmod()
+{
+  module --force purge
+  eval $($LMOD_DIR/clearLMOD_cmd --shell bash --full "$@")
+}
+xSetTitleLmod()
+{
+  builtin echo -n -e "\033]2;$1\007";
+}
+
 LMOD_VERSION="@lmod_version@"
 export LMOD_VERSION
 
@@ -163,28 +182,10 @@ if [ -n "${BASH_VERSION:-}" -a "@export_module@" != no ]; then
   export -f __lmod_internal_module_cmd
   export -f module
   export -f ml
+  export -f clearMT
+  export -f clearLmod
 fi
 unset export_module
-
-########################################################################
-#  clearMT removes the ModuleTable from your environment.  It is rarely
-#  needed but it useful sometimes.
-
-clearMT()
-{
-  eval $($LMOD_DIR/clearLMOD_cmd --shell bash --simple)
-}
-
-clearLmod()
-{
-  module --force purge
-  eval $($LMOD_DIR/clearLMOD_cmd --shell bash --full "$@")
-}
-
-xSetTitleLmod()
-{
-  builtin echo -n -e "\033]2;$1\007";
-}
 
 ########################################################################
 #  Make tab completions available to bash users.
