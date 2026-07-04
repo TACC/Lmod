@@ -115,6 +115,7 @@ jobs:
          make install
          sudo mkdir -p /etc/profile.d
          sudo cp /tmp/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
+         sudo cp /tmp/lmod/lmod/init/cshrc   /etc/profile.d/z00_lmod.csh
          cd -
          cd /tmp
          git clone https://github.com/rtmclay/Lmod_test_suite.git
