@@ -121,7 +121,9 @@ jobs:
          git clone https://github.com/rtmclay/Lmod_test_suite.git
          cd -
          cd /tmp/Lmod_test_suite
+         export HOME=$PWD
          sudo cp z98_StdEnv.sh /etc/profile.d
+         export BASH_ENV=/tmp/lmod/lmod/init/bash
          tm -k normal
       - name: show output of failed suite tests
         if: ${{ failure() }}
