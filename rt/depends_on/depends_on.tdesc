@@ -157,6 +157,20 @@ testdescript = {
      runLmod restore                           #81
      runLmod --mt                              #82
 
+     ##############################################
+     # Issue #838 Partial match issue.
+     runLmod purge                             #82
+     unsetMT
+     export MODULEPATH=$(testDir)/mf2
+     runLmod load A
+     runLmod list
+     runLmod rm   A
+     runLmod list
+
+     
+
+
+
      
 
      HOME=$ORIG_HOME
