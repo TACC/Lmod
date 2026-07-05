@@ -8,7 +8,7 @@ setenv TARG_TITLE_BAR_PAREN      " "
 setenv LMOD_SETTARG_FULL_SUPPORT @lmod_settarg_full_support@
 
 if ( ! $?LMOD_SETTARG_CMD ) then
-  setenv LMOD_SETTARG_CMD :
+  setenv LMOD_SETTARG_CMD true
 endif
 
 set SUPPORT_KSH = "@support_ksh@"
@@ -20,7 +20,6 @@ endif
 
 
 set prefix  = ""
-set midfix  = ""
 set postfix = ""
 set merge   = "&&"
 
@@ -30,17 +29,17 @@ if ( $?histchars) then
   if ( "$histchar" != '\!' ) then
     set _histchars = $histchars
     set prefix  = 'set _histchars = $histchars; unset histchars;'
-    set midfix  = '--localvar histchars=$_histchars'
     set postfix = '&& set histchars = $_histchars'
   endif
 endif
 
+
 if ($?tcsh) then
-  alias module  $prefix'eval `$LMOD_CMD tcsh '$midfix $histchar'*` '$postfix $merge' eval `$LMOD_SETTARG_CMD -s csh`'
+  alias module $prefix'set __LMOD_v=`$LMOD_DIR/protectedVarsHelper.csh`' $merge 'eval `env  $__LMOD_v $LMOD_CMD tcsh --protected_vars '$histchar'*` ' $merge ' eval `env  $__LMOD_v $LMOD_SETTARG_CMD -s csh`' $merge unset __LMOD_v
 else
-  alias module  $prefix'eval `$LMOD_CMD csh  '$midfix $histchar'*` '$postfix
+  alias module $prefix'set __LMOD_v=`$LMOD_DIR/protectedVarsHelper.csh`' $merge 'eval `env  $__LMOD_v $LMOD_CMD  csh --protected_vars '$histchar'*` ' $merge unset __LMOD_v
 endif
-alias clearMT                                'eval `'$LMOD_DIR/clearLMOD_cmd --shell csh --simple'`'
+alias clearMT    'eval `'$LMOD_DIR/clearLMOD_cmd --shell csh --simple'`'
 alias clearLmod  module --force purge $merge 'eval `'$LMOD_DIR/clearLMOD_cmd --shell csh --full $histchar'*' '`'
 
 alias ml      'eval `'$LMOD_DIR/ml_cmd' '$histchar'*`'

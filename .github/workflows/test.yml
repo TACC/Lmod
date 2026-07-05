@@ -115,12 +115,15 @@ jobs:
          make install
          sudo mkdir -p /etc/profile.d
          sudo cp /tmp/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
+         sudo cp /tmp/lmod/lmod/init/cshrc   /etc/profile.d/z00_lmod.csh
          cd -
          cd /tmp
          git clone https://github.com/rtmclay/Lmod_test_suite.git
          cd -
          cd /tmp/Lmod_test_suite
+         export HOME=$PWD
          sudo cp z98_StdEnv.sh /etc/profile.d
+         export BASH_ENV=/tmp/lmod/lmod/init/bash
          tm -k normal
       - name: show output of failed suite tests
         if: ${{ failure() }}

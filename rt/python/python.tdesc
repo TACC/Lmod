@@ -20,11 +20,13 @@ testdescript = {
      initStdEnvVars
      MODULEPATH_ROOT=$(testDir)/mf;       export MODULEPATH_ROOT
      MODULEPATH="$MODULEPATH_ROOT/Core";  export MODULEPATH
+     LD_LIBRARY_PATH="/ghi/def";          export LD_LIBRARY_PATH
 
      rm -rf init .cache .config
      mkdir init
      sed -e "s|'@PKG@/libexec/lmod'|'lua','$(projectDir)/src/lmod.in.lua'|g" \
          -e 's|@redirect@|no|g'                                              \
+         -e 's|@sys_ld_.*@||g'                                               \
               < $(projectDir)/init/env_modules_python.py.in > init/env_modules_python.py
 
 
@@ -57,6 +59,7 @@ module("load","A","B")
 
 print ("os.environ['FOOBAR']: ",'"' + os.environ['FOOBAR'] + '"')
 print ("os.environ['M']: ", '"' + os.environ['M'] + '"')
+print ("os.environ['LD_LIBRARY_PATH']: ", '"' + os.environ['LD_LIBRARY_PATH'] + '"')
 
 module("avail");
 os.environ['LMOD_REDIRECT'] = 'yes'

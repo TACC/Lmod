@@ -214,7 +214,7 @@ local sandbox_env = {
   ------------------------------------------------------------
   -- fileOp functions
   ------------------------------------------------------------
-  pathJoin             = pathJoin,
+  pathJoin             = pathJoin_w_spaces,
   isDir                = isDir,
   isFile               = isFile,
   mkdir_recursive      = mkdir_recursive,

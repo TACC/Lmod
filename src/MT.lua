@@ -84,6 +84,7 @@ end
 
 
 local function l_new(self, s, restoreFn)
+   restoreFn = restoreFn ~= nil and restoreFn or false
    dbg.start{"MT l_new(s,restoreFn:",restoreFn,")"}
    local o         = {}
 

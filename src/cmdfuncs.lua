@@ -157,7 +157,7 @@ function Category(...)
    mrc:set_display_mode("spider")
 
    local cache = Cache:singleton{buildCache = true}
-   local moduleT, dbT = cache:build()
+   local moduleT, dbT, brokenT = cache:build()
 
    local categoryT = {}
 
@@ -342,7 +342,7 @@ function Keyword(...)
    local border                 = banner:border(0)
    local shell                  = _G.Shell
    local cache                  = Cache:singleton{buildCache=true}
-   local moduleT,dbT,
+   local moduleT,dbT, brokenT,
          mpathMapT, providedByT = cache:build()
    local spider                 = Spider:new()
    local a                      = {}
@@ -1093,7 +1093,7 @@ function SpiderCmd(...)
    local cache                  = Cache:singleton{buildCache=true}
    local shell                  = _G.Shell
    local optionTbl              = optionTbl()
-   local spiderT,dbT,
+   local spiderT,dbT, brokenT,
          mpathMapT, providedByT = cache:build()
    local spider                 = Spider:new()
    local argA                   = pack(...)

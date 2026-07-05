@@ -83,12 +83,55 @@ end
 -- @param self A Hub object.
 -- @param safe A flag.
 function M.singleton(self, safe)
+   safe = safe ~= nil and safe or false
    dbg.start{"Hub:singleton(safe: ",safe,")"}
    if (not s_hub) then
       s_hub = l_new(self, safe)
    end
    dbg.fini("Hub:singleton")
    return s_hub
+end
+
+--------------------------------------------------------------------------
+-- Return true when a modulefile calls inherit().
+local function l_has_inherit(fn)
+   if (fn == "" or not isFile(fn)) then
+      return false
+   end
+   local f = io.open(fn, "r")
+   if (not f) then
+      return false
+   end
+   local content = f:read("*all")
+   f:close()
+   return content:match("inherit%s*%(") ~= nil
+end
+
+--------------------------------------------------------------------------
+-- Build terse show output: module path plus inherit chain (-->) lines.
+local function l_terse_show_path(mname)
+   local fn = mname:fn() or ""
+   if (fn == "") then
+      return "\n"
+   end
+
+   local a            = { fn }
+   local fullName     = mname:fullName()
+   local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
+   local moduleA      = ModuleA:singleton{spider_cache = (cached_loads ~= "no")}
+   local current_fn   = fn
+
+   while l_has_inherit(current_fn) do
+      local fnI = moduleA:inherited_search(fullName, current_fn)
+      if (not fnI) then
+         break
+      end
+      a[#a+1] = "\n--> "
+      a[#a+1] = fnI
+      current_fn = fnI
+   end
+   a[#a+1] = "\n"
+   return concatTbl(a, "")
 end
 
 --------------------------------------------------------------------------
@@ -118,12 +161,20 @@ function M.access(self, ...)
    mrc:set_display_mode("all")
 
    local argA = pack(...)
-   if (optionTbl.location or optionTbl.terse) then
+   if (optionTbl.location) then
       local userName = argA[1]
       local mname    = mt:have(userName,"any") and MName:new("mt",userName)
                                                or  MName:new("load",userName)
       local fn       = mname:fn() or ""
       shell:echo(fn .. "\n")
+      return
+   end
+
+   if (optionTbl.terse) then
+      local userName = argA[1]
+      local mname    = mt:have(userName,"any") and MName:new("mt",userName)
+                                               or  MName:new("load",userName)
+      shell:echo(l_terse_show_path(mname))
       return
    end
 
@@ -1413,7 +1464,7 @@ function M.avail(self, argA)
    end
 
    local cache                  = Cache:singleton{buildCache=true}
-   local spiderT,dbT,
+   local spiderT,dbT, brokenT,
          mpathMapT, providedByT = cache:build()
 
    dbg.printT("providedByT", providedByT)

@@ -14,6 +14,22 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --terse show intel
+===========================
+MODULEPATH=ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/user_inherit/user_mf/Core","ProjectDIR/rt/user_inherit/mf/Core",},systemBaseMPATH="ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --location show intel
+===========================
+MODULEPATH=ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/user_inherit/user_mf/Core","ProjectDIR/rt/user_inherit/mf/Core",},systemBaseMPATH="ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel
 ===========================
 INTEL_KIND=SYSTEM;
@@ -37,7 +53,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={intel={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13")]],[[prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13")]],},fn="ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua",fullName="intel/13.1",loadOrder=1,mnameA={{fn="ProjectDIR/rt/user_inherit/mf/Core/intel/13.1.lua",sn="intel",userName="intel/13.1",version="13.1",},},propT={},stackDepth=0,status="active",userName="intel",wV="^00000013.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/user_mf/Core","ProjectDIR/rt/user_inherit/mf/Core",},systemBaseMPATH="ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 4
+step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core;
@@ -45,7 +61,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={intel={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13")]],[[prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13")]],},fn="ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua",fullName="intel/13.1",loadOrder=1,mnameA={{fn="ProjectDIR/rt/user_inherit/mf/Core/intel/13.1.lua",sn="intel",userName="intel/13.1",version="13.1",},},propT={},stackDepth=0,status="active",userName="intel",wV="^00000013.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/user_mf/Core","ProjectDIR/rt/user_inherit/mf/Core",},systemBaseMPATH="ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 5
+step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show intel
 ===========================
 MODULEPATH=ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core;
@@ -53,7 +69,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={intel={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13")]],[[prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13")]],},fn="ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua",fullName="intel/13.1",loadOrder=1,mnameA={{fn="ProjectDIR/rt/user_inherit/mf/Core/intel/13.1.lua",sn="intel",userName="intel/13.1",version="13.1",},},propT={},stackDepth=0,status="active",userName="intel",wV="^00000013.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/user_mf/Core","ProjectDIR/rt/user_inherit/mf/Core",},systemBaseMPATH="ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 6
+step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing help intel
 ===========================
 MODULEPATH=ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core;
@@ -61,7 +77,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={intel={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13")]],[[prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13")]],},fn="ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua",fullName="intel/13.1",loadOrder=1,mnameA={{fn="ProjectDIR/rt/user_inherit/mf/Core/intel/13.1.lua",sn="intel",userName="intel/13.1",version="13.1",},},propT={},stackDepth=0,status="active",userName="intel",wV="^00000013.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/user_mf/Core","ProjectDIR/rt/user_inherit/mf/Core",},systemBaseMPATH="ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 7
+step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost
 ===========================
 LOADEDMODULES=intel/13.1:boost/1.9;
@@ -75,7 +91,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={boost={fn="ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13/boost/1.9.lua",fullName="boost/1.9",loadOrder=2,propT={},stackDepth=0,status="active",userName="boost",wV="000000001.000000009.*zfinal",},intel={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13")]],[[prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13")]],},fn="ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua",fullName="intel/13.1",loadOrder=1,mnameA={{fn="ProjectDIR/rt/user_inherit/mf/Core/intel/13.1.lua",sn="intel",userName="intel/13.1",version="13.1",},},propT={},stackDepth=0,status="active",userName="intel",wV="^00000013.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/user_mf/Core","ProjectDIR/rt/user_inherit/mf/Core",},systemBaseMPATH="ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 8
+step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core;
@@ -83,7 +99,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={boost={fn="ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13/boost/1.9.lua",fullName="boost/1.9",loadOrder=2,propT={},stackDepth=0,status="active",userName="boost",wV="000000001.000000009.*zfinal",},intel={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13")]],[[prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13")]],},fn="ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua",fullName="intel/13.1",loadOrder=1,mnameA={{fn="ProjectDIR/rt/user_inherit/mf/Core/intel/13.1.lua",sn="intel",userName="intel/13.1",version="13.1",},},propT={},stackDepth=0,status="active",userName="intel",wV="^00000013.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/user_mf/Core","ProjectDIR/rt/user_inherit/mf/Core",},systemBaseMPATH="ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 9
+step 11
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show pgi
 ===========================
 __LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Failed\ to\ inherit:\ pgi/13.1."
