@@ -188,6 +188,39 @@ function M.buildA(self,sType, argT)
    return a
 end
 
+local function l_apply_virtual_display(self, origUserName, mrc)
+   local tt = self.__moduleKindT or {}
+   if (tt.kind ~= "hidden") then
+      return
+   end
+
+   if (self.__origUserName) then
+      local _, _, osn, over = self.__origUserName:find("^([^/]+)/(.*)$")
+      if (over and osn == self.__sn) then
+         self.__version = over
+      end
+      return
+   end
+
+   if (origUserName ~= self.__sn or not self.__mpath) then
+      return
+   end
+
+   for virtualName in mrc:pairsForMRC_virtual_at_mpath(self.__mpath) do
+      if (virtualName:find("^" .. origUserName .. "/")) then
+         local wV = mrc:find_wght_for_fullName(virtualName, " ")
+         if (isMarked(wV)) then
+            self.__origUserName = virtualName
+            local _, _, osn, over = virtualName:find("^([^/]+)/(.*)$")
+            if (over and osn == self.__sn) then
+               self.__version = over
+            end
+            break
+         end
+      end
+   end
+end
+
 local function l_lazyEval(self)
    dbg.start{"l_lazyEval(",self.__userName,")"}
 
@@ -295,6 +328,7 @@ local function l_lazyEval(self)
       self.__forbiddenT = mrc:isForbidden{fullName=build_fullName(self.__sn, version),
                                           sn = self.__sn, fn = self.__fn,
                                           mpath = self.__mpath}
+      l_apply_virtual_display(self, origUserName, mrc)
    else
       dbg.print{"clearing __sn etc\n"}
       self.__sn      = false

@@ -888,7 +888,11 @@ local function l_availEntry(defaultOnly, label, searchA, defaultT, entry)
 end
 
 
-local function mark_as_default(entry, defaultT)
+local function mark_as_default(entry, defaultT, mrc)
+   if (mrc:isModuleVirtual(entry.fullName)) then
+      local wV = mrc:find_wght_for_fullName(entry.fullName, " ")
+      return isMarked(wV)
+   end
    local defaultEntry = defaultT[entry.fn]
    return defaultEntry and defaultEntry.count > 1
 end
@@ -900,16 +904,19 @@ local function l_build_virtual_availA(mrc, mpath, label, searchA, defaultOnly, d
       local fn    = mname:fn()
       if (fn) then
          local sn = mname:sn() or virtualName
-         local entry = {
-            fullName   = virtualName,
-            sn         = sn,
-            fn         = fn,
-            propT      = {},
-            forbiddenT = mrc:isForbidden{fullName=virtualName, sn=sn, fn=fn, mpath=mpath},
-         }
-         local esn = l_availEntry(defaultOnly, label, searchA, defaultT, entry)
-         if (esn) then
-            virtA[#virtA+1] = entry
+         local resultT = mrc:isVisible{fullName=virtualName, sn=sn, mpath=mpath}
+         if (resultT.count) then
+            local entry = {
+               fullName   = virtualName,
+               sn         = sn,
+               fn         = fn,
+               propT      = {},
+               forbiddenT = mrc:isForbidden{fullName=virtualName, sn=sn, fn=fn, mpath=mpath},
+            }
+            local esn = l_availEntry(defaultOnly, label, searchA, defaultT, entry)
+            if (esn) then
+               virtA[#virtA+1] = entry
+            end
          end
       end
    end
@@ -923,7 +930,7 @@ local function l_avail_row_from_entry(entry, sn, fullName, fn, mpath, mpathA, mt
       fullName = entry.fullName
    end
    local dflt = false
-   if (not defaultOnly and mark_as_default(entry, defaultT)) then
+   if (not defaultOnly and mark_as_default(entry, defaultT, mrc)) then
       dflt             = Default
       legendT[Default] = i18n("DefaultM")
    end

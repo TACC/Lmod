@@ -1,0 +1,70 @@
+-- -*- lua -*-
+local testName = "module_virtual_multi"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+      Issue #818: multi-virtual layouts (Carla Jun 2026 repro).
+      Asserts hide_version on virtual names, default (D) in avail,
+      list after default bare load, myModuleVersion/show virtual version,
+      and relative implementation path resolution.
+   ]],
+   keywords = { testName, "module_virtual", "818" },
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export LMOD_TERM_WIDTH=500
+     remove_generated_lmod_files
+
+     runLmod --version                                                     # 1
+
+     export MODULEPATH=$(testDir)/mf/multi/Core
+     runLmod avail test1                                                   # 2
+     runLmod load test1/24.5.0                                             # 3
+     runLmod list                                                          # 4
+     runLmod show test1/24.5.0                                             # 5
+     runLmod load test1                                                    # 6
+     runLmod purge                                                         # 7
+
+     runLmod avail test2                                                   # 8
+     runLmod load test2                                                    # 9
+     runLmod list                                                          #10
+     runLmod purge                                                         #11
+
+     runLmod load test3/1.0                                                #12
+
+     . $(testDir)/assert_checks.sh
+     run_all_asserts
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results -bash _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

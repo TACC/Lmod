@@ -18,13 +18,13 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/24.4.0
 ===========================
 FOO_IMPL=stack;
 export FOO_IMPL;
-LOADEDMODULES=foo/.stack;
+LOADEDMODULES=foo/24.4.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/module_virtual/mf/alias_hide/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/module_virtual/mf/alias_hide/Core/foo/.stack.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/alias_hide/Core/foo/.stack.lua",fullName="foo/.stack",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/alias_hide/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/alias_hide/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/alias_hide/Core/foo/.stack.lua",fullName="foo/24.4.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/alias_hide/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/alias_hide/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -32,10 +32,26 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/module_virtual/mf/alias_hide/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/alias_hide/Core/foo/.stack.lua",fullName="foo/.stack",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/alias_hide/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/alias_hide/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/alias_hide/Core/foo/.stack.lua",fullName="foo/24.4.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/alias_hide/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/alias_hide/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden list
+===========================
+MODULEPATH=ProjectDIR/rt/module_virtual/mf/alias_hide/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/alias_hide/Core/foo/.stack.lua",fullName="foo/24.4.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/alias_hide/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/alias_hide/Core",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t list
+===========================
+MODULEPATH=ProjectDIR/rt/module_virtual/mf/alias_hide/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/alias_hide/Core/foo/.stack.lua",fullName="foo/24.4.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/alias_hide/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/alias_hide/Core",}';
+export _ModuleTable_;
+===========================
+step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset FOO_IMPL;
@@ -46,7 +62,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/module_virtual/mf/alias_hide/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/alias_hide/Core",}';
 export _ModuleTable_;
 ===========================
-step 6
+step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail foo
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/module_virtual/mf/virtual_fn/Core:1;
@@ -56,29 +72,45 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",}';
 export _ModuleTable_;
 ===========================
-step 7
+step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/24.4.0
 ===========================
 FOO_IMPL=stack;
 export FOO_IMPL;
-LOADEDMODULES=foo/.stack;
+LOADEDMODULES=foo/24.4.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/module_virtual/mf/virtual_fn/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/module_virtual/mf/virtual_fn/Core/foo/.stack.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/virtual_fn/Core/foo/.stack.lua",fullName="foo/.stack",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/virtual_fn/Core/foo/.stack.lua",fullName="foo/24.4.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",}';
 export _ModuleTable_;
 ===========================
-step 8
+step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/module_virtual/mf/virtual_fn/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/virtual_fn/Core/foo/.stack.lua",fullName="foo/.stack",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/virtual_fn/Core/foo/.stack.lua",fullName="foo/24.4.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",}';
 export _ModuleTable_;
 ===========================
-step 9
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden list
+===========================
+MODULEPATH=ProjectDIR/rt/module_virtual/mf/virtual_fn/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/virtual_fn/Core/foo/.stack.lua",fullName="foo/24.4.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",}';
+export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t list
+===========================
+MODULEPATH=ProjectDIR/rt/module_virtual/mf/virtual_fn/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/virtual_fn/Core/foo/.stack.lua",fullName="foo/24.4.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",}';
+export _ModuleTable_;
+===========================
+step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset FOO_IMPL;
@@ -89,7 +121,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/virtual_fn/Core",}';
 export _ModuleTable_;
 ===========================
-step 10
+step 14
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail foo
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/module_virtual/mf/tcl_rc/Core:1;
@@ -99,29 +131,45 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",}';
 export _ModuleTable_;
 ===========================
-step 11
+step 15
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/24.4.0
 ===========================
 FOO_IMPL=stack;
 export FOO_IMPL;
-LOADEDMODULES=foo/.stack;
+LOADEDMODULES=foo/24.4.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/module_virtual/mf/tcl_rc/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/module_virtual/mf/tcl_rc/Core/foo/.stack.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/tcl_rc/Core/foo/.stack.lua",fullName="foo/.stack",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/tcl_rc/Core/foo/.stack.lua",fullName="foo/24.4.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",}';
 export _ModuleTable_;
 ===========================
-step 12
+step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/module_virtual/mf/tcl_rc/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/tcl_rc/Core/foo/.stack.lua",fullName="foo/.stack",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/tcl_rc/Core/foo/.stack.lua",fullName="foo/24.4.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",}';
 export _ModuleTable_;
 ===========================
-step 13
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden list
+===========================
+MODULEPATH=ProjectDIR/rt/module_virtual/mf/tcl_rc/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/tcl_rc/Core/foo/.stack.lua",fullName="foo/24.4.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",}';
+export _ModuleTable_;
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t list
+===========================
+MODULEPATH=ProjectDIR/rt/module_virtual/mf/tcl_rc/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/module_virtual/mf/tcl_rc/Core/foo/.stack.lua",fullName="foo/24.4.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="foo/24.4.0",propT={},stackDepth=0,status="active",userName="foo/.stack",wV="*stack.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",}';
+export _ModuleTable_;
+===========================
+step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset FOO_IMPL;
@@ -132,7 +180,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/tcl_rc/Core",}';
 export _ModuleTable_;
 ===========================
-step 14
+step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/module_virtual/mf/alias_hide/Core:1;
@@ -142,7 +190,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/module_virtual/mf/alias_hide/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/alias_hide/Core",}';
 export _ModuleTable_;
 ===========================
-step 15
+step 21
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail foo
 ===========================
 MODULEPATH=ProjectDIR/rt/module_virtual/mf/alias_hide/Core;
@@ -150,7 +198,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/module_virtual/mf/alias_hide/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual/mf/alias_hide/Core",}';
 export _ModuleTable_;
 ===========================
-step 16
+step 22
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail
 ===========================
 MODULEPATH=ProjectDIR/rt/module_virtual/mf/alias_hide/Core;

@@ -2,14 +2,14 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 9.2 2026-04-06 14:48 -05:00
+Modules based on Lua: Version 9.2.2 2026-05-18 18:21 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail foo
 ===========================
 Global Aliases
-   foo/24.4.0 -> foo/.stack
+   foo/24.4.0 -> foo/24.4.0
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
@@ -24,15 +24,27 @@ step 4
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) foo/.stack (H)
+  1) foo/24.4.0
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden list
+===========================
+Currently Loaded Modules:
+  1) foo/24.4.0 (H)
   Where:
    H:  Hidden Module
 ===========================
-step 5
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t list
+===========================
+foo/24.4.0
+foo/24.4.0 <H>
+===========================
+step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
-step 6
+step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail foo
 ===========================
 ProjectDIR/rt/module_virtual/mf/virtual_fn/Core
@@ -43,23 +55,35 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 7
+step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/24.4.0
 ===========================
 ===========================
-step 8
+step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) foo/.stack (H)
+  1) foo/24.4.0
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden list
+===========================
+Currently Loaded Modules:
+  1) foo/24.4.0 (H)
   Where:
    H:  Hidden Module
 ===========================
-step 9
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t list
+===========================
+foo/24.4.0
+foo/24.4.0 <H>
+===========================
+step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
-step 10
+step 14
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail foo
 ===========================
 ProjectDIR/rt/module_virtual/mf/tcl_rc/Core
@@ -70,39 +94,51 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 11
+step 15
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/24.4.0
 ===========================
 ===========================
-step 12
+step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) foo/.stack (H)
+  1) foo/24.4.0
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden list
+===========================
+Currently Loaded Modules:
+  1) foo/24.4.0 (H)
   Where:
    H:  Hidden Module
 ===========================
-step 13
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t list
+===========================
+foo/24.4.0
+foo/24.4.0 <H>
+===========================
+step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
-step 14
+step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
-   foo/24.4.0 -> foo/.stack
+   foo/24.4.0 -> foo/24.4.0
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 15
+step 21
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail foo
 ===========================
 foo/24.4.0(@foo/.stack)
 ===========================
-step 16
+step 22
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail
 ===========================
 foo/24.4.0(@foo/.stack)

@@ -212,6 +212,15 @@ function l_build(self, fnA)
    dbg.fini("MRC l_build")
 end
 
+local function l_resolve_mfile(name, mfile)
+   if (mfile:sub(1,1) == "/") then
+      return name .. mfile
+   elseif (mfile:sub(1,1) == ".") then
+      return name .. "/" .. mfile
+   end
+   return mfile
+end
+
 local function l_save_su_weights(self, fullName, weight)
    local a = {}
    local n = 0
@@ -490,6 +499,7 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
          if (fullName:sub(1,1) == '/') then
             fullName = name .. fullName
          end
+         local origFullName = fullName
          fullName = self:resolve({mpath}, fullName)
          --dbg.print{"resolve(fullName): ",fullName, "\n"}
          --dbg.print{"(2) fullName: ",fullName, "\n"}
@@ -499,8 +509,12 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
             local version = a[j]
             --dbg.print{"j: ",j, ", version: ",version, "\n"}
             if (version == "default") then
-               --dbg.print{"Setting default: ",fullName, "\n"}
-               defaultV = fullName
+               if (self:isModuleVirtual(origFullName)) then
+                  defaultV = origFullName
+                  l_save_su_weights(self, origFullName, '^')
+               else
+                  defaultV = fullName
+               end
             else
                local _, _, shorter, mversion = fullName:find("(.*)/(.*)")
                if (shorter) then
@@ -518,7 +532,7 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
          if (fullName:sub(1,1) == '/') then
             fullName = name .. fullName
          end
-         local mfile = entry.mfile
+         local mfile = l_resolve_mfile(name, entry.mfile)
          --dbg.print{"fullName: ",fullName,", mfile: ", mfile,"\n"}
          l_store_mpathT(self, mpath, "alias2modT", fullName, mfile);
       elseif (entry.action == "module_virtual") then
@@ -526,7 +540,7 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
          if (fullName:sub(1,1) == '/') then
             fullName = name .. fullName
          end
-         local mfile = entry.mfile
+         local mfile = l_resolve_mfile(name, entry.mfile)
          l_store_mpathT(self, mpath, "alias2modT", fullName, mfile);
          l_store_mpathT(self, mpath, "hiddenT", mfile, {kind = "hidden"});
          l_store_mpathT(self, mpath, "virtual2modT", fullName, mfile);
@@ -594,8 +608,8 @@ local function l_find_resultT(self, tbl_kind, tbl_kindRx, replaceT, mpath, wante
 
    for i = 1,#wantedA do
       local wanted = wantedA[i]
-      local key    = self:resolve(mpathA, wanted)
-      local ans    = lmodMRCT[key] or modTreeMRCT[key]
+      if (not wanted) then break end
+      local ans = lmodMRCT[wanted] or modTreeMRCT[wanted]
       if (ans) then
          if (type(ans) == "table") then
             resultT = ans
@@ -605,6 +619,20 @@ local function l_find_resultT(self, tbl_kind, tbl_kindRx, replaceT, mpath, wante
          dbg.printT("resultT",resultT)
          dbg.fini("MRC:l_find_resultT via non-regex match")
          return resultT
+      end
+      if (not self:isModuleVirtual(wanted)) then
+         local key = self:resolve(mpathA, wanted)
+         ans = lmodMRCT[key] or modTreeMRCT[key]
+         if (ans) then
+            if (type(ans) == "table") then
+               resultT = ans
+            else
+               resultT = replaceT
+            end
+            dbg.printT("resultT",resultT)
+            dbg.fini("MRC:l_find_resultT via non-regex match")
+            return resultT
+         end
       end
    end
 
@@ -622,7 +650,8 @@ local function l_find_resultT(self, tbl_kind, tbl_kindRx, replaceT, mpath, wante
       dbg.print{"lmodMRCT: k: ",k,"\n"}
       for i = 1,#wantedA do
          local wanted = wantedA[i]
-         local key    = self:resolve(mpathA, wanted)
+         if (not wanted) then break end
+         local key    = self:isModuleVirtual(wanted) and wanted or self:resolve(mpathA, wanted)
          dbg.print{"lmodMRCT: key: ",key,", wanted: ",wanted,"\n"}
          if (key:find(k)) then
             if (type(ans) == "table") then
@@ -647,7 +676,8 @@ local function l_find_resultT(self, tbl_kind, tbl_kindRx, replaceT, mpath, wante
       dbg.print{"modTreeMRCT: k: ",k,"\n"}
       for i = 1,#wantedA do
          local wanted = wantedA[i]
-         local key    = self:resolve(mpathA, wanted)
+         if (not wanted) then break end
+         local key    = self:isModuleVirtual(wanted) and wanted or self:resolve(mpathA, wanted)
          dbg.print{"modTreeMRCT: key: ",key,", wanted: ",wanted,"\n"}
 
          if (key:find(k)) then
@@ -1011,6 +1041,34 @@ function M.find_wght_for_fullName(self, fullName, wV)
    return wV
 end
 
+local function l_impl_version_for_virtual(self, mpathA, sn, suVersion)
+   local virtualName = sn .. "/" .. suVersion
+   if (not self:isModuleVirtual(virtualName)) then
+      return nil
+   end
+   local impl = l_find_alias_value("virtual2modT", self.__virtual2modT, self.__mpathT, mpathA, virtualName)
+   if (not impl) then
+      impl = l_find_alias_value("alias2modT", self.__alias2modT, self.__mpathT, mpathA, virtualName)
+   end
+   if (not impl) then
+      return nil
+   end
+   local _, _, implSn, implVer = impl:find("^([^/]+)/(.*)$")
+   if (implSn == sn and implVer) then
+      return implVer
+   end
+   return nil
+end
+
+local function l_apply_su_weight(entry, weight)
+   local idx = entry.wV:match("^.*()/")
+   if (idx) then
+      entry.wV = entry.wV:sub(1,idx) .. weight .. entry.wV:sub(idx+2,-1)
+   else
+      entry.wV = weight .. entry.wV:sub(2,-1)
+   end
+end
+
 
 function M.applyWeights(self, sn, fileA)
    dbg.start{"MRC:applyWeights(sn: \"",sn,"\", fileA)"}
@@ -1075,12 +1133,11 @@ function M.applyWeights(self, sn, fileA)
          for i = 1, #resultA do
             local suEntry = resultA[i]
             if (version == suEntry.version) then
-               local weight = suEntry.weight
-               local idx    = entry.wV:match("^.*()/")
-               if (idx) then
-                  entry.wV = entry.wV:sub(1,idx) .. weight .. entry.wV:sub(idx+2,-1)
-               else
-                  entry.wV = weight .. entry.wV:sub(2,-1)
+               l_apply_su_weight(entry, suEntry.weight)
+            else
+               local implVer = l_impl_version_for_virtual(self, {entry.mpath}, sn, suEntry.version)
+               if (implVer and version == implVer) then
+                  l_apply_su_weight(entry, suEntry.weight)
                end
             end
          end
