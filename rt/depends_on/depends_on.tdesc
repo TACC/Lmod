@@ -157,7 +157,17 @@ testdescript = {
      runLmod restore                           #81
      runLmod --mt                              #82
 
-     
+     ##############################################
+     # Issue #838
+     # depends_on() partial version unload
+
+     runLmod purge                             #83
+     unsetMT
+     export MODULEPATH=$(testDir)/mf/Issue838
+     runLmod load a                            #84
+     runLmod list                              #85
+     runLmod unload a                          #86
+     runLmod list                              #87
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
