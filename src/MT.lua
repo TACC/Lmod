@@ -843,7 +843,7 @@ function M.lookup_w_userName(self,userName)
    end
 
    -- Case 3: Partial match?
-   local partial_match = ("^"..userName:escape().."/"):gsub('//+','/')
+   local partial_match = ("^"..userName:escape()):gsub('//+','/')
    if (fullName:find(partial_match)) then
       return sn
    end
