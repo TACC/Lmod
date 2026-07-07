@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.61 2025-06-20 16:09 -05:00
+Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -739,3 +739,26 @@ _ModuleTable_ = {
   },
   systemBaseMPATH = "ProjectDIR/rt/depends_on/mf/Core7",
 }
+===========================
+step 83
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 84
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a
+===========================
+===========================
+step 85
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) b/1.0   2) c/1.0   3) d/1.0   4) a/1.0
+===========================
+step 86
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload a
+===========================
+===========================
+step 87
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+No modules loaded

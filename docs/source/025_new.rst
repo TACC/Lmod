@@ -1,6 +1,11 @@
 New Features in Lmod
 ====================
 
+**Terse output for module show with inherit**
+  (Lmod 9.2.5+) *module --terse show* now reports inherited modulefile
+  paths with ``-->`` lines.  See :ref:`terse_output-label` for more
+  details.
+
 **Lmod now ignores module names that have leading or trailing spaces characters**
   (Lmod 9.2.3+) Module now ignores modules with leading or trailing
   space characters.  Lmod will now report any modules with this issue

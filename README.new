@@ -24,3 +24,13 @@ Lmod 9.2+
             * Issue #812: Protect Lmod from changes to LD_PRELOAD and LD_LIBRARY_PATH
             * The building of TAGS and TAGS.world now support files that have spaces in their name
    (9.2.4)  * PR #829: export -f __lmod_internal_module_cmd for bash
+   (9.2.5)  * PR #834: Fix typo in LD_LIBRARY_PATH
+            * PR #836: Fix LD_LIBRARY_PATH, LD_PRELOAD when using set -u
+            * Use protectedVarsHelper.csh when using t/csh
+            * Issue #837: Configure time paths for uname and id
+            * Change $LMOD_SETTARG_CMD=true when using t/csh (and not using settarg)
+            * Protect lmod and settarg programs from incompatible $LD_LIBRARY_PATH, $LD_PRELOAD in t/csh
+            * Protect settarg programs from incompatible $LD_LIBRARY_PATH, $LD_PRELOAD in bash/zsh
+            * Export -f clearMT and clearLmod
+            
+           

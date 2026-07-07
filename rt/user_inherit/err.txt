@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.61 2025-06-20 16:09 -05:00
+Modules based on Lua: Version 9.2.4 2026-06-16 08:21 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -21,10 +21,21 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --terse show intel
+===========================
+ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua
+ > ProjectDIR/rt/user_inherit/mf/Core/intel/13.1.lua
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --location show intel
+===========================
+ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua
+===========================
+step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel
 ===========================
 ===========================
-step 4
+step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13
@@ -44,7 +55,7 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 5
+step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show intel
 ===========================
    ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua:
@@ -75,7 +86,7 @@ inherit()
   ]])
 prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13")
 ===========================
-step 6
+step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing help intel
 ===========================
 Module Specific Help for "intel/13.1"
@@ -93,17 +104,17 @@ See the man pages for icc, icpc, and ifort for detailed information
 on available compiler options and command-line syntax
 Version 13.1
 ===========================
-step 7
+step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost
 ===========================
 ===========================
-step 8
+step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/13.1   2) boost/1.9
 ===========================
-step 9
+step 11
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show pgi
 ===========================
 Lmod has detected the following error: Failed to inherit: pgi/13.1.

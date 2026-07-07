@@ -758,6 +758,11 @@ function M.isloaded(self)
       return sn_status
    end
 
+   local reqVersion = extractVersion(userName, sn)
+   if (reqVersion and versionPrefixMatch(reqVersion, mt:version(sn))) then
+      return sn_status
+   end
+
    --dbg.print{"fullName: ",mt:fullName(sn),", status: false\n"}
    --dbg.fini("MName:isloaded")
    return false

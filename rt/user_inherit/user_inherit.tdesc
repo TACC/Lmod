@@ -29,13 +29,15 @@ testdescript = {
 
      runLmod --version        # 1
      runLmod avail            # 2
-     runLmod load intel       # 3
-     runLmod avail            # 4
-     runLmod show intel       # 5
-     runLmod help intel       # 6
-     runLmod load boost       # 7
-     runLmod list             # 8
-     runLmod show pgi         # 9
+     runLmod --terse show intel    # 3
+     runLmod --location show intel # 4
+     runLmod load intel       # 5
+     runLmod avail            # 6
+     runLmod show intel       # 7
+     runLmod help intel       # 8
+     runLmod load boost       # 9
+     runLmod list             # 10
+     runLmod show pgi         # 11
 
      HOME=$ORIG_HOME
 
