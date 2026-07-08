@@ -34,4 +34,5 @@ Lmod 9.2+
    (9.2.6)  * Issue #820: support for new command "module last-error"
             * Export -f clearMT and clearLmod
             * Issue #817 Support for loading dot hidden modules w/o leading dot
-            
+            * When the function setenv() is reversed it doesn't remove the variable in the lmod
+              command process only in the user's process.
