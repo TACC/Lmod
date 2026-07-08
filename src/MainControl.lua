@@ -1610,8 +1610,7 @@ function M.error(self, ...)
       sA[#sA+1]     = "\n"
    end
 
-   io.stderr:write(concatTbl(sA,""),"\n")
-   LmodErrorExit()
+   LmodErrorExit(concatTbl(sA,""),"\n")
 end
 
 --------------------------------------------------------------------------

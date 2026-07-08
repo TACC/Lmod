@@ -81,6 +81,12 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
+__LMOD_LAST_ERROR=The\ system\ default\ contains\ no\ modules"
+"\ \ \(env\ var:\ LMOD_SYSTEM_DEFAULT_MODULES\ is\ empty\)"
+"\ \ No\ changes\ in\ loaded\ modules"
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 6
@@ -92,6 +98,7 @@ MODULEPATH=ProjectDIR/rt/changeMPATH/mf/Core2:ProjectDIR/rt/changeMPATH/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/changeMPATH/mf/Core2","ProjectDIR/rt/changeMPATH/mf/Core",},systemBaseMPATH="ProjectDIR/rt/changeMPATH/mf/Core2:ProjectDIR/rt/changeMPATH/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/changeMPATH/mf/Core2

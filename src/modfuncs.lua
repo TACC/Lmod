@@ -1168,7 +1168,18 @@ end
 
 --------------------------------------------------------------------------
 -- Write "false" to stdout and exit.
-function LmodErrorExit()
+function LmodErrorExit(msg)
+   if (msg) then
+      local Var = require("Var")
+      if (not quiet()) then
+         io.stderr:write(msg)
+      end
+      local varT = {}
+      local n    = lastErrorVarName()
+      varT[n]    = Var:new(n)
+      varT[n]:set(msg)
+      Shell:expand(varT)
+   end
    Shell:report_failure()
    os.exit(1)
 end

@@ -179,6 +179,18 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load none
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ depends_on_any\ function\ failed\ because\ it\ could\ not\ find\ any\ of\ the\ following\ modules\ :\ q,\ r,\ s"
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ none\ \ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/depends_on_any/mf/Core/none.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 21
@@ -192,6 +204,7 @@ _LMFILES_=ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua:ProjectDIR/rt/depends_o
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={depT={doaA={{{sn="y",version={kind="bool",value=true,},},{sn="z",version={kind="bool",value=true,},},},},},depends_on_anyA={"y",},fn="ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",fullName="B/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B",wV="000000001.*zfinal",},d={fn="ProjectDIR/rt/depends_on_any/mf/Core/d/1.0.lua",fullName="d/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="d",wV="000000001.*zfinal",},y={fn="ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",fullName="y/1.0",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="y",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on_any/mf/Core",},systemBaseMPATH="ProjectDIR/rt/depends_on_any/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 22
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load already

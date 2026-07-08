@@ -32,6 +32,20 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load vasp
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ You\ do\ not\ access\ to\ VASP.5.2\!"
+""
+""
+"Users\ have\ to\ show\ their\ licenses\ and\ be\ confirmed\ by"
+"VASP\ team\ that\ they\ are\ registered\ users\ under\ that\ licenses"
+"Scan\ a\ copy\ the\ license\ and\ send\ to\ hliu@tacc.utexas.edu"
+""
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ vasp/5.2\ \ \ \ \ \ \ \ \ ProjectDIR/rt/vasp/mf/vasp/5.2.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 6

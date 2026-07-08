@@ -102,4 +102,12 @@ export _ModuleTable_;
 step 11
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show pgi
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Failed\ to\ inherit:\ pgi/13.1."
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ pgi/13.1\ \ \ \ \ \ \ \ \ ProjectDIR/rt/user_inherit/user_mf/Core/pgi/13.1.lua"
+";
+export __LMOD_LAST_ERROR;
 false

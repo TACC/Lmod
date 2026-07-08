@@ -121,6 +121,7 @@ with command: "execute".
 The syntax is:
     execute{cmd = "command string",modeA={"load",...}}
 ]==],
+     e_Failed_default      = "Unable to find default collection.\n",
      e_Failed_2_Find       = "Unable to find: \"%{name}\".\n",
      e_Failed_2_Inherit    = "Failed to inherit: %{name}.\n",
      e_Failed_Hashsum      = "Unable to compute hashsum.\n",

@@ -369,6 +369,17 @@ function Keyword(...)
 end
 
 --------------------------------------------------------------------------
+-- Report last error from env var: __LMOD_LAST_ERROR if it exists
+
+function LastError()
+   local n   = lastErrorVarName()
+   local msg = getenv(n)
+   if (msg) then
+      io.stderr:write(msg)
+   end
+end
+
+--------------------------------------------------------------------------
 -- List the loaded modulefile
 function List(...)
    dbg.start{"List(...)"}
@@ -655,10 +666,7 @@ function Reset(msg)
    dbg.start{"Reset()"}
    local default = cosmic:value("LMOD_SYSTEM_DEFAULT_MODULES")
    if (default == "") then
-      if (not quiet()) then
-         io.stderr:write(i18n("w_SYS_DFLT_EMPTY",{}))
-      end
-      LmodErrorExit()
+      LmodErrorExit(i18n("w_SYS_DFLT_EMPTY",{}))
       dbg.fini("Reset")
       return
    end
