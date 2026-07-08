@@ -648,11 +648,18 @@ end
 --------------------------------------------------------------------------
 -- Unset the environment variable.
 -- @param self A Var object
-function M.unset(self)
+function M.unset(self, cmdName)
    self.value    = false
    self.type     = 'var'
    self.funcName = "set_var"
-   setenv_posix(self.name, nil, true)
+
+   ------------------------------------------------------------
+   -- If the user function was an actual unsetenv() then
+   -- remove it from this process.  Otherwise leave it alone
+   if (cmdName == "unsetenv") then
+      setenv_posix(self.name, nil, true)
+   end
+
    local adding  = false
    l_processDynamicVars(self.name, nil, nil, "unsetenv")
 end

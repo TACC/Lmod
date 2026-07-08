@@ -1067,12 +1067,12 @@ function M.unsetenv(self, argT)
    if (varT[name] == nil) then
       varT[name]   = Var:new(name)
    end
-   varT[name]:unset()
+   varT[name]:unset(argT.__cmdName)
 
    -- Unset stack variable if it exists
    local stackName = l_createStackName(name)
    if (varT[stackName]) then
-      varT[name]:unset()
+      varT[name]:unset(argT.__cmdName)
    end
    dbg.fini("MainControl:unsetenv")
 end
