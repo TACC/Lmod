@@ -845,6 +845,12 @@ function M.lookup_w_userName(self,userName)
    if (fullName:find(partial_match)) then
       return sn
    end
+
+   -- Case 4: Partial version match (e.g. c/1 matches loaded c/1.0)
+   local reqVersion = extractVersion(userName, sn)
+   if (reqVersion and versionPrefixMatch(reqVersion, extractVersion(fullName, sn))) then
+      return sn
+   end
    return false
 end
 
