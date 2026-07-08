@@ -44,10 +44,11 @@ local function l_normalizeDotHiddenVersion(versionStr)
    end
    local a = {}
    for part in versionStr:gmatch("[^/]+") do
-      if (part:sub(1,1) == ".") then
-         part = part:sub(2)
+      local myPart = part
+      if (myPart:sub(1,1) == ".") then
+         myPart = myPart:sub(2)
       end
-      a[#a+1] = part
+      a[#a+1] = myPart
    end
    return table.concat(a, "/")
 end
