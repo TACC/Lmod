@@ -24,6 +24,17 @@ export _ModuleTable_;
 step 4
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/1.2
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"itk/1.2\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"itk/1.2\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 5
@@ -33,6 +44,7 @@ MODULEPATH=ProjectDIR/rt/dot_hidden/mf;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/1.2
@@ -169,4 +181,15 @@ export _ModuleTable_;
 step 14
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/9.99
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"itk/9.99\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"itk/9.99\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
