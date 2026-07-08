@@ -6,26 +6,50 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ module\ avail\ is\ not\ possible.\ MODULEPATH\ is\ not\ set\ or\ not\ set\ with\ valid\ paths."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
+__LMOD_LAST_ERROR=Lmod\ ha\ detectado\ el\ siguiente\ error:\ No\ es\ posible\ ejecutar\ \'module\ avail\'.\ MODULEPATH\ no\ está\ inicializado\ o\ su\ valor\ no\ contiene\ rutas\ correctas."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
+__LMOD_LAST_ERROR=Lmod\ hat\ den\ folgenden\ Fehler\ erkannt:\ Der\ Befehl\ \"module\ avail\"\ kann\ nicht\ ausgeführt\ werden.\ Die\ Variable\ MODULEPATH\ ist\ entweder\ nicht\ gesetzt\ oder\ enthält\ einen\ ungültigen\ Wert.\ "
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
+__LMOD_LAST_ERROR=Lmod\ a\ détecté\ l\'erreur\ suivante\ :\ La\ commande\ \'module\ avail\'\ n\'est\ pas\ possible.\ MODULEPATH\ n\'est\ pas\ défini\ ou\ n\'est\ pas\ défini\ avec\ des\ chemins\ valides."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ module\ avail\ is\ not\ possible.\ MODULEPATH\ is\ not\ set\ or\ not\ set\ with\ valid\ paths."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 7
@@ -45,6 +69,7 @@ _LMFILES_=ProjectDIR/rt/i18n/mf/Core/intel/17.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="intel",},mT={intel={fn="ProjectDIR/rt/i18n/mf/Core/intel/17.0.lua",fullName="intel/17.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="intel",wV="000000017.*zfinal",},},mpathA={"ProjectDIR/rt/i18n/mf/Core",},systemBaseMPATH="ProjectDIR/rt/i18n/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc
@@ -65,6 +90,15 @@ export _ModuleTable_;
 step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load unknown
 ===========================
+__LMOD_LAST_ERROR=Lmod\ a\ détecté\ l\'erreur\ suivante\ :\ Le\ ou\ les\ module\(s\)\ suivants\ sont\ inconnus:\ \"unknown\""
+""
+"Veuillez\ vérifier\ l\'orthographe\ ou\ le\ numéro\ de\ version.\ Vous\ pouvez\ aussi\ essayer\ \"module\ spider\ ...\""
+"Il\ est\ aussi\ possible\ que\ votre\ cache\ soit\ désuète.\ Essayez\ :"
+"\ \ \$\ module\ --ignore_cache\ load\ \"unknown\""
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 10

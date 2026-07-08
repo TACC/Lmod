@@ -371,6 +371,25 @@ function extractVersion(fullName, sn)
    return version
 end
 
+--------------------------------------------------------------------------
+-- Return true when loadedVersion is selected by a partial version request.
+-- For example reqVersion "1" matches loadedVersion "1.0" but not "10.0".
+function versionPrefixMatch(reqVersion, loadedVersion)
+   if (not reqVersion or not loadedVersion) then
+      return false
+   end
+   if (loadedVersion == reqVersion) then
+      return true
+   end
+   if (loadedVersion:sub(1, #reqVersion) ~= reqVersion) then
+      return false
+   end
+   if (#loadedVersion == #reqVersion) then
+      return true
+   end
+   return loadedVersion:sub(#reqVersion + 1, #reqVersion + 1) == "."
+end
+
 
 --------------------------------------------------------------------------
 -- Find the admin file (or nag message file).
@@ -1328,4 +1347,8 @@ end
 function unwrap_kind(kind, name)
    local i,j,n = name:find(kind .. "<([^<]*)>")
    return n
+end
+
+function lastErrorVarName()
+   return "__LMOD_LAST_ERROR"
 end

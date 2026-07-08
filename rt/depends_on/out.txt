@@ -310,6 +310,17 @@ export _ModuleTable_;
 step 32
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Z
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"Non_existant\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"Non_existant\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 33
@@ -323,6 +334,7 @@ _LMFILES_=ProjectDIR/rt/depends_on/mf/Core/bar/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={bar={fn="ProjectDIR/rt/depends_on/mf/Core/bar/1.0.lua",fullName="bar/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="bar/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 bar=1.0;
 export bar;
 ===========================
@@ -542,6 +554,17 @@ export _ModuleTable_;
 step 53
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload oneapi
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"ucx\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"ucx\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 54
@@ -555,6 +578,7 @@ export MODULEPATH;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/depends_on/mf/special","ProjectDIR/rt/depends_on/mf/Core5",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core5",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 55
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load compiler_a package

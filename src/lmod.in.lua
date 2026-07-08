@@ -278,6 +278,7 @@ function main()
    local isLoadedTbl  = { name = "cmdfuncs.lua:(IsLoaded)      isLoaded",    checkMPATH = false, cmd = IsLoaded      }
    local isAvailTbl   = { name = "cmdfuncs.lua:(IsAvail)       isAvail",     checkMPATH = false, cmd = IsAvail       }
    local categoryTbl  = { name = "cmdfuncs.lua:(Category)      category",    checkMPATH = true,  cmd = Category      }
+   local lastErrTbl   = { name = "cmdfuncs.lua:(LastErr)       lastError",   checkMPATH = false, cmd = LastError     }
 
    local lmodCmdA = {
       {cmd = 'add',          min = 2, action = loadTbl     },
@@ -300,6 +301,8 @@ function main()
       {cmd = 'is_loaded',    min = 4, action = isLoadedTbl },
       {cmd = 'is-loaded',    min = 4, action = isLoadedTbl },
       {cmd = 'keyword',      min = 1, action = keywordTbl  },
+      {cmd = 'last-error',   min = 4, action = lastErrTbl  },
+      {cmd = 'last_error',   min = 4, action = lastErrTbl  },
       {cmd = 'ld',           min = 2, action = savelistTbl },
       {cmd = 'listdefaults', min = 5, action = savelistTbl },
       {cmd = 'load',         min = 2, action = loadTbl     },
@@ -509,10 +512,11 @@ function main()
 
    -- Print usage and error out for unknown command.
    if (not cmdT) then
-      io.stderr:write(version())
-      io.stderr:write(Usage(),"\n")
-      LmodErrorExit()
-      os.exit(1)
+      local msgA = {}
+      msgA[#msgA+1] = version()
+      msgA[#msgA+1] = Usage()
+      msgA[#msgA+1] = "\n"
+      LmodErrorExit(concatTbl(msgA,""))
    end
 
 
@@ -557,6 +561,13 @@ function main()
    local n        = mt:name()
    varT[n]        = Var:new(n)
    varT[n]:set(mt:serializeTbl())
+   
+   -- Clear Lmod Last Error var if it had a previous value
+   n           = lastErrorVarName()
+   if (getenv(n)) then
+      varT[n]  = Var:new(n)
+      varT[n]:set(false)
+   end
 
    -- Extract Loaded modules and filenames into
    -- LOADEDMODULES and _LMFILES_

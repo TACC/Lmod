@@ -61,6 +61,7 @@ _ml()
     "disable:disable a module collection"
     "help:print the usage of each sub-command"
     "keyword:search for a given keyword in modules"
+    "last-error:Report last error"
     "list:list loaded modules"
     "load:load a module into the shell environment"
     "mcc:module collection contents"

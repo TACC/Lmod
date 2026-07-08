@@ -31,6 +31,8 @@ Lmod 9.2+
             * Change $LMOD_SETTARG_CMD=true when using t/csh (and not using settarg)
             * Protect lmod and settarg programs from incompatible $LD_LIBRARY_PATH, $LD_PRELOAD in t/csh
             * Protect settarg programs from incompatible $LD_LIBRARY_PATH, $LD_PRELOAD in bash/zsh
+   (9.2.6)  * Issue #820: support for new command "module last-error"
             * Export -f clearMT and clearLmod
-            
-           
+            * Issue #817 Support for loading dot hidden modules w/o leading dot
+            * When the function setenv() is reversed it doesn't remove the variable in the lmod
+              command process only in the user's process.

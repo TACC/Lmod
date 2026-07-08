@@ -169,9 +169,26 @@ local function l_check_depth(searchA, idx, fileT, dirT)
       return l_check_depth(searchA, idx, dirT.fileT, dirT.dirT)
    end
 
+   if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") == "yes" and (not name:find("/"))) then
+      local dotName = "." .. name
+      if (dirT[dotName]) then
+         idx          = idx - 1
+         local vv     = dirT[dotName]
+         return l_check_depth(searchA, idx, vv.fileT, vv.dirT)
+      end
+   end
+
    if (fileT[name]) then
       dbg.print{"ModuleA l_check_depth: found fileT[name]: ",name,"\n"}
       return true, idx, nil
+   end
+
+   if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") == "yes" and (not name:find("/"))) then
+      local dotName = "." .. name
+      if (fileT[dotName]) then
+         dbg.print{"ModuleA l_check_depth: found fileT[dotName]: ",dotName,"\n"}
+         return true, idx, nil
+      end
    end
 
    local extra = ""

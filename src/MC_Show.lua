@@ -67,6 +67,7 @@ M.myModuleFullName  = MainControl.myModuleFullName
 M.myModuleName      = MainControl.myModuleName
 M.myModuleVersion   = MainControl.myModuleVersion
 M.myModuleUsrName   = MainControl.myModuleUsrName
+M.myModuleUsrAndAliasName = MainControl.myModuleUsrAndAliasName
 M.build_unload      = MainControl.do_not_build_unload
 M.color_banner      = MainControl.color_banner
 

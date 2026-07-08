@@ -1444,6 +1444,20 @@ function M.myModuleUsrName(self)
 end
 
 --------------------------------------------------------------------------
+-- Return the user name and the true loaded name when a dot-hidden alias
+-- load occurred; otherwise both values are the same.
+-- @param self A MainControl object.
+function M.myModuleUsrAndAliasName(self)
+   local usr = self:myModuleUsrName()
+   local frameStk = FrameStk:singleton()
+   local mname = frameStk:mname()
+   if (mname and mname:dotHiddenAliasLoad()) then
+      return usr, self:myModuleFullName()
+   end
+   return usr, usr
+end
+
+--------------------------------------------------------------------------
 -- Return the name of the modules.  That is the name of the module w/o a
 -- version.
 -- @param self A MainControl object
@@ -1596,8 +1610,7 @@ function M.error(self, ...)
       sA[#sA+1]     = "\n"
    end
 
-   io.stderr:write(concatTbl(sA,""),"\n")
-   LmodErrorExit()
+   LmodErrorExit(concatTbl(sA,""),"\n")
 end
 
 --------------------------------------------------------------------------
