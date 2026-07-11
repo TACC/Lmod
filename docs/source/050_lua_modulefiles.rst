@@ -212,7 +212,14 @@ The entries below describe several useful commands that come with Lmod that can 
 
     otherwise ``foo`` will have the value of ``nil``.
 
-**os.exit(number)**:
+**protected_getenv** {"NAME","default_value",modeA={"show"}}:
+    Get the value for the environment variable called "NAME". Note the
+    use of curly braces {}.  If os.getenv("NAME") returns nil AND the
+    current mode of Lmod is one of the modes listed in the modeA then
+    the *default_value* is returned otherwise nil is returned. If the
+    argument modeA is not provided then modeA = {"show","checkSyntax"}
+
+**os.exit** (number):
     Exits a modulefile.  Note that no environment variables are
     changed when this command is evaluated.
 

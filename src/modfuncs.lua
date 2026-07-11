@@ -1351,6 +1351,28 @@ function dofile_not_supported()
    mcp:report{msg="e_Dofile_not_supported"}
 end
 
+local s_modeA = {"show","checkSyntax"}
+
+function protected_getenv(t)
+   local name = t[1]
+   local result = os.getenv(name)
+   if (result) then
+      return result
+   end
+   local defaultV = t[2]
+   modeA = t.modeA
+   if (not (modeA and next(modeA) ~= nil)) then
+      modeA = s_modeA
+   end
+   for i = 1,#modeA do
+      local myMode = modeA[i]
+      if (myMode == mode()) then
+         return defaultV
+      end
+   end
+   return result
+end
+   
 
 --- subprocess function ---
 
