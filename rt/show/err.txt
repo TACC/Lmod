@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 9.2.2 2026-05-18 18:21 -05:00
+Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -23,14 +23,15 @@ step 4
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/show/mf/Core
-   PrgEnv                   git/1.7.4            junk/d/3.0
-   admin/admin-1.0          git/1.7.4.3   (D)    local/local
-   alex/1.0                 gotoblas/1.20        mode_test/1.0
-   boost/1.46.0             gotoblas/1.26 (D)    multi/multi
-   boost/1.47.1             gotoblas/1.30        noweb/2.10c
-   boost/1.49.0    (o,D)    intel/intel          parmetis/3.1  (m)
-   gcc/4.2.3                junk/a/c/1.0         showMe/2.0
-   git/1.6.3.1              junk/b/c/2.0         unix/unix
+   PrgEnv                   git/1.7.4.3   (D)    mode_test/1.0
+   admin/admin-1.0          gotoblas/1.20        multi/multi
+   alex/1.0                 gotoblas/1.26 (D)    noweb/2.10c
+   boost/1.46.0             gotoblas/1.30        parmetis/3.1  (m)
+   boost/1.47.1             intel/intel          protected/1.0
+   boost/1.49.0    (o,D)    junk/a/c/1.0         showMe/2.0
+   gcc/4.2.3                junk/b/c/2.0         unix/unix
+   git/1.6.3.1              junk/d/3.0
+   git/1.7.4                local/local
   Where:
    D:  Default Module
    m:  built for host and native MIC
@@ -135,3 +136,11 @@ setenv("STANDARD_VAR","value")
 setenv{"MODE_VAR","value",modeA={"load"}}
 prepend_path{"MODE_PATH","/path",modeA={"unload"},priority="10"}
 setenv{"VAR","value",modeA={"load"}}
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show protected
+===========================
+   ProjectDIR/rt/show/mf/Core/protected/1.0.lua:
+setenv("ABC","<unknown>")
+setenv("DEF","<unknown2>")
+setenv("GHI","$U456")

@@ -42,6 +42,8 @@ testdescript = {
      runLmod --terse    show a       #16
      runLmod show showMe             #17
      runLmod show mode_test          #18
+     unset U123 U234 U456                 # guarantee that these variables are unset.
+     runLmod show protected          #19
 
      HOME=$ORIG_HOME
 

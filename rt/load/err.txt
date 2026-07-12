@@ -427,7 +427,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load moduleB/1.0
 ===========================
 Lmod has detected the following error: Your site prevents the automatic swapping of modules with same name. You must explicitly unload the loaded version of "moduleA/1.0" before you can load the new one. Use swap to do this:
    $ module swap moduleA/1.0 moduleA/2.0
-Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
+Alternatively, you can set the environment variable LMOD_DISABLE_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
 While processing the following module(s):
     Module fullname  Module Filename
     moduleB/1.0      ProjectDIR/rt/load/mf/Core2/moduleB/1.0.lua
@@ -437,7 +437,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load moduleA/2.0 modul
 ===========================
 Lmod has detected the following error: Your site prevents the automatic swapping of modules with same name. You must explicitly unload the loaded version of "moduleA/1.0" before you can load the new one. Use swap to do this:
    $ module swap moduleA/1.0 moduleA/2.0
-Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
+Alternatively, you can set the environment variable LMOD_DISABLE_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
 ===========================
 step 53
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge

@@ -356,7 +356,7 @@ function M.load(self, mA)
       dbg.start{"Hub:load(mA={"..s.."})"}
    end
 
-   local disable_same_name_autoswap = cosmic:value("LMOD_DISABLE_SAME_NAME_AUTOSWAP")
+   local disable_same_name_autoswap = cosmic:value("LMOD_DISABLE_NAME_AUTOSWAP")
 
    local dsConflicts = cosmic:value("LMOD_DOWNSTREAM_CONFLICTS")
    local optionTbl   = optionTbl()
