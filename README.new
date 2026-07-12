@@ -34,5 +34,8 @@ Lmod 9.2+
    (9.2.6)  * Issue #820: support for new command "module last-error"
             * Export -f clearMT and clearLmod
             * Issue #817 Support for loading dot hidden modules w/o leading dot
-            * When the function setenv() is reversed it doesn't remove the variable in the lmod
+            * When the functions setenv() and pushenv() are reversed it doesn't remove the variable in the lmod
               command process only in the user's process.
+            * Now both LMOD_DISABLE_SAME_NAME_AUTOSWAP and LMOD_DISABLE_NAME_AUTOSWAP are both supported.
+              The documenation only describes LMOD_DISABLE_NAME_AUTOSWAP.
+              
