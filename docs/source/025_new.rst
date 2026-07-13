@@ -1,12 +1,6 @@
 New Features in Lmod
 ====================
 
-**New module function protected_getenv{} provided**
-  (Lmod 9.2.6+) A new function **protected_getenv{}** is provided to a
-  protected value mainly for *module show*.  This way modules that
-  depend on other module to define an environment variable can provide
-  a default value instead in certain provide module modes.
-
 **setenv() and pushenv() are no longer unset inside the Lmod process on module unload**
   (Lmod 9.2.6+) On module unload, **setenv()** and **pushenv()** will
   be reversed on the user process but not the Lmod process.
