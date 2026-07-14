@@ -34,34 +34,107 @@ require("strict")
 --------------------------------------------------------------------------
 
 
+_G._DEBUG          = false                       -- Required by luaposix 33
+local posix        = require("posix")
+local unistd       = posix.unistd
+local wait         = posix.sys.wait
+local kill         = posix.signal.kill
+local SIGALRM      = posix.SIGALRM
+local SIGKILL      = posix.SIGKILL
+local setenv_posix = posix.setenv
+
 require("haveTermSupport")
-require("capture")
-local capture = capture or function (s) return nil end
 local getenv  = os.getenv
 local term    = false
 local s_width = false
 local min     = math.min
 local s_DFLT  = 80
 
--- Bound the stty/tput probes below.  A wedged PTY (ioctl(TIOCGWINSZ) that
--- never returns) would otherwise leave `module` blocked forever inside the
--- io.popen :read("*all") path -- see GH-832.  Kept local to TermWidth so
+-- Bound stty/tput probes below.  A wedged PTY (ioctl(TIOCGWINSZ) that
+-- never returns) would otherwise leave `module` blocked forever inside
+-- io.popen :read("*all") -- see GH-832.  Kept local to TermWidth so
 -- general capture() callers are unaffected.
 local s_termWidthTimeout = 1
-local s_timeoutPrefix    = nil
 
-local function l_timeoutPrefix()
-   if (s_timeoutPrefix == nil) then
-      local p   = io.popen("command -v timeout 2> /dev/null")
-      local out = p and p:read("*all") or ""
-      if (p) then p:close() end
-      if (out and out:match("%S")) then
-         s_timeoutPrefix = "timeout " .. s_termWidthTimeout .. " "
-      else
-         s_timeoutPrefix = ""
+local function l_withCaptureEnv(fn)
+   local cosmic = require("Cosmic"):singleton()
+   local newT   = {}
+   local envT   = {}
+   local env_ldT = {
+      LMOD_LD_LIBRARY_PATH = "LD_LIBRARY_PATH",
+      LMOD_LD_PRELOAD      = "LD_PRELOAD",
+   }
+
+   for k, v in pairs(env_ldT) do
+      local value = cosmic:get(k, "")
+      if (value ~= "") then
+         envT[v] = value
       end
    end
-   return s_timeoutPrefix
+
+   for k, v in pairs(envT) do
+      newT[k] = getenv(k) or false
+      setenv_posix(k, v, true)
+   end
+
+   local result = fn()
+
+   for k, myValue in pairs(newT) do
+      local v = myValue
+      if (v == false) then v = nil end
+      setenv_posix(k, v, true)
+   end
+
+   return result
+end
+
+local function l_timedCapture(cmd, sec)
+   return l_withCaptureEnv(function ()
+      local r, w = unistd.pipe()
+      if (not r) then
+         return nil
+      end
+
+      local pid = unistd.fork()
+      if (pid == 0) then
+         unistd.close(r)
+         unistd.dup2(w, 1)
+         unistd.close(w)
+         os.execute("sh -c " .. string.format("%q", cmd))
+         os.exit(0)
+      end
+
+      unistd.close(w)
+
+      local timed  = false
+      local cpid   = pid
+      local oldSig = posix.signal(SIGALRM, function ()
+         timed = true
+         kill(cpid, SIGKILL)
+      end)
+
+      unistd.alarm(sec)
+
+      local outA = {}
+      while (true) do
+         local chunk = unistd.read(r, 4096)
+         if (not chunk or chunk == "") then
+            break
+         end
+         outA[#outA + 1] = chunk
+      end
+
+      unistd.alarm(0)
+      posix.signal(SIGALRM, oldSig)
+      unistd.close(r)
+      wait.wait(cpid)
+
+      if (timed) then
+         return nil
+      end
+
+      return table.concat(outA)
+   end)
 end
 
 ------------------------------------------------------------------------
@@ -69,30 +142,23 @@ end
 
 local function l_askSystem(width)
 
-   -- $COLUMNS is exported by interactive shells from their SIGWINCH handler
-   -- and is essentially free to read.  Honor it before the subprocess probes
-   -- so the common case skips them entirely; this also covers broken-PTY
-   -- environments where the shell happens to have a sensible value.
-   local cols = tonumber(getenv("COLUMNS"))
-   if (cols) then
-      return cols
-   end
-
-   local prefix = l_timeoutPrefix()
-
    -- try stty size
-   local r_c = capture(prefix .. "stty size 2> /dev/null")
-   local i, j, rows, columns = r_c:find('(%d+)%s+(%d+)')
-   if (i) then
-      return tonumber(columns)
+   local r_c = l_timedCapture("stty size 2> /dev/null", s_termWidthTimeout)
+   if (r_c) then
+      local i, j, rows, columns = r_c:find('(%d+)%s+(%d+)')
+      if (i) then
+         return tonumber(columns)
+      end
    end
 
    -- Try tput cols
    if (getenv("TERM")) then
-      local result  = capture(prefix .. "tput cols 2> /dev/null")
-      i, j, columns = result:find("^(%d+)")
-      if (i) then
-         return tonumber(columns)
+      local result = l_timedCapture("tput cols 2> /dev/null", s_termWidthTimeout)
+      if (result) then
+         local i, j, columns = result:find("^(%d+)")
+         if (i) then
+            return tonumber(columns)
+         end
       end
    end
 
@@ -112,10 +178,16 @@ function TermWidth()
       s_width = ltw
       return s_width
    end
-   s_DFLT    = ltw or s_DFLT
-   s_width   = s_DFLT
-   if (haveTermSupport()) then
-      s_width = l_askSystem(s_width)
+
+   local cols = tonumber(getenv("COLUMNS"))
+   if (cols) then
+      s_width = cols
+   else
+      s_DFLT  = ltw or s_DFLT
+      s_width = s_DFLT
+      if (haveTermSupport()) then
+         s_width = l_askSystem(s_width)
+      end
    end
 
    local maxW = ltw or math.huge

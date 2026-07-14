@@ -7,7 +7,7 @@ testdescript = {
    description = [[
         Verify that TermWidth.lua honors $COLUMNS instead of probing
         stty/tput, and that the stty/tput probes themselves are bounded
-        by `timeout` so a wedged PTY cannot hang module commands.
+        by SIGALRM so a wedged PTY cannot hang module commands.
         Regression coverage for GH-832.
    ]],
    keywords = { testName },
@@ -51,16 +51,44 @@ FAKE
      # Scenario A: $COLUMNS set -> probes MUST NOT be invoked.
      : > "$TW_PROBE_LOG"
      export COLUMNS=120
-     runLmod -D avail 2>/dev/null                                        # 1
-     A_count=$(wc -l < "$TW_PROBE_LOG" | tr -d ' ')
-     echo "scenario-A probe invocations: $A_count" > _stdout.998
+     runLmod avail 2>/dev/null                                        # 1
+     if [ -s "$TW_PROBE_LOG" ]; then
+        echo "scenario-A probe invocations: nonzero" > _stdout.998
+     else
+        echo "scenario-A probe invocations: 0" > _stdout.998
+     fi
 
      # Scenario B: $COLUMNS unset -> probes run, sentinel 999 is used.
      : > "$TW_PROBE_LOG"
      unset COLUMNS
-     runLmod -D avail 2>/dev/null                                        # 2
-     B_count=$(wc -l < "$TW_PROBE_LOG" | tr -d ' ')
-     echo "scenario-B probe invocations: $(test "$B_count" -gt 0 && echo nonzero || echo 0)" > _stdout.999
+     export TERM=xterm
+     runLmod avail 2>/dev/null                                        # 2
+     if [ -s "$TW_PROBE_LOG" ]; then
+        echo "scenario-B probe invocations: nonzero" > _stdout.999
+     else
+        echo "scenario-B probe invocations: 0" > _stdout.999
+     fi
+
+     # Scenario C: wedged stty size -> alarm must return without hanging.
+     cat > _fakebin/stty <<'FAKE'
+#!/bin/sh
+echo "stty $*" >> "$TW_PROBE_LOG"
+[ "$1" = "size" ] && sleep 30
+exec /usr/bin/stty "$@" 2>/dev/null || true
+FAKE
+     chmod +x _fakebin/stty
+     : > "$TW_PROBE_LOG"
+     unset COLUMNS
+     export TERM=xterm
+     SECONDS=0
+     runLmod avail 2>/dev/null                                             # 3
+     elapsedC=$SECONDS
+     if [ "$elapsedC" -lt 5 ]; then
+        echo "scenario-C wedged-stty completed: yes" > _stdout.997
+     else
+        echo "scenario-C wedged-stty completed: no" > _stdout.997
+     fi
+     echo "scenario-C elapsed seconds: $elapsedC" >> _stdout.997
 
      HOME=$ORIG_HOME
 
