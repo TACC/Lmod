@@ -33,14 +33,16 @@ testdescript = {
      runLmod list                                                          # 4
      runLmod show test1/24.5.0                                             # 5
      runLmod load test1                                                    # 6
-     runLmod purge                                                         # 7
+     runLmod list                                                          # 7
+     runLmod show test1                                                    # 8
+     runLmod purge                                                         # 9
 
-     runLmod avail test2                                                   # 8
-     runLmod load test2                                                    # 9
-     runLmod list                                                          #10
-     runLmod purge                                                         #11
+     runLmod avail test2                                                   #10
+     runLmod load test2                                                    #11
+     runLmod list                                                          #12
+     runLmod purge                                                         #13
 
-     runLmod load test3/1.0                                                #12
+     runLmod load test3/1.0                                                #14
 
      . $(testDir)/assert_checks.sh
      run_all_asserts

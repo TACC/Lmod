@@ -46,9 +46,34 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load test1
 ===========================
-false
+LOADEDMODULES=test1/24.6.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/module_virtual_multi/mf/multi/Core;
+export MODULEPATH;
+TEST1_MV=24.6.0;
+export TEST1_MV;
+_LMFILES_=ProjectDIR/rt/module_virtual_multi/mf/multi/Core/test1/.test1.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={test1={fn="ProjectDIR/rt/module_virtual_multi/mf/multi/Core/test1/.test1.lua",fullName="test1/24.6.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="test1/24.6.0",propT={},stackDepth=0,status="active",userName="test1/.test1",wV="*test.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual_multi/mf/multi/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual_multi/mf/multi/Core",}';
+export _ModuleTable_;
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/module_virtual_multi/mf/multi/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={test1={fn="ProjectDIR/rt/module_virtual_multi/mf/multi/Core/test1/.test1.lua",fullName="test1/24.6.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="test1/24.6.0",propT={},stackDepth=0,status="active",userName="test1/.test1",wV="*test.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual_multi/mf/multi/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual_multi/mf/multi/Core",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show test1
+===========================
+MODULEPATH=ProjectDIR/rt/module_virtual_multi/mf/multi/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={test1={fn="ProjectDIR/rt/module_virtual_multi/mf/multi/Core/test1/.test1.lua",fullName="test1/24.6.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="test1/24.6.0",propT={},stackDepth=0,status="active",userName="test1/.test1",wV="*test.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual_multi/mf/multi/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual_multi/mf/multi/Core",}';
+export _ModuleTable_;
+===========================
+step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset LOADEDMODULES;
@@ -59,7 +84,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/module_virtual_multi/mf/multi/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual_multi/mf/multi/Core",}';
 export _ModuleTable_;
 ===========================
-step 8
+step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail test2
 ===========================
 MODULEPATH=ProjectDIR/rt/module_virtual_multi/mf/multi/Core;
@@ -67,7 +92,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/module_virtual_multi/mf/multi/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual_multi/mf/multi/Core",}';
 export _ModuleTable_;
 ===========================
-step 9
+step 11
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load test2
 ===========================
 LOADEDMODULES=test2/24.6.0;
@@ -81,7 +106,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={test2={fn="ProjectDIR/rt/module_virtual_multi/mf/multi/Core/test2/.base.lua",fullName="test2/24.6.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="test2/24.6.0",propT={},stackDepth=0,status="active",userName="test2",wV="^base.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual_multi/mf/multi/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual_multi/mf/multi/Core",}';
 export _ModuleTable_;
 ===========================
-step 10
+step 12
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/module_virtual_multi/mf/multi/Core;
@@ -89,7 +114,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={test2={fn="ProjectDIR/rt/module_virtual_multi/mf/multi/Core/test2/.base.lua",fullName="test2/24.6.0",loadOrder=1,moduleKindT={kind="hidden",},origUserName="test2/24.6.0",propT={},stackDepth=0,status="active",userName="test2",wV="^base.*zfinal",},},mpathA={"ProjectDIR/rt/module_virtual_multi/mf/multi/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual_multi/mf/multi/Core",}';
 export _ModuleTable_;
 ===========================
-step 11
+step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset LOADEDMODULES;
@@ -100,7 +125,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/module_virtual_multi/mf/multi/Core",},systemBaseMPATH="ProjectDIR/rt/module_virtual_multi/mf/multi/Core",}';
 export _ModuleTable_;
 ===========================
-step 12
+step 14
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load test3/1.0
 ===========================
 LOADEDMODULES=test3/1.0;

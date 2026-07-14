@@ -26,8 +26,8 @@ assert_stderr_not_contains() {
   fi
 }
 
-# 004=avail test1 006=load 008=list 010=show 012=load test1 fail
-# 016=avail test2 018=load test2 020=list test2 024=load test3
+# 008=list 24.5.0  010=show 24.5.0  012=load test1  014=list  016=show test1
+# 020=avail test2  022=load test2  024=list test2  028=load test3
 
 assert_test1_list() {
   assert_stderr_contains "008" "test1/24.5.0"
@@ -40,34 +40,38 @@ assert_test1_show_version() {
   assert_stderr_not_contains "010" 'whatis("Version: .test1")'
 }
 
-assert_test1_no_default_load() {
-  assert_stderr_contains "012" "unknown"
-  assert_stderr_contains "012" "test1"
+assert_test1_highest_default_load() {
+  assert_stderr_not_contains "012" "unknown"
+  assert_stderr_contains "014" "test1/24.6.0"
+  assert_stderr_not_contains "014" "test1/.test1"
+  assert_stderr_not_contains "014" "(H)"
+  assert_stderr_contains "016" 'whatis("Version: 24.6.0")'
+  assert_stderr_not_contains "016" 'whatis("Version: .test1")'
 }
 
 assert_test2_avail() {
-  assert_stderr_contains "016" "test2/22.2.1"
-  assert_stderr_contains "016" "test2/24.6.0"
-  assert_stderr_not_contains "016" "test2/21.1.1"
-  assert_stderr_not_contains "016" "test2/23.1.0"
-  assert_stderr_not_contains "016" "test2/24.5.0"
-  assert_stderr_contains "016" "(D)"
+  assert_stderr_contains "020" "test2/22.2.1"
+  assert_stderr_contains "020" "test2/24.6.0"
+  assert_stderr_not_contains "020" "test2/21.1.1"
+  assert_stderr_not_contains "020" "test2/23.1.0"
+  assert_stderr_not_contains "020" "test2/24.5.0"
+  assert_stderr_contains "020" "(D)"
 }
 
 assert_test2_default_list() {
-  assert_stderr_contains "020" "test2/24.6.0"
-  assert_stderr_not_contains "020" "test2/.base"
-  assert_stderr_not_contains "020" "(H)"
+  assert_stderr_contains "024" "test2/24.6.0"
+  assert_stderr_not_contains "024" "test2/.base"
+  assert_stderr_not_contains "024" "(H)"
 }
 
 assert_test3_relative_load() {
-  assert_stderr_not_contains "024" 'unknown: ".base"'
+  assert_stderr_not_contains "028" 'unknown: ".base"'
 }
 
 run_all_asserts() {
   assert_test1_list
   assert_test1_show_version
-  assert_test1_no_default_load
+  assert_test1_highest_default_load
   assert_test2_avail
   assert_test2_default_list
   assert_test3_relative_load

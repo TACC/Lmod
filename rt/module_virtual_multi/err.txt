@@ -38,17 +38,26 @@ setenv("TEST1_MV","24.5.0")
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load test1
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "test1"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "test1"
-Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) test1/24.6.0
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show test1
+===========================
+   ProjectDIR/rt/module_virtual_multi/mf/multi/Core/test1/.test1.lua:
+whatis("Name: test1")
+whatis("Version: 24.6.0")
+setenv("TEST1_MV","24.6.0")
+===========================
+step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
-step 8
+step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail test2
 ===========================
 ProjectDIR/rt/module_virtual_multi/mf/multi/Core
@@ -61,20 +70,20 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 9
+step 11
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load test2
 ===========================
 ===========================
-step 10
+step 12
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) test2/24.6.0
 ===========================
-step 11
+step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
-step 12
+step 14
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load test3/1.0
 ===========================
