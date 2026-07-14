@@ -172,6 +172,26 @@ local function l_extract_sn(userName)
 end
 
 --------------------------------------------------------------------------
+-- True when userName is a short name with no version (e.g. "NCCL").
+local function l_is_unversioned(userName)
+   return userName == l_extract_sn(userName)
+end
+
+--------------------------------------------------------------------------
+-- True when entryPath is a prefix of path (element-wise).
+local function l_path_prefix_match(entryPath, path)
+   if (not entryPath or not path or #entryPath > #path) then
+      return false
+   end
+   for i = 1, #entryPath do
+      if (entryPath[i] ~= path[i]) then
+         return false
+      end
+   end
+   return true
+end
+
+--------------------------------------------------------------------------
 -- Look up a spider dbT entry by module fullName.
 local function l_find_db_entry(fullName, dbT)
    if (not fullName or not dbT) then return nil end
@@ -242,6 +262,90 @@ local function l_normalize_prereq_path(path, userName)
       if (#stripped > 0) then return stripped end
    end
    return path
+end
+
+--------------------------------------------------------------------------
+-- dbT entry for userName best matching suggestion path (longest parent prefix).
+local function l_find_db_entry_for_request(userName, path, dbT)
+   if (not userName or not path or not dbT) then return nil end
+   local sn = l_extract_sn(userName)
+   local moduleData = dbT[sn]
+   if (not moduleData) then return nil end
+
+   local bestEntry = nil
+   local bestLen   = 0
+   for _, entry in pairs(moduleData) do
+      if (userName ~= sn and userName ~= entry.fullName) then
+         -- skip version-mismatched entries
+      elseif (entry.parentAA) then
+         for i = 1, #entry.parentAA do
+            local p = l_normalize_prereq_path(entry.parentAA[i], entry.fullName)
+            if (p and l_path_prefix_match(p, path) and #p >= bestLen) then
+               bestLen   = #p
+               bestEntry = entry
+            end
+         end
+      end
+   end
+   return bestEntry
+end
+
+--------------------------------------------------------------------------
+-- Resolve userName to fullName for this path; honor fixed-depends_on constraints.
+local function l_resolve_suffix_module(userName, path, dbT, pinnedSnT)
+   if (not l_is_unversioned(userName)) then
+      return userName
+   end
+   local sn = l_extract_sn(userName)
+   if (pinnedSnT[sn]) then
+      return pinnedSnT[sn]
+   end
+   local entry = l_find_db_entry_for_request(userName, path, dbT)
+   if (entry) then
+      return entry.fullName
+   end
+   return userName
+end
+
+--------------------------------------------------------------------------
+-- True when sn appears in the user's original load request.
+local function l_sn_in_request(sn)
+   if (not s_allRequestedT) then return false end
+   for i = 1, #s_allRequestedT do
+      if (s_allRequestedT[i].mname:sn() == sn) then
+         return true
+      end
+   end
+   return false
+end
+
+--------------------------------------------------------------------------
+-- True when path already satisfies a fixed depends_on (exact or via toolchain).
+local function l_path_satisfies_dep(path, depFn, dbT)
+   if (not depFn or not path) then return false end
+   local depSn = l_extract_sn(depFn)
+   for i = 1, #path do
+      if (path[i] == depFn) then return true end
+      if (l_extract_sn(path[i]) == depSn and path[i] == depFn) then return true end
+      if (l_module_depends_on_fixed(dbT, path[i], depFn)) then return true end
+   end
+   return false
+end
+
+--------------------------------------------------------------------------
+-- Pin unversioned suffix when a fixed dep is also co-requested (version clash).
+local function l_should_pin_suffix(dbEntry, userName, failingSet, pinnedSnT)
+   if (not l_is_unversioned(userName)) then return false end
+   local sn = l_extract_sn(userName)
+   if (pinnedSnT[sn]) then return true end
+   if (not dbEntry or not dbEntry.depT or not dbEntry.depT.depA) then return false end
+   for i = 1, #dbEntry.depT.depA do
+      local depFn = l_dep_fixed_fullName(dbEntry.depT.depA[i])
+      if (depFn and l_sn_in_request(l_extract_sn(depFn))) then
+         return true
+      end
+   end
+   return false
 end
 
 local function l_path_key(path)
@@ -437,28 +541,67 @@ end
 -- @param failingSet Table of failing userNames (userName -> true)
 -- @return Array of module names to append after the dependency path
 local function l_build_modules_for_path(path, failingSet, dbT)
-   -- Build set of short names in the dependency path
    local pathSnSet = {}
    for i = 1, #path do
       pathSnSet[l_extract_sn(path[i])] = true
    end
 
    local modulesToInclude = {}
+   local seenSn           = {}
+   for sn, _ in pairs(pathSnSet) do
+      seenSn[sn] = true
+   end
+
+   local pinnedSnT = {}
+
+   local function l_add_suffix(fullName)
+      if (not fullName) then return end
+      local sn = l_extract_sn(fullName)
+      if (seenSn[sn]) then return end
+      seenSn[sn] = true
+      modulesToInclude[#modulesToInclude + 1] = fullName
+      pinnedSnT[sn] = fullName
+   end
+
    for i = 1, #s_allRequestedT do
       local entry    = s_allRequestedT[i]
       local userName = entry.userName
       local sn       = entry.mname:sn()
 
+      local include = false
       if (failingSet[userName]) then
-         -- Failing modules are always included
-         modulesToInclude[#modulesToInclude + 1] = userName
+         include = true
       elseif (not pathSnSet[sn] and
               not l_module_conflicts_with_path(userName, path, dbT)) then
-         -- Non-conflicting module: safe to include
-         modulesToInclude[#modulesToInclude + 1] = userName
+         include = true
       end
-      -- Conflicting modules (same sn as dependency path) are excluded
+
+      if (include) then
+         local dbEntry  = l_find_db_entry_for_request(userName, path, dbT)
+         local fullName = userName
+         if (l_should_pin_suffix(dbEntry, userName, failingSet, pinnedSnT)) then
+            fullName = l_resolve_suffix_module(userName, path, dbT, pinnedSnT)
+         elseif (pinnedSnT[l_extract_sn(userName)]) then
+            fullName = pinnedSnT[l_extract_sn(userName)]
+         end
+
+         if (dbEntry and dbEntry.depT and dbEntry.depT.depA) then
+            for j = 1, #dbEntry.depT.depA do
+               local depFn = l_dep_fixed_fullName(dbEntry.depT.depA[j])
+               if (depFn and not l_path_satisfies_dep(path, depFn, dbT) and
+                   l_sn_in_request(l_extract_sn(depFn))) then
+                  pinnedSnT[l_extract_sn(depFn)] = depFn
+                  l_add_suffix(depFn)
+               end
+            end
+         end
+
+         if (not pathSnSet[l_extract_sn(fullName)]) then
+            l_add_suffix(fullName)
+         end
+      end
    end
+
    return modulesToInclude
 end
 

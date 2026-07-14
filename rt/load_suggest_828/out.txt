@@ -66,3 +66,164 @@ _LMFILES_=/tmp/modules/releases/release/24.04.lua:/tmp/modules/r24.04/all/Core/G
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={CuPy={depT={depA={{sn="GCCcore",version={kind="fixed",value="14.2.0",},},},},fn="/tmp/modules/r24.04/all/Compiler/GCCcore/14.2.0/CuPy/13.lua",fullName="CuPy/13",loadOrder=4,propT={},stackDepth=0,status="active",userName="CuPy",wV="000000013.*zfinal",},GCC={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Compiler/GCC/14.2.0")]],},depT={depA={{sn="GCCcore",version={kind="fixed",value="14.2.0",},},},},fn="/tmp/modules/r24.04/all/Core/GCC/14.2.0.lua",fullName="GCC/14.2.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="GCC/14.2.0",wV="000000014.000000002.*zfinal",},GCCcore={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Compiler/GCCcore/14.2.0")]],},fn="/tmp/modules/r24.04/all/Core/GCCcore/14.2.0.lua",fullName="GCCcore/14.2.0",loadOrder=2,propT={},ref_count=2,stackDepth=1,status="active",userName="GCCcore/14.2.0",wV="000000014.000000002.*zfinal",},OpenMPI={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/MPI/GCC/14.2.0/OpenMPI/5.6")]],},fn="/tmp/modules/r24.04/all/Compiler/GCC/14.2.0/OpenMPI/5.6.lua",fullName="OpenMPI/5.6",loadOrder=5,propT={},stackDepth=0,status="active",userName="OpenMPI/5.6",wV="000000005.000000006.*zfinal",},release={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Core")]],},fn="/tmp/modules/releases/release/24.04.lua",fullName="release/24.04",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="release/24.04",wV="000000024.000000004.*zfinal",},},mpathA={"/tmp/modules/r24.04/all/MPI/GCC/14.2.0/OpenMPI/5.6","/tmp/modules/r24.04/all/Compiler/GCC/14.2.0","/tmp/modules/r24.04/all/Compiler/GCCcore/14.2.0","/tmp/modules/r24.04/all/Core","/tmp/modules/releases",},systemBaseMPATH="/tmp/modules/releases",}';
 export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset EBVERSIONCUPY;
+LOADEDMODULES=release/24.04;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules/r24.04/all/Core:1\;/tmp/modules/releases:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules/r24.04/all/Core:/tmp/modules/releases;
+export MODULEPATH;
+_LMFILES_=/tmp/modules/releases/release/24.04.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={release={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Core")]],},fn="/tmp/modules/releases/release/24.04.lua",fullName="release/24.04",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="release/24.04",wV="000000024.000000004.*zfinal",},},mpathA={"/tmp/modules/r24.04/all/Core","/tmp/modules/releases",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load NCCL OpenMPI CUDA
+===========================
+false
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=/tmp/modules/r24.04/all/Core:/tmp/modules/releases;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={release={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Core")]],},fn="/tmp/modules/releases/release/24.04.lua",fullName="release/24.04",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="release/24.04",wV="000000024.000000004.*zfinal",},},mpathA={"/tmp/modules/r24.04/all/Core","/tmp/modules/releases",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+===========================
+EBVERSIONCUDA=12.6.0;
+export EBVERSIONCUDA;
+EBVERSIONNCCL=2.22.3-CUDA-12.6.0;
+export EBVERSIONNCCL;
+LOADEDMODULES=release/24.04:GCCcore/13.2.0:GCC/13.2.0:CUDA/12.6.0:NCCL/2.22.3-CUDA-12.6.0:OpenMPI/4.1.6;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules/r24.04/all/MPI/GCC/13.2.0/OpenMPI/4.1.6:1\;/tmp/modules/r24.04/all/Compiler/GCC/13.2.0:1\;/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0:1\;/tmp/modules/r24.04/all/Core:1\;/tmp/modules/releases:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules/r24.04/all/MPI/GCC/13.2.0/OpenMPI/4.1.6:/tmp/modules/r24.04/all/Compiler/GCC/13.2.0:/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0:/tmp/modules/r24.04/all/Core:/tmp/modules/releases;
+export MODULEPATH;
+_LMFILES_=/tmp/modules/releases/release/24.04.lua:/tmp/modules/r24.04/all/Core/GCCcore/13.2.0.lua:/tmp/modules/r24.04/all/Core/GCC/13.2.0.lua:/tmp/modules/r24.04/all/Core/CUDA/12.6.0.lua:/tmp/modules/r24.04/all/Compiler/GCC/13.2.0/NCCL/2.22.3-CUDA-12.6.0.lua:/tmp/modules/r24.04/all/Compiler/GCC/13.2.0/OpenMPI/4.1.6.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={CUDA={fn="/tmp/modules/r24.04/all/Core/CUDA/12.6.0.lua",fullName="CUDA/12.6.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="CUDA/12.6.0",wV="000000012.000000006.*zfinal",},GCC={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Compiler/GCC/13.2.0")]],},depT={depA={{sn="GCCcore",version={kind="fixed",value="13.2.0",},},},},fn="/tmp/modules/r24.04/all/Core/GCC/13.2.0.lua",fullName="GCC/13.2.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="GCC/13.2.0",wV="000000013.000000002.*zfinal",},GCCcore={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0")]],},fn="/tmp/modules/r24.04/all/Core/GCCcore/13.2.0.lua",fullName="GCCcore/13.2.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="GCCcore/13.2.0",wV="000000013.000000002.*zfinal",},NCCL={depT={depA={{sn="CUDA",version={kind="fixed",value="12.6.0",},},},},fn="/tmp/modules/r24.04/all/Compiler/GCC/13.2.0/NCCL/2.22.3-CUDA-12.6.0.lua",fullName="NCCL/2.22.3-CUDA-12.6.0",loadOrder=5,propT={},stackDepth=0,status="active",userName="NCCL/2.22.3-CUDA-12.6.0",wV="000000002.000000022.000000003.*cuda.*zfinal-.000000012.000000006.*zfinal",},OpenMPI={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/MPI/GCC/13.2.0/OpenMPI/4.1.6")]],},fn="/tmp/modules/r24.04/all/Compiler/GCC/13.2.0/OpenMPI/4.1.6.lua",fullName="OpenMPI/4.1.6",loadOrder=6,propT={},stackDepth=0,status="active",userName="OpenMPI/4.1.6",wV="000000004.000000001.000000006.*zfinal",},release={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Core")]],},fn="/tmp/modules/releases/release/24.04.lua",fullName="release/24.04",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="release/24.04",wV="000000024.000000004.*zfinal",},},mpathA={"/tmp/modules/r24.04/all/MPI/GCC/13.2.0/OpenMPI/4.1.6","/tmp/modules/r24.04/all/Compiler/GCC/13.2.0","/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0","/tmp/modules/r24.04/all/Core","/tmp/modules/releases",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset EBVERSIONCUDA;
+unset EBVERSIONNCCL;
+LOADEDMODULES=release/24.04;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules/r24.04/all/Core:1\;/tmp/modules/releases:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules/r24.04/all/Core:/tmp/modules/releases;
+export MODULEPATH;
+_LMFILES_=/tmp/modules/releases/release/24.04.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={release={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Core")]],},fn="/tmp/modules/releases/release/24.04.lua",fullName="release/24.04",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="release/24.04",wV="000000024.000000004.*zfinal",},},mpathA={"/tmp/modules/r24.04/all/Core","/tmp/modules/releases",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+===========================
+EBVERSIONCUDA=12.6.0;
+export EBVERSIONCUDA;
+EBVERSIONNCCL=2.22.3-CUDA-12.6.0;
+export EBVERSIONNCCL;
+LOADEDMODULES=release/24.04:GCCcore/13.2.0:GCC/13.2.0:CUDA/12.6.0:NCCL/2.22.3-CUDA-12.6.0:OpenMPI/4.1.6;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules/r24.04/all/MPI/GCC/13.2.0/OpenMPI/4.1.6:1\;/tmp/modules/r24.04/all/Compiler/GCC/13.2.0:1\;/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0:1\;/tmp/modules/r24.04/all/Core:1\;/tmp/modules/releases:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules/r24.04/all/MPI/GCC/13.2.0/OpenMPI/4.1.6:/tmp/modules/r24.04/all/Compiler/GCC/13.2.0:/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0:/tmp/modules/r24.04/all/Core:/tmp/modules/releases;
+export MODULEPATH;
+_LMFILES_=/tmp/modules/releases/release/24.04.lua:/tmp/modules/r24.04/all/Core/GCCcore/13.2.0.lua:/tmp/modules/r24.04/all/Core/GCC/13.2.0.lua:/tmp/modules/r24.04/all/Core/CUDA/12.6.0.lua:/tmp/modules/r24.04/all/Compiler/GCC/13.2.0/NCCL/2.22.3-CUDA-12.6.0.lua:/tmp/modules/r24.04/all/Compiler/GCC/13.2.0/OpenMPI/4.1.6.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={CUDA={fn="/tmp/modules/r24.04/all/Core/CUDA/12.6.0.lua",fullName="CUDA/12.6.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="CUDA/12.6.0",wV="000000012.000000006.*zfinal",},GCC={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Compiler/GCC/13.2.0")]],},depT={depA={{sn="GCCcore",version={kind="fixed",value="13.2.0",},},},},fn="/tmp/modules/r24.04/all/Core/GCC/13.2.0.lua",fullName="GCC/13.2.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="GCC/13.2.0",wV="000000013.000000002.*zfinal",},GCCcore={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0")]],},fn="/tmp/modules/r24.04/all/Core/GCCcore/13.2.0.lua",fullName="GCCcore/13.2.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="GCCcore/13.2.0",wV="000000013.000000002.*zfinal",},NCCL={depT={depA={{sn="CUDA",version={kind="fixed",value="12.6.0",},},},},fn="/tmp/modules/r24.04/all/Compiler/GCC/13.2.0/NCCL/2.22.3-CUDA-12.6.0.lua",fullName="NCCL/2.22.3-CUDA-12.6.0",loadOrder=5,propT={},stackDepth=0,status="active",userName="NCCL/2.22.3-CUDA-12.6.0",wV="000000002.000000022.000000003.*cuda.*zfinal-.000000012.000000006.*zfinal",},OpenMPI={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/MPI/GCC/13.2.0/OpenMPI/4.1.6")]],},fn="/tmp/modules/r24.04/all/Compiler/GCC/13.2.0/OpenMPI/4.1.6.lua",fullName="OpenMPI/4.1.6",loadOrder=6,propT={},stackDepth=0,status="active",userName="OpenMPI/4.1.6",wV="000000004.000000001.000000006.*zfinal",},release={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Core")]],},fn="/tmp/modules/releases/release/24.04.lua",fullName="release/24.04",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="release/24.04",wV="000000024.000000004.*zfinal",},},mpathA={"/tmp/modules/r24.04/all/MPI/GCC/13.2.0/OpenMPI/4.1.6","/tmp/modules/r24.04/all/Compiler/GCC/13.2.0","/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0","/tmp/modules/r24.04/all/Core","/tmp/modules/releases",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset EBVERSIONCUDA;
+unset EBVERSIONNCCL;
+LOADEDMODULES=release/24.04;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules/r24.04/all/Core:1\;/tmp/modules/releases:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules/r24.04/all/Core:/tmp/modules/releases;
+export MODULEPATH;
+_LMFILES_=/tmp/modules/releases/release/24.04.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={release={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Core")]],},fn="/tmp/modules/releases/release/24.04.lua",fullName="release/24.04",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="release/24.04",wV="000000024.000000004.*zfinal",},},mpathA={"/tmp/modules/r24.04/all/Core","/tmp/modules/releases",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load NCCL CUDA
+===========================
+false
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=/tmp/modules/r24.04/all/Core:/tmp/modules/releases;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={release={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Core")]],},fn="/tmp/modules/releases/release/24.04.lua",fullName="release/24.04",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="release/24.04",wV="000000024.000000004.*zfinal",},},mpathA={"/tmp/modules/r24.04/all/Core","/tmp/modules/releases",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0
+===========================
+EBVERSIONCUDA=12.6.0;
+export EBVERSIONCUDA;
+EBVERSIONNCCL=2.22.3-CUDA-12.6.0;
+export EBVERSIONNCCL;
+LOADEDMODULES=release/24.04:GCCcore/13.2.0:GCC/13.2.0:CUDA/12.6.0:NCCL/2.22.3-CUDA-12.6.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules/r24.04/all/Compiler/GCC/13.2.0:1\;/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0:1\;/tmp/modules/r24.04/all/Core:1\;/tmp/modules/releases:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules/r24.04/all/Compiler/GCC/13.2.0:/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0:/tmp/modules/r24.04/all/Core:/tmp/modules/releases;
+export MODULEPATH;
+_LMFILES_=/tmp/modules/releases/release/24.04.lua:/tmp/modules/r24.04/all/Core/GCCcore/13.2.0.lua:/tmp/modules/r24.04/all/Core/GCC/13.2.0.lua:/tmp/modules/r24.04/all/Core/CUDA/12.6.0.lua:/tmp/modules/r24.04/all/Compiler/GCC/13.2.0/NCCL/2.22.3-CUDA-12.6.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={CUDA={fn="/tmp/modules/r24.04/all/Core/CUDA/12.6.0.lua",fullName="CUDA/12.6.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="CUDA/12.6.0",wV="000000012.000000006.*zfinal",},GCC={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Compiler/GCC/13.2.0")]],},depT={depA={{sn="GCCcore",version={kind="fixed",value="13.2.0",},},},},fn="/tmp/modules/r24.04/all/Core/GCC/13.2.0.lua",fullName="GCC/13.2.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="GCC/13.2.0",wV="000000013.000000002.*zfinal",},GCCcore={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0")]],},fn="/tmp/modules/r24.04/all/Core/GCCcore/13.2.0.lua",fullName="GCCcore/13.2.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="GCCcore/13.2.0",wV="000000013.000000002.*zfinal",},NCCL={depT={depA={{sn="CUDA",version={kind="fixed",value="12.6.0",},},},},fn="/tmp/modules/r24.04/all/Compiler/GCC/13.2.0/NCCL/2.22.3-CUDA-12.6.0.lua",fullName="NCCL/2.22.3-CUDA-12.6.0",loadOrder=5,propT={},stackDepth=0,status="active",userName="NCCL/2.22.3-CUDA-12.6.0",wV="000000002.000000022.000000003.*cuda.*zfinal-.000000012.000000006.*zfinal",},release={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Core")]],},fn="/tmp/modules/releases/release/24.04.lua",fullName="release/24.04",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="release/24.04",wV="000000024.000000004.*zfinal",},},mpathA={"/tmp/modules/r24.04/all/Compiler/GCC/13.2.0","/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0","/tmp/modules/r24.04/all/Core","/tmp/modules/releases",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset EBVERSIONCUDA;
+unset EBVERSIONNCCL;
+LOADEDMODULES=release/24.04;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules/r24.04/all/Core:1\;/tmp/modules/releases:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules/r24.04/all/Core:/tmp/modules/releases;
+export MODULEPATH;
+_LMFILES_=/tmp/modules/releases/release/24.04.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={release={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Core")]],},fn="/tmp/modules/releases/release/24.04.lua",fullName="release/24.04",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="release/24.04",wV="000000024.000000004.*zfinal",},},mpathA={"/tmp/modules/r24.04/all/Core","/tmp/modules/releases",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0
+===========================
+EBVERSIONCUDA=12.6.0;
+export EBVERSIONCUDA;
+EBVERSIONNCCL=2.22.3-CUDA-12.6.0;
+export EBVERSIONNCCL;
+LOADEDMODULES=release/24.04:GCCcore/13.2.0:GCC/13.2.0:CUDA/12.6.0:NCCL/2.22.3-CUDA-12.6.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules/r24.04/all/Compiler/GCC/13.2.0:1\;/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0:1\;/tmp/modules/r24.04/all/Core:1\;/tmp/modules/releases:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules/r24.04/all/Compiler/GCC/13.2.0:/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0:/tmp/modules/r24.04/all/Core:/tmp/modules/releases;
+export MODULEPATH;
+_LMFILES_=/tmp/modules/releases/release/24.04.lua:/tmp/modules/r24.04/all/Core/GCCcore/13.2.0.lua:/tmp/modules/r24.04/all/Core/GCC/13.2.0.lua:/tmp/modules/r24.04/all/Core/CUDA/12.6.0.lua:/tmp/modules/r24.04/all/Compiler/GCC/13.2.0/NCCL/2.22.3-CUDA-12.6.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={CUDA={fn="/tmp/modules/r24.04/all/Core/CUDA/12.6.0.lua",fullName="CUDA/12.6.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="CUDA/12.6.0",wV="000000012.000000006.*zfinal",},GCC={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Compiler/GCC/13.2.0")]],},depT={depA={{sn="GCCcore",version={kind="fixed",value="13.2.0",},},},},fn="/tmp/modules/r24.04/all/Core/GCC/13.2.0.lua",fullName="GCC/13.2.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="GCC/13.2.0",wV="000000013.000000002.*zfinal",},GCCcore={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0")]],},fn="/tmp/modules/r24.04/all/Core/GCCcore/13.2.0.lua",fullName="GCCcore/13.2.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="GCCcore/13.2.0",wV="000000013.000000002.*zfinal",},NCCL={depT={depA={{sn="CUDA",version={kind="fixed",value="12.6.0",},},},},fn="/tmp/modules/r24.04/all/Compiler/GCC/13.2.0/NCCL/2.22.3-CUDA-12.6.0.lua",fullName="NCCL/2.22.3-CUDA-12.6.0",loadOrder=5,propT={},stackDepth=0,status="active",userName="NCCL/2.22.3-CUDA-12.6.0",wV="000000002.000000022.000000003.*cuda.*zfinal-.000000012.000000006.*zfinal",},release={actionA={[[prepend_path("MODULEPATH","/tmp/modules/r24.04/all/Core")]],},fn="/tmp/modules/releases/release/24.04.lua",fullName="release/24.04",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="release/24.04",wV="000000024.000000004.*zfinal",},},mpathA={"/tmp/modules/r24.04/all/Compiler/GCC/13.2.0","/tmp/modules/r24.04/all/Compiler/GCCcore/13.2.0","/tmp/modules/r24.04/all/Core","/tmp/modules/releases",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;

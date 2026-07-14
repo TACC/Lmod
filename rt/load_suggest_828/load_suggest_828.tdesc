@@ -1,7 +1,8 @@
 -- -*- lua -*-
 ------------------------------------------------------------------------------
--- Test for Issue #828: GCCcore vs GCC toolchain suggestions for CuPy + OpenMPI.
--- Golden err.txt/out.txt: run "t ." then bless per LMOD_TESTING.md.
+-- Test for Issue #828: toolchain-aware load suggestions and copy-pasteable
+-- suffix modules (CuPy/OpenMPI toolchain merge + NCCL/CUDA version pinning).
+-- Steps 1-7: toolchain-path behavior. Steps 8-19: NCCL/CUDA suffix pinning.
 ------------------------------------------------------------------------------
 
 local testName = "load_suggest_828"
@@ -10,8 +11,9 @@ testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
-     Test Issue #828: load-failure suggestions must not offer GCCcore-only
-     paths for OpenMPI, nor mismatched GCC/GCCcore version combinations.
+     Issue #828: (1) no GCCcore-only paths for OpenMPI + CuPy, no mismatched
+     GCC/GCCcore pairs; (2) unversioned NCCL/CUDA suffixes must pin versions and
+     dependency order so suggested commands copy-paste cleanly.
    ]],
    keywords = {testName, "issue828", "load_suggest"},
 
@@ -41,6 +43,24 @@ testdescript = {
      runLmod purge                                                  # 6
      runLmod load release/24.04 GCC/14.2.0 CuPy OpenMPI/5.6         # 7
 
+     runLmod purge                                                  # 8
+     runLmod load NCCL OpenMPI CUDA                                 # 9
+
+     runLmod purge                                                  # 10
+     runLmod load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6  # 11
+
+     runLmod purge                                                  # 12
+     runLmod load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6  # 13
+
+     runLmod purge                                                  # 14
+     runLmod load NCCL CUDA                                         # 15
+
+     runLmod purge                                                  # 16
+     runLmod load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0  # 17
+
+     runLmod purge                                                  # 18
+     runLmod load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0  # 19
+
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results -bash _stdout.orig _stdout.new
@@ -56,7 +76,7 @@ testdescript = {
    ]],
 
    blessScript = [[
-         # perform what is needed
+         # bless err.txt/out.txt from t1 after RT pass
    ]],
 
    tests = {
