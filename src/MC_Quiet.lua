@@ -72,6 +72,7 @@ M.mgrload              = MainControl.quiet
 M.myFileName           = MainControl.quiet
 M.myModuleFullName     = MainControl.quiet
 M.myModuleUsrName      = MainControl.quiet
+M.myModuleUsrAndAliasName = MainControl.quiet
 M.myModuleName         = MainControl.quiet
 M.myModuleVersion      = MainControl.quiet
 M.popenv               = MainControl.quiet

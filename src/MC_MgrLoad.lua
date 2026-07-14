@@ -73,6 +73,7 @@ M.mgrload               = MainControl.fake_load
 M.myFileName            = MainControl.myFileName
 M.myModuleFullName      = MainControl.myModuleFullName
 M.myModuleUsrName       = MainControl.myModuleUsrName
+M.myModuleUsrAndAliasName = MainControl.myModuleUsrAndAliasName
 M.myModuleName          = MainControl.myModuleName
 M.myModuleVersion       = MainControl.myModuleVersion
 M.prepend_path          = MainControl.prepend_path

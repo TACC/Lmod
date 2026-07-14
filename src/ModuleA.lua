@@ -150,7 +150,7 @@ local function l_build(self, maxdepthT, dirA)
       local maxdepth = maxdepthT[mpath] or -1
       local level    = 1
       l_GroupIntoModules(self, level, maxdepth, mpath, dirT, T)
-      moduleA[#moduleA + 1] = {mpath = mpath, T = T}
+      moduleA[#moduleA + 1] = {mpath = mpath, brokenA = dirA[i].brokenA, T = T}
    end
    dbg.fini("ModuleA l_build")
    return moduleA
@@ -169,9 +169,26 @@ local function l_check_depth(searchA, idx, fileT, dirT)
       return l_check_depth(searchA, idx, dirT.fileT, dirT.dirT)
    end
 
+   if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") == "yes" and (not name:find("/"))) then
+      local dotName = "." .. name
+      if (dirT[dotName]) then
+         idx          = idx - 1
+         local vv     = dirT[dotName]
+         return l_check_depth(searchA, idx, vv.fileT, vv.dirT)
+      end
+   end
+
    if (fileT[name]) then
       dbg.print{"ModuleA l_check_depth: found fileT[name]: ",name,"\n"}
       return true, idx, nil
+   end
+
+   if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") == "yes" and (not name:find("/"))) then
+      local dotName = "." .. name
+      if (fileT[dotName]) then
+         dbg.print{"ModuleA l_check_depth: found fileT[dotName]: ",dotName,"\n"}
+         return true, idx, nil
+      end
    end
 
    local extra = ""
@@ -586,7 +603,7 @@ local function l_checkforNV(T)
    return true
 end
 
-local function l_build_from_spiderT(spiderT)
+local function l_build_from_spiderT(spiderT, brokenT)
    dbg.start{"ModuleA l_build_from_spiderT(spiderT)"}
    local find_first = cosmic:value("LMOD_TMOD_FIND_FIRST")
    local frameStk   = FrameStk:singleton()
@@ -599,9 +616,13 @@ local function l_build_from_spiderT(spiderT)
       local mpath = mpathA[i]
       if (isDir(mpath)) then
          local T = spiderT[mpath]
+         local B = nil
+         if (brokenT and next(brokenT) ~= nil) then
+            B = deepcopy(brokenT[mpath])
+         end
          if (T and next(T) ~= nil) then
             dbg.print{"found mpath: ", mpath, "in spiderT\n"}
-            moduleA[#moduleA+1] = { mpath = mpath, T = deepcopy(T) }
+            moduleA[#moduleA+1] = { mpath = mpath, T = deepcopy(T), brokenA = B}
             if (isNV) then
                isNV = l_checkforNV(T)
             end
@@ -656,10 +677,11 @@ function M.update(self, t)
          else
             --dbg.print{"building mpath: ",mpath,"\n"}
             local spiderT = false
+            local brokenT = false
             local dbT     = false
             if (t.spider_cache) then
                local cache = require("Cache"):singleton{quiet=terse, buildCache=true}
-               spiderT, dbT = cache:build()
+               spiderT, dbT, brokenT = cache:build()
             end
             local mA_obj = self:__new( {mpath}, mt:maxDepthT(), getModuleRCT(), spiderT)
             local mA     = mA_obj:moduleA()
@@ -712,7 +734,7 @@ function M.update(self, t)
 end
 
 
-function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
+function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT, brokenT)
    dbg.start{"ModuleA:__new()"}
    local o          = {}
    local find_first = cosmic:value("LMOD_TMOD_FIND_FIRST")
@@ -725,7 +747,7 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
    if (next(spiderT) ~= nil) then
       o.__spiderBuilt        = true
       dbg.print{"calling l_build_from_spiderT()\n"}
-      o.__moduleA, o.__isNVV = l_build_from_spiderT(spiderT)
+      o.__moduleA, o.__isNVV = l_build_from_spiderT(spiderT, brokenT)
    else
       dbg.print{"calling DirTree:new()\n"}
       dirTree         = DirTree:new(mpathA)
@@ -797,12 +819,15 @@ function M.singleton(self, t)
       local mt       = frameStk:mt()
       local spiderT  = false
       local dbT      = false
+      local brokenT  = false
 
       if (t.spider_cache) then
-         local cache  = require("Cache"):singleton{quiet=optionTbl().terse, buildCache=true}
-         spiderT, dbT = cache:build()
+         local cache           = require("Cache"):singleton{quiet=optionTbl().terse, buildCache=true}
+         spiderT, dbT, brokenT = cache:build()
+         dbg.printT("spiderT",spiderT)
+         dbg.printT("brokenT",brokenT)
       end
-      s_moduleA = self:__new(mt:modulePathA(), mt:maxDepthT(), getModuleRCT(), spiderT)
+      s_moduleA = self:__new(mt:modulePathA(), mt:maxDepthT(), getModuleRCT(), spiderT, brokenT)
       if (resetFlag) then
          s_moduleA:setSpiderBuilt(false)
       end

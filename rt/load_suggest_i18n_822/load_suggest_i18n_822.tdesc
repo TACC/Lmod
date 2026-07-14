@@ -4,7 +4,7 @@
 -- templates (de, fr, es). Without it, load-failure suggestions are omitted.
 --
 -- Reuses module tree from rt/load_suggest_cmd. Golden err.txt/out.txt are
--- placeholders until blessed after "t ." (see LMOD_TESTING.md).
+-- placeholders until blessed after "t ." (see docs/source/442_testing.rst).
 ------------------------------------------------------------------------------
 
 local testName = "load_suggest_i18n_822"

@@ -87,6 +87,7 @@ M.myFileName           = MainControl.myFileName
 M.myModuleFullName     = MainControl.myModuleFullName
 M.myModuleName         = MainControl.myModuleName
 M.myModuleUsrName      = MainControl.myModuleUsrName
+M.myModuleUsrAndAliasName = MainControl.myModuleUsrAndAliasName
 M.myModuleVersion      = MainControl.myModuleVersion
 M.prereq               = MainControl.quiet
 M.prereq_any           = MainControl.quiet

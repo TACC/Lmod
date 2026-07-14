@@ -391,6 +391,25 @@ function extractVersion(fullName, sn)
    return version
 end
 
+--------------------------------------------------------------------------
+-- Return true when loadedVersion is selected by a partial version request.
+-- For example reqVersion "1" matches loadedVersion "1.0" but not "10.0".
+function versionPrefixMatch(reqVersion, loadedVersion)
+   if (not reqVersion or not loadedVersion) then
+      return false
+   end
+   if (loadedVersion == reqVersion) then
+      return true
+   end
+   if (loadedVersion:sub(1, #reqVersion) ~= reqVersion) then
+      return false
+   end
+   if (#loadedVersion == #reqVersion) then
+      return true
+   end
+   return loadedVersion:sub(#reqVersion + 1, #reqVersion + 1) == "."
+end
+
 
 --------------------------------------------------------------------------
 -- Find the admin file (or nag message file).
@@ -512,6 +531,7 @@ local s_fnIgnorePatternsA = { "^.*~", "^#.*", "^%.#.*", "^%..*%.swp"}
 
 
 function getModuleRCT(remove_MRC_home)
+   remove_MRC_home = remove_MRC_home ~= nil and remove_MRC_home or false
    dbg.start{"getModuleRCT(remove_MRC_home: ",remove_MRC_home,")"}
    local A            = {}
    local MRC_system   = cosmic:value("LMOD_MODULERC")
@@ -1347,4 +1367,8 @@ end
 function unwrap_kind(kind, name)
    local i,j,n = name:find(kind .. "<([^<]*)>")
    return n
+end
+
+function lastErrorVarName()
+   return "__LMOD_LAST_ERROR"
 end

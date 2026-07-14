@@ -1,0 +1,70 @@
+-- -*- lua -*-
+------------------------------------------------------------------------------
+-- Test for Issue #823: minimal load suggestions when modules are preloaded,
+-- and swap-required paths still listed (spider-like output).
+--
+-- Uses mf/ from Flamefire's modules.tar.gz reproducer (/tmp/modules symlink).
+-- Golden err.txt/out.txt: run "t ." then update baselines per docs/source/442_testing.rst.
+------------------------------------------------------------------------------
+
+local testName = "load_suggest_823"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+     Test Issue #823: shorter suggestions when deps are already loaded;
+     swap-required parent paths still shown when GCC is loaded.
+   ]],
+   keywords = {testName, "issue823", "load_suggest"},
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     ln -sfn $(testDir)/mf /tmp/modules
+     MODULEPATH=/tmp/modules/releases; export MODULEPATH
+
+     remove_generated_lmod_files
+
+     runLmod --version                                              # 1
+
+     runLmod load CuPy                                              # 2
+
+     runLmod purge                                                  # 3
+     runLmod load release/24.04                                     # 4
+     runLmod load CuPy                                              # 5
+
+     runLmod purge                                                  # 6
+     runLmod load release/24.04 GCC/14.2.0                          # 7
+     runLmod load CuPy                                              # 8
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results -bash _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

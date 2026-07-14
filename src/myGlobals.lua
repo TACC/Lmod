@@ -294,12 +294,19 @@ cosmic:init{name = "LMOD_TMOD_FIND_FIRST",
             yn   = "no"}
 
 ------------------------------------------------------------------------
--- LMOD_DISABLE_SAME_NAME_AUTOSWAP: This env. var requires users to swap
+-- LMOD_DISABLE_NAME_AUTOSWAP: This env. var requires users to swap
 --                  out rather than using the one name rule.
+--                  Note that LMOD_DISABLE_SAME_NAME_AUTOSWAP was the old
+--                  value so it is still supported.
 ------------------------------------------------------------------------
-cosmic:init{name = "LMOD_DISABLE_SAME_NAME_AUTOSWAP",
-            sedV = "@disable_name_autoswap@",
-            yn   = "no"}
+local assignV = getenv("LMOD_DISABLE_NAME_AUTOSWAP") or 
+                getenv("LMOD_DISABLE_SAME_NAME_AUTOSWAP")
+
+cosmic:init{name    = "LMOD_DISABLE_NAME_AUTOSWAP",
+            sedV    = "@disable_name_autoswap@",
+            yn      = "no",
+            envV    = assignV,
+            assignV = assignV}
 
 --------------------------------------------------------------------------
 -- When restoring, use specified version instead of following the default
@@ -435,6 +442,16 @@ cosmic:init{name    = "LMOD_MODULERC",
 cosmic:init{name    = "LMOD_EXTENDED_DEFAULT",
             sedV    = "@extended_default@",
             yn      = "yes"}
+
+------------------------------------------------------------------------
+-- LMOD_DOT_HIDDEN_LOAD_ALIAS: If yes, a requested version such as 1.2 can
+--                               resolve to a sole sibling whose path uses
+--                               dot-leading segments (e.g. .1.2).  Exact
+--                               keys still win when present (issue #817).
+------------------------------------------------------------------------
+
+cosmic:init{name = "LMOD_DOT_HIDDEN_LOAD_ALIAS",
+            yn   = "no"}
 
 ------------------------------------------------------------------------
 -- LMOD_QUARANTINE_VARS: A colon separated list of variable

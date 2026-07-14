@@ -119,7 +119,7 @@ Bitte führen Sie den Befehl \"clearMT\" aus und laden Sie ihre Module erneut.
 
   $ module swap %{oldFullName} %{newFullName}
 
-Alternativ können Sie die Umgebungsvariable LMOD_DISABLE_SAME_NAME_AUTOSWAP auf "no" setzen, um den automatischen Austausch von Modulen zu aktivieren.
+Alternativ können Sie die Umgebungsvariable LMOD_DISABLE_NAME_AUTOSWAP auf "no" setzen, um den automatischen Austausch von Modulen zu aktivieren.
 ]==],
      e_No_Hashsum          = "Kein Programm zum Bestimmen von Hashwerten verfügbar (sha1sum, shasum, md5sum oder md5).",
      e_No_Matching_Mods    = "Keine passenden Module gefunden.\n",

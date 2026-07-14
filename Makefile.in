@@ -86,6 +86,9 @@ PATH_TO_LUAC              := @PATH_TO_LUAC@
 PATH_TO_PAGER             := @PATH_TO_PAGER@
 PATH_TO_TCLSH             := @PATH_TO_TCLSH@
 PATH_TO_LS                := @PATH_TO_LS@
+PATH_TO_ID                := @PATH_TO_ID@
+PATH_TO_UNAME             := @PATH_TO_UNAME@
+PATH_TO_CSH               := @PATH_TO_CSH@
 MODULEPATH_ROOT           := @MODULEPATH_ROOT@
 VDateFn                   := $(srcdir)/.versionDate
 VERSION_SRC               := $(srcdir)/src/Version.lua
@@ -146,7 +149,8 @@ STANDALONE_PRGM           := src/lmod.in.lua src/addto.in.lua                   
                              src/sh_to_modulefile.in.lua                            \
                              src/update_lmod_system_cache_files.in                  \
                              src/check_module_tree_syntax.in.lua                    \
-                             sh_src/print_os.sh.in 
+                             sh_src/print_os.sh.in                                  \
+                             sh_src/protectedVarsHelper.csh.in
 STANDALONE_PRGM           := $(patsubst %, $(srcdir)/%, $(STANDALONE_PRGM))
 SHELL_INIT                := bash.in cmake csh.in ksh.in tcsh.in zsh.in sh.in perl R \
                              env_modules_python.py.in lmod_bash_completions fish.in  \
@@ -303,6 +307,9 @@ __installMe:
 	          -e "s|@my_shell@|$$fn|g"                                          \
 	          -e 's|@tclsh@|$(PATH_TO_TCLSH)|g'                                 \
 	          -e 's|@ls@|$(PATH_TO_LS)|g'                                       \
+	          -e 's|@id@|$(PATH_TO_ID)|g'                                       \
+	          -e 's|@csh@|$(PATH_TO_CSH)|g'                                     \
+	          -e 's|@uname@|$(PATH_TO_UNAME)|g'                                 \
 	          -e 's|@disable_name_autoswap@|$(DISABLE_NAME_AUTOSWAP)|g'         \
 	          -e 's|@tmod_path_rule@|$(TMOD_PATH_RULE)|g'                       \
 	          -e 's|@tmod_find_first@|$(TMOD_FIND_FIRST)|g'                     \
@@ -344,7 +351,7 @@ __installMe:
 	          -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn;             \
             chmod $(MODE_R)                       $(DIRLOC)/$$fn;                   \
 	    [ "$$ext" = "in.lua" -o "$$ext" = "tcl" -o "$$ext" = "in"               \
-	       -o "$$ext" = "sh.in" ] &&                                            \
+	       -o "$$ext" = "sh.in" -o "$$ext" = "csh.in" ] &&                      \
 	       chmod $(MODE_X) $(DIRLOC)/$$fn;                                      \
 	    if [ "$$ext" = "version.lua" ]; then                                    \
 	       mname=$${bareN%%.*};                                                 \
@@ -490,6 +497,7 @@ build_tags:
 	find . \( -regex '.*~$$\|.*/\.git\|.*/\.git/' -prune \)  \
 	       -o -type f > file_list.1.txt
 	sed -e 's|.*/.git.*||g'                                  \
+	    -e 's|.*acme products.*||g'                          \
 	    -e 's|.*/embed/.*||g'                                \
 	    -e 's|.*/rt/.*/t1/.*||g'                             \
 	    -e 's|./rt/funny_files/mf/.*||g'                     \
@@ -536,7 +544,10 @@ build_tags:
 	    -e 's|./file_list\..*||g'                            \
 	    -e '/^\s*$$/d'                                       \
 	       < file_list.1.txt > file_list.2.txt
-	etags  -o TAGS.world `cat file_list.2.txt`
+	rm -f TAGS.world;                                        \
+	while IFS= read -r line; do                              \
+          etags -a -o TAGS.world "$$line";                       \
+        done < file_list.2.txt
 	sed -e 's|.*/rt/.*||g'                                   \
 	    -e 's|.*/contrib/.*||g'                              \
 	    -e 's|.*/cookbook/.*||g'                             \
@@ -548,7 +559,10 @@ build_tags:
 	    -e 's|.*/spec/.*/nv2/.*||g'                          \
 	    -e '/^\s*$$/d'                                       \
 	       < file_list.2.txt > file_list.3.txt
-	etags `cat file_list.3.txt`
+	rm -f TAGS;                                              \
+	while IFS= read -r line; do                              \
+          etags -a -o TAGS "$$line";                             \
+        done < file_list.3.txt;
 
 busted:
         ifeq ($(TAG),)

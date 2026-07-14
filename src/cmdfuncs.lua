@@ -157,7 +157,7 @@ function Category(...)
    mrc:set_display_mode("spider")
 
    local cache = Cache:singleton{buildCache = true}
-   local moduleT, dbT = cache:build()
+   local moduleT, dbT, brokenT = cache:build()
 
    local categoryT = {}
 
@@ -342,7 +342,7 @@ function Keyword(...)
    local border                 = banner:border(0)
    local shell                  = _G.Shell
    local cache                  = Cache:singleton{buildCache=true}
-   local moduleT,dbT,
+   local moduleT,dbT, brokenT,
          mpathMapT, providedByT = cache:build()
    local spider                 = Spider:new()
    local a                      = {}
@@ -366,6 +366,17 @@ function Keyword(...)
    shell:echo(concatTbl(a,""))
 
    dbg.fini("Keyword")
+end
+
+--------------------------------------------------------------------------
+-- Report last error from env var: __LMOD_LAST_ERROR if it exists
+
+function LastError()
+   local n   = lastErrorVarName()
+   local msg = getenv(n)
+   if (msg) then
+      io.stderr:write(msg)
+   end
 end
 
 --------------------------------------------------------------------------
@@ -661,10 +672,7 @@ function Reset(msg)
    dbg.start{"Reset()"}
    local default = cosmic:value("LMOD_SYSTEM_DEFAULT_MODULES")
    if (default == "") then
-      if (not quiet()) then
-         io.stderr:write(i18n("w_SYS_DFLT_EMPTY",{}))
-      end
-      LmodErrorExit()
+      LmodErrorExit(i18n("w_SYS_DFLT_EMPTY",{}))
       dbg.fini("Reset")
       return
    end
@@ -1091,7 +1099,7 @@ function SpiderCmd(...)
    local cache                  = Cache:singleton{buildCache=true}
    local shell                  = _G.Shell
    local optionTbl              = optionTbl()
-   local spiderT,dbT,
+   local spiderT,dbT, brokenT,
          mpathMapT, providedByT = cache:build()
    local spider                 = Spider:new()
    local argA                   = pack(...)

@@ -6,6 +6,11 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ module\ avail\ is\ not\ possible.\ MODULEPATH\ is\ not\ set\ or\ not\ set\ with\ valid\ paths."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 3
@@ -17,6 +22,7 @@ MODULEPATH=ProjectDIR/rt/eb_avail/not/there/yet;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/eb_avail/not/there/yet",},systemBaseMPATH="ProjectDIR/rt/eb_avail/not/there/yet",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
@@ -41,6 +47,11 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ module\ avail\ is\ not\ possible.\ MODULEPATH\ is\ not\ set\ or\ not\ set\ with\ valid\ paths."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 7
@@ -52,3 +63,4 @@ MODULEPATH=ProjectDIR/rt/eb_avail/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/eb_avail/mf/Core",},systemBaseMPATH="ProjectDIR/rt/eb_avail/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;

@@ -186,9 +186,11 @@ local sandbox_env = {
   myModuleFullName      = myModuleFullName,
   myModuleName          = myModuleName,
   myModuleUsrName       = myModuleUsrName,
+  myModuleUsrAndAliasName = myModuleUsrAndAliasName,
   myModuleVersion       = myModuleVersion,
   myShellName           = myShellName,
   myShellType           = myShellType,
+  protected_getenv      = protected_getenv,
   print                 = print,
   requireFullName       = requireFullName,
   userInGroup           = userInGroup,
@@ -214,7 +216,7 @@ local sandbox_env = {
   ------------------------------------------------------------
   -- fileOp functions
   ------------------------------------------------------------
-  pathJoin             = pathJoin,
+  pathJoin             = pathJoin_w_spaces,
   isDir                = isDir,
   isFile               = isFile,
   mkdir_recursive      = mkdir_recursive,

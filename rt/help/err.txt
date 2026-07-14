@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 9.2.1 2026-05-15 10:21 -05:00
+Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -45,6 +45,7 @@ Options:
   --spider_timeout=timeout          a timeout for spider
   -T --trace                        trace major changes such as loads
   --nx --no_extensions              Do not print extensions
+  --protected_vars                  (Interal Use Only) When Lmod is protecting LD_PRELOAD and LD_LIBRARY_PATH
   --loc --location                  Just print the file location when using show
   --terse_show_extensions           report extensions when doing a terse avail
   --pod                             Generate pod format
@@ -110,7 +111,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 9.2.1 2026-05-15 10:21 -05:00
+Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 3
@@ -153,6 +154,7 @@ Options:
   --spider_timeout=timeout          a timeout for spider
   -T --trace                        trace major changes such as loads
   --nx --no_extensions              Do not print extensions
+  --protected_vars                  (Interal Use Only) When Lmod is protecting LD_PRELOAD and LD_LIBRARY_PATH
   --loc --location                  Just print the file location when using show
   --terse_show_extensions           report extensions when doing a terse avail
   --pod                             Generate pod format
@@ -218,7 +220,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 9.2.1 2026-05-15 10:21 -05:00
+Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 4
@@ -238,71 +240,71 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 9.2.1 2026-05-15 10:21 -05:00
+Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
     https://lmod.readthedocs.io
-Description                                                   Value
-Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
-Allow TCL modulefiles (LMOD_ALLOW_TCL_FILES)                  yes
-Auto swapping (LMOD_AUTO_SWAP)                                yes
-Avail Style (LMOD_AVAIL_STYLE)                                <system>
-Case Independent Sorting (LMOD_CASE_INDEPENDENT_SORTING)      no
-Colorize Lmod (LMOD_COLORIZE)                                 yes
-Configuration dir (LMOD_CONFIG_DIR)                           /etc/lmod
-Disable Same Name AutoSwap (LMOD_DISABLE_SAME_NAME_AUTOSWAP)  no
-Display Extension w/ avail (LMOD_AVAIL_EXTENSIONS)            yes
-Use ~/.config dir only (LMOD_USE_DOT_CONFIG_ONLY)             no
-Downstream Module Conflicts (LMOD_DOWNSTREAM_CONFLICTS)       no
-Allow duplicate paths (LMOD_DUPLICATE_PATHS)                  no
-Dynamic Spider Cache (LMOD_DYNAMIC_SPIDER_CACHE)              yes
-Require Exact Match/no defaults (LMOD_EXACT_MATCH)            no
-Export the module command (LMOD_EXPORT_MODULE)                yes
-Allow extended default (LMOD_EXTENDED_DEFAULT)                yes
-Use attached TCL over system call (LMOD_FAST_TCL_INTERP)      yes
-Is fast TCL interp available (LMOD_USING_FAST_TCL_INTERP)     no
-File ignore patterns (LMOD_FILE_IGNORE_PATTERNS)              {"%.version[-._].*", "%.modulerc[-._].*"}
-Use italic instead of dim (LMOD_HIDDEN_ITALIC)                no
-KSH Support (LMOD_KSH_SUPPORT)                                no
-Language used for err/msg/warn (LMOD_LANG)                    en
-Site message file (LMOD_SITE_MSG_FILE)                        <empty>
-lmod_config.lua location (LMOD_CONFIG_LOCATION)               no
-LUA_CPATH                                                     @sys_lua_cpath@
-LUA_PATH                                                      @sys_lua_path@
-System lua-term (LMOD_HAVE_LUA_TERM)                          no
-Modules Auto Handling (MODULES_AUTO_HANDLING)                 no
-avail: Include modulepath dir (LMOD_MPATH_AVAIL)              no
-MODULEPATH_INIT (LMOD_MODULEPATH_INIT)                        @PKG@/init/.modulespath -> <empty>
+Description                                                Value
+Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)               yes
+Allow TCL modulefiles (LMOD_ALLOW_TCL_FILES)               yes
+Auto swapping (LMOD_AUTO_SWAP)                             yes
+Avail Style (LMOD_AVAIL_STYLE)                             <system>
+Case Independent Sorting (LMOD_CASE_INDEPENDENT_SORTING)   no
+Colorize Lmod (LMOD_COLORIZE)                              yes
+Configuration dir (LMOD_CONFIG_DIR)                        /etc/lmod
+Disable Same Name AutoSwap (LMOD_DISABLE_NAME_AUTOSWAP)    no
+Display Extension w/ avail (LMOD_AVAIL_EXTENSIONS)         yes
+Use ~/.config dir only (LMOD_USE_DOT_CONFIG_ONLY)          no
+Downstream Module Conflicts (LMOD_DOWNSTREAM_CONFLICTS)    no
+Allow duplicate paths (LMOD_DUPLICATE_PATHS)               no
+Dynamic Spider Cache (LMOD_DYNAMIC_SPIDER_CACHE)           yes
+Require Exact Match/no defaults (LMOD_EXACT_MATCH)         no
+Export the module command (LMOD_EXPORT_MODULE)             yes
+Allow extended default (LMOD_EXTENDED_DEFAULT)             yes
+Use attached TCL over system call (LMOD_FAST_TCL_INTERP)   yes
+Is fast TCL interp available (LMOD_USING_FAST_TCL_INTERP)  no
+File ignore patterns (LMOD_FILE_IGNORE_PATTERNS)           {"%.version[-._].*", "%.modulerc[-._].*"}
+Use italic instead of dim (LMOD_HIDDEN_ITALIC)             no
+KSH Support (LMOD_KSH_SUPPORT)                             no
+Language used for err/msg/warn (LMOD_LANG)                 en
+Site message file (LMOD_SITE_MSG_FILE)                     <empty>
+lmod_config.lua location (LMOD_CONFIG_LOCATION)            no
+LUA_CPATH                                                  @sys_lua_cpath@
+LUA_PATH                                                   @sys_lua_path@
+System lua-term (LMOD_HAVE_LUA_TERM)                       no
+Modules Auto Handling (MODULES_AUTO_HANDLING)              no
+avail: Include modulepath dir (LMOD_MPATH_AVAIL)           no
+MODULEPATH_INIT (LMOD_MODULEPATH_INIT)                     @PKG@/init/.modulespath -> <empty>
 MODULEPATH_ROOT (MODULEPATH_ROOT)
-NAG File (LMOD_ADMIN_FILE)                                    ProjectDIR/src/../../etc/admin.list
-number of cache dirs                                          0
-Pager (LMOD_PAGER)                                            less
-Pager Options (LMOD_PAGER_OPTS)                               -XqMREF
-Path to HashSum (LMOD_HASHSUM_PATH)                           PATH_to_HASHSUM
-Path to Lua                                                   lua
-Pin Versions in restore (LMOD_PIN_VERSIONS)                   no
-Pkg Class name                                                Pkg
-Lmod prefix                                                   @PREFIX@
-Site controlled prefix (SITE_CONTROLLED_PREFIX)               no
-Prepend order (LMOD_PREPEND_BLOCK)                            normal
-LMOD_RC (LMOD_RC)                                             <empty>
-Redirect to stdout (LMOD_REDIRECT)                            no
-Supporting Full Settarg Use (LMOD_SETTARG_FULL_SUPPORT)       no
-Site Name (LMOD_SITE_NAME)                                    <empty>
-Site Pkg location                                             standard
-Ignore Cache (LMOD_IGNORE_CACHE)                              no
-Cached loads (LMOD_CACHED_LOADS)                              no
-System Default Modules (LMOD_SYSTEM_DEFAULT_MODULES)          <empty>
-System Name (LMOD_SYSTEM_NAME)                                <empty>
-SYSHOST (cluster name) (LMOD_SYSHOST)                         <empty>
-TCL Version                                                   <N/A>
-Terse Decorations (LMOD_TERSE_DECORATIONS)                    yes
-User cache valid time(sec) (LMOD_ANCIENT_TIME)                86400
-Write cache after (sec) (LMOD_SHORT_TIME)                     2
-Threshold (sec) (LMOD_THRESHOLD)                              1
-Tmod find first rule (LMOD_TMOD_PATH_RULE)                    no
-Tmod prepend PATH Rule (LMOD_TMOD_PATH_RULE)                  no
-Tracing (LMOD_TRACING)                                        no
+NAG File (LMOD_ADMIN_FILE)                                 ProjectDIR/src/../../etc/admin.list
+number of cache dirs                                       0
+Pager (LMOD_PAGER)                                         less
+Pager Options (LMOD_PAGER_OPTS)                            -XqMREF
+Path to HashSum (LMOD_HASHSUM_PATH)                        PATH_to_HASHSUM
+Path to Lua                                                lua
+Pin Versions in restore (LMOD_PIN_VERSIONS)                no
+Pkg Class name                                             Pkg
+Lmod prefix                                                @PREFIX@
+Site controlled prefix (SITE_CONTROLLED_PREFIX)            no
+Prepend order (LMOD_PREPEND_BLOCK)                         normal
+LMOD_RC (LMOD_RC)                                          <empty>
+Redirect to stdout (LMOD_REDIRECT)                         no
+Supporting Full Settarg Use (LMOD_SETTARG_FULL_SUPPORT)    no
+Site Name (LMOD_SITE_NAME)                                 <empty>
+Site Pkg location                                          standard
+Ignore Cache (LMOD_IGNORE_CACHE)                           no
+Cached loads (LMOD_CACHED_LOADS)                           no
+System Default Modules (LMOD_SYSTEM_DEFAULT_MODULES)       <empty>
+System Name (LMOD_SYSTEM_NAME)                             <empty>
+SYSHOST (cluster name) (LMOD_SYSHOST)                      <empty>
+TCL Version                                                <N/A>
+Terse Decorations (LMOD_TERSE_DECORATIONS)                 yes
+User cache valid time(sec) (LMOD_ANCIENT_TIME)             86400
+Write cache after (sec) (LMOD_SHORT_TIME)                  2
+Threshold (sec) (LMOD_THRESHOLD)                           1
+Tmod find first rule (LMOD_TMOD_PATH_RULE)                 no
+Tmod prepend PATH Rule (LMOD_TMOD_PATH_RULE)               no
+Tracing (LMOD_TRACING)                                     no
 uname -a
-User Cache Directory                                          OutputDIR/.cache/lmod
+User Cache Directory                                       OutputDIR/.cache/lmod
 MODULEPATH:   ProjectDIR/rt/help/mf
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
@@ -421,7 +423,7 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 9.2.1 2026-05-15 10:21 -05:00
+Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
     https://lmod.readthedocs.io
 MODULEPATH:   ProjectDIR/rt/help/mf
 LMOD_PACKAGE_PATH            D          nil          <empty>
@@ -509,6 +511,8 @@ a timeout for spider
 trace major changes such as loads
 =item I<--nx --no_extensions>
 Do not print extensions
+=item I<--protected_vars>
+(Interal Use Only) When Lmod is protecting LD_PRELOAD and LD_LIBRARY_PATH
 =item I<--loc --location>
 Just print the file location when using show
 =item I<--terse_show_extensions>

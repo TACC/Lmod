@@ -2,12 +2,36 @@ New Features in Lmod
 ====================
 
 **module_virtual()** **and Tcl module-virtual**
-   Lua ``.modulerc.lua`` files support ``module_virtual ("virtual_name",
+   Lua ``.modulerc.lua`` files support ``module_virtual ("virtual_name,
    "implementation")``, and Tcl ``.modulerc`` files support ``module-virtual``,
    matching Environment Modules style virtual names that map to one hidden
    implementation module. Virtual names appear under their modulepath in
    ``module avail`` (not under ``Global Aliases``). See :ref:`modulerc-label`. Rationale:
    `Lmod issue #818 <https://github.com/TACC/Lmod/issues/818>`__.
+
+**setenv() and pushenv() are no longer unset inside the Lmod process on module unload**
+  (Lmod 9.2.6+) On module unload, **setenv()** and **pushenv()** will
+  be reversed on the user process but not the Lmod process.
+
+**The env. variable LMOD_DISABLE_SAME_NAME_AUTOSWAP deprecated**
+  (Lmod 9.2.6+) Please use LMOD_DISABLE_NAME_AUTOSWAP instead.
+
+**Terse output for module show with inherit**
+  (Lmod 9.2.5+) *module --terse show* now reports inherited modulefile
+  paths with ``-->`` lines.  See :ref:`terse_output-label` for more
+  details.
+
+**Lmod now ignores module names that have leading or trailing spaces characters**
+  (Lmod 9.2.3+) Module now ignores modules with leading or trailing
+  space characters.  Lmod will now report any modules with this issue
+  by using the command **$LMOD_DIR/check_module_tree_syntax**.
+
+
+**Lmod now protects itself from changes to LD_LIBRARY_PATH and LD_PRELOAD**
+  (Lmod 9.2.3+) For the shells bash, zsh, t/csh and the python
+  interface, Lmod protects itself from changes to LD_LIBRARY_PATH and
+  LD_PRELOAD.  Modules can modify these environment variables but Lmod
+  now internally uses the configure time values.
 
 **Lmod now looks for /etc/lmod/SitePackage.lua**
   (Lmod 9.0.7+): After looking for SitePackage.lua in the usual

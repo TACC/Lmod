@@ -147,6 +147,9 @@ local s_dispatchT = {
    MODULERCFILE      = l_dynamicMRC,
 }
 
+local s_protectedVarsT = {
+}
+
 local function l_processDynamicVars(name, value, totalValue, action)
    --dbg.start{'l_processDynamicVars(name: "',name,'", value: ',value,", totalValue: ",totalValue,", action: ",action,")"}
    local func = s_dispatchT[name]
@@ -166,9 +169,8 @@ end
 -- "path".  Other functions work similarly.
 local function l_extract(self, nodups)
    --dbg.start{"Var:l_extract(nodups: ",not (not (nodups)),")"}
-   local myValue       = self.value or getenv(self.name)
-   local pathTbl       = {}
    local name          = self.name
+   local pathTbl       = {}
    local clearDblSlash = name == "MODULEPATH"
    local imax          = 0
    local imin          = 1
@@ -176,6 +178,13 @@ local function l_extract(self, nodups)
    local delim         = self.delim
    local priorityT     = l_extract_Lmod_var_table(self, envPrtyName)
    local refCountT     = l_extract_Lmod_var_table(self, envRefCountName)
+
+
+   -- If value is unknown then ask the environment for the value
+   -- However if name is a protected variable like LD_LIBRARY_PATH then
+   -- get the value from the hidden name.
+
+   local myValue       = self.value or getenv(s_protectedVarsT[name] or name)
 
    if (myValue and myValue ~= '') then
       --dbg.print{"myValue: \"",myValue,"\"\n"}
@@ -639,11 +648,18 @@ end
 --------------------------------------------------------------------------
 -- Unset the environment variable.
 -- @param self A Var object
-function M.unset(self)
+function M.unset(self, cmdName)
    self.value    = false
    self.type     = 'var'
    self.funcName = "set_var"
-   setenv_posix(self.name, nil, true)
+
+   ------------------------------------------------------------
+   -- If the user function was an actual unsetenv() then
+   -- remove it from this process.  Otherwise leave it alone
+   if (cmdName == "unsetenv") then
+      setenv_posix(self.name, nil, true)
+   end
+
    local adding  = false
    l_processDynamicVars(self.name, nil, nil, "unsetenv")
 end
@@ -835,6 +851,11 @@ function M.unsetShellFunction(self)
    self.value    = false
    self.type     = 'shell_function'
    self.funcName = "set_shell_function"
+end
+
+function M.build_protected_varsT()
+   s_protectedVarsT.LD_LIBRARY_PATH ="__LMOD_PROTECTED_LD_LIBRARY_PATH"
+   s_protectedVarsT.LD_PRELOAD      ="__LMOD_PROTECTED_LD_PRELOAD"
 end
 
 

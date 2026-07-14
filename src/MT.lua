@@ -84,6 +84,7 @@ end
 
 
 local function l_new(self, s, restoreFn)
+   restoreFn = restoreFn ~= nil and restoreFn or false
    dbg.start{"MT l_new(s,restoreFn:",restoreFn,")"}
    local o         = {}
 
@@ -138,11 +139,9 @@ local function l_new(self, s, restoreFn)
 
    if (not ok or type(_ModuleTable_) ~= "table" ) then
       if (restoreFn) then
-         io.stderr:write(i18n("e_coll_corrupt",{fn=restoreFn}))
-         LmodErrorExit()
+         LmodErrorExit(i18n("e_coll_corrupt",{fn=restoreFn}))
       else
-         io.stderr:write(i18n("e_MT_corrupt",{}))
-         LmodErrorExit()
+         LmodErrorExit(i18n("e_MT_corrupt",{}))
       end
    end
 
@@ -842,8 +841,14 @@ function M.lookup_w_userName(self,userName)
    end
 
    -- Case 3: Partial match?
-   local partial_match = ("^"..userName:escape().."/"):gsub('//+','/')
+   local partial_match = ("^"..userName:escape()):gsub('//+','/')
    if (fullName:find(partial_match)) then
+      return sn
+   end
+
+   -- Case 4: Partial version match (e.g. c/1 matches loaded c/1.0)
+   local reqVersion = extractVersion(userName, sn)
+   if (reqVersion and versionPrefixMatch(reqVersion, extractVersion(fullName, sn))) then
       return sn
    end
    return false
@@ -1336,7 +1341,7 @@ function M.getMTfromFile(self,tt)
    local msg            = tt.msg
    local collectionName = tt.name
    if (not f) then
-      LmodErrorExit()
+      LmodErrorExit(i18n("e_Failed_2_Find",{name=tt.fn}))
    end
    local s = f:read("*all")
    f:close()
@@ -1378,7 +1383,7 @@ function M.getMTfromFile(self,tt)
    if (self.systemBaseMPATH ~= savedBaseMPATH) then
       LmodWarning{msg="w_MPATH_Coll"}
       if (collectionName ~= "default") then
-         LmodErrorExit()
+         LmodErrorExit(i18n("e_Failed_default"))
       end
       dbg.fini("MT:getMTfromFile")
       return false
@@ -1526,10 +1531,10 @@ function M.getMTfromFile(self,tt)
 
    if (#aa > 0) then
       sort(aa)
-      LmodWarning{msg="w_Broken_Coll", collectionName = collectionName, module_list = concatTbl(aa,"\", \"")}
       if (collectionName ~= "default") then
-         LmodErrorExit()
+         LmodError{msg="w_Broken_Coll",collectionName = collectionName, module_list = concatTbl(aa,"\", \"")}
       end
+      LmodWarning{msg="w_Broken_Coll", collectionName = collectionName, module_list = concatTbl(aa,"\", \"")}
       return false
    end
 
@@ -1552,12 +1557,20 @@ function M.getMTfromFile(self,tt)
 end
 
 function M.extractModulesFiles(self)
-   local a = self:list("fullName","active")
+   local pin_versions = cosmic:value("LMOD_PIN_VERSIONS")
+   local kind         = "fullName"
+   if (pin_versions == "no") then
+      kind = "userName"
+      if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") ~= "yes") then
+         kind = "fullName"
+      end
+   end
+   local a            = self:list(kind,"active")
    local loadA = {}
    local fileA = {}
    local status = true
    for i = 1,#a do
-      loadA[#loadA+1] = a[i].fullName
+      loadA[#loadA+1] = a[i].name
       fileA[#fileA+1] = a[i].fn
    end
    local loadStr = nil

@@ -114,8 +114,12 @@ the modulefile exists but it cannot be shown by "module avail" or
 **--show_hidden** option is given. It doesn't exist.  A "hidden" or
 "soft" module is not shown by avail or spider unless the
 **--show_hidden** or **--all** option is given on the command line.  A
-"hidden" or "soft" module can be loaded directly by its fullName. A
-special feature of "soft" module can be shown in the following
+"hidden" or "soft" module can be loaded directly by its fullName.
+Filesystem modules under a dot-leading version directory use that dotted
+``fullName`` (for example ``A/.1.0``).  Optionally, ``LMOD_DOT_HIDDEN_LOAD_ALIAS``
+allows a logical undotted load string when unambiguous; see
+:ref:`dot_hidden_load_alias-label`.
+A special feature of "soft" module can be shown in the following
 scenario::
 
     foo

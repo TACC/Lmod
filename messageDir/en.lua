@@ -121,6 +121,7 @@ with command: "execute".
 The syntax is:
     execute{cmd = "command string",modeA={"load",...}}
 ]==],
+     e_Failed_default      = "Unable to find default collection.\n",
      e_Failed_2_Find       = "Unable to find: \"%{name}\".\n",
      e_Failed_2_Inherit    = "Failed to inherit: %{name}.\n",
      e_Failed_Hashsum      = "Unable to compute hashsum.\n",
@@ -185,7 +186,7 @@ please execute the command \" clearMT\" and reload your modules.
 
    $ module swap %{oldFullName} %{newFullName}
 
-Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
+Alternatively, you can set the environment variable LMOD_DISABLE_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
 ]==],  --
      e_No_Hashsum          = "Unable to find HashSum program (sha1sum, shasum, md5sum or md5).",
      e_No_Matching_Mods    = "No matching modules found.\n",
@@ -359,6 +360,9 @@ The system default contains no modules
   $  module --force save %{name}
 ]==], --
      w_System_Reserved     = "The named collection 'system' is reserved. Please choose another name.\n",
+     w_Ignore_Whitespace_Fn = [==[
+Ignoring module tree entry with leading or trailing whitespace: %{dir}/%{fn}. Please rename or remove this file.
+]==],
      w_Too_Many_RegularFn  = [==[
 MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Please make sure that modulefiles are in their own directory and not mixed in with non-modulefiles (e.g. source code)
 ]==],
@@ -471,6 +475,7 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      nx_H           = "Do not print extensions",
      pin_hlp        = "When doing a restore use specified version, do not follow defaults",
      pod_H          = "Generate pod format",
+     protectedV_H   = "(Interal Use Only) When Lmod is protecting LD_PRELOAD and LD_LIBRARY_PATH",
      quiet_hlp      = "Do not print out warnings",
      raw_hlp        = "Print modulefile in raw output when used with show",
      redirect_H     = "Send the output of list, avail, spider to stdout (not stderr)",
@@ -510,6 +515,10 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
      noneFound = "  None found.",
 
      --------------------------------------------------------------------------
+     -- Illegal module names strings:
+     --------------------------------------------------------------------------
+     hasSpaces = "Module name has beginning and/or trailing space characters",
+     --------------------------------------------------------------------------
      -- Other strings:
      --------------------------------------------------------------------------
      coll_contains  = "Collection \"%{collection}\" contains: \n",
@@ -526,6 +535,9 @@ The following modules match your search criteria: "%{module_list}"
      namedCollList  = "Named collection list %{msgHdr}:\n",
      noModsLoaded   = "No modules loaded\n",
      specific_hlp   = "Module Specific Help for \"%{fullName}\"",
+
+     
+
 
    }
 }

@@ -56,6 +56,11 @@ export _ModuleTable_;
 step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider mpich2me
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Unable\ to\ find:\ \"mpich2me\"."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 9
@@ -65,6 +70,7 @@ MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -r spider ^R
@@ -85,6 +91,11 @@ export _ModuleTable_;
 step 12
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider mpich2/1.0.5
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Unable\ to\ find:\ \"mpich2/1.0.5\"."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 13
@@ -94,6 +105,7 @@ MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider is-dyna/1.0
@@ -804,11 +816,23 @@ export _ModuleTable_;
 step 40
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load numpy
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"numpy\""
+"\ \ \ Try:\ \"module\ spider\ numpy\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 41
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load numpy/1.16.4
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"numpy/1.16.4\""
+"\ \ \ Try:\ \"module\ spider\ numpy/1.16.4\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 42
@@ -818,6 +842,7 @@ MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/E_Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 43
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --nx avail
@@ -1636,6 +1661,15 @@ export _ModuleTable_;
 step 82
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bad
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Unable\ to\ load\ module\ because\ of\ error\ when\ evaluating\ modulefile:"
+"\ \ \ \ \ ProjectDIR/rt/spider/mf7/bad/1.0.lua:\ \[string\ \"local\ v\ =\ nil...\"\]:6:\ attempt\ to\ compare\ number\ with\ nil"
+"\ \ \ \ \ Please\ check\ the\ modulefile\ and\ especially\ if\ there\ is\ a\ line\ number\ specified\ in\ the\ above\ message\ "
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ bad/1.0\ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/spider/mf7/bad/1.0.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 83
@@ -1645,3 +1679,4 @@ MODULEPATH=ProjectDIR/rt/spider/mf7;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf7",},systemBaseMPATH="ProjectDIR/rt/spider/mf7",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;

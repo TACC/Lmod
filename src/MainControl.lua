@@ -401,6 +401,94 @@ local function l_collect_loaded_paths(mt, dbT)
 end
 
 --------------------------------------------------------------------------
+-- True when path element matches an active module (exact or regularized).
+local function l_path_element_in_active_set(element, activeSet)
+   if (not element or not activeSet) then return false end
+   if (activeSet[element]) then return true end
+   if (not path_regularize) then return false end
+   local elNorm = path_regularize(element)
+   for fullName, _ in pairs(activeSet) do
+      if (l_extract_sn(fullName) == l_extract_sn(element) and
+          path_regularize(fullName) == elNorm) then
+         return true
+      end
+   end
+   return false
+end
+
+--------------------------------------------------------------------------
+-- True when path differs from loadedPath only by a stack-root version swap
+-- (e.g. release/24.04 loaded, path starts with release/24.10).  Does not
+-- apply when a multi-element toolchain path is already loaded.
+local function l_path_second_element_requested(path)
+   if (#path < 2 or not s_allRequestedT) then return false end
+   local sn2 = l_extract_sn(path[2])
+   for i = 1, #s_allRequestedT do
+      if (s_allRequestedT[i].mname:sn() == sn2) then
+         return true
+      end
+   end
+   return false
+end
+
+local function l_block_stack_root_promo(path, loadedPathsAA, activeSet)
+   if (not path or not loadedPathsAA or #loadedPathsAA == 0) then
+      return false
+   end
+   if (l_path_second_element_requested(path)) then
+      return true
+   end
+   local hasLongPath = false
+   for i = 1, #loadedPathsAA do
+      if (#loadedPathsAA[i] > 1) then
+         hasLongPath = true
+         break
+      end
+   end
+   if (not hasLongPath) then return false end
+   for i = 1, #loadedPathsAA do
+      local lp = loadedPathsAA[i]
+      if (#lp == 1 and l_extract_sn(lp[1]) == l_extract_sn(path[1]) and
+          not l_path_element_in_active_set(path[1], activeSet)) then
+         return true
+      end
+   end
+   return false
+end
+
+local function l_path_stack_root_swap_compatible(path, loadedPath, loadedPathsAA,
+                                                 activeSet)
+   if (not path or not loadedPath or #path < 1 or #loadedPath ~= 1) then
+      return false
+   end
+   local pathSn   = l_extract_sn(path[1])
+   local loadedSn = l_extract_sn(loadedPath[1])
+   if (pathSn ~= loadedSn or path[1] == loadedPath[1]) then
+      return false
+   end
+   if (path_regularize and
+       path_regularize(path[1]) == path_regularize(loadedPath[1])) then
+      return false
+   end
+   if (l_block_stack_root_promo(path, loadedPathsAA, activeSet)) then
+      return false
+   end
+   return true
+end
+
+local function l_is_deliberate_stack_version_swap(path, activeSet)
+   if (#path < 1 or not activeSet) then return false end
+   local firstSn = l_extract_sn(path[1])
+   for fullName, _ in pairs(activeSet) do
+      if (l_extract_sn(fullName) == firstSn and
+          not l_path_element_in_active_set(path[1], activeSet)) then
+         return true
+      end
+   end
+   return false
+end
+
+--------------------------------------------------------------------------
 -- Check if a path is compatible with at least one loaded path.
 -- Used to reject suggestions that would conflict with the current toolchain.
 local function l_path_compatible_with_loaded(path, loadedPathsAA)
@@ -413,6 +501,94 @@ local function l_path_compatible_with_loaded(path, loadedPathsAA)
    return false
 end
 
+local function l_path_allowed_for_suggestion(path, loadedPathsAA, activeSet)
+   if (l_path_compatible_with_loaded(path, loadedPathsAA)) then
+      return true
+   end
+   for i = 1, #loadedPathsAA do
+      if (l_path_stack_root_swap_compatible(path, loadedPathsAA[i],
+                                            loadedPathsAA, activeSet)) then
+         return true
+      end
+   end
+   if (l_is_deliberate_stack_version_swap(path, activeSet) and
+       not l_block_stack_root_promo(path, loadedPathsAA, activeSet)) then
+      return true
+   end
+   return false
+end
+
+--------------------------------------------------------------------------
+-- Set of active module fullNames from the module table.
+local function l_collect_active_fullName_set(mt)
+   local activeSet = {}
+   if (not mt) then return activeSet end
+   local activeA = mt:list("fullName", "active")
+   if (not activeA or #activeA == 0) then return activeSet end
+   for i = 1, #activeA do
+      local obj = activeA[i]
+      local fullName = (type(obj) == "table") and obj.fullName or obj
+      if (fullName) then
+         activeSet[fullName] = true
+      end
+   end
+   return activeSet
+end
+
+--------------------------------------------------------------------------
+-- Drop path elements already active in the MT. Returns nil if nothing stripped.
+local function l_strip_active_from_path(path, activeSet)
+   if (not path or #path == 0) then return nil end
+   local stripped = {}
+   local strippedAny = false
+   for i = 1, #path do
+      if (l_path_element_in_active_set(path[i], activeSet)) then
+         strippedAny = true
+      else
+         stripped[#stripped + 1] = path[i]
+      end
+   end
+   if (not strippedAny) then return nil end
+   return stripped
+end
+
+local function l_cmd_token_count(cmd)
+   local n = 0
+   for _ in cmd:gmatch("%S+") do
+      n = n + 1
+   end
+   return n
+end
+
+--------------------------------------------------------------------------
+-- Count version swaps along a spider parent path vs the active module set.
+-- Returns swapCount and earliestSwapDepth (1-based path index, 0 if none).
+local function l_path_swap_metrics(path, activeSet)
+   if (not path or #path == 0 or not activeSet) then
+      return 0, 0
+   end
+   local swapCount = 0
+   local earliestSwap = math.huge
+   for i = 1, #path do
+      if (not l_path_element_in_active_set(path[i], activeSet)) then
+         local sn = l_extract_sn(path[i])
+         for fullName, _ in pairs(activeSet) do
+            if (l_extract_sn(fullName) == sn) then
+               swapCount = swapCount + 1
+               if (i < earliestSwap) then
+                  earliestSwap = i
+               end
+               break
+            end
+         end
+      end
+   end
+   if (swapCount == 0) then
+      return 0, 0
+   end
+   return swapCount, earliestSwap
+end
+
 --------------------------------------------------------------------------
 -- Helper function to format dependency commands for display
 -- Returns formatted string with ready-to-copy-paste commands, or nil if
@@ -421,13 +597,48 @@ end
 -- @param kB Array of failing module user names
 -- @param dbT The spider database table
 -- @param loadedPathsAA Paths of currently loaded modules (optional, for filtering)
-local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA)
+-- @param mt Module table (for active fullName set when building minimal suggestions)
+local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
    if (not dbT or next(dbT) == nil) then
       return nil
    end
 
-   local allCommands = {}
+   local suggestions = {}
+   local seenCmd = {}
    local maxCommands = 5  -- Limit number of suggestions to avoid overwhelming output
+
+   local function l_add_suggestion(cmd, swapRequired, path, activeSet)
+      if (seenCmd[cmd]) then return end
+      seenCmd[cmd] = true
+      local swapCount, swapDepth = l_path_swap_metrics(path, activeSet)
+      suggestions[#suggestions + 1] = {
+         cmd       = cmd,
+         tokens    = l_cmd_token_count(cmd),
+         swap      = swapRequired and 1 or 0,
+         swapCount = swapCount,
+         swapDepth = swapDepth,
+      }
+   end
+
+   local function l_add_path_suggestions(path, failingSet, activeSet)
+      if (not path or #path == 0) then return end
+      if (not l_path_allowed_for_suggestion(path, loadedPathsAA, activeSet)) then
+         return
+      end
+      local swapCount, swapDepth = l_path_swap_metrics(path, activeSet)
+      local swapRequired = (swapCount > 0)
+      local modulesToInclude = l_build_modules_for_path(path, failingSet)
+      local suffix = (#modulesToInclude > 0) and (" " .. concatTbl(modulesToInclude, " ")) or ""
+      local explicitCmd = "module load " .. concatTbl(path, " ") .. suffix
+      l_add_suggestion(explicitCmd, swapRequired, path, activeSet)
+      local strippedPath = l_strip_active_from_path(path, activeSet)
+      if (strippedPath and #strippedPath > 0) then
+         local minimalCmd = "module load " .. concatTbl(strippedPath, " ") .. suffix
+         if (minimalCmd ~= explicitCmd) then
+            l_add_suggestion(minimalCmd, swapRequired, strippedPath, activeSet)
+         end
+      end
+   end
 
    -- Build set of failing userNames for quick lookup
    local failingSet = {}
@@ -435,28 +646,15 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA)
       failingSet[kB[i]] = true
    end
 
+   local activeSet = l_collect_active_fullName_set(mt)
+
    -- Try to find common paths for all failing modules
    local commonPaths = l_find_common_paths(kB, dbT)
 
    if (#commonPaths > 0) then
-      -- Generate combined commands with all modules
+      -- List all spider parent paths (minimal + explicit); sort ranks swap-required last.
       for i = 1, #commonPaths do
-         local path = commonPaths[i]
-         if (path and #path > 0 and l_path_compatible_with_loaded(path, loadedPathsAA)) then
-            local modulesToInclude = l_build_modules_for_path(path, failingSet)
-            local cmd = "module load " .. concatTbl(path, " ") .. " " .. concatTbl(modulesToInclude, " ")
-            -- Avoid duplicates
-            local found = false
-            for k = 1, #allCommands do
-               if (allCommands[k] == cmd) then
-                  found = true
-                  break
-               end
-            end
-            if (not found) then
-               allCommands[#allCommands + 1] = cmd
-            end
-         end
+         l_add_path_suggestions(commonPaths[i], failingSet, activeSet)
       end
    else
       -- Fallback: no common path (disjoint hierarchies). Suggest only paths from
@@ -532,34 +730,37 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA)
             if (parentA and #parentA > 0 and l_path_compatible_with_loaded(parentA, loadedPathsAA)) then
                local modulesToInclude = l_build_modules_for_path(parentA, failingSet)
                local cmd = "module load " .. concatTbl(parentA, " ") .. " " .. concatTbl(modulesToInclude, " ")
-               local found = false
-               for k = 1, #allCommands do
-                  if (allCommands[k] == cmd) then
-                     found = true
-                     break
-                  end
-               end
-               if (not found) then
-                  allCommands[#allCommands + 1] = cmd
-               end
+               l_add_suggestion(cmd, false, parentA, activeSet)
             end
          end
       end
-      if (#allCommands == 0 and filterCandidates and nContributors >= 2) then
+      if (#suggestions == 0 and filterCandidates and nContributors >= 2) then
          return "   These modules cannot be loaded together - they require incompatible toolchains.\n"
       end
    end
 
-   if (#allCommands == 0 and loadedPathsAA and #loadedPathsAA > 0) then
+   if (#suggestions == 0 and loadedPathsAA and #loadedPathsAA > 0) then
       return "   The requested module(s) require a toolchain that is incompatible with the currently loaded environment.\n"
    end
 
-   if (#allCommands == 0) then
+   if (#suggestions == 0) then
       return nil
    end
 
-   -- Sort commands alphabetically for deterministic output
-   table.sort(allCommands)
+   -- Fewest modules first; swap-required last; among swaps prefer fewer
+   -- conflicts and deeper (later hierarchy) swaps before root-stack swaps.
+   table.sort(suggestions, function(a, b)
+      if (a.swap ~= b.swap) then return a.swap < b.swap end
+      if (a.tokens ~= b.tokens) then return a.tokens < b.tokens end
+      if (a.swapCount ~= b.swapCount) then return a.swapCount < b.swapCount end
+      if (a.swapDepth ~= b.swapDepth) then return a.swapDepth > b.swapDepth end
+      return a.cmd < b.cmd
+   end)
+
+   local allCommands = {}
+   for i = 1, #suggestions do
+      allCommands[i] = suggestions[i].cmd
+   end
 
    -- Limit number of commands shown
    local cmdsToShow = {}
@@ -655,13 +856,13 @@ local function l_error_on_missing_loaded_modules(aa, bb)
             end)
             if (cache_ok and cache) then
                local build_ok, spiderT, dbT = pcall(function()
-                  local s, d = cache:build()
+                  local s, d, b = cache:build()
                   return s, d
                end)
                if (build_ok and dbT and next(dbT) ~= nil) then
                   local mt = FrameStk:singleton():mt()
                   local loadedPathsAA = l_collect_loaded_paths(mt, dbT)
-                  cmdText = l_format_dependency_commands(kA, kB, dbT, loadedPathsAA)
+                  cmdText = l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
                end
             end
          end
@@ -866,12 +1067,12 @@ function M.unsetenv(self, argT)
    if (varT[name] == nil) then
       varT[name]   = Var:new(name)
    end
-   varT[name]:unset()
+   varT[name]:unset(argT.__cmdName)
 
    -- Unset stack variable if it exists
    local stackName = l_createStackName(name)
    if (varT[stackName]) then
-      varT[name]:unset()
+      varT[name]:unset(argT.__cmdName)
    end
    dbg.fini("MainControl:unsetenv")
 end
@@ -1243,6 +1444,20 @@ function M.myModuleUsrName(self)
 end
 
 --------------------------------------------------------------------------
+-- Return the user name and the true loaded name when a dot-hidden alias
+-- load occurred; otherwise both values are the same.
+-- @param self A MainControl object.
+function M.myModuleUsrAndAliasName(self)
+   local usr = self:myModuleUsrName()
+   local frameStk = FrameStk:singleton()
+   local mname = frameStk:mname()
+   if (mname and mname:dotHiddenAliasLoad()) then
+      return usr, self:myModuleFullName()
+   end
+   return usr, usr
+end
+
+--------------------------------------------------------------------------
 -- Return the name of the modules.  That is the name of the module w/o a
 -- version.
 -- @param self A MainControl object
@@ -1395,8 +1610,7 @@ function M.error(self, ...)
       sA[#sA+1]     = "\n"
    end
 
-   io.stderr:write(concatTbl(sA,""),"\n")
-   LmodErrorExit()
+   LmodErrorExit(concatTbl(sA,""),"\n")
 end
 
 --------------------------------------------------------------------------

@@ -46,80 +46,81 @@ testdescript = {
      runLmod use -a $testDir/mf/Core2                       # 12
      runLmod load _a                                        # 13
      runLmod load __b                                       # 14
-     runLmod avail                                          # 15
-     runLmod -d avail                                       # 16
-     runLmod unload boost                                   # 17
-     runLmod load boost/1.33.0                              # 18
-     runLmod load boost/1.57.0                              # 19
-     runLmod load boost                                     # 20
-     runLmod load alex                                      # 21
-     runLmod load D                                         # 22
-     runLmod --latest load rtm_intel                        # 23
-     runLmod list                                           # 24
-     runLmod use    $testDir/mf/Share                       # 25
-     runLmod use -a $testDir/mf/Scratch                     # 26
-     runLmod -r avail A B                                   # 27
-     runLmod load  A B                                      # 28
-     runLmod list                                           # 29
-     runLmod load  DoesNotExist                             # 30
-     runLmod list                                           # 31
-     runLmod tablelist                                      # 32
-     runLmod avail                                          # 33
-     runLmod avail C                                        # 34
-     runLmod load C                                         # 35
-     runLmod list                                           # 36
-     runLmod load rtm_intel                                 # 37
-     runLmod load go                                        # 38
-     runLmod load bad_symlink                               # 39
-     runLmod load empty                                     # 40
-     runLmod load version_only                              # 41
-     runLmod load dflt                                      # 42
-     runLmod list                                           # 43
-     runLmod load noweb/2.10c.lua                           # 44
-     runLmod load   Try/1.0                                 # 45
-     runLmod load   Try/2.0                                 # 46
-     runLmod unload B/2.3.4                                 # 47
-     runLmod list                                           # 48
+     runLmod last-error                                     # 15
+     runLmod avail                                          # 16
+     runLmod -d avail                                       # 17
+     runLmod unload boost                                   # 18
+     runLmod load boost/1.33.0                              # 19
+     runLmod load boost/1.57.0                              # 10
+     runLmod load boost                                     # 21
+     runLmod load alex                                      # 22
+     runLmod load D                                         # 23
+     runLmod --latest load rtm_intel                        # 24
+     runLmod list                                           # 25
+     runLmod use    $testDir/mf/Share                       # 26
+     runLmod use -a $testDir/mf/Scratch                     # 27
+     runLmod -r avail A B                                   # 28
+     runLmod load  A B                                      # 29
+     runLmod list                                           # 20
+     runLmod load  DoesNotExist                             # 31
+     runLmod list                                           # 32
+     runLmod tablelist                                      # 33
+     runLmod avail                                          # 34
+     runLmod avail C                                        # 35
+     runLmod load C                                         # 36
+     runLmod list                                           # 37
+     runLmod load rtm_intel                                 # 38
+     runLmod load go                                        # 39
+     runLmod load bad_symlink                               # 30
+     runLmod load empty                                     # 41
+     runLmod load version_only                              # 42
+     runLmod load dflt                                      # 43
+     runLmod list                                           # 44
+     runLmod load noweb/2.10c.lua                           # 45
+     runLmod load   Try/1.0                                 # 46
+     runLmod load   Try/2.0                                 # 47
+     runLmod unload B/2.3.4                                 # 48
+     runLmod list                                           # 49
 
 
      export LMOD_DISABLE_SAME_NAME_AUTOSWAP=yes
-     runLmod load moduleA/1.0                               # 49
-     runLmod load moduleB/1.0                               # 50
-     runLmod load moduleA/2.0 moduleA/1.0                   # 51
+     runLmod load moduleA/1.0                               # 50
+     runLmod load moduleB/1.0                               # 51
+     runLmod load moduleA/2.0 moduleA/1.0                   # 52
      unset LMOD_DISABLE_SAME_NAME_AUTOSWAP
      
-     runLmod purge                                          # 52
+     runLmod purge                                          # 53
      unsetMT
      export MODULEPATH=$(testDir)/mf2/Core 
-     runLmod --show_hidden avail                            # 53
-     runLmod load .eb_builder/default                       # 54
-     runLmod load a/default                                 # 55
-     runLmod load b/default                                 # 56
-     runLmod list                                           # 57
+     runLmod --show_hidden avail                            # 54
+     runLmod load .eb_builder/default                       # 55
+     runLmod load a/default                                 # 56
+     runLmod load b/default                                 # 57
+     runLmod list                                           # 58
                                                                
-     runLmod purge                                          # 58
+     runLmod purge                                          # 59
      unsetMT
      export MODULEPATH=$(testDir)/mf3
-     runLmod load A                                         # 59
-     runLmod load A/1.0                                     # 60
-     runLmod load B                                         # 61
-     runLmod load B/2.0                                     # 62
-     runLmod load tex                                       # 63
+     runLmod load A                                         # 60
+     runLmod load A/1.0                                     # 61
+     runLmod load B                                         # 62
+     runLmod load B/2.0                                     # 63
+     runLmod load tex                                       # 64
      export LMOD_QUARANTINE_VARS=RTM_A:RTM_B:RTM_C             
      export RTM_A="I like this variable the way it is"
      export RTM_B="You can't change me"
      export RTM_B="You are not the boss of me"
-     runLmod load rtmTest                                   # 64
+     runLmod load rtmTest                                   # 65
 
      export PATH=$(testDir):$PATH
-     runLmod load MakeSystemCall                            # 65
-     runLmod list                                           # 66
-     runLmod purge                                          # 67
+     runLmod load MakeSystemCall                            # 66
+     runLmod list                                           # 67
+     runLmod purge                                          # 68
      
      export MODULEPATH=$(testDir)/mf4
      env | sort >  start.env.xyzzy
-     runLmod load   compiler/intel                          # 68
-     runLmod unload compiler/intel                          # 69
+     runLmod load   compiler/intel                          # 69
+     runLmod unload compiler/intel                          # 70
      env | sort > end.env.xyzzy
      diff start.env.xyzzy end.env.xyzzy | $SED   \
           -e 's/^.*_ModuleTable.*//'             \
@@ -131,16 +132,16 @@ testdescript = {
           -e 's/$/;/g'                           \
           > diff.env.xyzzy
 
-     runBase cat diff.env.xyzzy                             # 70
+     runBase cat diff.env.xyzzy                             # 71
 
 
-     runLmod purge                                          # 71
+     runLmod purge                                          # 72
      unsetMT
      export MODULEPATH=$(testDir)/mf5
-     runLmod load  multiline                                # 72
-     runLmod load  dofile                                   # 73
+     runLmod load  multiline                                # 73
+     runLmod load  dofile                                   # 74
 
-     runLmod purge                                          # 74
+     runLmod purge                                          # 75
      unsetMT
 
      ############################################################
@@ -148,16 +149,19 @@ testdescript = {
      ############################################################
 
      export MODULEPATH=$(testDir)/mf6
-     runLmod load  longVersion                              # 75
-     runLmod load  setPrompt                                # 76
-     runLmod load  acme\ products                           # 77
+     runLmod load  longVersion                              # 76
+     runLmod load  setPrompt                                # 77
+     runLmod load  acme\ products                           # 78
      
-     runLmod list                                           # 78
-     runLmod avail                                          # 79
-     runLmod update                                         # 80
-
-
-
+     #------------------------------------------------------------
+     # Issue #811: protect Lmod from changes to LD_LIBRARY_PATH
+     runLmodProtectedVars load prependLibPath               # 79
+     runLmod load  pathJoin_w_spaces                        # 70
+     runLmod load  acme\ products                           # 81
+     runLmod list                                           # 82
+     runLmod avail                                          # 83
+     runLmod update                                         # 84
+                                                               
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

@@ -827,6 +827,13 @@ function myModuleUsrName()
 end
 
 --------------------------------------------------------------------------
+-- Return the user name and the true loaded name when a dot-hidden alias
+-- load occurred; otherwise both values are the same.
+function myModuleUsrAndAliasName()
+   return mcp:myModuleUsrAndAliasName()
+end
+
+--------------------------------------------------------------------------
 -- Return the version of the module.
 function myModuleVersion()
    local version = mcp:myModuleVersion()
@@ -1161,7 +1168,18 @@ end
 
 --------------------------------------------------------------------------
 -- Write "false" to stdout and exit.
-function LmodErrorExit()
+function LmodErrorExit(msg)
+   if (msg) then
+      local Var = require("Var")
+      if (not quiet()) then
+         io.stderr:write(msg)
+      end
+      local varT = {}
+      local n    = lastErrorVarName()
+      varT[n]    = Var:new(n)
+      varT[n]:set(msg)
+      Shell:expand(varT)
+   end
    Shell:report_failure()
    os.exit(1)
 end
@@ -1333,6 +1351,28 @@ function dofile_not_supported()
    mcp:report{msg="e_Dofile_not_supported"}
 end
 
+local s_modeA = {"show","checkSyntax"}
+
+function protected_getenv(t)
+   local name = t[1] or ""
+   local result = os.getenv(name)
+   if (result) then
+      return result
+   end
+   local defaultV = t[2] or "$"..name
+   local modeA    = t.modeA
+   if (not (modeA and next(modeA) ~= nil)) then
+      modeA = s_modeA
+   end
+   for i = 1,#modeA do
+      local myMode = modeA[i]
+      if (myMode == mode()) then
+         return defaultV
+      end
+   end
+   return result
+end
+   
 
 --- subprocess function ---
 

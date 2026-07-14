@@ -212,7 +212,7 @@ The entries below describe several useful commands that come with Lmod that can 
 
     otherwise ``foo`` will have the value of ``nil``.
 
-**os.exit(number)**:
+**os.exit** (number):
     Exits a modulefile.  Note that no environment variables are
     changed when this command is evaluated.
 
@@ -365,6 +365,12 @@ the name and version of a modulefile.
 
 **myModuleUsrName** ():
    Returns the name the user specified to load a module.  So it could be the name or the name and version.
+
+**myModuleUsrAndAliasName** ():
+   Returns two values: the user name and the true loaded name.  When a
+   dot-hidden alias load occurred (see :ref:`dot_hidden_load_alias-label`),
+   the values differ (for example ``itk/1.2`` and ``itk/.1.2``).  Otherwise
+   both values are the same.
 
 **myFileName** ():
    Returns the absolute file name of the current modulefile.
