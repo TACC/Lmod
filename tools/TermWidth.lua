@@ -38,9 +38,15 @@ _G._DEBUG          = false                       -- Required by luaposix 33
 local posix        = require("posix")
 local unistd       = posix.unistd
 local wait         = posix.sys.wait
-local kill         = posix.signal.kill
-local SIGALRM      = posix.SIGALRM
-local SIGKILL      = posix.SIGKILL
+-- Pull the signal API from the posix.signal submodule.  On the merged `posix`
+-- table `posix.signal` is the signal() *function* (e.g. luaposix 35 on EL9), so
+-- `posix.signal.kill` errors at load time and Lmod fails to start; requiring the
+-- submodule gives a table with kill/signal and the SIG* constants on every
+-- supported luaposix.
+local psignal      = require("posix.signal")
+local kill         = psignal.kill
+local SIGALRM      = psignal.SIGALRM
+local SIGKILL      = psignal.SIGKILL
 local setenv_posix = posix.setenv
 
 require("haveTermSupport")
@@ -108,7 +114,7 @@ local function l_timedCapture(cmd, sec)
 
       local timed  = false
       local cpid   = pid
-      local oldSig = posix.signal(SIGALRM, function ()
+      local oldSig = psignal.signal(SIGALRM, function ()
          timed = true
          kill(cpid, SIGKILL)
       end)
@@ -125,7 +131,7 @@ local function l_timedCapture(cmd, sec)
       end
 
       unistd.alarm(0)
-      posix.signal(SIGALRM, oldSig)
+      psignal.signal(SIGALRM, oldSig)
       unistd.close(r)
       wait.wait(cpid)
 
