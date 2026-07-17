@@ -277,7 +277,8 @@ end
 --------------------------------------------------------------------------
 -- Build a depends_on entry from an MName.  During spider walks the
 -- prerequisite may not be on MODULEPATH yet, so mname:sn() can be nil
--- even for a literal depends_on("GCCcore/13.2.0").
+-- even for a literal depends_on("GCCcore/13.2.0"). Prefer
+-- MName:get_version_description() so atleast/between bounds are kept.
 local function l_dep_entry_from_mname(mname)
    local userName = mname:userName()
    local sn       = mname:sn()
@@ -285,12 +286,25 @@ local function l_dep_entry_from_mname(mname)
       sn = userName:match("^([^/]+)")
    end
    if (not sn) then return nil end
-   local version = extractVersion(userName, sn)
+
    local versionDesc
-   if (version) then
-      versionDesc = { kind = "fixed", value = version }
+   local ok, desc = pcall(function() return mname:get_version_description() end)
+   if (ok and desc and desc.kind) then
+      versionDesc = desc
+      -- Spider may leave sn nil; bool + versioned userName is really fixed.
+      if (versionDesc.kind == "bool") then
+         local version = extractVersion(userName, sn)
+         if (version) then
+            versionDesc = { kind = "fixed", value = version }
+         end
+      end
    else
-      versionDesc = { kind = "bool", value = true }
+      local version = extractVersion(userName, sn)
+      if (version) then
+         versionDesc = { kind = "fixed", value = version }
+      else
+         versionDesc = { kind = "bool", value = true }
+      end
    end
    return { sn = sn, version = versionDesc }
 end

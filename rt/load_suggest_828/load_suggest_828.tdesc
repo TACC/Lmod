@@ -3,6 +3,10 @@
 -- Test for Issue #828: toolchain-aware load suggestions and copy-pasteable
 -- suffix modules (CuPy/OpenMPI toolchain merge + NCCL/CUDA version pinning).
 -- Steps 1-7: toolchain-path behavior. Steps 8-19: NCCL/CUDA suffix pinning.
+-- Steps 20+: red follow-ons (Flamefire Jul 15 / proactive gaps):
+--   cold MODULEPATH, depends_on_any, parentAA suffix vs release+GCC,
+--   request order (CUDA before NCCL), NCCL without CUDA in request,
+--   wrong CUDA already loaded, depends_on(atleast), multi-NCCL version pick.
 ------------------------------------------------------------------------------
 
 local testName = "load_suggest_828"
@@ -13,7 +17,10 @@ testdescript = {
    description = [[
      Issue #828: (1) no GCCcore-only paths for OpenMPI + CuPy, no mismatched
      GCC/GCCcore pairs; (2) unversioned NCCL/CUDA suffixes must pin versions and
-     dependency order so suggested commands copy-paste cleanly.
+     dependency order so suggested commands copy-paste cleanly; (3) follow-on
+     gaps: cold MODULEPATH, depends_on_any, parentAA suffix merge, request order,
+     NCCL without CUDA in request, wrong CUDA loaded, atleast deps,
+     multi-NCCL (highest version + matching CUDA pin).
    ]],
    keywords = {testName, "issue828", "load_suggest"},
 
@@ -60,6 +67,58 @@ testdescript = {
 
      runLmod purge                                                  # 18
      runLmod load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0  # 19
+
+     # --- red: cold MODULEPATH (CUDA not visible; all three fail) ---
+     # Expect pinned CUDA/NCCL in suggestions; tip emits bare short names.
+     runLmod --force purge                                          # 20
+     MODULEPATH=/tmp/modules/releases; export MODULEPATH
+     runLmod load NCCL OpenMPI CUDA                                 # 21
+
+     # --- red: depends_on_any (CUDA visible; Flamefire fail-list shape) ---
+     # Expect pin from doaA fixed entries; tip keeps bare NCCL/CUDA suffixes.
+     runLmod --force purge                                          # 22
+     ln -sfn $(testDir)/mf_red /tmp/modules_red
+     MODULEPATH=/tmp/modules_red/releases_doa; export MODULEPATH
+     runLmod load release/25.06                                     # 23
+     runLmod load NCCL OpenMPI CUDA                                 # 24
+
+     # --- red: NCCL parentAA {GCC} vs OpenMPI {release,GCC} ---
+     # Expect a joint pinned suggestion; tip reports incompatible toolchains
+     # (paths not merged) because parentAA prefix matching rejects the pair.
+     runLmod --force purge                                          # 25
+     MODULEPATH=/tmp/modules_red/base/Core:/tmp/modules_red/releases_suffix; export MODULEPATH
+     runLmod load NCCL OpenMPI CUDA                                 # 26
+
+     # --- red: request order CUDA before NCCL (bare CUDA left in suffix) ---
+     runLmod --force purge                                          # 27
+     MODULEPATH=/tmp/modules/releases; export MODULEPATH
+     runLmod load release/24.04                                     # 28
+     runLmod load CUDA NCCL OpenMPI                                 # 29
+
+     # --- red: no CUDA in request — still pin NCCL fullName for copy-paste ---
+     runLmod --force purge                                          # 30
+     MODULEPATH=/tmp/modules/releases; export MODULEPATH
+     runLmod load release/24.04                                     # 31
+     runLmod load NCCL OpenMPI                                      # 32
+
+     # --- red: wrong CUDA already loaded; suggestion should be copy-pasteable ---
+     runLmod --force purge                                          # 33
+     MODULEPATH=/tmp/modules/releases; export MODULEPATH
+     runLmod load release/24.04 CUDA/13.0.0                         # 34
+     runLmod load NCCL OpenMPI                                      # 35
+
+     # --- red: depends_on(atleast(...)) records non-fixed; still pin usable cmd ---
+     runLmod --force purge                                          # 36
+     ln -sfn $(testDir)/mf_red /tmp/modules_red
+     MODULEPATH=/tmp/modules_red/releases_atleast; export MODULEPATH
+     runLmod load release/25.06c                                    # 37
+     runLmod load NCCL OpenMPI CUDA                                 # 38
+
+     # --- multi-NCCL: tip picks highest NCCL; pin matching CUDA together ---
+     runLmod --force purge                                          # 39
+     MODULEPATH=/tmp/modules_red/releases_multi; export MODULEPATH
+     runLmod load release/25.06d                                    # 40
+     runLmod load NCCL OpenMPI CUDA                                 # 41
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

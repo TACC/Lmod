@@ -42,6 +42,7 @@ require("myGlobals")
 require("colorize")
 require("string_utils")
 require("utils")
+require("parseVersion")
 
 Hub                    = require("Hub")
 
@@ -192,6 +193,21 @@ local function l_path_prefix_match(entryPath, path)
 end
 
 --------------------------------------------------------------------------
+-- True when entryPath is a trailing sub-path (suffix) of path.
+local function l_path_suffix_match(entryPath, path)
+   if (not entryPath or not path or #entryPath > #path) then
+      return false
+   end
+   local off = #path - #entryPath
+   for i = 1, #entryPath do
+      if (entryPath[i] ~= path[off + i]) then
+         return false
+      end
+   end
+   return true
+end
+
+--------------------------------------------------------------------------
 -- Look up a spider dbT entry by module fullName.
 local function l_find_db_entry(fullName, dbT)
    if (not fullName or not dbT) then return nil end
@@ -215,15 +231,87 @@ local function l_dep_fixed_fullName(depEntry)
 end
 
 --------------------------------------------------------------------------
+-- True when versionStr satisfies a between/atleast dep version descriptor.
+local function l_version_satisfies_between(versionStr, versionDesc)
+   if (not versionStr or not versionDesc or versionDesc.kind ~= "between") then
+      return false
+   end
+   local bounds = versionDesc.value
+   if (type(bounds) ~= "table") then return false end
+   local pV    = parseVersion(versionStr)
+   local lower = bounds[1] and parseVersion(bounds[1]) or " "
+   local upper = bounds[2] and parseVersion(bounds[2]) or "~"
+   return (pV >= lower) and (pV <= upper)
+end
+
+--------------------------------------------------------------------------
+-- Resolve a between/atleast dep to a concrete fullName from dbT (highest wV).
+local function l_dep_between_fullName(depEntry, dbT)
+   if (not depEntry or not depEntry.version or depEntry.version.kind ~= "between") then
+      return nil
+   end
+   if (not dbT) then return nil end
+   local moduleData = dbT[depEntry.sn]
+   if (not moduleData) then return nil end
+
+   local bestFn, bestWV = nil, nil
+   for _, entry in pairs(moduleData) do
+      local version = entry.Version or extractVersion(entry.fullName, depEntry.sn)
+      if (version and l_version_satisfies_between(version, depEntry.version)) then
+         local wV = entry.wV or entry.pV or ""
+         if (not bestWV or wV > bestWV) then
+            bestWV = wV
+            bestFn = entry.fullName
+         end
+      end
+   end
+   return bestFn
+end
+
+--------------------------------------------------------------------------
+-- Collect concrete fullNames from fixed depA and single-choice doaA groups.
+-- Between deps are resolved via dbT when provided.
+local function l_collect_resolvable_dep_fullNames(depT, dbT)
+   local fullNames = {}
+   if (not depT) then return fullNames end
+
+   local function l_add_from_entry(depEntry)
+      local fn = l_dep_fixed_fullName(depEntry)
+      if (not fn) then
+         fn = l_dep_between_fullName(depEntry, dbT)
+      end
+      if (fn) then
+         fullNames[#fullNames + 1] = fn
+      end
+   end
+
+   if (depT.depA) then
+      for i = 1, #depT.depA do
+         l_add_from_entry(depT.depA[i])
+      end
+   end
+   -- depends_on_any: use a group only when it is a single fixed/between choice.
+   if (depT.doaA) then
+      for i = 1, #depT.doaA do
+         local group = depT.doaA[i]
+         if (type(group) == "table" and #group == 1) then
+            l_add_from_entry(group[1])
+         end
+      end
+   end
+   return fullNames
+end
+
+--------------------------------------------------------------------------
 -- True when childFullName has depends_on(parentFullName) with fixed version.
 local function l_module_depends_on_fixed(dbT, childFullName, parentFullName)
    local entry = l_find_db_entry(childFullName, dbT)
-   if (not entry or not entry.depT or not entry.depT.depA) then
+   if (not entry or not entry.depT) then
       return false
    end
-   for i = 1, #entry.depT.depA do
-      local depFn = l_dep_fixed_fullName(entry.depT.depA[i])
-      if (depFn == parentFullName) then
+   local depFns = l_collect_resolvable_dep_fullNames(entry.depT, dbT)
+   for i = 1, #depFns do
+      if (depFns[i] == parentFullName) then
          return true
       end
    end
@@ -236,11 +324,12 @@ local function l_module_conflicts_with_path(userName, path, dbT)
    if (not dbT) then return false end
    for i = 1, #path do
       local entry = l_find_db_entry(path[i], dbT)
-      if (entry and entry.depT and entry.depT.depA) then
+      if (entry and entry.depT) then
          local userSn = l_extract_sn(userName)
-         for j = 1, #entry.depT.depA do
-            local depFn = l_dep_fixed_fullName(entry.depT.depA[j])
-            if (depFn and l_extract_sn(depFn) == userSn and depFn ~= userName) then
+         local depFns = l_collect_resolvable_dep_fullNames(entry.depT, dbT)
+         for j = 1, #depFns do
+            local depFn = depFns[j]
+            if (l_extract_sn(depFn) == userSn and depFn ~= userName) then
                return true
             end
          end
@@ -265,7 +354,8 @@ local function l_normalize_prereq_path(path, userName)
 end
 
 --------------------------------------------------------------------------
--- dbT entry for userName best matching suggestion path (longest parent prefix).
+-- dbT entry for userName best matching suggestion path (longest parent match,
+-- prefix or suffix).
 local function l_find_db_entry_for_request(userName, path, dbT)
    if (not userName or not path or not dbT) then return nil end
    local sn = l_extract_sn(userName)
@@ -274,15 +364,23 @@ local function l_find_db_entry_for_request(userName, path, dbT)
 
    local bestEntry = nil
    local bestLen   = 0
+   local bestWV    = ""
    for _, entry in pairs(moduleData) do
       if (userName ~= sn and userName ~= entry.fullName) then
          -- skip version-mismatched entries
       elseif (entry.parentAA) then
          for i = 1, #entry.parentAA do
             local p = l_normalize_prereq_path(entry.parentAA[i], entry.fullName)
-            if (p and l_path_prefix_match(p, path) and #p >= bestLen) then
-               bestLen   = #p
-               bestEntry = entry
+            if (p and (l_path_prefix_match(p, path) or l_path_suffix_match(p, path))) then
+               local len = #p
+               local wV  = entry.wV or entry.pV or ""
+               -- Longest parent match wins; equal length prefers highest wV
+               -- so unversioned pins are deterministic (not pairs() order).
+               if (len > bestLen or (len == bestLen and wV > bestWV)) then
+                  bestLen   = len
+                  bestWV    = wV
+                  bestEntry = entry
+               end
             end
          end
       end
@@ -310,9 +408,14 @@ end
 --------------------------------------------------------------------------
 -- True when sn appears in the user's original load request.
 local function l_sn_in_request(sn)
-   if (not s_allRequestedT) then return false end
+   if (not sn or not s_allRequestedT) then return false end
    for i = 1, #s_allRequestedT do
-      if (s_allRequestedT[i].mname:sn() == sn) then
+      local entry = s_allRequestedT[i]
+      local reqSn = entry.mname:sn()
+      if (not reqSn) then
+         reqSn = l_extract_sn(entry.userName)
+      end
+      if (reqSn == sn) then
          return true
       end
    end
@@ -333,18 +436,13 @@ local function l_path_satisfies_dep(path, depFn, dbT)
 end
 
 --------------------------------------------------------------------------
--- Pin unversioned suffix when a fixed dep is also co-requested (version clash).
+-- Pin unversioned suffix when a db entry exists (path-scoped fullName) or a
+-- resolvable co-requested dep already pinned it.
 local function l_should_pin_suffix(dbEntry, userName, failingSet, pinnedSnT)
    if (not l_is_unversioned(userName)) then return false end
    local sn = l_extract_sn(userName)
    if (pinnedSnT[sn]) then return true end
-   if (not dbEntry or not dbEntry.depT or not dbEntry.depT.depA) then return false end
-   for i = 1, #dbEntry.depT.depA do
-      local depFn = l_dep_fixed_fullName(dbEntry.depT.depA[i])
-      if (depFn and l_sn_in_request(l_extract_sn(depFn))) then
-         return true
-      end
-   end
+   if (dbEntry) then return true end
    return false
 end
 
@@ -422,9 +520,9 @@ local function l_collect_all_parentAA(userName, dbT)
 end
 
 --------------------------------------------------------------------------
--- Helper function to check if two dependency paths are compatible
--- Two paths are compatible if one is a prefix of the other
--- Returns the longer (more specific) path if compatible, nil otherwise
+-- Helper function to check if two dependency paths are compatible.
+-- Compatible if one is a prefix or suffix of the other (or toolchain
+-- depends_on merge at the diverge point). Returns the longer path.
 local function l_paths_compatible(pathA, pathB, dbT)
    if (not pathA or not pathB) then return nil end
    local lenA, lenB = #pathA, #pathB
@@ -432,7 +530,8 @@ local function l_paths_compatible(pathA, pathB, dbT)
    if (lenA > lenB) then
       shorter, longer = pathB, pathA
    end
-   -- Check if shorter is a prefix of longer
+   -- Prefix match (existing behavior)
+   local prefixOk = true
    for i = 1, #shorter do
       if (shorter[i] ~= longer[i]) then
          if (dbT and i == #shorter and longer[i]) then
@@ -443,10 +542,18 @@ local function l_paths_compatible(pathA, pathB, dbT)
                return shorter
             end
          end
-         return nil
+         prefixOk = false
+         break
       end
    end
-   return longer
+   if (prefixOk) then
+      return longer
+   end
+   -- Suffix match: e.g. {GCC} vs {release, GCC}
+   if (l_path_suffix_match(shorter, longer)) then
+      return longer
+   end
+   return nil
 end
 
 --------------------------------------------------------------------------
@@ -537,6 +644,8 @@ end
 -- Failing modules are always included.  Non-conflicting modules (e.g.,
 -- python/3.9 when the path is gcc/10.0) are included to give the user
 -- a complete command.
+-- Multi-pass: collect co-requested inject deps first so they override a
+-- later path-default resolution (e.g. bare CUDA before NCCL).
 -- @param path       Array of dependency path entries (e.g., {"gcc/10.0"})
 -- @param failingSet Table of failing userNames (userName -> true)
 -- @return Array of module names to append after the dependency path
@@ -548,25 +657,41 @@ local function l_build_modules_for_path(path, failingSet, dbT)
 
    local modulesToInclude = {}
    local seenSn           = {}
+   local listIdxT         = {}  -- sn -> index in modulesToInclude
    for sn, _ in pairs(pathSnSet) do
       seenSn[sn] = true
    end
 
    local pinnedSnT = {}
 
-   local function l_add_suffix(fullName)
+   local function l_add_suffix(fullName, forceReplace)
       if (not fullName) then return end
       local sn = l_extract_sn(fullName)
-      if (seenSn[sn]) then return end
+      if (pathSnSet[sn]) then return end
+      if (seenSn[sn]) then
+         local idx = listIdxT[sn]
+         if (idx) then
+            local cur = modulesToInclude[idx]
+            if (forceReplace or
+                (l_is_unversioned(cur) and not l_is_unversioned(fullName))) then
+               modulesToInclude[idx] = fullName
+               pinnedSnT[sn]         = fullName
+            end
+         end
+         return
+      end
       seenSn[sn] = true
       modulesToInclude[#modulesToInclude + 1] = fullName
+      listIdxT[sn]  = #modulesToInclude
       pinnedSnT[sn] = fullName
    end
 
+   -- Pass 1a: decide include + keep dbEntry
+   local includeA = {}
    for i = 1, #s_allRequestedT do
       local entry    = s_allRequestedT[i]
       local userName = entry.userName
-      local sn       = entry.mname:sn()
+      local sn       = entry.mname:sn() or l_extract_sn(userName)
 
       local include = false
       if (failingSet[userName]) then
@@ -577,28 +702,63 @@ local function l_build_modules_for_path(path, failingSet, dbT)
       end
 
       if (include) then
-         local dbEntry  = l_find_db_entry_for_request(userName, path, dbT)
-         local fullName = userName
-         if (l_should_pin_suffix(dbEntry, userName, failingSet, pinnedSnT)) then
-            fullName = l_resolve_suffix_module(userName, path, dbT, pinnedSnT)
-         elseif (pinnedSnT[l_extract_sn(userName)]) then
-            fullName = pinnedSnT[l_extract_sn(userName)]
-         end
+         includeA[#includeA + 1] = {
+            userName = userName,
+            dbEntry  = l_find_db_entry_for_request(userName, path, dbT),
+         }
+      end
+   end
 
-         if (dbEntry and dbEntry.depT and dbEntry.depT.depA) then
-            for j = 1, #dbEntry.depT.depA do
-               local depFn = l_dep_fixed_fullName(dbEntry.depT.depA[j])
-               if (depFn and not l_path_satisfies_dep(path, depFn, dbT) and
-                   l_sn_in_request(l_extract_sn(depFn))) then
-                  pinnedSnT[l_extract_sn(depFn)] = depFn
-                  l_add_suffix(depFn)
-               end
+   -- Pass 1b: collect co-requested inject deps into pinnedSnT first
+   for i = 1, #includeA do
+      local item    = includeA[i]
+      local dbEntry = item.dbEntry
+      local injectDeps = {}
+      if (dbEntry and dbEntry.depT) then
+         local depFns = l_collect_resolvable_dep_fullNames(dbEntry.depT, dbT)
+         for j = 1, #depFns do
+            local depFn = depFns[j]
+            if (depFn and not l_path_satisfies_dep(path, depFn, dbT) and
+                l_sn_in_request(l_extract_sn(depFn))) then
+               pinnedSnT[l_extract_sn(depFn)] = depFn
+               injectDeps[#injectDeps + 1] = depFn
             end
          end
+      end
+      item.injectDeps = injectDeps
+   end
 
-         if (not pathSnSet[l_extract_sn(fullName)]) then
-            l_add_suffix(fullName)
-         end
+   -- Pass 1c: resolve fullNames with inject pins already known
+   for i = 1, #includeA do
+      local item     = includeA[i]
+      local userName = item.userName
+      local dbEntry  = item.dbEntry
+      local fullName = userName
+      if (l_should_pin_suffix(dbEntry, userName, failingSet, pinnedSnT)) then
+         fullName = l_resolve_suffix_module(userName, path, dbT, pinnedSnT)
+      elseif (pinnedSnT[l_extract_sn(userName)]) then
+         fullName = pinnedSnT[l_extract_sn(userName)]
+      end
+      item.fullName = fullName
+   end
+
+   -- Pass 2: emit inject deps before each module (upgrade/replace as needed)
+   for i = 1, #includeA do
+      local item = includeA[i]
+      for j = 1, #item.injectDeps do
+         l_add_suffix(item.injectDeps[j], true)
+      end
+      local fullName = item.fullName
+      local sn       = l_extract_sn(fullName)
+      if (pinnedSnT[sn] and l_is_unversioned(fullName)) then
+         fullName = pinnedSnT[sn]
+      elseif (pinnedSnT[sn] and pinnedSnT[sn] ~= fullName and
+              l_is_unversioned(item.userName)) then
+         -- Co-requested fixed dep wins over path-default resolution
+         fullName = pinnedSnT[sn]
+      end
+      if (not pathSnSet[l_extract_sn(fullName)]) then
+         l_add_suffix(fullName, false)
       end
    end
 

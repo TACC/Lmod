@@ -11,9 +11,9 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CuPy
 Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "CuPy"
    Try: "module spider CuPy" to see how to load the module(s).
    Or load any one of these options:
-      module load release/24.04 GCC/14.2.0 OpenMPI/4.1.6 CuPy
-      module load release/24.04 GCC/14.2.0 OpenMPI/5.6 CuPy
-      module load release/24.10 GCC/13.2.0 OpenMPI/4.1.6 CuPy
+      module load release/24.04 GCC/14.2.0 OpenMPI/4.1.6 CuPy/13
+      module load release/24.04 GCC/14.2.0 OpenMPI/5.6 CuPy/13
+      module load release/24.10 GCC/13.2.0 OpenMPI/4.1.6 CuPy/13
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
@@ -29,11 +29,11 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CuPy
 Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "CuPy"
    Try: "module spider CuPy" to see how to load the module(s).
    Or load any one of these options:
-      module load GCC/14.2.0 OpenMPI/4.1.6 CuPy
-      module load GCC/14.2.0 OpenMPI/5.6 CuPy
-      module load release/24.04 GCC/14.2.0 OpenMPI/4.1.6 CuPy
-      module load release/24.04 GCC/14.2.0 OpenMPI/5.6 CuPy
-      module load release/24.10 GCC/13.2.0 OpenMPI/4.1.6 CuPy
+      module load GCC/14.2.0 OpenMPI/4.1.6 CuPy/13
+      module load GCC/14.2.0 OpenMPI/5.6 CuPy/13
+      module load release/24.04 GCC/14.2.0 OpenMPI/4.1.6 CuPy/13
+      module load release/24.04 GCC/14.2.0 OpenMPI/5.6 CuPy/13
+      module load release/24.10 GCC/13.2.0 OpenMPI/4.1.6 CuPy/13
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
@@ -49,8 +49,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CuPy
 Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "CuPy"
    Try: "module spider CuPy" to see how to load the module(s).
    Or load any one of these options:
-      module load OpenMPI/4.1.6 CuPy
-      module load OpenMPI/5.6 CuPy
-      module load release/24.04 GCC/14.2.0 OpenMPI/4.1.6 CuPy
-      module load release/24.04 GCC/14.2.0 OpenMPI/5.6 CuPy
-      module load release/24.10 GCC/13.2.0 OpenMPI/4.1.6 CuPy
+      module load OpenMPI/4.1.6 CuPy/13
+      module load OpenMPI/5.6 CuPy/13
+      module load release/24.04 GCC/14.2.0 OpenMPI/4.1.6 CuPy/13
+      module load release/24.04 GCC/14.2.0 OpenMPI/5.6 CuPy/13
+      module load release/24.10 GCC/13.2.0 OpenMPI/4.1.6 CuPy/13
