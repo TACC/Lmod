@@ -131,7 +131,7 @@ local function l_new(self)
    local cached_loads      = cosmic:value("LMOD_CACHED_LOADS")
    local case_ind_sorting  = cosmic:value("LMOD_CASE_INDEPENDENT_SORTING")
    local dfltModules       = cosmic:value("LMOD_SYSTEM_DEFAULT_MODULES")
-   local disable1N         = cosmic:value("LMOD_DISABLE_SAME_NAME_AUTOSWAP")
+   local disable1N         = cosmic:value("LMOD_DISABLE_NAME_AUTOSWAP")
    local duplicate_paths   = cosmic:value("LMOD_DUPLICATE_PATHS")
    local dynamic_cache     = cosmic:value("LMOD_DYNAMIC_SPIDER_CACHE")
    local exactMatch        = cosmic:value("LMOD_EXACT_MATCH")
@@ -225,7 +225,7 @@ local function l_new(self)
    tbl.case           = { k = "Case Independent Sorting"          , v = case_ind_sorting,  n = "LMOD_CASE_INDEPENDENT_SORTING"   }
    tbl.colorize       = { k = "Colorize Lmod"                     , v = lmod_colorize,     n = "LMOD_COLORIZE"                   }
    tbl.configDir      = { k = "Configuration dir"                 , v = lmod_configDir,    n = "LMOD_CONFIG_DIR"                 }
-   tbl.disable1N      = { k = "Disable Same Name AutoSwap"        , v = disable1N,         n = "LMOD_DISABLE_SAME_NAME_AUTOSWAP" }
+   tbl.disable1N      = { k = "Disable Same Name AutoSwap"        , v = disable1N,         n = "LMOD_DISABLE_NAME_AUTOSWAP" }
    tbl.disp_av_ext    = { k = "Display Extension w/ avail"        , v = avail_extensions,  n = "LMOD_AVAIL_EXTENSIONS"           }
    tbl.dotConfOnly    = { k = "Use ~/.config dir only"            , v = useDotConfigOnly,  n = "LMOD_USE_DOT_CONFIG_ONLY"        }
    tbl.dupPaths       = { k = "Allow duplicate paths"             , v = duplicate_paths,   n = "LMOD_DUPLICATE_PATHS"            }

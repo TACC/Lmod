@@ -212,7 +212,7 @@ The entries below describe several useful commands that come with Lmod that can 
 
     otherwise ``foo`` will have the value of ``nil``.
 
-**os.exit(number)**:
+**os.exit** (number):
     Exits a modulefile.  Note that no environment variables are
     changed when this command is evaluated.
 

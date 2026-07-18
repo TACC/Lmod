@@ -7,6 +7,13 @@ New Features in Lmod
   These files are loaded into Lmod before /etc/lmod/lmod_config.lua
   and  SitePackage.lua.
   
+**setenv() and pushenv() are no longer unset inside the Lmod process on module unload**
+  (Lmod 9.2.6+) On module unload, **setenv()** and **pushenv()** will
+  be reversed on the user process but not the Lmod process.
+
+**The env. variable LMOD_DISABLE_SAME_NAME_AUTOSWAP deprecated**
+  (Lmod 9.2.6+) Please use LMOD_DISABLE_NAME_AUTOSWAP instead.
+
 **Terse output for module show with inherit**
   (Lmod 9.2.5+) *module --terse show* now reports inherited modulefile
   paths with ``-->`` lines.  See :ref:`terse_output-label` for more

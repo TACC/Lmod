@@ -677,7 +677,7 @@ __LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Your\ site\ preve
 ""
 "\ \ \ \$\ module\ swap\ moduleA/1.0\ moduleA/2.0"
 ""
-"Alternatively,\ you\ can\ set\ the\ environment\ variable\ LMOD_DISABLE_SAME_NAME_AUTOSWAP\ to\ \"no\"\ to\ re-enable\ same\ name\ autoswapping."
+"Alternatively,\ you\ can\ set\ the\ environment\ variable\ LMOD_DISABLE_NAME_AUTOSWAP\ to\ \"no\"\ to\ re-enable\ same\ name\ autoswapping."
 ""
 "While\ processing\ the\ following\ module\(s\):"
 "\ \ \ \ Module\ fullname\ \ Module\ Filename"
@@ -694,7 +694,7 @@ __LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Your\ site\ preve
 ""
 "\ \ \ \$\ module\ swap\ moduleA/1.0\ moduleA/2.0"
 ""
-"Alternatively,\ you\ can\ set\ the\ environment\ variable\ LMOD_DISABLE_SAME_NAME_AUTOSWAP\ to\ \"no\"\ to\ re-enable\ same\ name\ autoswapping."
+"Alternatively,\ you\ can\ set\ the\ environment\ variable\ LMOD_DISABLE_NAME_AUTOSWAP\ to\ \"no\"\ to\ re-enable\ same\ name\ autoswapping."
 ""
 ""
 ";
