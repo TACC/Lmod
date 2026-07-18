@@ -1,6 +1,12 @@
 New Features in Lmod
 ====================
 
+**Support for Package Managers to have their own SitePackage.lua files**
+  (Lmod 9.2.8+) Lmod now support the env. var. LMOD_SITEPACKAGE_PREPEND.
+  This is a colon separated list of absolute paths to Lua files.
+  These files are loaded into Lmod before /etc/lmod/lmod_config.lua
+  and  SitePackage.lua.
+  
 **Terse output for module show with inherit**
   (Lmod 9.2.5+) *module --terse show* now reports inherited modulefile
   paths with ``-->`` lines.  See :ref:`terse_output-label` for more

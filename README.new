@@ -36,3 +36,7 @@ Lmod 9.2+
             * Issue #817 Support for loading dot hidden modules w/o leading dot
             * When the function setenv() is reversed it doesn't remove the variable in the lmod
               command process only in the user's process.
+
+W.I.P.:
+    (9.2.8) * Adding LMOD_SITEPACKAGE_PREPEND support: Pkg Mgrs can now have their own SitePackage.lua files
+    
