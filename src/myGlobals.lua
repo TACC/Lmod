@@ -83,6 +83,19 @@ ExitHookA = require("HookArray")
 setenv_posix("LC_ALL","C",true)
 
 ------------------------------------------------------------------------
+-- LMOD_SITEPACKAGE_PREPEND -
+--              This is a list of absolute paths to lua files that allow
+--              package managers like ESSI, EasyBuild, Spack, and OpenHPC
+--              to a SitePackage type file for functions they need 
+--              and sites can have SitePackage.lua and/or
+--              /etc/lmod/lmod_config.lua
+------------------------------------------------------------------------
+
+cosmic:init{name    = "LMOD_SITEPACKAGE_PREPEND",
+            sedV    = "@sitepackage_prepend@",
+            default = false}
+
+------------------------------------------------------------------------
 -- LMOD_MODULEPATH_INIT: Name of the file that can be used to initialize
 --                       MODULEPATH in the startup scripts
 ------------------------------------------------------------------------
