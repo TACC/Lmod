@@ -7,6 +7,14 @@ New Features in Lmod
   These files are loaded into Lmod before /etc/lmod/lmod_config.lua
   and  SitePackage.lua.
   
+**module_virtual()** **and Tcl module-virtual**
+   Lua ``.modulerc.lua`` files support ``module_virtual ("virtual_name,
+   "implementation")``, and Tcl ``.modulerc`` files support ``module-virtual``,
+   matching Environment Modules style virtual names that map to one hidden
+   implementation module. Virtual names appear under their modulepath in
+   ``module avail`` (not under ``Global Aliases``). See :ref:`modulerc-label`. Rationale:
+   `Lmod issue #818 <https://github.com/TACC/Lmod/issues/818>`__.
+
 **setenv() and pushenv() are no longer unset inside the Lmod process on module unload**
   (Lmod 9.2.6+) On module unload, **setenv()** and **pushenv()** will
   be reversed on the user process but not the Lmod process.

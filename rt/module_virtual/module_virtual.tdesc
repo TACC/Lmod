@@ -1,0 +1,83 @@
+-- -*- lua -*-
+local testName = "module_virtual"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+      Issue #818: module_virtual / alias + hide_version avail messaging,
+      Tcl module-virtual via RC2lua, full avail (no search), terse avail,
+      and module list displays the virtual name without (H).
+   ]],
+   keywords = { testName },
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export LMOD_TERM_WIDTH=500
+     remove_generated_lmod_files
+
+     runLmod --version                                                     # 1
+
+     export MODULEPATH=$(testDir)/mf/alias_hide/Core
+     runLmod avail foo                                                     # 2
+     runLmod load foo/24.4.0                                               # 3
+     runLmod list                                                          # 4
+     runLmod --show_hidden list                                            # 5
+     runLmod -t list                                                       # 6
+
+     runLmod purge                                                         # 7
+     unsetMT
+     export MODULEPATH=$(testDir)/mf/virtual_fn/Core
+     runLmod avail foo                                                     # 8
+     runLmod load foo/24.4.0                                               # 9
+     runLmod list                                                          #10
+     runLmod --show_hidden list                                            #11
+     runLmod -t list                                                       #12
+
+     runLmod purge                                                         #13
+     unsetMT
+     export MODULEPATH=$(testDir)/mf/tcl_rc/Core
+     runLmod avail foo                                                     #14
+     runLmod load foo/24.4.0                                              #15
+     runLmod list                                                          #16
+     runLmod --show_hidden list                                            #17
+     runLmod -t list                                                       #18
+
+     runLmod purge                                                         #19
+     unsetMT
+     export MODULEPATH=$(testDir)/mf/alias_hide/Core
+     runLmod avail                                                         #20
+     runLmod -t avail foo                                                 #21
+     runLmod -t avail                                                      #22
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results -bash _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

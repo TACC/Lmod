@@ -343,7 +343,6 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail conda2
 ===========================
 Global Aliases
    conda2 -> (N/A)
-No module(s) or extension(s) found!
   Where:
    N/A:  Alias cannot be loaded with current $MODULEPATH
 If the avail list is too long consider trying:
@@ -357,7 +356,6 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail adnoc
 ===========================
 Global Aliases
    adnoc -> (N/A)
-No module(s) or extension(s) found!
   Where:
    N/A:  Alias cannot be loaded with current $MODULEPATH
 If the avail list is too long consider trying:
