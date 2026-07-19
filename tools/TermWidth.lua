@@ -36,8 +36,8 @@ require("strict")
 
 _G._DEBUG          = false                       -- Required by luaposix 33
 local posix        = require("posix")
-local unistd       = posix.unistd
-local wait         = posix.sys.wait
+local unistd       = require("posix.unistd")
+local wait         = require("posix.sys.wait")
 -- Pull the signal API from the posix.signal submodule.  On the merged `posix`
 -- table `posix.signal` is the signal() *function* (e.g. luaposix 35 on EL9), so
 -- `posix.signal.kill` errors at load time and Lmod fails to start; requiring the
