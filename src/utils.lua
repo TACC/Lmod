@@ -1231,7 +1231,22 @@ function initialize_lmod()
    require("StandardPackage")
 
    ------------------------------------------------------------------------
-   -- Load a SitePackage Module.
+   -- Load any prepended sitepackage possibly from package managers
+   ------------------------------------------------------------------------
+   local sitePkg_prepend = cosmic:value("LMOD_SITEPACKAGE_PREPEND")
+   if (sitePkg_prepend) then
+      local icnt = 0
+      for fn in sitePkg_prepend:split(":") do
+         icnt = icnt + 1
+         if (isFile(fn)) then
+            cosmic:set_key("S"..tonumber(icnt))
+            assert(loadfile(fn))()
+         end
+      end
+   end
+
+   ------------------------------------------------------------------------
+   -- Load lmod_config.lua 
    ------------------------------------------------------------------------
 
    local configDir = cosmic:value("LMOD_CONFIG_DIR")
@@ -1250,6 +1265,10 @@ function initialize_lmod()
    if (not QuarantineT) then
       l_build_quarantineT()
    end
+
+   ------------------------------------------------------------------------
+   -- Load a SitePackage Module.
+   ------------------------------------------------------------------------
 
    local lmodPath = mergeEnvVars(cosmic:value("LMOD_PACKAGE_PATH"),configDir)
    if (lmodPath ~= "") then

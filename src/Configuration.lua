@@ -170,6 +170,7 @@ local function l_new(self)
    local shortTime         = cosmic:value("LMOD_SHORT_TIME")
    local site_msg_file     = cosmic:value("LMOD_SITE_MSG_FILE") or "<empty>"
    local site_name         = cosmic:value("LMOD_SITE_NAME")   or "<empty>"
+   local sitePkg_prepend   = cosmic:value("LMOD_SITEPACKAGE_PREPEND") or "<empty>"
    local site_prefix       = cosmic:value("SITE_CONTROLLED_PREFIX")
    local syshost           = cosmic:value("LMOD_SYSHOST")     or "<empty>"
    local system_name       = cosmic:value("LMOD_SYSTEM_NAME") or "<empty>"
@@ -271,8 +272,9 @@ local function l_new(self)
    tbl.rc             = { k = "LMOD_RC"                           , v = lmodrc,            n = "LMOD_RC"                         }
    tbl.settarg        = { k = "Supporting Full Settarg Use"       , v = settarg_support,   n = "LMOD_SETTARG_FULL_SUPPORT"       }
    tbl.shell          = { k = "User shell"                        , v = myShellName(),     n = false                             }
-   tbl.sitePkg        = { k = "Site Pkg location"                 , v = locSitePkg,        n = false                             }
    tbl.siteName       = { k = "Site Name"                         , v = site_name,         n = "LMOD_SITE_NAME"                  }
+   tbl.sitePkg        = { k = "Site Pkg location"                 , v = locSitePkg,        n = false                             }
+   tbl.sitePkgPrepend = { k = "SitePackage_Prepend"               , v = sitePkg_prepend,   n = "LMOD_SITEPACKAGE_PREPEND"        }
    tbl.spdr_ignore    = { k = "Ignore Cache"                      , v = ignore_cache,      n = "LMOD_IGNORE_CACHE"               }
    tbl.spdr_loads     = { k = "Cached loads"                      , v = cached_loads,      n = "LMOD_CACHED_LOADS"               }
    tbl.sysDfltM       = { k = "System Default Modules"            , v = dfltModules,       n = "LMOD_SYSTEM_DEFAULT_MODULES"     }
@@ -365,6 +367,7 @@ function M.report(self, t)
       b[#b+1] = "\n"
       b[#b+1] = "Where Set -> D: default, E: environment, C: configuration"
       b[#b+1] = "             lmod_cfg: lmod_config.lua SitePkg: SitePackage StdPkg: StandardPackage"
+      b[#b+1] = "             S1, S2 ... from LMOD_SITEPACKAGE_PREPEND"
       b[#b+1] = "             Other: Set somewhere outside of normal locations\n"
    else
       b[#b+1] = "--- None ---"

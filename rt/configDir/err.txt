@@ -2,13 +2,13 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
+Modules based on Lua: Version 9.2.6 2026-07-13 17:55 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
+Modules based on Lua: Version 9.2.6 2026-07-13 17:55 -05:00
     https://lmod.readthedocs.io
 Description                                                Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)               yes
@@ -58,6 +58,7 @@ Redirect to stdout (LMOD_REDIRECT)                         no
 Supporting Full Settarg Use (LMOD_SETTARG_FULL_SUPPORT)    no
 Site Name (LMOD_SITE_NAME)                                 XYZZY
 Site Pkg location                                          ProjectDIR/rt/configDir/lmod_cfg_dir/SitePackage.lua
+SitePackage_Prepend (LMOD_SITEPACKAGE_PREPEND)             <empty>
 Ignore Cache (LMOD_IGNORE_CACHE)                           no
 Cached loads (LMOD_CACHED_LOADS)                           no
 System Default Modules (LMOD_SYSTEM_DEFAULT_MODULES)       <empty>

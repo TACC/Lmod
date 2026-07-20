@@ -1,6 +1,12 @@
 New Features in Lmod
 ====================
 
+**Support for Package Managers to have their own SitePackage.lua files**
+  (Lmod 9.2.8+) Lmod now support the env. var. LMOD_SITEPACKAGE_PREPEND.
+  This is a colon separated list of absolute paths to Lua files.
+  These files are loaded into Lmod before /etc/lmod/lmod_config.lua
+  and  SitePackage.lua.
+  
 **module_virtual()** **and Tcl module-virtual**
    Lua ``.modulerc.lua`` files support ``module_virtual ("virtual_name,
    "implementation")``, and Tcl ``.modulerc`` files support ``module-virtual``,
