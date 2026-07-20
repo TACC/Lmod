@@ -232,6 +232,14 @@ the configuration option which will set the action.
   for example TACC, and not the name of the cluster.  This is used
   with the family function.
 
+**LMOD_SITEPACKAGE_PREPEND**:
+  [string, default: <nil>, --with-sitePackagePrepend].  This variable
+  contains a colon separated list of absolute paths to one or more lua
+  files to configure Lmod.  The idea is that sites control
+  /etc/lmod/lmod_config.lua and SitePackage.lua and package managers
+  can specify one or more files to add functionality to the their
+  generated modulefiles.
+
 **LMOD_SYSHOST**:
   [string, default: <nil>, --with-syshost].  This variable can be used
   to help with module tracking.  See :ref:`tracking_usage` for details.

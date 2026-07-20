@@ -1,0 +1,19 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
+    https://lmod.readthedocs.io
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
+===========================
+Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
+    https://lmod.readthedocs.io
+MODULEPATH:   ProjectDIR/rt/sitePkg/mf
+LMOD_CASE_INDEPENDENT_SORTING  S2         no           yes
+LMOD_PACKAGE_PATH              D          nil          <empty>
+LMOD_SITEPACKAGE_PREPEND       E          false        ProjectDIR/rt/sitePkg/pm/site1.lua:ProjectDIR/rt/sitePkg/pm/site2.lua:
+LMOD_SITE_NAME                 S1         false        fooBar
+LMOD_SYSTEM_DEFAULT_MODULES    D          __unknown__  <empty>
+LMOD_USING_FAST_TCL_INTERP     Other      yes          no

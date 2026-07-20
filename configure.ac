@@ -75,6 +75,18 @@ AC_ARG_WITH(allowRootUse,
     LMOD_ALLOW_ROOT_USE="$withval"
     AC_DEFINE_UNQUOTED(LMOD_ALLOW_ROOT_USE, "$withval"))dnl
 
+AC_SUBST(SITEPACKAGE_PREPEND)
+AC_ARG_WITH(sitePackagePrepend,
+    AS_HELP_STRING([--with-sitePackagePrepend],[List of paths for Package Manager SitePackages])
+    SITEPACKAGE_PREPEND="$withval"
+    AC_MSG_RESULT([SITEPACKAGE_PREPEND=$with_sitePackagePrepend])
+    AC_DEFINE_UNQUOTED(SITEPACKAGE_PREPEND,"$with_sitePackagePrepend")dnl
+    ,
+    withval="<empty>"
+    AC_MSG_RESULT([SITEPACKAGE_PREPEND=$withval])
+    SITEPACKAGE_PREPEND="$withval"
+    AC_DEFINE_UNQUOTED(SITEPACKAGE_PREPEND, "$withval"))dnl
+
 AC_SUBST(SITE_MSG_FILE)
 AC_ARG_WITH(siteMsgFile,
     AS_HELP_STRING([--with-siteMsgFile=ans],[Site Message File [[<empty>]]]),
