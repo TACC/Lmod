@@ -35,12 +35,17 @@ require("strict")
 
 
 _G._DEBUG          = false                       -- Required by luaposix 33
-local posix  = require("posix")
-local unistd = posix.unistd or require("posix.unistd")
-local have_alarm   = (not (not unistd.alarm))
+local posix      = require("posix")
+local unistd     = posix.unistd or require("posix.unistd")
+local have_alarm = (not (not unistd.alarm))
+local psignal    = false
+local wait       = false
+local kill       = false
+local SIGALRM    = false
+local SIGKILL    = false
 if (have_alarm) then
-   local psignal = posix.signal or require("posix.signal")   
-   local wait    = false
+   psignal = posix.signal or require("posix.signal")   
+   wait    = false
    if (posix.sys and posix.sys.wait) then
       wait = posix.sys.wait
    else
@@ -53,9 +58,9 @@ if (have_alarm) then
    -- submodule gives a table with kill/signal and the SIG* constants on every
    -- supported luaposix.
 
-   local kill         = psignal.kill
-   local SIGALRM      = psignal.SIGALRM
-   local SIGKILL      = psignal.SIGKILL
+   kill         = psignal.kill
+   SIGALRM      = psignal.SIGALRM
+   SIGKILL      = psignal.SIGKILL
 end
 local setenv_posix = posix.setenv
 
