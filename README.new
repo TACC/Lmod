@@ -39,3 +39,6 @@ Lmod 9.2+
             * Now both LMOD_DISABLE_SAME_NAME_AUTOSWAP and LMOD_DISABLE_NAME_AUTOSWAP are both supported.
               The documenation only describes LMOD_DISABLE_NAME_AUTOSWAP.
               
+W.I.P.:
+            * Only set psignal if alarm exists.
+            
