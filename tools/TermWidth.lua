@@ -53,6 +53,7 @@ local kill         = psignal.kill
 local SIGALRM      = psignal.SIGALRM
 local SIGKILL      = psignal.SIGKILL
 local setenv_posix = posix.setenv
+local have_alarm   = (not (not unistd.alarm))
 
 require("haveTermSupport")
 local getenv  = os.getenv
@@ -149,12 +150,23 @@ local function l_timedCapture(cmd, sec)
 end
 
 ------------------------------------------------------------------------
+-- Use regular capture if no alarm function.
+
+local function l_safeCapture(cmd, sec)
+   if (have_alarm) then
+      return l_timedCapture(cmd, sec)
+   end
+   return capture(cmd)
+end
+   
+
+------------------------------------------------------------------------
 -- Ask system for width.
 
 local function l_askSystem(width)
 
    -- try stty size
-   local r_c = l_timedCapture("stty size 2> /dev/null", s_termWidthTimeout)
+   local r_c = l_safeCapture("stty size 2> /dev/null", s_termWidthTimeout)
    if (r_c) then
       local i, j, rows, columns = r_c:find('(%d+)%s+(%d+)')
       if (i) then
@@ -164,7 +176,7 @@ local function l_askSystem(width)
 
    -- Try tput cols
    if (getenv("TERM")) then
-      local result = l_timedCapture("tput cols 2> /dev/null", s_termWidthTimeout)
+      local result = l_safeCapture("tput cols 2> /dev/null", s_termWidthTimeout)
       if (result) then
          local i, j, columns = result:find("^(%d+)")
          if (i) then
