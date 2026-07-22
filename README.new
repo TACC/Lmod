@@ -38,4 +38,5 @@ Lmod 9.2+
               command process only in the user's process.
             * Now both LMOD_DISABLE_SAME_NAME_AUTOSWAP and LMOD_DISABLE_NAME_AUTOSWAP are both supported.
               The documenation only describes LMOD_DISABLE_NAME_AUTOSWAP.
-              
+W.I.P.:
+   (9.2.7)  * Issue #840: new function protected_getenv{} added.
