@@ -36,7 +36,10 @@ Lmod 9.2+
             * Issue #817 Support for loading dot hidden modules w/o leading dot
             * When the functions setenv() and pushenv() are reversed it doesn't remove the variable in the lmod
               command process only in the user's process.
+   (9.2.7)  * Issue #818: Support for module_virtual (and TCL module-virtual added.
+            * Issue #832: Adding capture timeout
+   (9.2.8)  * Adding LMOD_SITEPACKAGE_PREPEND support: Pkg Mgrs can now have their own SitePackage.lua files
             * Now both LMOD_DISABLE_SAME_NAME_AUTOSWAP and LMOD_DISABLE_NAME_AUTOSWAP are both supported.
               The documenation only describes LMOD_DISABLE_NAME_AUTOSWAP.
-W.I.P.:
-   (9.2.7)  * Issue #840: new function protected_getenv{} added.
+   (9.2.9)  * Modifying configure.ac to require posix.unistd as a module
+            * Issue #840: new function protected_getenv{} added.

@@ -75,6 +75,18 @@ AC_ARG_WITH(allowRootUse,
     LMOD_ALLOW_ROOT_USE="$withval"
     AC_DEFINE_UNQUOTED(LMOD_ALLOW_ROOT_USE, "$withval"))dnl
 
+AC_SUBST(SITEPACKAGE_PREPEND)
+AC_ARG_WITH(sitePackagePrepend,
+    AS_HELP_STRING([--with-sitePackagePrepend],[List of paths for Package Manager SitePackages])
+    SITEPACKAGE_PREPEND="$withval"
+    AC_MSG_RESULT([SITEPACKAGE_PREPEND=$with_sitePackagePrepend])
+    AC_DEFINE_UNQUOTED(SITEPACKAGE_PREPEND,"$with_sitePackagePrepend")dnl
+    ,
+    withval="<empty>"
+    AC_MSG_RESULT([SITEPACKAGE_PREPEND=$withval])
+    SITEPACKAGE_PREPEND="$withval"
+    AC_DEFINE_UNQUOTED(SITEPACKAGE_PREPEND, "$withval"))dnl
+
 AC_SUBST(SITE_MSG_FILE)
 AC_ARG_WITH(siteMsgFile,
     AS_HELP_STRING([--with-siteMsgFile=ans],[Site Message File [[<empty>]]]),
@@ -1025,10 +1037,10 @@ SYS_LUA_CPATH=$(echo $SYS_LUA_CPATH | sed -e 's|^\./?.so;||'   \
                                           -e 's|;\./?.so;|;|'  \
                                           -e 's|;\./?.so$|;|')
 
-printf "checking for lua modules: posix"
+printf "checking for lua modules: posix, posix.unistd"
 
 missingModules=""
-for i in posix; do
+for i in posix posix.unistd; do
   if ! ($PATH_TO_LUA $ac_confdir/proj_mgmt/luaModuleAvailable $i 2> /dev/null) ; then
     missingModules="$missingModules $i"
   fi
@@ -1039,7 +1051,10 @@ if test -n "$missingModules" ; then
   echo ""
   echo "Error: The follow lua module(s) are missing: $missingModules"
   echo ""
-  echo "You can not run Lmod without: $missingModules"
+  case "$missingModules" in
+    *$posix.unistd*) echo "Your luaposix is too old, please use luaposix version 33 or newer" ;;
+    *)               echo "You can not run Lmod without: $missingModules"
+  esac
   rm -f makefile
   exit 1
 else

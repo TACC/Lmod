@@ -37,6 +37,7 @@ require("strict")
 require("inherits")
 require("utils")
 require("string_utils")
+require("parseVersion")
 
 local FrameStk    = require("FrameStk")
 local M           = {}
@@ -191,6 +192,61 @@ function M.buildA(self,sType, argT)
    return a
 end
 
+local function l_apply_virtual_display(self, origUserName, mrc)
+   local tt = self.__moduleKindT or {}
+   if (tt.kind ~= "hidden") then
+      return
+   end
+
+   if (self.__origUserName) then
+      local _, _, osn, over = self.__origUserName:find("^([^/]+)/(.*)$")
+      if (over and osn == self.__sn) then
+         self.__version = over
+      end
+      return
+   end
+
+   if (origUserName ~= self.__sn or not self.__mpath) then
+      return
+   end
+
+   for virtualName in mrc:pairsForMRC_virtual_at_mpath(self.__mpath) do
+      if (virtualName:find("^" .. origUserName .. "/")) then
+         local wV = mrc:find_wght_for_fullName(virtualName, " ")
+         if (isMarked(wV)) then
+            self.__origUserName = virtualName
+            local _, _, osn, over = virtualName:find("^([^/]+)/(.*)$")
+            if (over and osn == self.__sn) then
+               self.__version = over
+            end
+            break
+         end
+      end
+   end
+end
+
+local function l_find_highest_virtual(mrc, mpathA, sn)
+   local bestName = false
+   local bestPV   = " "
+   for i = 1, #mpathA do
+      local mpath = mpathA[i]
+      for virtualName in mrc:pairsForMRC_virtual_at_mpath(mpath) do
+         local vsn, ver = virtualName:match("^([^/]+)/(.*)$")
+         if (vsn == sn and ver) then
+            local resultT = mrc:isVisible{fullName=virtualName, sn=sn, mpath=mpath}
+            if (resultT.count) then
+               local pV = parseVersion(ver)
+               if (pV > bestPV) then
+                  bestPV   = pV
+                  bestName = virtualName
+               end
+            end
+         end
+      end
+   end
+   return bestName
+end
+
 local function l_lazyEval(self)
    dbg.start{"l_lazyEval(",self.__userName,")"}
 
@@ -297,6 +353,33 @@ local function l_lazyEval(self)
             break
       end
    end
+
+   if (not found and origUserName == sn and (not versionStr or versionStr == "")) then
+      local virtualName = l_find_highest_virtual(mrc, mt:modulePathA(), sn)
+      if (virtualName) then
+         self.__origUserName = virtualName
+         userName = mrc:resolve(mt:modulePathA(), virtualName)
+         sn, versionStr, fileA = moduleA:search(userName)
+         mrc:applyWeights(sn, fileA)
+         self.__userName   = userName
+         self.__versionStr = versionStr
+         for i = 1, #stepA do
+            local func = stepA[i]
+            found, fn, version, wV, moduleKindT, mpath, funcName = func(self, fileA)
+            if (found) then
+               self.__fn          = fn
+               self.__version     = version
+               self.__wV          = wV
+               self.__moduleKindT = moduleKindT
+               self.__mpath       = mpath
+               if (self.__action == "latest" or self.__sn ~= self.__userName) then
+                  self.__userName = build_fullName(self.__sn, version)
+               end
+               break
+            end
+         end
+      end
+   end
    
    ---------------------------------------------------------------
    -- If found then check to see if this MName object is forbidden
@@ -305,6 +388,7 @@ local function l_lazyEval(self)
       self.__forbiddenT = mrc:isForbidden{fullName=build_fullName(self.__sn, version),
                                           sn = self.__sn, fn = self.__fn,
                                           mpath = self.__mpath}
+      l_apply_virtual_display(self, origUserName, mrc)
    else
       dbg.print{"clearing __sn etc\n"}
       self.__sn      = false

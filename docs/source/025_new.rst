@@ -1,11 +1,19 @@
 New Features in Lmod
 ====================
 
-**New module function protected_getenv{} provided**
-  (Lmod 9.2.6+) A new function **protected_getenv{}** is provided to a
-  protected value mainly for *module show*.  This way modules that
-  depend on other module to define an environment variable can provide
-  a default value instead in certain provide module modes.
+**Support for Package Managers to have their own SitePackage.lua files**
+  (Lmod 9.2.8+) Lmod now support the env. var. LMOD_SITEPACKAGE_PREPEND.
+  This is a colon separated list of absolute paths to Lua files.
+  These files are loaded into Lmod before /etc/lmod/lmod_config.lua
+  and  SitePackage.lua.
+  
+**module_virtual()** **and Tcl module-virtual**
+   Lua ``.modulerc.lua`` files support ``module_virtual ("virtual_name,
+   "implementation")``, and Tcl ``.modulerc`` files support ``module-virtual``,
+   matching Environment Modules style virtual names that map to one hidden
+   implementation module. Virtual names appear under their modulepath in
+   ``module avail`` (not under ``Global Aliases``). See :ref:`modulerc-label`. Rationale:
+   `Lmod issue #818 <https://github.com/TACC/Lmod/issues/818>`__.
 
 **setenv() and pushenv() are no longer unset inside the Lmod process on module unload**
   (Lmod 9.2.6+) On module unload, **setenv()** and **pushenv()** will

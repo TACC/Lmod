@@ -939,9 +939,93 @@ local function l_availEntry(defaultOnly, label, searchA, defaultT, entry)
 end
 
 
-local function mark_as_default(entry, defaultT)
+local function mark_as_default(entry, defaultT, mrc)
+   if (mrc:isModuleVirtual(entry.fullName)) then
+      local wV = mrc:find_wght_for_fullName(entry.fullName, " ")
+      return isMarked(wV)
+   end
    local defaultEntry = defaultT[entry.fn]
    return defaultEntry and defaultEntry.count > 1
+end
+
+local function l_build_virtual_availA(mrc, mpath, label, searchA, defaultOnly, defaultT)
+   local virtA = {}
+   for virtualName in mrc:pairsForMRC_virtual_at_mpath(mpath) do
+      local mname = MName:new("load", virtualName)
+      local fn    = mname:fn()
+      if (fn) then
+         local sn = mname:sn() or virtualName
+         local resultT = mrc:isVisible{fullName=virtualName, sn=sn, mpath=mpath}
+         if (resultT.count) then
+            local entry = {
+               fullName   = virtualName,
+               sn         = sn,
+               fn         = fn,
+               propT      = {},
+               forbiddenT = mrc:isForbidden{fullName=virtualName, sn=sn, fn=fn, mpath=mpath},
+            }
+            local esn = l_availEntry(defaultOnly, label, searchA, defaultT, entry)
+            if (esn) then
+               virtA[#virtA+1] = entry
+            end
+         end
+      end
+   end
+   return virtA
+end
+
+local function l_avail_row_from_entry(entry, sn, fullName, fn, mpath, mpathA, mt, mrc,
+                                      defaultOnly, defaultT, legendT, Default)
+   local isVirtual = mrc:isModuleVirtual(entry.fullName)
+   if (isVirtual) then
+      fullName = entry.fullName
+   end
+   local dflt = false
+   if (not defaultOnly and mark_as_default(entry, defaultT, mrc)) then
+      dflt             = Default
+      legendT[Default] = i18n("DefaultM")
+   end
+
+   if (mt:have(sn, "active") and fn == mt:fn(sn)) then
+      entry.propT           = entry.propT or {}
+      entry.propT["status"] = {active = 1}
+   end
+   local c = {}
+   local resultA
+   if (isVirtual) then
+      resultA = { fullName }
+   else
+      resultA = colorizePropA("short", mt,
+                              {sn=sn, fullName=fullName, fn=fn, mpath = mpath },
+                              mrc, entry.propT, legendT, entry.forbiddenT)
+   end
+   c[#c+1] = '  '
+   for i = 1,#resultA do
+      c[#c+1] = resultA[i]
+   end
+
+   local propStr = c[3] or ""
+   local verMapStr = mrc:search_mapT("mod2versionT", mpath, fullName)
+   if (verMapStr) then
+      legendT["Aliases"] = i18n("aliasMsg",{})
+      if (dflt == Default) then
+         dflt = Default .. ":" .. verMapStr
+      else
+         dflt = verMapStr
+      end
+   end
+   local d = {}
+   if (propStr:len() > 0) then
+      d[#d+1] = propStr
+   end
+   if (dflt) then
+      d[#d+1] = dflt
+   end
+   c[3] = concatTbl(d,",")
+   if (c[3]:len() > 0) then
+      c[3] = "(" .. c[3] .. ")"
+   end
+   return c
 end
 
 local function regroup_avail_blocks(availStyle, availA)
@@ -1217,18 +1301,22 @@ function M.terse_avail(self, mpathA, availA, searchA, showSN, defaultOnly, defau
 
    if (searchA.n > 0) then
       for k, v in mrc:pairsForMRC_aliases(mpathA) do
-         local fullName = mrc:resolve(mpathA, v)
-         for i = 1, searchA.n do
-            local s = searchA[i]
-            if (fullName:find(s) or k:find(s)) then
-               a[#a+1] = k.."(@" .. fullName ..")\n"
+         if (not mrc:isModuleVirtual(k)) then
+            local fullName = mrc:resolve(mpathA, v)
+            for i = 1, searchA.n do
+               local s = searchA[i]
+               if (fullName:find(s) or k:find(s)) then
+                  a[#a+1] = k.."(@" .. fullName ..")\n"
+               end
             end
          end
       end
    else
       for k, v in mrc:pairsForMRC_aliases(mpathA) do
-         local fullName = mrc:resolve(mpathA, v)
-         a[#a+1] = k.."(@" .. fullName ..")\n"
+         if (not mrc:isModuleVirtual(k)) then
+            local fullName = mrc:resolve(mpathA, v)
+            a[#a+1] = k.."(@" .. fullName ..")\n"
+         end
       end
    end
 
@@ -1239,25 +1327,34 @@ function M.terse_avail(self, mpathA, availA, searchA, showSN, defaultOnly, defau
       local A      = availA[j].A
       local mpath  = availA[j].mpath
       local label  = mpath
+      local virtA  = l_build_virtual_availA(mrc, mpath, label, searchA, defaultOnly, defaultT)
       local aa     = {}
       local prtSnT = {}  -- Mark if we have printed the sn?
 
-      for i = 1,#A do
-         local sn, fullName, fn, provideA = l_availEntry(defaultOnly, label, searchA, defaultT, A[i])
-         local entry  = A[i]
+      local nA = #A
+      for i = 1, nA + #virtA do
+         local entry = (i <= nA) and A[i] or virtA[i - nA]
+         local sn, fullName, fn, provideA = l_availEntry(defaultOnly, label, searchA, defaultT, entry)
          if (sn) then
-            if (not prtSnT[sn] and sn ~= fullName and showSN) then
+            local dispName = entry.fullName
+            if (not prtSnT[sn] and sn ~= dispName and showSN) then
                prtSnT[sn] = true
                aa[#aa+1]  = sn .. "/\n"
             end
-            local aliasA = mrc:search_mapT("full2aliasesT", mpath, fullName)
-            if (aliasA) then
-               for i = 1,#aliasA do
-                  local fullName = mrc:resolve(mpathA, aliasA[i])
-                  aa[#aa+1]  = aliasA[i] .. "(@".. fullName ..")\n"
+            if (not mrc:isModuleVirtual(dispName)) then
+               local aliasA = mrc:search_mapT("full2aliasesT", mpath, fullName)
+               if (aliasA) then
+                  for ii = 1,#aliasA do
+                     local aliasFull = mrc:resolve(mpathA, aliasA[ii])
+                     aa[#aa+1]  = aliasA[ii] .. "(@".. aliasFull ..")\n"
+                  end
                end
             end
-            aa[#aa+1]  = decorateModule(fullName, entry, entry.forbiddenT) .. "\n"
+            local decorT = entry
+            if (mrc:isModuleVirtual(dispName)) then
+               decorT = { moduleKindT = { kind = "normal" } }
+            end
+            aa[#aa+1]  = decorateModule(dispName, decorT, entry.forbiddenT) .. "\n"
 
             if (showModuleExt and provideA and next(provideA) ~= nil ) then
                for k = 1,#provideA do
@@ -1359,33 +1456,37 @@ function M.avail(self, argA)
    local bb       = {}
    if (searchA.n > 0) then
       for k, v in mrc:pairsForMRC_aliases(mpathA) do
-         local fullName = mrc:resolve(mpathA,v)
-         for i = 1, searchA.n do
-            local s = searchA[i]
-            if (fullName:find(s) or k:find(s)) then
-               local mname    = MName:new("load",k)
-               fullName = mname:fullName() or pna
-               if (fullName == pna) then
-                  legendT[na] = i18n("m_Global_Alias_na")
+         if (not mrc:isModuleVirtual(k)) then
+            local fullName = mrc:resolve(mpathA,v)
+            for i = 1, searchA.n do
+               local s = searchA[i]
+               if (fullName:find(s) or k:find(s)) then
+                  local mname    = MName:new("load",k)
+                  fullName = mname:fullName() or pna
+                  if (fullName == pna) then
+                     legendT[na] = i18n("m_Global_Alias_na")
+                  end
+                  fndAlias = true
+                  b[#b+1]  = { "   " .. k, "->", fullName}
+                  break
                end
-               fndAlias = true
-               b[#b+1]  = { "   " .. k, "->", fullName}
-               break
             end
          end
       end
    else
       for k, v in mrc:pairsForMRC_aliases(mpathA) do
-         local mname    = MName:new("load",k)
-         local fullName = mname:fullName() or pna
-         if (fullName == pna) then
-            legendT[na] = i18n("m_Global_Alias_na")
+         if (not mrc:isModuleVirtual(k)) then
+            local mname    = MName:new("load",k)
+            local fullName = mname:fullName() or pna
+            if (fullName == pna) then
+               legendT[na] = i18n("m_Global_Alias_na")
+            end
+            fndAlias = true
+            b[#b+1]  = { "   " .. k, "->", fullName}
          end
-         fndAlias = true
-         b[#b+1]  = { "   " .. k, "->", fullName}
       end
    end
-   if (fndAlias) then
+   if (next(b) ~= nil) then
       local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
       a[#a+1]  = "\n"
       a[#a+1] = banner:bannerStr("Global Aliases")
@@ -1394,59 +1495,28 @@ function M.avail(self, argA)
       a[#a+1] = "\n"
    end
 
+   --------------------------------------------------------------------------
+   -- Issue #818: Global aliases were printed but did not increment numFound,
+   -- so "module avail <name>" could show matching aliases and still report
+   -- no modules when every filesystem entry was hidden.
+   --------------------------------------------------------------------------
+   numFound = numFound + #b
+
 
    for k = 1,#availA do
-      local A = availA[k].A
+      local A     = availA[k].A
       local mpath = availA[k].mpath
       local label = mpath
-      if (next(A) ~= nil) then
+      local virtA = l_build_virtual_availA(mrc, mpath, label, searchA, defaultOnly, defaultT)
+      if (next(A) ~= nil or next(virtA) ~= nil) then
          local b = {}
-         for j = 1,#A do
-            local entry = A[j]
+         local nA = #A
+         for j = 1, nA + #virtA do
+            local entry = (j <= nA) and A[j] or virtA[j - nA]
             local sn, fullName, fn = l_availEntry(defaultOnly, label, searchA, defaultT, entry)
             if (sn) then
-               local dflt = false
-               if (not defaultOnly and mark_as_default(entry, defaultT)) then
-                  dflt             = Default
-                  legendT[Default] = i18n("DefaultM")
-               end
-
-               if (mt:have(sn, "active") and fn == mt:fn(sn)) then
-                  entry.propT           = entry.propT or {}
-                  entry.propT["status"] = {active = 1}
-               end
-               local c = {}
-               local resultA = colorizePropA("short", mt,
-                                             {sn=sn, fullName=fullName, fn=fn, mpath = mpath },
-                                             mrc, entry.propT, legendT, entry.forbiddenT)
-               c[#c+1] = '  '
-               for i = 1,#resultA do
-                  c[#c+1] = resultA[i]
-               end
-
-               local propStr = c[3] or ""
-               local verMapStr = mrc:search_mapT("mod2versionT", mpath, fullName)
-               if (verMapStr) then
-                  legendT["Aliases"] = i18n("aliasMsg",{})
-                  if (dflt == Default) then
-                     dflt = Default .. ":" .. verMapStr
-                  else
-                     dflt = verMapStr
-                  end
-               end
-               local d = {}
-               if (propStr:len() > 0) then
-                  d[#d+1] = propStr
-               end
-               if (dflt) then
-                  d[#d+1] = dflt
-               end
-               c[3] = concatTbl(d,",")
-               if (c[3]:len() > 0) then
-                  c[3] = "(" .. c[3] .. ")"
-               end
-               b[#b+1] = c
-
+               b[#b+1] = l_avail_row_from_entry(entry, sn, fullName, fn, mpath, mpathA,
+                                                 mt, mrc, defaultOnly, defaultT, legendT, Default)
             end
          end
          numFound = numFound + #b
