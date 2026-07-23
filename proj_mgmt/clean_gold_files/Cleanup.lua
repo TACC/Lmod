@@ -138,6 +138,7 @@ local s_removeA = {
    "^Name * Where Set *Default *Value.*",
    "^Where Set.*",
    "^ *lmod_cfg: l.*",
+   "^ *S1, S2 ... from.*",
    "^ *Other: Set.*",
    "^LFS_VERSION.*",
    "^Active lua%-term.*",

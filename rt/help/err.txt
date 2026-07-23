@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
+Modules based on Lua: Version 9.2.6 2026-07-13 17:55 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -111,7 +111,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
+Modules based on Lua: Version 9.2.6 2026-07-13 17:55 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 3
@@ -220,7 +220,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
+Modules based on Lua: Version 9.2.6 2026-07-13 17:55 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 4
@@ -240,7 +240,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
+Modules based on Lua: Version 9.2.6 2026-07-13 17:55 -05:00
     https://lmod.readthedocs.io
 Description                                                Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)               yes
@@ -290,6 +290,7 @@ Redirect to stdout (LMOD_REDIRECT)                         no
 Supporting Full Settarg Use (LMOD_SETTARG_FULL_SUPPORT)    no
 Site Name (LMOD_SITE_NAME)                                 <empty>
 Site Pkg location                                          standard
+SitePackage_Prepend (LMOD_SITEPACKAGE_PREPEND)             <empty>
 Ignore Cache (LMOD_IGNORE_CACHE)                           no
 Cached loads (LMOD_CACHED_LOADS)                           no
 System Default Modules (LMOD_SYSTEM_DEFAULT_MODULES)       <empty>
@@ -423,7 +424,7 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
+Modules based on Lua: Version 9.2.6 2026-07-13 17:55 -05:00
     https://lmod.readthedocs.io
 MODULEPATH:   ProjectDIR/rt/help/mf
 LMOD_PACKAGE_PATH            D          nil          <empty>
