@@ -44,9 +44,9 @@ local kill       = false
 local SIGALRM    = false
 local SIGKILL    = false
 if (have_alarm) then
-   psignal = posix.signal or require("posix.signal")   
+   psignal = (type(posix.signal) == "table") and posix.signal or require("posix.signal")   
    wait    = false
-   if (posix.sys and posix.sys.wait) then
+   if (posix.sys and type(posix.sys) == "table" and posix.sys.wait) then
       wait = posix.sys.wait
    else
       wait = require("posix.sys.wait")
@@ -61,6 +61,7 @@ if (have_alarm) then
    kill         = psignal.kill
    SIGALRM      = psignal.SIGALRM
    SIGKILL      = psignal.SIGKILL
+   have_alarm   = (kill and SIGALRM and SIGKILL)
 end
 local setenv_posix = posix.setenv
 
