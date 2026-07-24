@@ -87,7 +87,7 @@ jobs:
          echo "$PWD/Hermes/bin" >> $GITHUB_PATH
          cd -
       - name: Run tests
-        run: tm -k termWidthFallback
+        run: tm 
       - name: show output of failed Lmod tests
         if: ${{ failure() }}
         run: |
