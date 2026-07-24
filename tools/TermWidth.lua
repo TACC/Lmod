@@ -61,7 +61,7 @@ if (have_alarm) then
    kill         = psignal.kill
    SIGALRM      = psignal.SIGALRM
    SIGKILL      = psignal.SIGKILL
-   have_alarm   = (kill and SIGALRM and SIGKILL)
+   have_alarm   = (kill and SIGALRM and SIGKILL and wait)
 end
 local setenv_posix = posix.setenv
 
