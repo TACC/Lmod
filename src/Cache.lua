@@ -110,7 +110,7 @@ end
 -- @param t A table with possible dontWrite and quiet entries.
 local function l_new(self, t)
    local o       = {}
-   local ancient = cosmic:value("LMOD_ANCIENT_TIME")
+   local ancient = tonumber(cosmic:value("LMOD_ANCIENT_TIME"))
    setmetatable(o,self)
    self.__index = self
 
@@ -441,7 +441,7 @@ local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spider
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
    local short     = mt:getShortTime()
-   local threshold = cosmic:value("LMOD_THRESHOLD")
+   local threshold = tonumber(cosmic:value("LMOD_THRESHOLD"))
    local prtRbMsg  = ((not quiet())                        and
                       (not optionTbl.initial)              and
                       ((not short) or (short > shortTime)) and
@@ -578,8 +578,8 @@ end
 function M.build(self, fast)
    fast = fast ~= nil and fast or false
    dbg.start{"Cache:build(fast=", fast,")"}
-   local ancient     = cosmic:value("LMOD_ANCIENT_TIME")
-   local shortTime   = cosmic:value("LMOD_SHORT_TIME")
+   local ancient     = tonumber(cosmic:value("LMOD_ANCIENT_TIME"))
+   local shortTime   = tonumber(cosmic:value("LMOD_SHORT_TIME"))
    local spiderT     = self.spiderT
    local dbT         = self.dbT
    local brokenT     = self.brokenT
