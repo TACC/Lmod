@@ -147,16 +147,20 @@ _module() {
   
   case "${prev}" in
     add|load|try-load)
-      COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "${cur}") )
+      #COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "${cur}") )
+      _module_comgen_words      "$(_module_not_yet_loaded)"     "$cur"
       ;;
     rm|remove|unload|switch|swap)
-      COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "${cur}") )
+      #COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "${cur}") )
+      _module_comgen_words "$(_module_loaded_modules)" "$cur"
       ;;
     restore)
-      COMPREPLY=( $(compgen -W "$(_module_savelist)" -- "${cur}") )
+      #COMPREPLY=( $(compgen -W "$(_module_savelist)" -- "${cur}") )
+      _module_comgen_words      "$(_module_savelist)" "$cur"
       ;;
     spider)
-      COMPREPLY=( $(compgen -W "$(_module_spider)" -- "${cur}") )
+      #COMPREPLY=( $(compgen -W "$(_module_spider)" -- "${cur}") )
+      _module_comgen_words      "$(_module_spider)"     "$cur"
       ;;
     unuse)
       COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "${cur}") )
@@ -165,13 +169,16 @@ _module() {
       _module_dir "${cur}"
       ;;
     help|show|whatis)
-      COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
+      #COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
+      _module_comgen_words      "$(_module_avail)"     "$cur"
       ;;
     describe|mcc)
-      COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
+      #COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
+      _module_comgen_words      "$(_module_mcc)"     "$cur"
       ;;
     disable)
-      COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
+      #COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
+      _module_comgen_words      "$(_module_mcc)"     "$cur"
       ;;
     *)
       if [ ${COMP_CWORD} -gt 2 ]; then
@@ -216,13 +223,16 @@ _ml() {
   
   case "${prev}" in
     rm|remove|unload|switch|swap)
-      COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "${cur}") )
+      #COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "${cur}") )
+      _module_comgen_words      "$(_module_loaded_modules)"     "$cur"
       ;;
     restore)
-      COMPREPLY=( $(compgen -W "$(_module_savelist)" -- "${cur}") )
+      #COMPREPLY=( $(compgen -W "$(_module_savelist)" -- "${cur}") )
+      _module_comgen_words      "$(_module_savelist)"     "$cur"
       ;;
     spider)
-      COMPREPLY=( $(compgen -W "$(_module_spider)" -- "${cur}") )
+      #COMPREPLY=( $(compgen -W "$(_module_spider)" -- "${cur}") )
+      _module_comgen_words      "$(_module_spider)"     "$cur"
       ;;
     unuse)
       COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "${cur}") )
@@ -231,7 +241,16 @@ _ml() {
       _module_dir "${cur}"
       ;;
     help|show|whatis)
-      COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
+      #COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
+      _module_comgen_words      "$(_module_avail)"     "$cur"
+      ;;
+    describe|mcc)
+      #COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
+      _module_comgen_words      "$(_module_mcc)"     "$cur"
+      ;;
+    disable)
+      #COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
+      _module_comgen_words      "$(_module_mcc)"     "$cur"
       ;;
     *)
       case "${cur}" in
