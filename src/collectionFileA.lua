@@ -134,6 +134,31 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
             return
          end
       else
+         local cosmic = require("Cosmic"):singleton()
+         if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") == "yes" and (not v.fileT[sn])) then
+            local targetNorm = l_normalizeDotHiddenVersion(sn)
+            local candK      = false
+            local candVv     = false
+            local ambiguous  = false
+            for fk, fvv in pairs(v.fileT) do
+               if ((not fk:find("/")) and l_normalizeDotHiddenVersion(fk) == targetNorm) then
+                  if (candK) then
+                     ambiguous = true
+                     break
+                  end
+                  candK  = fk
+                  candVv = fvv
+               end
+            end
+            if (candK and candVv and (not ambiguous)) then
+               fileA[#fileA+1] = { sn = sn, fullName = candK, version = false,
+                                   dotHiddenCanonSn = candK,
+                                   fn = candVv.fn, wV = candVv.wV,
+                                   pV = candVv.pV, mpath = candVv.mpath }
+               dbg.fini("collectFileA dot-hidden meta alias")
+               return
+            end
+         end
          dbg.print{"Adding v.fileT to fileA\n"}
          for fullName, vv in pairs(v.fileT) do
             local version   = extractVersion(fullName, sn)

@@ -112,6 +112,7 @@ function M.new(self, sType, name, action, is, ie)
    o.__fn              = false
    o.__versionStr      = false
    o.__logicalVersionForUserName = nil
+   o.__logicalSnForUserName      = nil
    o.__dotHiddenAliasLoad        = false
    o.__dependsOn       = false
    o.__moduleKindT     = nil
@@ -332,6 +333,7 @@ local function l_lazyEval(self)
 
    for i = 1, #stepA do
       self.__logicalVersionForUserName = nil
+      self.__logicalSnForUserName      = nil
       self.__dotHiddenAliasLoad       = false
       local func = stepA[i]
       found, fn, version, wV, moduleKindT, mpath, funcName = func(self, fileA)
@@ -347,8 +349,9 @@ local function l_lazyEval(self)
                -- defaults and NVV paths expand (e.g. gcc/11 -> gcc/11.4).
                -- Dot-hidden alias sets __logicalVersionForUserName to the user's
                -- logical spec so userName stays itk/1.2 while fullName uses .1.2.
+               local usn = self.__logicalSnForUserName or self.__sn
                local uv = self.__logicalVersionForUserName or version or self.__versionStr
-               self.__userName = build_fullName(self.__sn, uv)
+               self.__userName = build_fullName(usn, uv)
             end
             break
       end
@@ -603,13 +606,20 @@ local function l_find_exact_match(self, must_have_version, fileA)
                wV          = entry.wV
                fn          = entry.fn
                mpath       = entry.mpath
-               if (entry.dotHiddenCanonVs) then
+               if (entry.dotHiddenCanonSn) then
+                  self.__logicalSnForUserName      = entry.sn
+                  self.__sn                        = entry.dotHiddenCanonSn
+                  version                          = false
+                  self.__logicalVersionForUserName = nil
+                  self.__dotHiddenAliasLoad         = true
+               elseif (entry.dotHiddenCanonVs) then
                   version     = entry.dotHiddenCanonVs
                   self.__logicalVersionForUserName = entry.version
                   self.__dotHiddenAliasLoad       = true
                else
                   version     = entry.version or false
                   self.__logicalVersionForUserName = nil
+                  self.__logicalSnForUserName      = nil
                   self.__dotHiddenAliasLoad       = false
                end
                moduleKindT = resultT.moduleKindT

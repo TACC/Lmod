@@ -1,0 +1,194 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+ProjectDIR/rt/dot_hidden_search/mf_nvv_unique
+   foo/.x86/.32/.1.0 (H)
+  Where:
+   H:  Hidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/x86/32/1.0
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "foo/x86/32/1.0"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "foo/x86/32/1.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/x86/32/1.0
+===========================
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/.x86/.32/.1.0
+===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+ProjectDIR/rt/dot_hidden_search/mf_nvv_mixed
+   foo/x86/.32/1.0 (H)
+  Where:
+   H:  Hidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/x86/32/1.0
+===========================
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+ProjectDIR/rt/dot_hidden_search/mf_nvv_exact
+   foo/.x86/.32/.1.0 (H)    foo/x86/32/1.0
+  Where:
+   H:  Hidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/x86/32/1.0
+===========================
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/.x86/.32/.1.0
+===========================
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+ProjectDIR/rt/dot_hidden_search/mf_nvv_ambig
+   foo/.x86/32/1.0 (H)    foo/x86/.32/1.0 (H)
+  Where:
+   H:  Hidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/x86/32/1.0
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "foo/x86/32/1.0"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "foo/x86/32/1.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+ProjectDIR/rt/dot_hidden_search/mf_meta_unique
+   .ACME (H)
+  Where:
+   H:  Hidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ACME
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "ACME"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "ACME"
+Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ACME
+===========================
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load .ACME
+===========================
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+ProjectDIR/rt/dot_hidden_search/mf_meta_exact
+   .ACME (H)    ACME
+  Where:
+   H:  Hidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ACME
+===========================
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load .ACME
+===========================
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/x86/32/9.99
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "foo/x86/32/9.99"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "foo/x86/32/9.99"
+Also make sure that all modulefiles written in TCL start with the string #%Module

@@ -1,0 +1,6 @@
+-- IS849 Track B: unique mixed NVV (only .32 dotted)
+whatis("foo NVV mixed dotted version segment")
+local usrName, trueUsrName = myModuleUsrAndAliasName()
+setenv("DH849_SLOT", "nvv_mixed")
+setenv("DH849_USR", usrName)
+setenv("DH849_TRUE", trueUsrName)

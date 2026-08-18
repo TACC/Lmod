@@ -1,0 +1,6 @@
+-- IS849 Track B: dotted NVV sibling (exact undotted must win)
+whatis("foo NVV dotted sibling")
+local usrName, trueUsrName = myModuleUsrAndAliasName()
+setenv("DH849_SLOT", "nvv_exact_dotted")
+setenv("DH849_USR", usrName)
+setenv("DH849_TRUE", trueUsrName)

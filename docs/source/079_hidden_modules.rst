@@ -55,6 +55,7 @@ Dot-leading version directories and ``LMOD_DOT_HIDDEN_LOAD_ALIAS``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Background and rationale: `GitHub issue #817 <https://github.com/TACC/Lmod/issues/817>`__.
+Extended NVV and meta-module search: `GitHub issue #849 <https://github.com/TACC/Lmod/issues/849>`__.
 
 When the **version** (or a path segment under the short name) begins with
 ``.``, Lmod treats the module as **hidden** for ``avail`` and ``spider`` in
@@ -69,13 +70,19 @@ Sites may set the environment variable ``LMOD_DOT_HIDDEN_LOAD_ALIAS`` to
 * After an exact key lookup fails, Lmod may resolve a requested version string
   without dots (e.g. ``1.2``) to a **single** sibling modulefile whose path
   differs only by dot-leading segments (e.g. ``.1.2``), **iff** that match is
-  **unique**.  If more than one filesystem key normalizes the same way, the
-  alias is **not** applied (ambiguous).
+  **unique**.  The same rule applies to **any** path segment, including NVV
+  layout (e.g. ``foo/x86/32/1.0`` may resolve to ``foo/.x86/.32/.1.0.lua`` when
+  that is the only normalized match) and to the **short name** of a meta module
+  (e.g. ``module load ACME`` may resolve to ``.ACME.lua`` when no ``ACME.lua``
+  exists).  Segments are compared after stripping one leading ``.`` from each
+  slash-separated part; if more than one filesystem key normalizes the same way,
+  the alias is **not** applied (ambiguous).
 
 * If both an undotted and a dotted key exist for the same logical version (for
   example ``pkg/1.2.lua`` and ``pkg/.1.2.lua``), the **exact** undotted key
   wins; the alias is only for the case where the dotted layout is the sole
-  match.
+  match.  The same exact-key rule applies to NVV paths and meta modules (for
+  example ``ACME.lua`` wins over ``.ACME.lua`` when both exist).
 
 * Listing behavior is unchanged: hidden modules stay hidden from normal
   listings unless users or policy surface them as today.

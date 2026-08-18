@@ -70,6 +70,92 @@ local function l_merge_locationT(origT, lctnT, v)
 end
 
 
+local function l_normalizeDotHiddenPath(pathStr)
+   if (not pathStr or pathStr == "") then
+      return ""
+   end
+   local a = {}
+   for part in pathStr:gmatch("[^/]+") do
+      local myPart = part
+      if (myPart:sub(1,1) == ".") then
+         myPart = myPart:sub(2)
+      end
+      a[#a+1] = myPart
+   end
+   return table.concat(a, "/")
+end
+
+local function l_locationDirT(parentV, key)
+   local value = parentV.dirT[key]
+   if (value) then
+      return value
+   end
+   if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") ~= "yes") then
+      return nil
+   end
+   local targetNorm = l_normalizeDotHiddenPath(key)
+   local cand       = false
+   for k, vv in pairs(parentV.dirT) do
+      if (l_normalizeDotHiddenPath(k) == targetNorm) then
+         if (cand) then
+            return nil
+         end
+         cand = vv
+      end
+   end
+   return cand
+end
+
+local function l_scan_normalized_alias(locationT, name)
+   local targetNorm = l_normalizeDotHiddenPath(name)
+   local userSn     = name:match("^([^/]+)$")
+   local userVs     = false
+   if (not userSn) then
+      userSn, userVs = name:match("^([^/]+)/(.+)$")
+   end
+   local candEntry  = false
+   local ambiguous  = false
+
+   local function scanNode(v)
+      if (v.fileT) then
+         for fk, fvv in pairs(v.fileT) do
+            if (l_normalizeDotHiddenPath(fk) == targetNorm) then
+               if (candEntry) then
+                  ambiguous = true
+                  return
+               end
+               local entry = { fullName = fk, fn = fvv.fn, wV = fvv.wV,
+                               pV = fvv.pV, mpath = fvv.mpath }
+               if (not fk:find("/")) then
+                  entry.sn   = userSn or name
+                  entry.version = false
+                  entry.dotHiddenCanonSn = fk
+               else
+                  entry.sn      = userSn
+                  entry.version = userVs
+                  entry.dotHiddenCanonVs = fk:gsub("^" .. userSn:escape() .. "/", "")
+               end
+               candEntry = entry
+            end
+         end
+      end
+      if (v.dirT) then
+         for _, dv in pairs(v.dirT) do
+            scanNode(dv)
+         end
+      end
+   end
+
+   for _, lv in pairs(locationT) do
+      scanNode(lv)
+   end
+
+   if (ambiguous or not candEntry) then
+      return nil
+   end
+   return candEntry
+end
+
 local function l_build(moduleA)
    --dbg.start{"LocationT l_build(moduleA)"}
 
@@ -139,6 +225,11 @@ function M.search(self, name)
    local idx        = nil
    while true do
       v   = locationT[sn]
+      if (v == nil) then
+         if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") == "yes") then
+            v = locationT["." .. sn]
+         end
+      end
       if (v) then break end
       idx = sn:match("^.*()/")
       if (idx == nil) then break end
@@ -147,6 +238,15 @@ function M.search(self, name)
 
    -- if v is nil then the name was not found so quit
    if (v == nil) then
+      if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") == "yes") then
+         local entry = l_scan_normalized_alias(locationT, name)
+         if (entry) then
+            local fileA = {}
+            fileA[1]    = { entry }
+            dbg.fini("LocationT:search")
+            return entry.sn, entry.version, fileA
+         end
+      end
       dbg.fini("LocationT:search")
       return nil
    end
@@ -186,7 +286,7 @@ function M.search(self, name)
          jdx  = idx + 1
       end
       local key   = pathJoin(sn, vStr)
-      local value = v.dirT[key]
+      local value = l_locationDirT(v, key)
 
       if (value) then
          v       = value

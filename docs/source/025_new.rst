@@ -1,6 +1,13 @@
 New Features in Lmod
 ====================
 
+**Dot-hidden load alias search for NVV paths and meta modules**
+  (Lmod X.Y.Z+) When ``LMOD_DOT_HIDDEN_LOAD_ALIAS`` is ``yes``, dot-hidden
+  alias resolution applies to any path segment (including NVV layouts) and to
+  meta-module short names, subject to the normalized uniqueness rule described
+  in :ref:`dot_hidden_load_alias-label`.  See `Lmod issue #849
+  <https://github.com/TACC/Lmod/issues/849>`__.
+
 **Support for Package Managers to have their own SitePackage.lua files**
   (Lmod 9.2.8+) Lmod now support the env. var. LMOD_SITEPACKAGE_PREPEND.
   This is a colon separated list of absolute paths to Lua files.
