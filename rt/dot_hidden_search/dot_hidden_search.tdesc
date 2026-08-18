@@ -1,0 +1,143 @@
+-- -*- lua -*-
+
+local testName = "dot_hidden_search"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	GitHub issue #849 Track B: dot-hidden load alias search for NVV paths
+	and meta modules when LMOD_DOT_HIDDEN_LOAD_ALIAS=yes.
+
+	Extends #817 single-segment alias to multi-segment NVV layouts and
+	meta short names. Exact key as typed always wins; ambiguous normalized
+	matches fail closed.
+   ]],
+   keywords = { testName, "hidden", "issue849", "issue817" },
+
+   active   = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+
+     remove_generated_lmod_files
+
+     export LMOD_PIN_VERSIONS=no
+
+     # --- mf_nvv_unique: gate off blocks alias ---
+     export MODULEPATH=$(testDir)/mf_nvv_unique
+     unset LMOD_DOT_HIDDEN_LOAD_ALIAS
+
+     runLmod --show_hidden avail                     # 1
+     runLmod load foo/x86/32/1.0                     # 2  gate off: unknown
+
+     # --- mf_nvv_unique: gate on, unique full NVV alias ---
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_nvv_unique
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod load foo/x86/32/1.0                     # 3  alias to all-dotted
+     runLmod purge                                     # 4
+
+     runLmod load foo/.x86/.32/.1.0                    # 5  explicit dotted NVV
+     runLmod purge                                     # 6
+
+     # --- mf_nvv_mixed: gate on, mixed segment dots ---
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_nvv_mixed
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod --show_hidden avail                     # 7
+     runLmod load foo/x86/32/1.0                     # 8  alias to x86/.32/1.0
+     runLmod purge                                     # 9
+
+     # --- mf_nvv_exact: exact undotted wins over dotted sibling ---
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_nvv_exact
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod --show_hidden avail                     # 10
+     runLmod load foo/x86/32/1.0                     # 11 exact wins
+     runLmod purge                                     # 12
+
+     runLmod load foo/.x86/.32/.1.0                    # 13 dotted sibling
+     runLmod purge                                     # 14
+
+     # --- mf_nvv_ambig: two keys normalize the same ---
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_nvv_ambig
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod --show_hidden avail                     # 15
+     runLmod load foo/x86/32/1.0                     # 16 ambiguous: unknown
+     runLmod purge                                     # 17
+
+     # --- mf_meta_unique: gate off blocks meta alias ---
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_meta_unique
+     unset LMOD_DOT_HIDDEN_LOAD_ALIAS
+
+     runLmod --show_hidden avail                     # 18
+     runLmod load ACME                                # 19 gate off: unknown
+     runLmod purge                                     # 20
+
+     # --- mf_meta_unique: gate on, unique meta alias ---
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_meta_unique
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod load ACME                                # 21 alias to .ACME
+     runLmod purge                                     # 22
+
+     runLmod load .ACME                               # 23 explicit dotted meta
+     runLmod purge                                     # 24
+
+     # --- mf_meta_exact: exact meta wins ---
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_meta_exact
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod --show_hidden avail                     # 25
+     runLmod load ACME                                # 26 exact ACME.lua
+     runLmod purge                                     # 27
+
+     runLmod load .ACME                               # 28 dotted sibling
+     runLmod purge                                     # 29
+
+     # --- mf_nvv_unique: still unknown version ---
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_nvv_unique
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod load foo/x86/32/9.99                     # 30 unknown version
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish --onFailure $(outputDir)/test.failed -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

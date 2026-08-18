@@ -1,0 +1,426 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_unique:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_unique;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_nvv_unique",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_nvv_unique",}';
+export _ModuleTable_;
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/x86/32/1.0
+===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"foo/x86/32/1.0\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"foo/x86/32/1.0\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
+false
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/x86/32/1.0
+===========================
+DH849_SLOT=nvv_unique;
+export DH849_SLOT;
+DH849_TRUE=foo/.x86/.32/.1.0;
+export DH849_TRUE;
+DH849_USR=foo/x86/32/1.0;
+export DH849_USR;
+LOADEDMODULES=foo/x86/32/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_unique:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_unique;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden_search/mf_nvv_unique/foo/.x86/.32/.1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/dot_hidden_search/mf_nvv_unique/foo/.x86/.32/.1.0.lua",fullName="foo/.x86/.32/.1.0",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="foo/x86/32/1.0",wV="000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_nvv_unique",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_nvv_unique",}';
+export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset DH849_SLOT;
+unset DH849_TRUE;
+unset DH849_USR;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_unique;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_nvv_unique",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_nvv_unique",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/.x86/.32/.1.0
+===========================
+DH849_SLOT=nvv_unique;
+export DH849_SLOT;
+DH849_TRUE=foo/.x86/.32/.1.0;
+export DH849_TRUE;
+DH849_USR=foo/.x86/.32/.1.0;
+export DH849_USR;
+LOADEDMODULES=foo/.x86/.32/.1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_unique;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden_search/mf_nvv_unique/foo/.x86/.32/.1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["foo/.x86/.32"]={fn="ProjectDIR/rt/dot_hidden_search/mf_nvv_unique/foo/.x86/.32/.1.0.lua",fullName="foo/.x86/.32/.1.0",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="foo/.x86/.32/.1.0",wV="000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_nvv_unique",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_nvv_unique",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset DH849_SLOT;
+unset DH849_TRUE;
+unset DH849_USR;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_unique;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_nvv_unique",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_nvv_unique",}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_mixed:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_mixed;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_nvv_mixed",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_nvv_mixed",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/x86/32/1.0
+===========================
+DH849_SLOT=nvv_mixed;
+export DH849_SLOT;
+DH849_TRUE=foo/x86/.32/1.0;
+export DH849_TRUE;
+DH849_USR=foo/x86/32/1.0;
+export DH849_USR;
+LOADEDMODULES=foo/x86/32/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_mixed;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden_search/mf_nvv_mixed/foo/x86/.32/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/dot_hidden_search/mf_nvv_mixed/foo/x86/.32/1.0.lua",fullName="foo/x86/.32/1.0",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="foo/x86/32/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_nvv_mixed",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_nvv_mixed",}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset DH849_SLOT;
+unset DH849_TRUE;
+unset DH849_USR;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_mixed;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_nvv_mixed",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_nvv_mixed",}';
+export _ModuleTable_;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_exact:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_exact;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_nvv_exact",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_nvv_exact",}';
+export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/x86/32/1.0
+===========================
+DH849_SLOT=nvv_exact_undotted;
+export DH849_SLOT;
+DH849_TRUE=foo/x86/32/1.0;
+export DH849_TRUE;
+DH849_USR=foo/x86/32/1.0;
+export DH849_USR;
+LOADEDMODULES=foo/x86/32/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_exact;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden_search/mf_nvv_exact/foo/x86/32/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["foo/x86/32"]={fn="ProjectDIR/rt/dot_hidden_search/mf_nvv_exact/foo/x86/32/1.0.lua",fullName="foo/x86/32/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="foo/x86/32/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_nvv_exact",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_nvv_exact",}';
+export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset DH849_SLOT;
+unset DH849_TRUE;
+unset DH849_USR;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_exact;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_nvv_exact",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_nvv_exact",}';
+export _ModuleTable_;
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/.x86/.32/.1.0
+===========================
+DH849_SLOT=nvv_exact_dotted;
+export DH849_SLOT;
+DH849_TRUE=foo/.x86/.32/.1.0;
+export DH849_TRUE;
+DH849_USR=foo/.x86/.32/.1.0;
+export DH849_USR;
+LOADEDMODULES=foo/.x86/.32/.1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_exact;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden_search/mf_nvv_exact/foo/.x86/.32/.1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["foo/.x86/.32"]={fn="ProjectDIR/rt/dot_hidden_search/mf_nvv_exact/foo/.x86/.32/.1.0.lua",fullName="foo/.x86/.32/.1.0",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="foo/.x86/.32/.1.0",wV="000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_nvv_exact",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_nvv_exact",}';
+export _ModuleTable_;
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset DH849_SLOT;
+unset DH849_TRUE;
+unset DH849_USR;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_exact;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_nvv_exact",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_nvv_exact",}';
+export _ModuleTable_;
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_ambig:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_ambig;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_nvv_ambig",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_nvv_ambig",}';
+export _ModuleTable_;
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/x86/32/1.0
+===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"foo/x86/32/1.0\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"foo/x86/32/1.0\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
+false
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_nvv_ambig;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_nvv_ambig",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_nvv_ambig",}';
+export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_meta_unique:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_meta_unique;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_meta_unique",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_meta_unique",}';
+export _ModuleTable_;
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ACME
+===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"ACME\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"ACME\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
+false
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_meta_unique;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_meta_unique",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_meta_unique",}';
+export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ACME
+===========================
+DH849_SLOT=meta_unique;
+export DH849_SLOT;
+DH849_TRUE=.ACME;
+export DH849_TRUE;
+DH849_USR=ACME;
+export DH849_USR;
+LOADEDMODULES=ACME;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_meta_unique:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_meta_unique;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden_search/mf_meta_unique/.ACME.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={[".ACME"]={fn="ProjectDIR/rt/dot_hidden_search/mf_meta_unique/.ACME.lua",fullName=".ACME",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="ACME",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_meta_unique",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_meta_unique",}';
+export _ModuleTable_;
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset DH849_SLOT;
+unset DH849_TRUE;
+unset DH849_USR;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_meta_unique;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_meta_unique",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_meta_unique",}';
+export _ModuleTable_;
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load .ACME
+===========================
+DH849_SLOT=meta_unique;
+export DH849_SLOT;
+DH849_TRUE=.ACME;
+export DH849_TRUE;
+DH849_USR=.ACME;
+export DH849_USR;
+LOADEDMODULES=.ACME;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_meta_unique;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden_search/mf_meta_unique/.ACME.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={[".ACME"]={fn="ProjectDIR/rt/dot_hidden_search/mf_meta_unique/.ACME.lua",fullName=".ACME",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName=".ACME",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_meta_unique",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_meta_unique",}';
+export _ModuleTable_;
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset DH849_SLOT;
+unset DH849_TRUE;
+unset DH849_USR;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_meta_unique;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_meta_unique",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_meta_unique",}';
+export _ModuleTable_;
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_meta_exact:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_meta_exact;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_meta_exact",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_meta_exact",}';
+export _ModuleTable_;
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ACME
+===========================
+DH849_SLOT=meta_exact_undotted;
+export DH849_SLOT;
+DH849_TRUE=ACME;
+export DH849_TRUE;
+DH849_USR=ACME;
+export DH849_USR;
+LOADEDMODULES=ACME;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_meta_exact;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden_search/mf_meta_exact/ACME.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ACME={fn="ProjectDIR/rt/dot_hidden_search/mf_meta_exact/ACME.lua",fullName="ACME",loadOrder=1,propT={},stackDepth=0,status="active",userName="ACME",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_meta_exact",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_meta_exact",}';
+export _ModuleTable_;
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset DH849_SLOT;
+unset DH849_TRUE;
+unset DH849_USR;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_meta_exact;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_meta_exact",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_meta_exact",}';
+export _ModuleTable_;
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load .ACME
+===========================
+DH849_SLOT=meta_exact_dotted;
+export DH849_SLOT;
+DH849_TRUE=.ACME;
+export DH849_TRUE;
+DH849_USR=.ACME;
+export DH849_USR;
+LOADEDMODULES=.ACME;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_meta_exact;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden_search/mf_meta_exact/.ACME.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={[".ACME"]={fn="ProjectDIR/rt/dot_hidden_search/mf_meta_exact/.ACME.lua",fullName=".ACME",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName=".ACME",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_meta_exact",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_meta_exact",}';
+export _ModuleTable_;
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset DH849_SLOT;
+unset DH849_TRUE;
+unset DH849_USR;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden_search/mf_meta_exact;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden_search/mf_meta_exact",},systemBaseMPATH="ProjectDIR/rt/dot_hidden_search/mf_meta_exact",}';
+export _ModuleTable_;
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/x86/32/9.99
+===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"foo/x86/32/9.99\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"foo/x86/32/9.99\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
+false

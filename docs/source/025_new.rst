@@ -1,12 +1,21 @@
 New Features in Lmod
 ====================
 
+<<<<<<< HEAD
 **myModuleFullNameAndAlias()**
   (Lmod X.Y.Z+) Modulefiles can call ``myModuleFullNameAndAlias()`` to obtain
   the logical full name and the true loaded full name when dot-leading path
   segments are used to hide modules.  See :ref:`dot_hidden_load_alias-label`
   and :ref:`lua_modulefile_functions-label`.  Rationale:
   `Lmod issue #849 <https://github.com/TACC/Lmod/issues/849>`__.
+=======
+**Dot-hidden load alias search for NVV paths and meta modules**
+  (Lmod X.Y.Z+) When ``LMOD_DOT_HIDDEN_LOAD_ALIAS`` is ``yes``, dot-hidden
+  alias resolution applies to any path segment (including NVV layouts) and to
+  meta-module short names, subject to the normalized uniqueness rule described
+  in :ref:`dot_hidden_load_alias-label`.  See `Lmod issue #849
+  <https://github.com/TACC/Lmod/issues/849>`__.
+>>>>>>> 32059c8b7 (Extend dot-hidden load alias search to NVV paths and meta modules (IS849))
 
 **Support for Package Managers to have their own SitePackage.lua files**
   (Lmod 9.2.8+) Lmod now support the env. var. LMOD_SITEPACKAGE_PREPEND.
