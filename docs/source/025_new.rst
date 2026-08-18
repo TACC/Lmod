@@ -1,6 +1,11 @@
 New Features in Lmod
 ====================
 
+**Bash tab completion treats module names as literal words**
+  (Lmod 9.3.1+) Bash completion for ``module`` and ``ml`` no longer
+  expands command substitution in module names, collection names, or
+  MODULEPATH entries. Found by AISLE in partnership with Red Hat.
+
 **Support for Package Managers to have their own SitePackage.lua files**
   (Lmod 9.3+) Lmod now support the env. var. LMOD_SITEPACKAGE_PREPEND.
   This is a colon separated list of absolute paths to Lua files.
