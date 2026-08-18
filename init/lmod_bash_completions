@@ -4,7 +4,7 @@ _module_comgen_words() {
     # split candidate list on IFS without triggering shell expansion (command
     # substitution, arithmetic, ...): candidate words may come from module
     # names read off disk, which must never be treated as executable code
-    IFS=$' \t\n' read -r -d '' -a words <<<"$1"
+    IFS=$' \t\n' read -r -d '' -a words <<<"$1" || true
     for val in "${words[@]}"; do
         case "$val" in
             "$2"*) COMPREPLY[${#COMPREPLY[@]}]="$val" ;;
@@ -112,17 +112,17 @@ _module_not_yet_loaded() {
 _module_long_arg_list() {
   local cur="${1}" i
   if [[ ${COMP_WORDS[COMP_CWORD-2]} == sw* ]]; then
-    COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "${cur}") )
+    _module_comgen_words "$(_module_not_yet_loaded)" "${cur}"
     return
   fi
   for ((i = COMP_CWORD - 1; i > 0; i--)); do
     case ${COMP_WORDS[${i}]} in
       add|load)
-        COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "${cur}") )
+        _module_comgen_words "$(_module_not_yet_loaded)" "${cur}"
         break
         ;;
       rm|remove|unload|switch|swap)
-        COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "${cur}") )
+        _module_comgen_words "$(_module_loaded_modules)" "${cur}"
         break
         ;;
     esac
@@ -147,38 +147,31 @@ _module() {
   
   case "${prev}" in
     add|load|try-load)
-      #COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "${cur}") )
-      _module_comgen_words      "$(_module_not_yet_loaded)"     "$cur"
+      _module_comgen_words "$(_module_not_yet_loaded)" "${cur}"
       ;;
     rm|remove|unload|switch|swap)
-      #COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "${cur}") )
-      _module_comgen_words "$(_module_loaded_modules)" "$cur"
+      _module_comgen_words "$(_module_loaded_modules)" "${cur}"
       ;;
     restore)
-      #COMPREPLY=( $(compgen -W "$(_module_savelist)" -- "${cur}") )
-      _module_comgen_words      "$(_module_savelist)" "$cur"
+      _module_comgen_words "$(_module_savelist)" "${cur}"
       ;;
     spider)
-      #COMPREPLY=( $(compgen -W "$(_module_spider)" -- "${cur}") )
-      _module_comgen_words      "$(_module_spider)"     "$cur"
+      _module_comgen_words "$(_module_spider)" "${cur}"
       ;;
     unuse)
-      COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "${cur}") )
+      _module_comgen_words "${MODULEPATH//:/ }" "${cur}"
       ;;
     use|*-a*)
       _module_dir "${cur}"
       ;;
     help|show|whatis)
-      #COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
-      _module_comgen_words      "$(_module_avail)"     "$cur"
+      _module_comgen_words "$(_module_avail)" "${cur}"
       ;;
     describe|mcc)
-      #COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
-      _module_comgen_words      "$(_module_mcc)"     "$cur"
+      _module_comgen_words "$(_module_mcc)" "${cur}"
       ;;
     disable)
-      #COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
-      _module_comgen_words      "$(_module_mcc)"     "$cur"
+      _module_comgen_words "$(_module_mcc)" "${cur}"
       ;;
     *)
       if [ ${COMP_CWORD} -gt 2 ]; then
@@ -193,10 +186,10 @@ _module() {
             COMPREPLY='swap'
             ;;
           -*)
-            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            _module_comgen_words "${opts}" "${cur}"
             ;;
           *)
-            COMPREPLY=( $(compgen -W "${cmds}" -- "${cur}") )
+            _module_comgen_words "${cmds}" "${cur}"
             ;;
         esac
       fi
@@ -223,42 +216,36 @@ _ml() {
   
   case "${prev}" in
     rm|remove|unload|switch|swap)
-      #COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "${cur}") )
-      _module_comgen_words      "$(_module_loaded_modules)"     "$cur"
+      _module_comgen_words "$(_module_loaded_modules)" "${cur}"
       ;;
     restore)
-      #COMPREPLY=( $(compgen -W "$(_module_savelist)" -- "${cur}") )
-      _module_comgen_words      "$(_module_savelist)"     "$cur"
+      _module_comgen_words "$(_module_savelist)" "${cur}"
       ;;
     spider)
-      #COMPREPLY=( $(compgen -W "$(_module_spider)" -- "${cur}") )
-      _module_comgen_words      "$(_module_spider)"     "$cur"
+      _module_comgen_words "$(_module_spider)" "${cur}"
       ;;
     unuse)
-      COMPREPLY=( $(IFS=: compgen -W "${MODULEPATH}" -- "${cur}") )
+      _module_comgen_words "${MODULEPATH//:/ }" "${cur}"
       ;;
     use|*-a*)
       _module_dir "${cur}"
       ;;
     help|show|whatis)
-      #COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
-      _module_comgen_words      "$(_module_avail)"     "$cur"
+      _module_comgen_words "$(_module_avail)" "${cur}"
       ;;
     describe|mcc)
-      #COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
-      _module_comgen_words      "$(_module_mcc)"     "$cur"
+      _module_comgen_words "$(_module_mcc)" "${cur}"
       ;;
     disable)
-      #COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
-      _module_comgen_words      "$(_module_mcc)"     "$cur"
+      _module_comgen_words "$(_module_mcc)" "${cur}"
       ;;
     *)
       case "${cur}" in
         -*)
           if [ ${COMP_CWORD} -eq 1 ]; then
-            COMPREPLY=( $(compgen -W "${opts} $(_module_loaded_modules_negated)" -- "${cur}") )
+            _module_comgen_words "${opts} $(_module_loaded_modules_negated)" "${cur}"
           else
-            COMPREPLY=( $(compgen -W "        $(_module_loaded_modules_negated)" -- "${cur}") )
+            _module_comgen_words "$(_module_loaded_modules_negated)" "${cur}"
           fi
           ;;
         *)
@@ -271,34 +258,34 @@ _ml() {
                 COMPREPLY='swap'
                 ;;
               *)
-                COMPREPLY=( $(compgen -W "${cmds} $(_module_avail)" -- "${cur}") )
+                _module_comgen_words "${cmds} $(_module_avail)" "${cur}"
                 ;;
             esac
           else
             if [[ ${COMP_WORDS[COMP_CWORD-2]} == sw* ]]; then
-              COMPREPLY=( $(compgen -W "$(_module_not_yet_loaded)" -- "${cur}") )
+              _module_comgen_words "$(_module_not_yet_loaded)" "${cur}"
             else
               for ((i = COMP_CWORD - 1; i > 0; i--)); do
                 case ${COMP_WORDS[$i]} in
                   show|whatis)
-                    COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
+                    _module_comgen_words "$(_module_avail)" "${cur}"
                     found=1
                     break
                     ;;
                   rm|remove|unload)
-                    COMPREPLY=( $(compgen -W "$(_module_loaded_modules)" -- "${cur}") )
+                    _module_comgen_words "$(_module_loaded_modules)" "${cur}"
                     found=1
                     break
                     ;;
                   spider)
-                    COMPREPLY=( $(compgen -W "$(_module_spider)" -- "${cur}") )
+                    _module_comgen_words "$(_module_spider)" "${cur}"
                     found=1
                     break
                     ;;
                 esac
               done
               if [ -z "${found}" ]; then
-                COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
+                _module_comgen_words "$(_module_avail)" "${cur}"
               fi
             fi
           fi

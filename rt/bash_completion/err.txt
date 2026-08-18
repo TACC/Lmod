@@ -1,0 +1,10 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+Modules based on Lua: Version 9.3 2026-07-28 08:08 -06:00
+    https://lmod.readthedocs.io
+===========================
+step 2
+bash ProjectDIR/rt/bash_completion/check_compgen.sh ProjectDIR/init/lmod_bash_completions
+===========================
