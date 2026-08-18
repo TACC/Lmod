@@ -1,0 +1,16 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+===========================
+step 2
+bash ProjectDIR/rt/bash_completion/check_compgen.sh ProjectDIR/init/lmod_bash_completions
+===========================
+helper_literal=yes
+helper_safe=yes
+helper_expanded=no
+prefix_safe=yes
+load_literal=yes
+load_safe=yes
+ml_literal=yes
+ml_safe=yes
