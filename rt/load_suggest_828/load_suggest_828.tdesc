@@ -7,6 +7,8 @@
 --   cold MODULEPATH, depends_on_any, parentAA suffix vs release+GCC,
 --   request order (CUDA before NCCL), NCCL without CUDA in request,
 --   wrong CUDA already loaded, depends_on(atleast), multi-NCCL version pick.
+--   outer-toolchain path vs software under inner parent (depends_on), two
+--   name sets so pin lookup cannot be GCC/GCCcore-specific.
 ------------------------------------------------------------------------------
 
 local testName = "load_suggest_828"
@@ -20,7 +22,8 @@ testdescript = {
      dependency order so suggested commands copy-paste cleanly; (3) follow-on
      gaps: cold MODULEPATH, depends_on_any, parentAA suffix merge, request order,
      NCCL without CUDA in request, wrong CUDA loaded, atleast deps,
-     multi-NCCL (highest version + matching CUDA pin).
+     multi-NCCL (highest version + matching CUDA pin),
+     software under inner parent (Family/Corelib and GCC/GCCcore).
    ]],
    keywords = {testName, "issue828", "load_suggest"},
 
@@ -119,6 +122,23 @@ testdescript = {
      MODULEPATH=/tmp/modules_red/releases_multi; export MODULEPATH
      runLmod load release/25.06d                                    # 40
      runLmod load NCCL OpenMPI CUDA                                 # 41
+
+     # --- red: Pkg lives under Corelib; suggestion path is Family (depends_on
+     # Corelib). Names are not GCC/NCCL. Expect Accel/1.0 + versioned Pkg;
+     # tip leaves Pkg unversioned and pins Accel to the highest Core version.
+     runLmod --force purge                                          # 42
+     ln -sfn $(testDir)/mf_red /tmp/modules_red
+     MODULEPATH=/tmp/modules_red/releases_inner; export MODULEPATH
+     runLmod load release/42                                        # 43
+     runLmod load Pkg Comm Accel                                    # 44
+
+     # --- red: same parent-vs-path gap with EasyBuild names (NCCL under
+     # GCCcore, OpenMPI under GCC). Expect CUDA/12.6.0 + versioned NCCL;
+     # tip leaves NCCL unversioned and pins CUDA/13.0.0.
+     runLmod --force purge                                          # 45
+     MODULEPATH=/tmp/modules_red/releases_ebcore; export MODULEPATH
+     runLmod load release/25.06e                                    # 46
+     runLmod load NCCL OpenMPI CUDA                                 # 47
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

@@ -319,6 +319,46 @@ local function l_module_depends_on_fixed(dbT, childFullName, parentFullName)
 end
 
 --------------------------------------------------------------------------
+-- True when parentElem equals pathElem, or pathElem depends_on parentElem.
+-- Lets a spider parent under an inner toolchain match a suggestion path
+-- that names the outer module (Family vs Corelib, GCC vs GCCcore, ...).
+local function l_path_elems_compatible(parentElem, pathElem, dbT)
+   if (parentElem == pathElem) then
+      return true
+   end
+   return l_module_depends_on_fixed(dbT, pathElem, parentElem)
+end
+
+--------------------------------------------------------------------------
+-- Prefix match with depends_on compatibility (exact names still match).
+local function l_path_prefix_match_compat(entryPath, path, dbT)
+   if (not entryPath or not path or #entryPath > #path) then
+      return false
+   end
+   for i = 1, #entryPath do
+      if (not l_path_elems_compatible(entryPath[i], path[i], dbT)) then
+         return false
+      end
+   end
+   return true
+end
+
+--------------------------------------------------------------------------
+-- Suffix match with depends_on compatibility (exact names still match).
+local function l_path_suffix_match_compat(entryPath, path, dbT)
+   if (not entryPath or not path or #entryPath > #path) then
+      return false
+   end
+   local off = #path - #entryPath
+   for i = 1, #entryPath do
+      if (not l_path_elems_compatible(entryPath[i], path[off + i], dbT)) then
+         return false
+      end
+   end
+   return true
+end
+
+--------------------------------------------------------------------------
 -- True when userName is a fixed depends_on of a path element but wrong version.
 local function l_module_conflicts_with_path(userName, path, dbT)
    if (not dbT) then return false end
@@ -371,7 +411,8 @@ local function l_find_db_entry_for_request(userName, path, dbT)
       elseif (entry.parentAA) then
          for i = 1, #entry.parentAA do
             local p = l_normalize_prereq_path(entry.parentAA[i], entry.fullName)
-            if (p and (l_path_prefix_match(p, path) or l_path_suffix_match(p, path))) then
+            if (p and (l_path_prefix_match_compat(p, path, dbT) or
+                       l_path_suffix_match_compat(p, path, dbT))) then
                local len = #p
                local wV  = entry.wV or entry.pV or ""
                -- Longest parent match wins; equal length prefers highest wV

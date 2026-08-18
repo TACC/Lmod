@@ -446,3 +446,65 @@ step 41
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load NCCL OpenMPI CUDA
 ===========================
 false
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --force purge
+===========================
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules_red/releases_multi:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules_red/releases_multi;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"/tmp/modules_red/releases_multi",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/42
+===========================
+LOADEDMODULES=release/42;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules_red/r_inner/all/Core:1\;/tmp/modules_red/releases_inner:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules_red/r_inner/all/Core:/tmp/modules_red/releases_inner;
+export MODULEPATH;
+_LMFILES_=/tmp/modules_red/releases_inner/release/42.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={release={actionA={[[prepend_path("MODULEPATH","/tmp/modules_red/r_inner/all/Core")]],},fn="/tmp/modules_red/releases_inner/release/42.lua",fullName="release/42",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="release/42",wV="000000042.*zfinal",},},mpathA={"/tmp/modules_red/r_inner/all/Core","/tmp/modules_red/releases_inner",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Pkg Comm Accel
+===========================
+false
+===========================
+step 45
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --force purge
+===========================
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules_red/releases_inner:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules_red/releases_inner;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"/tmp/modules_red/releases_inner",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 46
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/25.06e
+===========================
+LOADEDMODULES=release/25.06e;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=/tmp/modules_red/r_ebcore/all/Core:1\;/tmp/modules_red/releases_ebcore:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/tmp/modules_red/r_ebcore/all/Core:/tmp/modules_red/releases_ebcore;
+export MODULEPATH;
+_LMFILES_=/tmp/modules_red/releases_ebcore/release/25.06e.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={release={actionA={[[prepend_path("MODULEPATH","/tmp/modules_red/r_ebcore/all/Core")]],},fn="/tmp/modules_red/releases_ebcore/release/25.06e.lua",fullName="release/25.06e",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="release/25.06e",wV="000000025.000000006.*e.*zfinal",},},mpathA={"/tmp/modules_red/r_ebcore/all/Core","/tmp/modules_red/releases_ebcore",},systemBaseMPATH="/tmp/modules/releases",}';
+export _ModuleTable_;
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load NCCL OpenMPI CUDA
+===========================
+false
