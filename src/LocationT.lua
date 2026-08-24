@@ -70,21 +70,6 @@ local function l_merge_locationT(origT, lctnT, v)
 end
 
 
-local function l_normalizeDotHiddenPath(pathStr)
-   if (not pathStr or pathStr == "") then
-      return ""
-   end
-   local a = {}
-   for part in pathStr:gmatch("[^/]+") do
-      local myPart = part
-      if (myPart:sub(1,1) == ".") then
-         myPart = myPart:sub(2)
-      end
-      a[#a+1] = myPart
-   end
-   return table.concat(a, "/")
-end
-
 local function l_locationDirT(parentV, key)
    local value = parentV.dirT[key]
    if (value) then
@@ -93,10 +78,10 @@ local function l_locationDirT(parentV, key)
    if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") ~= "yes") then
       return nil
    end
-   local targetNorm = l_normalizeDotHiddenPath(key)
+   local targetNorm = stripHidePrefixFromFullName(key)
    local cand       = false
    for k, vv in pairs(parentV.dirT) do
-      if (l_normalizeDotHiddenPath(k) == targetNorm) then
+      if (stripHidePrefixFromFullName(k) == targetNorm) then
          if (cand) then
             return nil
          end
@@ -107,7 +92,7 @@ local function l_locationDirT(parentV, key)
 end
 
 local function l_scan_normalized_alias(locationT, name)
-   local targetNorm = l_normalizeDotHiddenPath(name)
+   local targetNorm = stripHidePrefixFromFullName(name)
    local userSn     = name:match("^([^/]+)$")
    local userVs     = false
    if (not userSn) then
@@ -119,7 +104,7 @@ local function l_scan_normalized_alias(locationT, name)
    local function scanNode(v)
       if (v.fileT) then
          for fk, fvv in pairs(v.fileT) do
-            if (l_normalizeDotHiddenPath(fk) == targetNorm) then
+            if (stripHidePrefixFromFullName(fk) == targetNorm) then
                if (candEntry) then
                   ambiguous = true
                   return

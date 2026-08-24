@@ -156,21 +156,6 @@ local function l_build(self, maxdepthT, dirA)
    return moduleA
 end
 
-local function l_normalizeDotHiddenPath(pathStr)
-   if (not pathStr or pathStr == "") then
-      return ""
-   end
-   local a = {}
-   for part in pathStr:gmatch("[^/]+") do
-      local myPart = part
-      if (myPart:sub(1,1) == ".") then
-         myPart = myPart:sub(2)
-      end
-      a[#a+1] = myPart
-   end
-   return table.concat(a, "/")
-end
-
 local function l_check_depth(searchA, idx, fileT, dirT)
    dbg.print{"ModuleA l_check_depth: idx: ",idx,"\n"}
    if (not dirT or idx < 1 or next(dirT) == nil) then
@@ -190,11 +175,11 @@ local function l_check_depth(searchA, idx, fileT, dirT)
    end
 
    if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") == "yes") then
-      local targetNorm = l_normalizeDotHiddenPath(name)
+      local targetNorm = stripHidePrefixFromFullName(name)
       local candDir    = false
       local candFile   = false
       for k, vv in pairs(dirT) do
-         if (l_normalizeDotHiddenPath(k) == targetNorm) then
+         if (stripHidePrefixFromFullName(k) == targetNorm) then
             if (candDir) then
                dbg.print{"ModuleA l_check_depth: ambiguous dirT key: ",name,"\n"}
                return false, idx, nil
@@ -207,7 +192,7 @@ local function l_check_depth(searchA, idx, fileT, dirT)
          return l_check_depth(searchA, idx, candDir.fileT, candDir.dirT)
       end
       for k, vv in pairs(fileT) do
-         if (l_normalizeDotHiddenPath(k) == targetNorm) then
+         if (stripHidePrefixFromFullName(k) == targetNorm) then
             if (candFile) then
                dbg.print{"ModuleA l_check_depth: ambiguous fileT key: ",name,"\n"}
                return false, idx, nil

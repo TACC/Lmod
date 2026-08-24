@@ -38,21 +38,6 @@ require("utils")
 
 local dbg    = require("Dbg"):dbg()
 
-local function l_normalizeDotHiddenVersion(versionStr)
-   if (not versionStr or versionStr == "") then
-      return ""
-   end
-   local a = {}
-   for part in versionStr:gmatch("[^/]+") do
-      local myPart = part
-      if (myPart:sub(1,1) == ".") then
-         myPart = myPart:sub(2)
-      end
-      a[#a+1] = myPart
-   end
-   return table.concat(a, "/")
-end
-
 function collectFileA(sn, versionStr, extended_default, v, fileA)
    dbg.start{"collectFileA(sn: \"",sn,"\", versionStr: ", versionStr,", v,fileA)"}
    --dbg.printT("v",v)
@@ -73,7 +58,7 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
 
          local cosmic = require("Cosmic"):singleton()
          if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") == "yes") then
-            local targetNorm = l_normalizeDotHiddenVersion(versionStr)
+            local targetNorm = stripHidePrefixFromFullName(versionStr)
             local candK      = false
             local candVv     = false
             local ambiguous  = false
@@ -81,7 +66,7 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
             for fk, fvv in pairs(v.fileT) do
                if (fk:sub(1, #snPrefix) == snPrefix) then
                   local vFromKey = fk:sub(#snPrefix + 1)
-                  if (l_normalizeDotHiddenVersion(vFromKey) == targetNorm) then
+                  if (stripHidePrefixFromFullName(vFromKey) == targetNorm) then
                      if (candK) then
                         ambiguous = true
                         candK     = false
@@ -136,12 +121,12 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
       else
          local cosmic = require("Cosmic"):singleton()
          if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") == "yes" and (not v.fileT[sn])) then
-            local targetNorm = l_normalizeDotHiddenVersion(sn)
+            local targetNorm = stripHidePrefixFromFullName(sn)
             local candK      = false
             local candVv     = false
             local ambiguous  = false
             for fk, fvv in pairs(v.fileT) do
-               if ((not fk:find("/")) and l_normalizeDotHiddenVersion(fk) == targetNorm) then
+               if ((not fk:find("/")) and stripHidePrefixFromFullName(fk) == targetNorm) then
                   if (candK) then
                      ambiguous = true
                      break
