@@ -834,6 +834,12 @@ function myModuleUsrAndAliasName()
 end
 
 --------------------------------------------------------------------------
+-- Return the logical full name and the true loaded full name.
+function myModuleFullNameAndAlias()
+   return mcp:myModuleFullNameAndAlias()
+end
+
+--------------------------------------------------------------------------
 -- Return the version of the module.
 function myModuleVersion()
    local version = mcp:myModuleVersion()

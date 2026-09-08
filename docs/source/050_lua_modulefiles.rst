@@ -372,6 +372,13 @@ the name and version of a modulefile.
    the values differ (for example ``itk/1.2`` and ``itk/.1.2``).  Otherwise
    both values are the same.
 
+**myModuleFullNameAndAlias** ():
+   Returns two values: the logical full name and the true loaded full name.
+   The logical name is derived from the true name by removing one leading
+   dot from each path segment.  For example, when ``itk/.1.2`` is loaded,
+   this function returns ``itk/1.2`` and ``itk/.1.2``.  When no dot-leading
+   segments are present, both values are the same.
+
 **myFileName** ():
    Returns the absolute file name of the current modulefile.
 

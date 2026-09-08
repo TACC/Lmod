@@ -392,6 +392,24 @@ function extractVersion(fullName, sn)
 end
 
 --------------------------------------------------------------------------
+-- Strip one leading hide-prefix "." from each slash-separated path segment.
+-- Used by myModuleFullNameAndAlias() and by LMOD_DOT_HIDDEN_LOAD_ALIAS search
+-- when comparing logical vs filesystem keys (NV, NVV, and meta names).
+function stripHidePrefixFromFullName(fullName)
+   if (not fullName or fullName == "") then
+      return ""
+   end
+   local sA = {}
+   for seg in fullName:gmatch("[^/]+") do
+      if (seg:sub(1,1) == ".") then
+         seg = seg:sub(2)
+      end
+      sA[#sA + 1] = seg
+   end
+   return table.concat(sA, "/")
+end
+
+--------------------------------------------------------------------------
 -- Return true when loadedVersion is selected by a partial version request.
 -- For example reqVersion "1" matches loadedVersion "1.0" but not "10.0".
 function versionPrefixMatch(reqVersion, loadedVersion)

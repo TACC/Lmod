@@ -101,13 +101,18 @@ local function l_supportsColor()
    if (l_isRegressionTesting()) then
       return false
    end
-   
+
+   -- LMOD_COLORIZE=no disables markdown ANSI even when TERM looks colorful
+   local colorize = (os.getenv("LMOD_COLORIZE") or ""):upper()
+   if (colorize == "NO") then
+      return false
+   end
+
    local term = os.getenv("TERM") or ""
-   local colorize = os.getenv("LMOD_COLORIZE") or ""
-   
-   return colorize:upper() == "YES" or 
-          term:match("color") or 
-          term:match("xterm") or 
+
+   return colorize == "YES" or
+          term:match("color") or
+          term:match("xterm") or
           term:match("screen")
 end
 

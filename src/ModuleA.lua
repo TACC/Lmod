@@ -190,11 +190,11 @@ local function l_check_depth(searchA, idx, fileT, dirT)
    end
 
    if (cosmic:value("LMOD_DOT_HIDDEN_LOAD_ALIAS") == "yes") then
-      local targetNorm = l_normalizeDotHiddenPath(name)
+      local targetNorm = stripHidePrefixFromFullName(name)
       local candDir    = false
       local candFile   = false
       for k, vv in pairs(dirT) do
-         if (l_normalizeDotHiddenPath(k) == targetNorm) then
+         if (stripHidePrefixFromFullName(k) == targetNorm) then
             if (candDir) then
                dbg.print{"ModuleA l_check_depth: ambiguous dirT key: ",name,"\n"}
                return false, idx, nil
@@ -207,7 +207,7 @@ local function l_check_depth(searchA, idx, fileT, dirT)
          return l_check_depth(searchA, idx, candDir.fileT, candDir.dirT)
       end
       for k, vv in pairs(fileT) do
-         if (l_normalizeDotHiddenPath(k) == targetNorm) then
+         if (stripHidePrefixFromFullName(k) == targetNorm) then
             if (candFile) then
                dbg.print{"ModuleA l_check_depth: ambiguous fileT key: ",name,"\n"}
                return false, idx, nil
