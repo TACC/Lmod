@@ -13,6 +13,12 @@ testdescript = {
 	Additional coverage: exact key wins when itk/1.2 and itk/.1.2 both exist;
 	unknown version still fails with the gate on; myModuleUsrAndAliasName()
 	returns logical vs canonical names on dot-hidden alias loads.
+
+	Issue #849 Track A (Wave 1): myModuleFullNameAndAlias() returns logical
+	and true full names; unload sees the same pair.
+
+	Issue #849 Track A (Wave 2): SitePackage override uses logical full name
+	for path construction so load and purge reverse prepend_path correctly.
    ]],
    keywords = { testName, "hidden", "issue817" },
 
@@ -73,6 +79,64 @@ testdescript = {
      export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
 
      runLmod load itk/9.99                     # 14 gate on, still unknown
+
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_api
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod load itk/1.2                      # 15 alias NV load
+     runLmod purge                             # 16 unload sees same pair
+
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_api
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod load itk/.1.2                     # 17 explicit dotted NV
+     runLmod purge                             # 18
+
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_api
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod load hello                        # 19 default short name, no hide
+     runLmod purge                             # 20
+
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_api
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod load hello/2.0                    # 21 explicit undotted default
+     runLmod purge                             # 22
+
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_api
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod load foo/.x86/.32/.1.0            # 23 explicit dotted NVV
+     runLmod purge                             # 24
+
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_api
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+
+     runLmod load .ACME                        # 25 explicit dotted meta
+     runLmod purge                             # 26
+
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_hello
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+     export LMOD_PACKAGE_PATH=$(testDir)/site
+
+     runLmod load hello/1.0                    # 27 SitePackage alias path
+     runLmod purge                             # 28 purge reverses alias path
+
+     unsetMT
+     export MODULEPATH=$(testDir)/mf_hello
+     export LMOD_DOT_HIDDEN_LOAD_ALIAS=yes
+     export LMOD_PACKAGE_PATH=$(testDir)/site
+
+     runLmod load hello                        # 29 default version path
+     runLmod purge                             # 30 purge reverses default path
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

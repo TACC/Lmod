@@ -392,6 +392,21 @@ function extractVersion(fullName, sn)
 end
 
 --------------------------------------------------------------------------
+-- Return the logical full name by stripping one leading dot from each
+-- path segment of the true loaded full name.
+function stripHidePrefixFromFullName(fullName)
+   local sA = {}
+   for mySeg in fullName:gmatch("[^/]+") do
+      local seg = mySeg
+      if (seg:sub(1,1) == ".") then
+         seg = seg:sub(2)
+      end
+      sA[#sA + 1] = seg
+   end
+   return table.concat(sA, "/")
+end
+
+--------------------------------------------------------------------------
 -- Return true when loadedVersion is selected by a partial version request.
 -- For example reqVersion "1" matches loadedVersion "1.0" but not "10.0".
 function versionPrefixMatch(reqVersion, loadedVersion)

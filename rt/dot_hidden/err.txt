@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 9.2.5 2026-07-03 18:14 -05:00
+Modules based on Lua: Version 9.3.2 2026-08-26 10:17 +01:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -81,3 +81,77 @@ Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore_cache load "itk/9.99"
 Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/1.2
+===========================
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+IS849 unload alias=itk/1.2 true=itk/.1.2
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/.1.2
+===========================
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+IS849 unload alias=itk/1.2 true=itk/.1.2
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hello
+===========================
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+IS849 unload alias=hello/2.0 true=hello/2.0
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hello/2.0
+===========================
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+IS849 unload alias=hello/2.0 true=hello/2.0
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/.x86/.32/.1.0
+===========================
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+IS849 unload alias=foo/x86/32/1.0 true=foo/.x86/.32/.1.0
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load .ACME
+===========================
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+IS849 unload alias=ACME true=.ACME
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hello/1.0
+===========================
+[+] Loading hello, version 1.0...
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+[-] Unloading hello, version 1.0...
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hello
+===========================
+[+] Loading hello, version 2.0...
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+[-] Unloading hello, version 2.0...

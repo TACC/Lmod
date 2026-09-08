@@ -1458,6 +1458,15 @@ function M.myModuleUsrAndAliasName(self)
 end
 
 --------------------------------------------------------------------------
+-- Return the logical full name and the true loaded full name.
+-- @param self A MainControl object.
+function M.myModuleFullNameAndAlias(self)
+   local trueFullName  = self:myModuleFullName()
+   local aliasFullName = stripHidePrefixFromFullName(trueFullName)
+   return aliasFullName, trueFullName
+end
+
+--------------------------------------------------------------------------
 -- Return the name of the modules.  That is the name of the module w/o a
 -- version.
 -- @param self A MainControl object

@@ -55,6 +55,8 @@ IS817_TRUE_ALIAS=itk/.1.2;
 export IS817_TRUE_ALIAS;
 IS817_USR_ALIAS=itk/1.2;
 export IS817_USR_ALIAS;
+IS817_fullName=itk/.1.2;
+export IS817_fullName;
 LOADEDMODULES=itk/1.2;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf:1;
@@ -72,6 +74,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 unset IS817_ITK_LOADED;
 unset IS817_TRUE_ALIAS;
 unset IS817_USR_ALIAS;
+unset IS817_fullName;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/dot_hidden/mf;
 export MODULEPATH;
@@ -88,6 +91,8 @@ IS817_TRUE_ALIAS=itk/.1.2;
 export IS817_TRUE_ALIAS;
 IS817_USR_ALIAS=itk/.1.2;
 export IS817_USR_ALIAS;
+IS817_fullName=itk/.1.2;
+export IS817_fullName;
 LOADEDMODULES=itk/.1.2;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf:1;
@@ -105,6 +110,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 unset IS817_ITK_LOADED;
 unset IS817_TRUE_ALIAS;
 unset IS817_USR_ALIAS;
+unset IS817_fullName;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/dot_hidden/mf;
 export MODULEPATH;
@@ -193,3 +199,248 @@ __LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ m
 ";
 export __LMOD_LAST_ERROR;
 false
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/1.2
+===========================
+IS849_ALIAS_FULL=itk/1.2;
+export IS849_ALIAS_FULL;
+IS849_TRUE_FULL=itk/.1.2;
+export IS849_TRUE_FULL;
+LOADEDMODULES=itk/1.2;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden/mf_api/itk/.1.2.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={itk={fn="ProjectDIR/rt/dot_hidden/mf_api/itk/.1.2.lua",fullName="itk/.1.2",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="itk/1.2",wV="000000000.000000001.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden/mf_api",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_api",}';
+export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset IS849_ALIAS_FULL;
+unset IS849_TRUE_FULL;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf_api",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_api",}';
+export _ModuleTable_;
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load itk/.1.2
+===========================
+IS849_ALIAS_FULL=itk/1.2;
+export IS849_ALIAS_FULL;
+IS849_TRUE_FULL=itk/.1.2;
+export IS849_TRUE_FULL;
+LOADEDMODULES=itk/.1.2;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden/mf_api/itk/.1.2.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={itk={fn="ProjectDIR/rt/dot_hidden/mf_api/itk/.1.2.lua",fullName="itk/.1.2",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="itk/.1.2",wV="000000000.000000001.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden/mf_api",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_api",}';
+export _ModuleTable_;
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset IS849_ALIAS_FULL;
+unset IS849_TRUE_FULL;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf_api",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_api",}';
+export _ModuleTable_;
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hello
+===========================
+IS849_ALIAS_FULL=hello/2.0;
+export IS849_ALIAS_FULL;
+IS849_TRUE_FULL=hello/2.0;
+export IS849_TRUE_FULL;
+LOADEDMODULES=hello;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden/mf_api/hello/2.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={hello={fn="ProjectDIR/rt/dot_hidden/mf_api/hello/2.0.lua",fullName="hello/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="hello",wV="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden/mf_api",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_api",}';
+export _ModuleTable_;
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset IS849_ALIAS_FULL;
+unset IS849_TRUE_FULL;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf_api",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_api",}';
+export _ModuleTable_;
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hello/2.0
+===========================
+IS849_ALIAS_FULL=hello/2.0;
+export IS849_ALIAS_FULL;
+IS849_TRUE_FULL=hello/2.0;
+export IS849_TRUE_FULL;
+LOADEDMODULES=hello/2.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden/mf_api/hello/2.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={hello={fn="ProjectDIR/rt/dot_hidden/mf_api/hello/2.0.lua",fullName="hello/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="hello/2.0",wV="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden/mf_api",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_api",}';
+export _ModuleTable_;
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset IS849_ALIAS_FULL;
+unset IS849_TRUE_FULL;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf_api",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_api",}';
+export _ModuleTable_;
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/.x86/.32/.1.0
+===========================
+IS849_ALIAS_FULL=foo/x86/32/1.0;
+export IS849_ALIAS_FULL;
+IS849_TRUE_FULL=foo/.x86/.32/.1.0;
+export IS849_TRUE_FULL;
+LOADEDMODULES=foo/.x86/.32/.1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden/mf_api/foo/.x86/.32/.1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["foo/.x86/.32"]={fn="ProjectDIR/rt/dot_hidden/mf_api/foo/.x86/.32/.1.0.lua",fullName="foo/.x86/.32/.1.0",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="foo/.x86/.32/.1.0",wV="000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden/mf_api",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_api",}';
+export _ModuleTable_;
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset IS849_ALIAS_FULL;
+unset IS849_TRUE_FULL;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf_api",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_api",}';
+export _ModuleTable_;
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load .ACME
+===========================
+IS849_ALIAS_FULL=ACME;
+export IS849_ALIAS_FULL;
+IS849_TRUE_FULL=.ACME;
+export IS849_TRUE_FULL;
+LOADEDMODULES=.ACME;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden/mf_api/.ACME.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={[".ACME"]={fn="ProjectDIR/rt/dot_hidden/mf_api/.ACME.lua",fullName=".ACME",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName=".ACME",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden/mf_api",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_api",}';
+export _ModuleTable_;
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset IS849_ALIAS_FULL;
+unset IS849_TRUE_FULL;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_api;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf_api",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_api",}';
+export _ModuleTable_;
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hello/1.0
+===========================
+LOADEDMODULES=hello/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf_hello:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_hello;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=/opt/hello/1.0/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/opt/hello/1.0/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden/mf_hello/hello/.1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={hello={fn="ProjectDIR/rt/dot_hidden/mf_hello/hello/.1.0.lua",fullName="hello/.1.0",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="hello/1.0",wV="000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden/mf_hello",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_hello",}';
+export _ModuleTable_;
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_hello;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf_hello",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_hello",}';
+export _ModuleTable_;
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hello
+===========================
+LOADEDMODULES=hello;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot_hidden/mf_hello:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_hello;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=/opt/hello/2.0/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/opt/hello/2.0/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_LMFILES_=ProjectDIR/rt/dot_hidden/mf_hello/hello/2.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={hello={fn="ProjectDIR/rt/dot_hidden/mf_hello/hello/2.0.lua",fullName="hello/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="hello",wV="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/dot_hidden/mf_hello",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_hello",}';
+export _ModuleTable_;
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/dot_hidden/mf_hello;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dot_hidden/mf_hello",},systemBaseMPATH="ProjectDIR/rt/dot_hidden/mf_hello",}';
+export _ModuleTable_;

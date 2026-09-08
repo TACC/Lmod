@@ -50,3 +50,6 @@ Lmod 9.2+
 Lmod 9.3+
    (9.3)    * Issue #846: Add isNum to cosmic objects like LMOD_ANCIENT_TIME
             * Change failed.txt to test.failed
+   (9.3.1)  * Issue #852: Honor LMOD_COLORIZE=no for markdown help colorization
+   (9.3.3)  * PR #854: Lua 5.5 fix.
+   

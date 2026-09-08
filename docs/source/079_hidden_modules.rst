@@ -94,19 +94,40 @@ both values are the same.  For example, after ``module load itk/1.2`` resolves
 to ``itk/.1.2.lua``, ``myModuleUsrAndAliasName()`` returns ``itk/1.2`` and
 ``itk/.1.2``.
 
+``myModuleUsrAndAliasName()`` returns the **user-typed** name as its first
+value.  That is appropriate for reporting what the user asked for, but it is
+not the right input for path construction on unload.  For example, after
+``module load hello`` loads ``hello/.1.0.lua``, ``myModuleUsrName()`` is
+``hello`` on unload, so a ``SitePackage.lua`` override that returns it from
+``myModuleFullName()`` cannot extract a version and ``prepend_path`` may not
+be reversed correctly.
+
+To obtain the logical full name and the true loaded full name, call
+``myModuleFullNameAndAlias()``.  It returns two values.  The first is the
+logical name (dot-leading segments stripped once per path segment).  The
+second is the true loaded name (the same value ``myModuleFullName()`` returns).
+When no dot-leading segments are present, both values are the same.
+
 Sites that want ``myModuleFullName()`` or ``myModuleVersion()`` to report the
-logical name when an alias load occurred may override those functions in
-``SitePackage.lua`` via ``sandbox_registration``.  For example::
+logical name when the true loaded name contains dot-leading segments may
+override those functions in ``SitePackage.lua`` via ``sandbox_registration``.
+For example::
+
+   local orig_myModuleFullName = myModuleFullName
+   local orig_myModuleVersion  = myModuleVersion
 
    local function myModuleFullName()
-      local usr, _ = myModuleUsrAndAliasName()
-      return usr
+      local aliasFullName, trueFullName = myModuleFullNameAndAlias()
+      if (aliasFullName == trueFullName) then
+         return orig_myModuleFullName()
+      end
+      return aliasFullName
    end
 
    local function myModuleVersion()
-      local usr = myModuleFullName()
-      local sn  = myModuleName()
-      return extractVersion(usr, sn) or ""
+      local full = myModuleFullName()
+      local sn   = myModuleName()
+      return extractVersion(full, sn) or ""
    end
 
    sandbox_registration{

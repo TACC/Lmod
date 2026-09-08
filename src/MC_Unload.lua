@@ -76,6 +76,7 @@ M.myFileName            = MainControl.myFileName
 M.myModuleFullName      = MainControl.myModuleFullName
 M.myModuleUsrName       = MainControl.myModuleUsrName
 M.myModuleUsrAndAliasName = MainControl.myModuleUsrAndAliasName
+M.myModuleFullNameAndAlias = MainControl.myModuleFullNameAndAlias
 M.myModuleName          = MainControl.myModuleName
 M.myModuleVersion       = MainControl.myModuleVersion
 M.prepend_path          = MainControl.remove_path_first

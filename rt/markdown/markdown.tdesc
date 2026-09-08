@@ -110,13 +110,24 @@ testdescript = {
      # Color support tests
      # ============================================================
      
-     # Test with color enabled
+     # Test with color enabled (LMOD_COLORIZE=YES; TERM unset by initStdEnvVars)
      export LMOD_COLORIZE=YES
-     runLmod help markdown_content/2.0        # 40
-     runLmod whatis markdown_content/2.0      # 41
-     runLmod help markdown_with_images/1.0    # 42
-     runLmod help nested_markdown_lists/1.0   # 43
+     runLmod help markdown_content/2.0        # 43
+     runLmod whatis markdown_content/2.0      # 44
+     runLmod help markdown_with_images/1.0    # 45
+     runLmod help nested_markdown_lists/1.0   # 46
      unset LMOD_COLORIZE
+
+     # IS852: LMOD_COLORIZE=no must disable markdown ANSI even when TERM
+     # would otherwise enable color (xterm/screen/color). Formatting
+     # (headers, bullets, structure) should remain; escape codes must not.
+     export TERM=xterm
+     export LMOD_COLORIZE=no
+     runLmod help markdown_content/2.0        # 47
+     runLmod help markdown_with_images/1.0    # 48
+     runLmod help nested_markdown_lists/1.0   # 49
+     unset LMOD_COLORIZE
+     unset TERM
 
      HOME=$ORIG_HOME
 
