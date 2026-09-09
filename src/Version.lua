@@ -12,6 +12,9 @@ end
 function M.tag()  return "9.4.1"   end
 function M.git()
    local s = "9.4.1"
+function M.tag()  return "9.4"   end
+function M.git()
+   local s = "9.4"
    if (s == "@" .. "git@") then s = "" end
    if (s == M.tag()      ) then s = "" end
    return s == "" and s or "("..s..")"
