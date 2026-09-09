@@ -56,4 +56,6 @@ Lmod 9.3+
 Lmod 9.4+
    (9.4)    * CVE-2026-85013: Security fix for Bash completion command injection.
    (9.4.1)  * Issue #857: Send the user command only to startup_hook and the finalize_hook
+   (9.4.2)  * Fix bug with src/Version.lua that was not merged correctly.
+   
    
