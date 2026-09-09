@@ -462,15 +462,17 @@ function main()
 
    ------------------------------------------------------------
    -- Search for command, quit if command is unknown.
-   local cmdT    = false
-   local cmdName = false
+   local cmdT     = false
+   local codeName = false
+   local cmdName  = false
    if (userCmd) then
       local uLen = userCmd:len()
       for _, v in ipairs(lmodCmdA) do
          local found = userCmd:find(v.cmd:sub(1,uLen),1,true)
          if (found == 1 and uLen >= v.min) then
-            cmdT = v.action
-            cmdName = cmdT.name
+            cmdT     = v.action
+            codeName = cmdT.name
+            cmdName  = v.cmd
             break
          end
       end
