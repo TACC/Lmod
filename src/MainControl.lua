@@ -754,7 +754,7 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
       if (a.tokens ~= b.tokens) then return a.tokens < b.tokens end
       if (a.swapCount ~= b.swapCount) then return a.swapCount < b.swapCount end
       if (a.swapDepth ~= b.swapDepth) then return a.swapDepth > b.swapDepth end
-      return a.cmd < b.cmd
+      return a.cmd > b.cmd
    end)
 
    local allCommands = {}
