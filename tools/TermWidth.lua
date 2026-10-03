@@ -123,7 +123,10 @@ local function l_timedCapture(cmd, sec)
          unistd.dup2(w, 1)
          unistd.close(w)
          os.execute("sh -c " .. string.format("%q", cmd))
-         os.exit(0)
+         -- Spider:findAllModules replaces os.exit while it walks modulefiles.
+         -- A child that returns from os.exit keeps running Lmod and reprints
+         -- commands such as module avail. _exit skips that hook.
+         unistd._exit(0)
       end
 
       unistd.close(w)

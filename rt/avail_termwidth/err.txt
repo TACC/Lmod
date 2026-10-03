@@ -1,0 +1,140 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --ignore_cache avail
+===========================
+ProjectDIR/rt/avail_termwidth/mf/plain/Core
+   plain/1.0
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --ignore_cache avail
+===========================
+ProjectDIR/rt/avail_termwidth/mf/hier/Core
+   fake-core/1.0
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --ignore_cache avail
+===========================
+ProjectDIR/rt/avail_termwidth/mf/hier/Core
+   fake-core/1.0
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --ignore_cache avail
+===========================
+ProjectDIR/rt/avail_termwidth/mf/hier/Core
+   fake-core/1.0
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --ignore_cache avail
+===========================
+ProjectDIR/rt/avail_termwidth/mf/msgmod/Core
+   msgmod/1.0
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --ignore_cache avail
+===========================
+ProjectDIR/rt/avail_termwidth/mf/exitmod/Core
+   exitmod/1.0
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show fake-mixed
+===========================
+Lmod Warning: Synthetic warning used to reproduce the duplicate
+While processing the following module(s):
+    Module fullname  Module Filename
+    fake-mixed/1.0   ProjectDIR/rt/avail_termwidth/mf/hier/mix/fake-mixed/1.0.lua
+   ProjectDIR/rt/avail_termwidth/mf/hier/mix/fake-mixed/1.0.lua:
+whatis("hierarchical module that warns")
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+ProjectDIR/rt/avail_termwidth/mf/hier/Core
+   fake-core/1.0
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+ProjectDIR/rt/avail_termwidth/mf/hier/Core
+   fake-core/1.0
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t --ignore_cache avail
+===========================
+ProjectDIR/rt/avail_termwidth/mf/hier/Core:
+fake-core/
+fake-core/1.0
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --ignore_cache avail fake-core
+===========================
+ProjectDIR/rt/avail_termwidth/mf/hier/Core
+   fake-core/1.0
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --ignore_cache avail
+===========================
+ProjectDIR/rt/avail_termwidth/mf/warncore/Core
+   warncore/1.0
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --ignore_cache avail
+===========================
+ProjectDIR/rt/avail_termwidth/mf/warnflat/Core
+   warnflat/1.0
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
