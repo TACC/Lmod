@@ -368,3 +368,27 @@ MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help markdown_content/2.0
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help markdown_with_images/1.0
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help nested_markdown_lists/1.0
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;

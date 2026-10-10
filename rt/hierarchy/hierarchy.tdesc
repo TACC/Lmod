@@ -94,7 +94,7 @@ testdescript = {
      rm -f results.csv
      wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
      wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
-     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+     testFinish --onFailure $(outputDir)/test.failed -r $(resultFn) -t $(runtimeFn) results.csv
    ]],
 
    blessScript = [[

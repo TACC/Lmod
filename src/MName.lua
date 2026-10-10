@@ -37,6 +37,7 @@ require("strict")
 require("inherits")
 require("utils")
 require("string_utils")
+require("parseVersion")
 
 local FrameStk    = require("FrameStk")
 local M           = {}
@@ -110,6 +111,8 @@ function M.new(self, sType, name, action, is, ie)
    o.__version         = false
    o.__fn              = false
    o.__versionStr      = false
+   o.__logicalVersionForUserName = nil
+   o.__dotHiddenAliasLoad        = false
    o.__dependsOn       = false
    o.__moduleKindT     = nil
    o.__ref_count       = nil
@@ -187,6 +190,61 @@ function M.buildA(self,sType, argT)
       end
    end
    return a
+end
+
+local function l_apply_virtual_display(self, origUserName, mrc)
+   local tt = self.__moduleKindT or {}
+   if (tt.kind ~= "hidden") then
+      return
+   end
+
+   if (self.__origUserName) then
+      local _, _, osn, over = self.__origUserName:find("^([^/]+)/(.*)$")
+      if (over and osn == self.__sn) then
+         self.__version = over
+      end
+      return
+   end
+
+   if (origUserName ~= self.__sn or not self.__mpath) then
+      return
+   end
+
+   for virtualName in mrc:pairsForMRC_virtual_at_mpath(self.__mpath) do
+      if (virtualName:find("^" .. origUserName .. "/")) then
+         local wV = mrc:find_wght_for_fullName(virtualName, " ")
+         if (isMarked(wV)) then
+            self.__origUserName = virtualName
+            local _, _, osn, over = virtualName:find("^([^/]+)/(.*)$")
+            if (over and osn == self.__sn) then
+               self.__version = over
+            end
+            break
+         end
+      end
+   end
+end
+
+local function l_find_highest_virtual(mrc, mpathA, sn)
+   local bestName = false
+   local bestPV   = " "
+   for i = 1, #mpathA do
+      local mpath = mpathA[i]
+      for virtualName in mrc:pairsForMRC_virtual_at_mpath(mpath) do
+         local vsn, ver = virtualName:match("^([^/]+)/(.*)$")
+         if (vsn == sn and ver) then
+            local resultT = mrc:isVisible{fullName=virtualName, sn=sn, mpath=mpath}
+            if (resultT.count) then
+               local pV = parseVersion(ver)
+               if (pV > bestPV) then
+                  bestPV   = pV
+                  bestName = virtualName
+               end
+            end
+         end
+      end
+   end
+   return bestName
 end
 
 local function l_lazyEval(self)
@@ -273,19 +331,53 @@ local function l_lazyEval(self)
 
 
    for i = 1, #stepA do
+      self.__logicalVersionForUserName = nil
+      self.__dotHiddenAliasLoad       = false
       local func = stepA[i]
       found, fn, version, wV, moduleKindT, mpath, funcName = func(self, fileA)
       dbg.print{"found: ",found,", funcName: ",funcName,"\n"}
-      if (found) then
-         self.__fn          = fn
-         self.__version     = version
-         self.__wV          = wV
-         self.__moduleKindT = moduleKindT
-         self.__mpath       = mpath
-         if (self.__action == "latest" or self.__sn ~= self.__userName) then
-            self.__userName = build_fullName(self.__sn, version)
+         if (found) then
+            self.__fn          = fn
+            self.__version     = version
+            self.__wV          = wV
+            self.__moduleKindT = moduleKindT
+            self.__mpath       = mpath
+            if (self.__action == "latest" or self.__sn ~= self.__userName) then
+               -- Prefer the matched entry's version for userName so extended
+               -- defaults and NVV paths expand (e.g. gcc/11 -> gcc/11.4).
+               -- Dot-hidden alias sets __logicalVersionForUserName to the user's
+               -- logical spec so userName stays itk/1.2 while fullName uses .1.2.
+               local uv = self.__logicalVersionForUserName or version or self.__versionStr
+               self.__userName = build_fullName(self.__sn, uv)
+            end
+            break
+      end
+   end
+
+   if (not found and origUserName == sn and (not versionStr or versionStr == "")) then
+      local virtualName = l_find_highest_virtual(mrc, mt:modulePathA(), sn)
+      if (virtualName) then
+         self.__origUserName = virtualName
+         userName = mrc:resolve(mt:modulePathA(), virtualName)
+         sn, versionStr, fileA = moduleA:search(userName)
+         mrc:applyWeights(sn, fileA)
+         self.__userName   = userName
+         self.__versionStr = versionStr
+         for i = 1, #stepA do
+            local func = stepA[i]
+            found, fn, version, wV, moduleKindT, mpath, funcName = func(self, fileA)
+            if (found) then
+               self.__fn          = fn
+               self.__version     = version
+               self.__wV          = wV
+               self.__moduleKindT = moduleKindT
+               self.__mpath       = mpath
+               if (self.__action == "latest" or self.__sn ~= self.__userName) then
+                  self.__userName = build_fullName(self.__sn, version)
+               end
+               break
+            end
          end
-         break
       end
    end
    
@@ -296,6 +388,7 @@ local function l_lazyEval(self)
       self.__forbiddenT = mrc:isForbidden{fullName=build_fullName(self.__sn, version),
                                           sn = self.__sn, fn = self.__fn,
                                           mpath = self.__mpath}
+      l_apply_virtual_display(self, origUserName, mrc)
    else
       dbg.print{"clearing __sn etc\n"}
       self.__sn      = false
@@ -425,6 +518,13 @@ function M.fullName(self)
    return build_fullName(self.__sn, self.__version)
 end
 
+function M.dotHiddenAliasLoad(self)
+   if (not self.__evaluated) then
+      l_lazyEval(self)
+   end
+   return self.__dotHiddenAliasLoad
+end
+
 ------------------------------------------------------------
 -- It turns that Tmod searching all directories in MODULEPATH
 -- for an exact version match.  It stops at the first exact
@@ -503,7 +603,15 @@ local function l_find_exact_match(self, must_have_version, fileA)
                wV          = entry.wV
                fn          = entry.fn
                mpath       = entry.mpath
-               version     = entry.version or false
+               if (entry.dotHiddenCanonVs) then
+                  version     = entry.dotHiddenCanonVs
+                  self.__logicalVersionForUserName = entry.version
+                  self.__dotHiddenAliasLoad       = true
+               else
+                  version     = entry.version or false
+                  self.__logicalVersionForUserName = nil
+                  self.__dotHiddenAliasLoad       = false
+               end
                moduleKindT = resultT.moduleKindT
                found       = true
                self.__range = { pV, pV }
@@ -731,6 +839,11 @@ function M.isloaded(self)
        userName == mt:fullName(sn)) then
       --dbg.print{"fullName: ",mt:fullName(sn),", status: ",sn_status,"\n"}
       --dbg.fini("MName:isloaded")
+      return sn_status
+   end
+
+   local reqVersion = extractVersion(userName, sn)
+   if (reqVersion and versionPrefixMatch(reqVersion, mt:version(sn))) then
       return sn_status
    end
 

@@ -49,6 +49,14 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load invalid_mode_test
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Syntax\ error\ in\ file:\ ProjectDIR/rt/mode_select/mf/Core/invalid_mode_test/1.0.lua"
+"\ with\ command:\ setenv,\ invalid\ mode\ \"invalid\".\ Valid\ modes\ are:\ \"load\"\ and\ \"unload\".\ "
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ \ \ \ \ \ \ Module\ Filename"
+"\ \ \ \\ \ \ \ \ \ \ \"
+"\ \ \ \ invalid_mode_test/1.0\ \ ProjectDIR/rt/mode_select/mf/Core/invalid_mode_test/1.0.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 7
@@ -58,6 +66,7 @@ MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
@@ -292,11 +301,25 @@ export _ModuleTable_;
 step 26
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load forbidden_env_test
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ MODULEPATH\ variable\ cannot\ be\ mode\ selected.\ "
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ \ \ \ \ \ \ \ Module\ Filename"
+"\ \ \ \\ \ \ \ \ \ \ \ \"
+"\ \ \ \ forbidden_env_test/1.0\ \ ProjectDIR/rt/mode_select/mf/Core/forbidden_env_test/1.0.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 27
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load invalid_key_test
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Invalid\ key\ detected\ in\ function\ setenv:\ Invalid\ key:\ extra.\ "
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ \ \ \ \ \ Module\ Filename"
+"\ \ \ \\ \ \ \ \ \ \"
+"\ \ \ \ invalid_key_test/1.0\ \ ProjectDIR/rt/mode_select/mf/Core/invalid_key_test/1.0.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 28
@@ -306,6 +329,7 @@ MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 29
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load env_test

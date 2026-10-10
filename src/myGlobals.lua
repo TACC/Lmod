@@ -83,6 +83,19 @@ ExitHookA = require("HookArray")
 setenv_posix("LC_ALL","C",true)
 
 ------------------------------------------------------------------------
+-- LMOD_SITEPACKAGE_PREPEND -
+--              This is a list of absolute paths to lua files that allow
+--              package managers like ESSI, EasyBuild, Spack, and OpenHPC
+--              to a SitePackage type file for functions they need 
+--              and sites can have SitePackage.lua and/or
+--              /etc/lmod/lmod_config.lua
+------------------------------------------------------------------------
+
+cosmic:init{name    = "LMOD_SITEPACKAGE_PREPEND",
+            sedV    = "@sitepackage_prepend@",
+            default = false}
+
+------------------------------------------------------------------------
 -- LMOD_MODULEPATH_INIT: Name of the file that can be used to initialize
 --                       MODULEPATH in the startup scripts
 ------------------------------------------------------------------------
@@ -294,12 +307,19 @@ cosmic:init{name = "LMOD_TMOD_FIND_FIRST",
             yn   = "no"}
 
 ------------------------------------------------------------------------
--- LMOD_DISABLE_SAME_NAME_AUTOSWAP: This env. var requires users to swap
+-- LMOD_DISABLE_NAME_AUTOSWAP: This env. var requires users to swap
 --                  out rather than using the one name rule.
+--                  Note that LMOD_DISABLE_SAME_NAME_AUTOSWAP was the old
+--                  value so it is still supported.
 ------------------------------------------------------------------------
-cosmic:init{name = "LMOD_DISABLE_SAME_NAME_AUTOSWAP",
-            sedV = "@disable_name_autoswap@",
-            yn   = "no"}
+local assignV = getenv("LMOD_DISABLE_NAME_AUTOSWAP") or 
+                getenv("LMOD_DISABLE_SAME_NAME_AUTOSWAP")
+
+cosmic:init{name    = "LMOD_DISABLE_NAME_AUTOSWAP",
+            sedV    = "@disable_name_autoswap@",
+            yn      = "no",
+            envV    = assignV,
+            assignV = assignV}
 
 --------------------------------------------------------------------------
 -- When restoring, use specified version instead of following the default
@@ -435,6 +455,16 @@ cosmic:init{name    = "LMOD_MODULERC",
 cosmic:init{name    = "LMOD_EXTENDED_DEFAULT",
             sedV    = "@extended_default@",
             yn      = "yes"}
+
+------------------------------------------------------------------------
+-- LMOD_DOT_HIDDEN_LOAD_ALIAS: If yes, a requested version such as 1.2 can
+--                               resolve to a sole sibling whose path uses
+--                               dot-leading segments (e.g. .1.2).  Exact
+--                               keys still win when present (issue #817).
+------------------------------------------------------------------------
+
+cosmic:init{name = "LMOD_DOT_HIDDEN_LOAD_ALIAS",
+            yn   = "no"}
 
 ------------------------------------------------------------------------
 -- LMOD_QUARANTINE_VARS: A colon separated list of variable
@@ -672,6 +702,7 @@ local nFD_SedV = "@nearly_forbidden_days@"
 local nFD      = tonumber(nFD_Env) or tonumber(nFD_SedV)
 
 cosmic:init{name    = "LMOD_NEARLY_FORBIDDEN_DAYS",
+            isNum   = true,
             default = nFD_DFLT,
             envV    = nFD_Env,
             sedV    = nFD_SedV,
@@ -685,6 +716,7 @@ local ancientEnv    = getenv("LMOD_ANCIENT_TIME")
 local ancientSedV   = "@ancient@"
 local ancient       = tonumber(ancientEnv) or tonumber(ancientSedV)
 cosmic:init{name    = "LMOD_ANCIENT_TIME",
+            isNum   = true,
             default = ancient_dflt,
             envV    = ancientEnv,
             sedV    = ancientSedV,
@@ -706,6 +738,7 @@ local shortTimeEnv   = getenv("LMOD_SHORT_TIME")
 local shortTimeSedV  = "@short_time@"
 local shortTime      = tonumber(shortTimeEnv) or tonumber(shortTimeSedV)
 cosmic:init{name     = "LMOD_SHORT_TIME",
+            isNum    = true,
             default  = shortTime_dflt,
             envV     = shortTimeEnv,
             sedV     = shortTimeSedV,
@@ -721,6 +754,7 @@ local threshold_dflt = 1
 local thresholdEnv   = getenv("LMOD_THRESHOLD")
 local threshold      = tonumber(thresholdEnv)
 cosmic:init{name     = "LMOD_THRESHOLD",
+            isNum    = true,
             default  = threshold_dflt,
             envV     = thresholdEnv,
             assignV  = threshold}
@@ -739,8 +773,6 @@ cosmic:init{name = "LMOD_ALLOW_ROOT_USE",
 cosmic:init{name = "LMOD_HAVE_LUA_TERM",
             sedV = "@have_lua_term@",
             yn   = "no"}
-
-
 
 ------------------------------------------------------------------------
 -- MODULEPATH_ROOT
@@ -811,6 +843,7 @@ cosmic:init{name    = "LMOD_PREPEND_BLOCK",
 --                overridden by a .version etc file.
 ------------------------------------------------------------------------
 cosmic:init{name    = "LMOD_MAXDEPTH",
+            isNum = true,
             sedV    = "@maxdepth@",
             default = ""}
 

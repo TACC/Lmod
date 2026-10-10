@@ -53,9 +53,10 @@ list items, then inline elements (code, emphasis, images, links) within
 paragraphs and lists.
 
 **Color:** Used when ``supportsColor()`` returns true (``TERM`` has
-``xterm`` or ``color``, or ``LMOD_COLORIZE=yes``). Disabled during
-regression tests (``optionTbl().rt == true``). Codes live in the ``ANSI``
-table in ``MarkdownProcessor.lua``.
+``xterm`` or ``color``, or ``LMOD_COLORIZE=yes``). ``LMOD_COLORIZE=no``
+overrides ``TERM`` and disables ANSI. Disabled during regression tests
+(``optionTbl().rt == true``). Codes live in the ``ANSI`` table in
+``MarkdownProcessor.lua``.
 
 **Images:** ``![alt](url)`` becomes ``[Image: alt] (url)`` in cyan.
 Processed before links to avoid conflicts.

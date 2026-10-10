@@ -2,6 +2,7 @@ require("strict")
 local cosmic       = require("Cosmic"):singleton()
 local testDir      = os.getenv("testDir")
 
+cosmic:assign("LMOD_ANCIENT_TIME",  "86401")
 cosmic:assign("LMOD_PACKAGE_PATH",  pathJoin(testDir,"lmod_cfg_dir"))
 cosmic:assign("LMOD_SITE_MSG_FILE", pathJoin(testDir,"lmod_cfg_dir/lang.lua"))
 

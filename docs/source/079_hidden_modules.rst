@@ -49,6 +49,92 @@ modulerc files.
 Remember that hidden modules can be loaded with normal commands unless
 its hidden type is **hard**.
 
+.. _dot_hidden_load_alias-label:
+
+Dot-leading version directories and ``LMOD_DOT_HIDDEN_LOAD_ALIAS``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Background and rationale: `GitHub issue #817 <https://github.com/TACC/Lmod/issues/817>`__.
+
+When the **version** (or a path segment under the short name) begins with
+``.``, Lmod treats the module as **hidden** for ``avail`` and ``spider`` in
+the usual way (unless ``--show_hidden``, ``--all``, site policy, or hooks say
+otherwise).  By default, loading uses the **canonical name**, including the
+dot: for example ``module load A/.1.0`` loads ``A/.1.0.lua``, while
+``module load A/1.0`` does **not** automatically pick ``A/.1.0.lua``.
+
+Sites may set the environment variable ``LMOD_DOT_HIDDEN_LOAD_ALIAS`` to
+``yes`` (default is ``no``) to opt in to an **optional alias** for loads:
+
+* After an exact key lookup fails, Lmod may resolve a requested version string
+  without dots (e.g. ``1.2``) to a **single** sibling modulefile whose path
+  differs only by dot-leading segments (e.g. ``.1.2``), **iff** that match is
+  **unique**.  If more than one filesystem key normalizes the same way, the
+  alias is **not** applied (ambiguous).
+
+* If both an undotted and a dotted key exist for the same logical version (for
+  example ``pkg/1.2.lua`` and ``pkg/.1.2.lua``), the **exact** undotted key
+  wins; the alias is only for the case where the dotted layout is the sole
+  match.
+
+* Listing behavior is unchanged: hidden modules stay hidden from normal
+  listings unless users or policy surface them as today.
+
+When ``LMOD_DOT_HIDDEN_LOAD_ALIAS`` is ``yes`` and ``LMOD_PIN_VERSIONS`` is
+``no``, ``LOADEDMODULES`` records the **logical** loaded name (e.g.
+``itk/1.2``) while the module table still tracks the canonical ``fullName``
+(e.g. ``itk/.1.2``).  With the alias **off** (the default), behavior matches
+prior releases for ``LOADEDMODULES``.
+
+Inside a modulefile, ``myModuleFullName()`` and ``myModuleVersion()`` report
+the **true loaded name** (including dot-leading segments).  To obtain both the
+user's requested name and the canonical name after an alias load, call
+``myModuleUsrAndAliasName()``; it returns two values.  When no alias was used,
+both values are the same.  For example, after ``module load itk/1.2`` resolves
+to ``itk/.1.2.lua``, ``myModuleUsrAndAliasName()`` returns ``itk/1.2`` and
+``itk/.1.2``.
+
+``myModuleUsrAndAliasName()`` returns the **user-typed** name as its first
+value.  That is appropriate for reporting what the user asked for, but it is
+not the right input for path construction on unload.  For example, after
+``module load hello`` loads ``hello/.1.0.lua``, ``myModuleUsrName()`` is
+``hello`` on unload, so a ``SitePackage.lua`` override that returns it from
+``myModuleFullName()`` cannot extract a version and ``prepend_path`` may not
+be reversed correctly.
+
+To obtain the logical full name and the true loaded full name, call
+``myModuleFullNameAndAlias()``.  It returns two values.  The first is the
+logical name (dot-leading segments stripped once per path segment).  The
+second is the true loaded name (the same value ``myModuleFullName()`` returns).
+When no dot-leading segments are present, both values are the same.
+
+Sites that want ``myModuleFullName()`` or ``myModuleVersion()`` to report the
+logical name when the true loaded name contains dot-leading segments may
+override those functions in ``SitePackage.lua`` via ``sandbox_registration``.
+For example::
+
+   local orig_myModuleFullName = myModuleFullName
+   local orig_myModuleVersion  = myModuleVersion
+
+   local function myModuleFullName()
+      local aliasFullName, trueFullName = myModuleFullNameAndAlias()
+      if (aliasFullName == trueFullName) then
+         return orig_myModuleFullName()
+      end
+      return aliasFullName
+   end
+
+   local function myModuleVersion()
+      local full = myModuleFullName()
+      local sn   = myModuleName()
+      return extractVersion(full, sn) or ""
+   end
+
+   sandbox_registration{
+      myModuleFullName  = myModuleFullName,
+      myModuleVersion   = myModuleVersion,
+   }
+
 Finally, if your site wishes to mark many modules as hidden, you can
 use the hook function isVisibleHook().  See :ref:`hooks` for
 details. Also see the contrib/more_hooks/SitePackage.lua file for a

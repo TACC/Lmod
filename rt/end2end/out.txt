@@ -42,6 +42,13 @@ export _ModuleTable_;
 step 5
  OutputDIR/lmod/lmod/libexec/lmod load bad
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ ProjectDIR/rt/end2end/mf/Core/bad/9:\ \(bad/9\):\ invalid\ command\ name\ \"set2\""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ bad/9\ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/end2end/mf/Core/bad/9"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 6
@@ -55,6 +62,7 @@ _LMFILES_=ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/end2en
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={admin={fn="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},amber={fn="ProjectDIR/rt/end2end/mf/Core/amber/1.1",fullName="amber/1.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="amber",wV="s00000001.000000001.*zfinal",},myinfo={fn="ProjectDIR/rt/end2end/mf/Core/myinfo/1.0",fullName="myinfo/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="myinfo",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},systemBaseMPATH="ProjectDIR/rt/end2end/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 export MYINFO="Foo and Bar";
 ===========================
 step 7
@@ -115,4 +123,9 @@ printErr TEST: 0
 step 13
  OutputDIR/lmod/lmod/libexec/lmod avail
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Unable\ to\ parse:\ \"OutputDIR/lmod/lmod/libexec/../../etc/rc\".\ Aborting\!"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false

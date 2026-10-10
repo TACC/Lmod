@@ -3,8 +3,8 @@
 Terse output for computer programs
 ==================================
 
-Normal output from Lmod for *module list*, *module avail* and *module
-spider* are designed to be readable by users.  Having computer
+Normal output from Lmod for *module list*, *module avail*, *module
+spider* and *module show* are designed to be readable by users.  Having computer
 programs parse this output is complicated.  So Lmod has a terse option
 (--*terse* or -*t*) to provide output for computer programs to read.
 The tab-completion that Lmod provide uses this terse output
@@ -41,6 +41,21 @@ modules::
 
   H/1.0 <H>
   C/2.0
+
+module --terse show
+~~~~~~~~~~~~~~~~~~~
+
+The terse output for "module --terse show" reports the modulefile
+path.  When the modulefile calls *inherit()*, each inherited
+modulefile is reported on a following line that begins with ``-->``,
+in the same order as *module show*::
+
+  % module --terse show intel
+  /path/to/modulefiles/Core/intel/26.0.lua
+  --> /opt/apps/modulefiles/intel/26.0.lua
+
+For a module that does not inherit, the output is a single path, the
+same as *module --location show*.
 
 module --terse avail
 ~~~~~~~~~~~~~~~~~~~~

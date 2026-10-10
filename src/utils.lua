@@ -264,12 +264,32 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT, forbiddenT)
    local propDisplayT = readLmodRC:propT()
    local iprop        = 0
    local pA           = {}
-   local moduleName   = mt:name_w_possible_alias(modT, "full")
    propT              = propT or {}
    forbiddenT         = forbiddenT or {}
 
-   local resultT = mrc:isVisible(modT)
-   if (resultT.moduleKindT.kind ~= "normal") then
+   local resultT       = mrc:isVisible(modT)
+   -- A module_virtual / (module_alias + hide_version) load is recognised here
+   -- by the MT-resident signal that survives across processes: origUserName
+   -- is set (alias/virtual resolution happened) AND the resolved fullName is
+   -- hidden. Querying MRC for virtual2modT does not work for `module list`
+   -- because that subcommand runs in a fresh Lua process which never parses
+   -- .modulerc files. `not mrc:show_hidden()` preserves the impl name display
+   -- under `module --show_hidden list` so power users can still see foo/.stack.
+   local isVirtualLoad = modT.origUserName
+                      and resultT.moduleKindT.kind == "hidden"
+                      and not mrc:show_hidden()
+
+   local moduleName
+   if (isVirtualLoad) then
+      moduleName = modT.origUserName
+      if (style ~= "terse") then
+         moduleName = hook.apply("colorize_fullName", moduleName, modT.sn) or moduleName
+      end
+   else
+      moduleName = mt:name_w_possible_alias(modT, "full")
+   end
+
+   if (not isVirtualLoad and resultT.moduleKindT.kind ~= "normal") then
       local i18n = require("i18n")
       local H    = "H"
       local msg  = "HiddenM"
@@ -369,6 +389,40 @@ function extractVersion(fullName, sn)
       version = false
    end
    return version
+end
+
+--------------------------------------------------------------------------
+-- Return the logical full name by stripping one leading dot from each
+-- path segment of the true loaded full name.
+function stripHidePrefixFromFullName(fullName)
+   local sA = {}
+   for mySeg in fullName:gmatch("[^/]+") do
+      local seg = mySeg
+      if (seg:sub(1,1) == ".") then
+         seg = seg:sub(2)
+      end
+      sA[#sA + 1] = seg
+   end
+   return table.concat(sA, "/")
+end
+
+--------------------------------------------------------------------------
+-- Return true when loadedVersion is selected by a partial version request.
+-- For example reqVersion "1" matches loadedVersion "1.0" but not "10.0".
+function versionPrefixMatch(reqVersion, loadedVersion)
+   if (not reqVersion or not loadedVersion) then
+      return false
+   end
+   if (loadedVersion == reqVersion) then
+      return true
+   end
+   if (loadedVersion:sub(1, #reqVersion) ~= reqVersion) then
+      return false
+   end
+   if (#loadedVersion == #reqVersion) then
+      return true
+   end
+   return loadedVersion:sub(#reqVersion + 1, #reqVersion + 1) == "."
 end
 
 
@@ -1192,7 +1246,22 @@ function initialize_lmod()
    require("StandardPackage")
 
    ------------------------------------------------------------------------
-   -- Load a SitePackage Module.
+   -- Load any prepended sitepackage possibly from package managers
+   ------------------------------------------------------------------------
+   local sitePkg_prepend = cosmic:value("LMOD_SITEPACKAGE_PREPEND")
+   if (sitePkg_prepend) then
+      local icnt = 0
+      for fn in sitePkg_prepend:split(":") do
+         icnt = icnt + 1
+         if (isFile(fn)) then
+            cosmic:set_key("S"..tonumber(icnt))
+            assert(loadfile(fn))()
+         end
+      end
+   end
+
+   ------------------------------------------------------------------------
+   -- Load lmod_config.lua 
    ------------------------------------------------------------------------
 
    local configDir = cosmic:value("LMOD_CONFIG_DIR")
@@ -1211,6 +1280,10 @@ function initialize_lmod()
    if (not QuarantineT) then
       l_build_quarantineT()
    end
+
+   ------------------------------------------------------------------------
+   -- Load a SitePackage Module.
+   ------------------------------------------------------------------------
 
    local lmodPath = mergeEnvVars(cosmic:value("LMOD_PACKAGE_PATH"),configDir)
    if (lmodPath ~= "") then
@@ -1328,4 +1401,8 @@ end
 function unwrap_kind(kind, name)
    local i,j,n = name:find(kind .. "<([^<]*)>")
    return n
+end
+
+function lastErrorVarName()
+   return "__LMOD_LAST_ERROR"
 end

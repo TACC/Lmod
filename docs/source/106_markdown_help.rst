@@ -63,8 +63,10 @@ What works and what doesn't
 ---------------------------
 
 Output uses ANSI colors when your terminal supports it (e.g., ``xterm``,
-``screen``) or when ``LMOD_COLORIZE=yes``. Bold, italic, and code work
-inside list items. The parser is pure Lua.
+``screen``) or when ``LMOD_COLORIZE=yes``. Set ``LMOD_COLORIZE=no`` to
+turn color off while keeping markdown structure (headers, lists, and so
+on). Bold, italic, and code work inside list items. The parser is pure
+Lua.
 
 Content under 30 characters is never treated as markdown. Tables,
 blockquotes, and footnotes are not supported. Images show as

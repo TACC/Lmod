@@ -7,13 +7,13 @@ if [ -z "${LMOD_ALLOW_ROOT_USE+x}" ]; then
   LMOD_ALLOW_ROOT_USE=@lmod_allow_root_use@
 fi
 
-( [ -n "${USER_IS_ROOT:-}" ] || ( [ "${LMOD_ALLOW_ROOT_USE:-}" != yes ] && [ $(id -u) = 0 ] ) ) && return
+( [ -n "${USER_IS_ROOT:-}" ] || ( [ "${LMOD_ALLOW_ROOT_USE:-}" != yes ] && [ $(@id@ -u) = 0 ] ) ) && return
 
 
 if [ -z "${MODULEPATH_ROOT:-}" ]; then
   export MODULEPATH_ROOT="@modulepath_root@"
   export USER=${USER-${LOGNAME}}  # make sure $USER is set
-  export LMOD_sys=`uname`
+  export LMOD_sys=`@uname@`
 
   if [ -z "${LMOD_MODULEPATH_INIT+x}" ]; then
     if [ -f /etc/lmod/.modulespath ]; then

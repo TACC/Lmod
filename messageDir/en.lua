@@ -121,6 +121,7 @@ with command: "execute".
 The syntax is:
     execute{cmd = "command string",modeA={"load",...}}
 ]==],
+     e_Failed_default      = "Unable to find default collection.\n",
      e_Failed_2_Find       = "Unable to find: \"%{name}\".\n",
      e_Failed_2_Inherit    = "Failed to inherit: %{name}.\n",
      e_Failed_Hashsum      = "Unable to compute hashsum.\n",
@@ -185,7 +186,7 @@ please execute the command \" clearMT\" and reload your modules.
 
    $ module swap %{oldFullName} %{newFullName}
 
-Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
+Alternatively, you can set the environment variable LMOD_DISABLE_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
 ]==],  --
      e_No_Hashsum          = "Unable to find HashSum program (sha1sum, shasum, md5sum or md5).",
      e_No_Matching_Mods    = "No matching modules found.\n",

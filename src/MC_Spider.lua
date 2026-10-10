@@ -122,6 +122,17 @@ end
 
 M.myModuleUsrName = M.myModuleFullName
 
+function M.myModuleUsrAndAliasName(self)
+   local fn = self:myModuleFullName()
+   return fn, fn
+end
+
+function M.myModuleFullNameAndAlias(self)
+   local trueFullName  = self:myModuleFullName()
+   local aliasFullName = stripHidePrefixFromFullName(trueFullName)
+   return aliasFullName, trueFullName
+end
+
 --------------------------------------------------------------------------
 -- Use the moduleStack to return the short name of the module.
 -- @param self A MainControl object.

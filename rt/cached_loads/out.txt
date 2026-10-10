@@ -84,6 +84,17 @@ export _ModuleTable_;
 step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"B\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"B\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 9
@@ -93,6 +104,7 @@ MODULEPATH=OutputDIR/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="OutputDIR/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B

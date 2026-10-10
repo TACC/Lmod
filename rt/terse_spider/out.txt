@@ -32,4 +32,9 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider alps
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Unable\ to\ find:\ \"alps\"."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false

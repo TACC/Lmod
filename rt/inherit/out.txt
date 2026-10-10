@@ -55,6 +55,14 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load junk2
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Failed\ to\ inherit:\ junk2/1.0."
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ junk2/1.0\ \ \ \ \ \ \ \ ProjectDIR/rt/inherit/mf/Linux/junk2/1.0.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 7
@@ -66,6 +74,7 @@ MODULEPATH=ProjectDIR/rt/inherit/pmf/core:ProjectDIR/rt/inherit/mf/Linux:Project
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inherit/pmf/core","ProjectDIR/rt/inherit/mf/Linux","ProjectDIR/rt/inherit/mf/Core","ProjectDIR/rt/inherit/mf/Core2",},}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel

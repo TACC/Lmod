@@ -32,16 +32,45 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"boost/1.75.0\""
+"\ \ \ Try:\ \"module\ spider\ boost/1.75.0\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ boost/1.75.0"
+"\ \ \ \ \ \ module\ load\ intel/21.0\ boost/1.75.0"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load netcdf/4.8.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"netcdf/4.8.0\""
+"\ \ \ Try:\ \"module\ spider\ netcdf/4.8.0\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ netcdf/4.8.0"
+"\ \ \ \ \ \ module\ load\ intel/21.0\ netcdf/4.8.0"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load completely_nonexistent_module/1.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"completely_nonexistent_module/1.0\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"completely_nonexistent_module/1.0\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 8
@@ -61,6 +90,7 @@ _LMFILES_=ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
@@ -113,11 +143,27 @@ export _ModuleTable_;
 step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hdf5/1.12.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"hdf5/1.12.0\""
+"\ \ \ Try:\ \"module\ spider\ hdf5/1.12.0\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ hdf5/1.12.0"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 hdf5/1.12.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"boost/1.75.0\",\ \"hdf5/1.12.0\""
+"\ \ \ Try:\ \"module\ spider\ boost/1.75.0\ hdf5/1.12.0\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ boost/1.75.0\ hdf5/1.12.0"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 15
@@ -127,6 +173,7 @@ MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider netcdf/4.8.0
@@ -139,36 +186,100 @@ export _ModuleTable_;
 step 17
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"boost\""
+"\ \ \ Try:\ \"module\ spider\ boost\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ boost"
+"\ \ \ \ \ \ module\ load\ intel/21.0\ boost"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hdf5
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"hdf5\""
+"\ \ \ Try:\ \"module\ spider\ hdf5\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ hdf5"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 netcdf/4.8.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"boost/1.75.0\",\ \"netcdf/4.8.0\""
+"\ \ \ Try:\ \"module\ spider\ boost/1.75.0\ netcdf/4.8.0\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ boost/1.75.0\ netcdf/4.8.0"
+"\ \ \ \ \ \ module\ load\ intel/21.0\ boost/1.75.0\ netcdf/4.8.0"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 hdf5/1.12.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"boost/1.75.0\",\ \"hdf5/1.12.0\""
+"\ \ \ Try:\ \"module\ spider\ boost/1.75.0\ hdf5/1.12.0\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ boost/1.75.0\ hdf5/1.12.0"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 21
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 boost/1.75.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"boost/1.75.0\""
+"\ \ \ Try:\ \"module\ spider\ boost/1.75.0\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ python/3.9\ boost/1.75.0"
+"\ \ \ \ \ \ module\ load\ intel/21.0\ python/3.9\ boost/1.75.0"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 22
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load nonexistent/1.0 boost/1.75.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"nonexistent/1.0\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"nonexistent/1.0\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+"If\ this\ module\ depends\ on\ others\ you\ loaded,\ try\ loading\ prerequisites\ first,\ then\ this\ module\ in\ a\ separate\ command."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 23
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 boost/1.75.0 hdf5/1.12.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"boost/1.75.0\",\ \"hdf5/1.12.0\""
+"\ \ \ Try:\ \"module\ spider\ boost/1.75.0\ hdf5/1.12.0\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ python/3.9\ boost/1.75.0\ hdf5/1.12.0"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 24
@@ -188,6 +299,7 @@ _LMFILES_=ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 25
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 hdf5/1.12.0 netcdf/4.8.0
@@ -260,6 +372,14 @@ export _ModuleTable_;
 step 30
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load petsc/3.17
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"petsc/3.17\""
+"\ \ \ Try:\ \"module\ spider\ petsc/3.17\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ openmpi/4.0\ petsc/3.17"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 31
@@ -269,10 +389,20 @@ MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 32
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load fftw/3.3
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"fftw/3.3\""
+"\ \ \ Try:\ \"module\ spider\ fftw/3.3\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ fftw/3.3"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ openmpi/4.0\ fftw/3.3"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 33
@@ -294,6 +424,7 @@ _LMFILES_=ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua:ProjectDIR/rt/load
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Core/gcc/10.0.lua",fullName="gcc/10.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/10.0",wV="000000010.*zfinal",},openmpi={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/load_suggest_cmd/mf/MPI/gcc/10.0/openmpi/4.0")]],},fn="ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0/openmpi/4.0.lua",fullName="openmpi/4.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="openmpi/4.0",wV="000000004.*zfinal",},},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/MPI/gcc/10.0/openmpi/4.0","ProjectDIR/rt/load_suggest_cmd/mf/Compiler/gcc/10.0","ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 34
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load petsc/3.17
@@ -339,6 +470,14 @@ export _ModuleTable_;
 step 37
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load fftw/3.3 petsc/3.17
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"fftw/3.3\",\ \"petsc/3.17\""
+"\ \ \ Try:\ \"module\ spider\ fftw/3.3\ petsc/3.17\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ openmpi/4.0\ fftw/3.3\ petsc/3.17"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 38
@@ -348,10 +487,20 @@ MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 39
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 ruby/3.0 boost/1.75.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"boost/1.75.0\""
+"\ \ \ Try:\ \"module\ spider\ boost/1.75.0\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ python/3.9\ ruby/3.0\ boost/1.75.0"
+"\ \ \ \ \ \ module\ load\ intel/21.0\ python/3.9\ ruby/3.0\ boost/1.75.0"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 40
@@ -361,10 +510,20 @@ MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 41
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 python/3.9
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"boost/1.75.0\""
+"\ \ \ Try:\ \"module\ spider\ boost/1.75.0\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ boost/1.75.0\ python/3.9"
+"\ \ \ \ \ \ module\ load\ intel/21.0\ boost/1.75.0\ python/3.9"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 42
@@ -374,10 +533,24 @@ MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 43
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 boost/1.75.0 nonexistent/1.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"nonexistent/1.0\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"nonexistent/1.0\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+"If\ this\ module\ depends\ on\ others\ you\ loaded,\ try\ loading\ prerequisites\ first,\ then\ this\ module\ in\ a\ separate\ command."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 44
@@ -387,6 +560,7 @@ MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 45
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9
@@ -415,6 +589,15 @@ export _ModuleTable_;
 step 47
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 boost/1.75.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"boost/1.75.0\""
+"\ \ \ Try:\ \"module\ spider\ boost/1.75.0\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ python/3.9\ boost/1.75.0"
+"\ \ \ \ \ \ module\ load\ intel/21.0\ python/3.9\ boost/1.75.0"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 48
@@ -428,10 +611,19 @@ unset PYTHON_VERSION;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 49
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9 fftw/3.3 petsc/3.17
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"fftw/3.3\",\ \"petsc/3.17\""
+"\ \ \ Try:\ \"module\ spider\ fftw/3.3\ petsc/3.17\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ openmpi/4.0\ python/3.9\ fftw/3.3\ petsc/3.17"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 50
@@ -441,6 +633,7 @@ MODULEPATH=ProjectDIR/rt/load_suggest_cmd/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_suggest_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_suggest_cmd/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 51
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/10.0

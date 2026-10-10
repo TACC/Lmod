@@ -16,6 +16,18 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ load_any\ function\ failed\ because\ it\ could\ not\ find\ any\ of\ the\ following\ modules\ :\ Bar\ bar\ BAR"
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ B/1.0\ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/load_any/mf/B/1.0.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 4
@@ -31,6 +43,7 @@ _LMFILES_=ProjectDIR/rt/load_any/mf/Foo/1.0.lua:ProjectDIR/rt/load_any/mf/A/1.0.
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/load_any/mf/A/1.0.lua",fullName="A/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},Foo={fn="ProjectDIR/rt/load_any/mf/Foo/1.0.lua",fullName="Foo/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="Foo",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load_any/mf",},systemBaseMPATH="ProjectDIR/rt/load_any/mf",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list

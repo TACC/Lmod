@@ -125,7 +125,7 @@ Veuillez exécuter la commande \" clearMT\" et charger vos modules de nouveau.
 
    $ module swap %{oldFullName} %{newFullName}
 
-Sinon, vous pouvez définir la variable d'environnement LMOD_DISABLE_SAME_NAME_AUTOSWAP  à "no" pour réactiver la fonction d'échange automatique des modules de même nom.
+Sinon, vous pouvez définir la variable d'environnement LMOD_DISABLE_NAME_AUTOSWAP  à "no" pour réactiver la fonction d'échange automatique des modules de même nom.
 ]==],
      e_No_Hashsum        = "Impossible de trouver le programme de somme de contrôle (sha1sum, shasum, md5sum or md5)",
      e_No_Matching_Mods  = "Aucun module correspondant trouvé\n",

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 9.1.1 2026-02-12 13:13 -06:00
+Modules based on Lua: Version 9.2.2 2026-05-18 18:21 -05:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -120,7 +120,7 @@ step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore stdenv
 ===========================
 Restoring modules from user's stdenv
-Lmod Warning: One or more modules in your stdenv collection have changed: "gcc".
+Lmod has detected the following error: One or more modules in your stdenv collection have changed: "gcc".
 To see the contents of this collection execute:
   $ module describe stdenv
 To rebuild the collection, do a module reset, then load the modules you wish, then execute:
@@ -134,7 +134,7 @@ step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore stdenv
 ===========================
 Restoring modules from user's stdenv
-Lmod Warning: One or more modules in your stdenv collection have changed: "StdEnv", "gcc".
+Lmod has detected the following error: One or more modules in your stdenv collection have changed: "StdEnv", "gcc".
 To see the contents of this collection execute:
   $ module describe stdenv
 To rebuild the collection, do a module reset, then load the modules you wish, then execute:

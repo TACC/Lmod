@@ -22,6 +22,15 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load slepc/3.0.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Cannot\ load\ module\ \"slepc/3.0.0\".\ At\ least\ one\ of\ these\ module\(s\)\ must\ be\ loaded:"
+"\ \ \ petsc/3.0.0"
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ slepc/3.0.0\ \ \ \ \ \ ProjectDIR/rt/prereq/mf/slepc/3.0.0"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 4
@@ -31,6 +40,7 @@ MODULEPATH=ProjectDIR/rt/prereq/mf;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="ProjectDIR/rt/prereq/mf/petsc/3.1.0",fullName="petsc/3.1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="petsc",wV="000000003.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/prereq/mf",},systemBaseMPATH="ProjectDIR/rt/prereq/mf",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload petsc
@@ -46,6 +56,15 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load slepc
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Cannot\ load\ module\ \"slepc/3.1.0\".\ At\ least\ one\ of\ these\ module\(s\)\ must\ be\ loaded:"
+"\ \ \ petsc/3.1.0"
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ slepc/3.1.0\ \ \ \ \ \ ProjectDIR/rt/prereq/mf/slepc/3.1.0"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 7
@@ -61,10 +80,20 @@ _LMFILES_=ProjectDIR/rt/prereq/mf/petsc/2.9.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="ProjectDIR/rt/prereq/mf/petsc/2.9.0",fullName="petsc/2.9.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="petsc/2.9.0",wV="000000002.000000009.*zfinal",},},mpathA={"ProjectDIR/rt/prereq/mf",},systemBaseMPATH="ProjectDIR/rt/prereq/mf",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load slepc
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Cannot\ load\ module\ \"slepc/3.1.0\".\ At\ least\ one\ of\ these\ module\(s\)\ must\ be\ loaded:"
+"\ \ \ petsc/3.1.0"
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ slepc/3.1.0\ \ \ \ \ \ ProjectDIR/rt/prereq/mf/slepc/3.1.0"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 9
@@ -78,6 +107,7 @@ _LMFILES_=ProjectDIR/rt/prereq/mf/petsc/2.9.0:ProjectDIR/rt/prereq/mf/slepc/2.9.
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="ProjectDIR/rt/prereq/mf/petsc/2.9.0",fullName="petsc/2.9.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="petsc/2.9.0",wV="000000002.000000009.*zfinal",},slepc={fn="ProjectDIR/rt/prereq/mf/slepc/2.9.0",fullName="slepc/2.9.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="slepc/2.9.0",wV="000000002.000000009.*zfinal",},},mpathA={"ProjectDIR/rt/prereq/mf",},systemBaseMPATH="ProjectDIR/rt/prereq/mf",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load petsc/3.1.0
@@ -145,6 +175,15 @@ export _ModuleTable_;
 step 15
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load junk/1.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Cannot\ load\ module\ \"junk/1.0\".\ At\ least\ one\ of\ these\ module\(s\)\ must\ be\ loaded:"
+"\ \ \ java\ jdk64\ jdk32"
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ junk/1.0\ \ \ \ \ \ \ \ \ ProjectDIR/rt/prereq/mf/junk/1.0.lua"
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 16
@@ -160,6 +199,7 @@ _LMFILES_=ProjectDIR/rt/prereq/mf/petsc/3.1.0:ProjectDIR/rt/prereq/mf/slepc/2.9.
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={jdk32={fn="ProjectDIR/rt/prereq/mf/jdk32/1.0.lua",fullName="jdk32/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="jdk32",wV="000000001.*zfinal",},petsc={fn="ProjectDIR/rt/prereq/mf/petsc/3.1.0",fullName="petsc/3.1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="petsc/3.1.0",wV="000000003.000000001.*zfinal",},slepc={fn="ProjectDIR/rt/prereq/mf/slepc/2.9.0",fullName="slepc/2.9.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="slepc/2.9.0",wV="000000002.000000009.*zfinal",},},mpathA={"ProjectDIR/rt/prereq/mf",},systemBaseMPATH="ProjectDIR/rt/prereq/mf",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load junk/1.0

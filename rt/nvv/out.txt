@@ -165,6 +165,17 @@ export _ModuleTable_;
 step 17
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load vasp/does_not_exist
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"vasp/does_not_exist\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"vasp/does_not_exist\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 18
@@ -174,6 +185,7 @@ MODULEPATH=ProjectDIR/rt/nvv/mf6;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/nvv/mf6",},systemBaseMPATH="ProjectDIR/rt/nvv/mf6",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
@@ -340,11 +352,33 @@ export _ModuleTable_;
 step 34
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/2.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"foo/2.0\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"foo/2.0\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 35
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/variant/2.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"foo/variant/2.0\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"foo/variant/2.0\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 36
@@ -358,10 +392,22 @@ _LMFILES_=ProjectDIR/rt/nvv/mf9/Core/foo/variant/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/nvv/mf9/Core/foo/variant/1.0.lua",fullName="foo/variant/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="foo/variant/1.0",wV="*variant/000000001.*zfinal",},},mpathA={"ProjectDIR/rt/nvv/mf9/Core",},systemBaseMPATH="ProjectDIR/rt/nvv/mf9/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 37
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/variantZ/1.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"foo/variantZ/1.0\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"foo/variantZ/1.0\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 38
@@ -375,15 +421,38 @@ _LMFILES_=ProjectDIR/rt/nvv/mf9/Core/foo/variant/another/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/nvv/mf9/Core/foo/variant/another/1.0.lua",fullName="foo/variant/another/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="foo/variant/another/1.0",wV="*variant/*another/000000001.*zfinal",},},mpathA={"ProjectDIR/rt/nvv/mf9/Core",},systemBaseMPATH="ProjectDIR/rt/nvv/mf9/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 39
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/variant/another/2.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"foo/variant/another/2.0\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"foo/variant/another/2.0\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 40
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/variant/anotherzzz/2.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"foo/variant/anotherzzz/2.0\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"foo/variant/anotherzzz/2.0\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 41
@@ -397,6 +466,7 @@ _LMFILES_=ProjectDIR/rt/nvv/mf9/Core/foo/variant/another/1.0.lua:ProjectDIR/rt/n
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={bar={fn="ProjectDIR/rt/nvv/mf9/Core/bar/a/b/2.0.lua",fullName="bar/a/b/2.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="bar/a/b/2.0",wV="*a/*b/000000002.*zfinal",},foo={fn="ProjectDIR/rt/nvv/mf9/Core/foo/variant/another/1.0.lua",fullName="foo/variant/another/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="foo/variant/another/1.0",wV="*variant/*another/000000001.*zfinal",},},mpathA={"ProjectDIR/rt/nvv/mf9/Core",},systemBaseMPATH="ProjectDIR/rt/nvv/mf9/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 42
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bar/a/b/1.0

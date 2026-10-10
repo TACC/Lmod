@@ -16,14 +16,41 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ hat\ den\ folgenden\ Fehler\ erkannt:\ Diese\ Module\ existieren,\ aber\ können\ nicht\ wie\ gewünscht\ geladen\ werden:\ \"boost/1.75.0\""
+"\ \ \ Versuchen\ Sie:\ \"module\ spider\ boost/1.75.0\"\ um\ anzuzeigen,\ wie\ die\ Module\ geladen\ werden."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ boost/1.75.0"
+"\ \ \ \ \ \ module\ load\ intel/21.0\ boost/1.75.0"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ a\ détecté\ l\'erreur\ suivante\ :\ Ce\ ou\ ces\ module\(s\)\ existent,\ mais\ ne\ peuvent\ pas\ être\ chargés\ tel\ que\ demandé:\ \"boost/1.75.0\""
+"\ \ \ Utilisez:\ \"module\ spider\ boost/1.75.0\"\ pour\ voir\ la\ façon\ de\ les\ charger."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ boost/1.75.0"
+"\ \ \ \ \ \ module\ load\ intel/21.0\ boost/1.75.0"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ ha\ detectado\ el\ siguiente\ error:\ Estos\ módulos\ existen\ pero\ no\ pueden\ ser\ cargados\ como\ ha\ solicitado:\ \"boost/1.75.0\""
+"\ \ \ Intente:\ \"module\ spider\ boost/1.75.0\"\ para\ ver\ como\ cargar\ los\ módulos."
+"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ boost/1.75.0"
+"\ \ \ \ \ \ module\ load\ intel/21.0\ boost/1.75.0"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false

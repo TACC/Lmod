@@ -639,3 +639,77 @@ All nested formatting should be rendered correctly:
 \\033[36m•\\033[0m \\033[2m\\033[36mCode\\033[0m should appear with code formatting
 \\033[36m•\\033[0m \\033[34m\\033[4mLinks\\033[0m (...) should be formatted as links
 If you see raw markdown syntax (like \\033[2m\\033[36m\\033[1mbold\\033[0m\\033[0m or \\033[2m\\033[36m\\033[3mitalic\\033[0m\\033[0m) in the output, the nested formatting is not being processed correctly.
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help markdown_content/2.0
+===========================
+Module Specific Help for "markdown_content/2.0"
+MARKDOWN MODULE
+Description
+This module demonstrates markdown formatting in help content.
+Features
+• Italicized feature descriptions
+• Bold important notes
+• inline code examples
+• Structured content with headers
+Usage
+Code:
+  module load markdown_content/2.0
+For more information, visit the project website (...).
+Installation Notes
+1. First step in installation
+2. Second step with important details
+3. Final configuration step
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help markdown_with_images/1.0
+===========================
+Module Specific Help for "markdown_with_images/1.0"
+MODULE WITH IMAGES
+Overview
+This module demonstrates markdown with image support.
+Screenshots
+[Image: Module Architecture] (...)
+[Image: Logo] (...)
+[Image: Screenshot] (...)
+Features
+• Feature one with bold text
+• Feature two with italic text
+• Feature three with code examples
+For more information, visit the project website (...).
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help nested_markdown_lists/1.0
+===========================
+Module Specific Help for "nested_markdown_lists/1.0"
+NESTED MARKDOWN IN LISTS
+Overview
+This module tests that nested markdown formatting (bold, italic, code) within list items is correctly processed and rendered.
+Unordered Lists with Nested Formatting
+• Feature with bold text
+• Feature with italic text
+• Feature with code examples
+• Feature with bold and italic together
+• Feature with code and bold text
+• Feature with a link (...) inside
+Ordered Lists with Nested Formatting
+1. First item with bold emphasis
+2. Second item with italic emphasis
+3. Third item with code formatting
+4. Fourth item combining bold, italic, and code
+5. Fifth item with a link (...) and bold text
+Mixed Nested Formatting
+• Regular text without formatting
+• Text with bold only
+• Text with italic only
+• Text with code only
+• Text with bold and italic combined
+• Text with all three: bold, italic, and code
+• Text with links (...) and bold formatting
+Expected Behavior
+All nested formatting should be rendered correctly:
+• Bold text should appear bold
+• Italic text should appear italic
+• Code should appear with code formatting
+• Links (...) should be formatted as links
+If you see raw markdown syntax (like bold or italic) in the output, the nested formatting is not being processed correctly.

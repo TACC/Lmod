@@ -64,4 +64,10 @@ export _ModuleTable_;
 step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
+__LMOD_LAST_ERROR=The\ system\ default\ contains\ no\ modules"
+"\ \ \(env\ var:\ LMOD_SYSTEM_DEFAULT_MODULES\ is\ empty\)"
+"\ \ No\ changes\ in\ loaded\ modules"
+""
+";
+export __LMOD_LAST_ERROR;
 false

@@ -66,11 +66,12 @@ local yes_noT = {
 }
 
 function M.init(self, t)
-   local T    = self.__T
-   local name = (t.name or "unknown")
-   local envV = t.envV or getenv(name)
-   local kind = t.kind or "D"
-   local sedV = t.sedV or "@"
+   local T     = self.__T
+   local name  = (t.name or "unknown")
+   local envV  = t.envV or getenv(name)
+   local kind  = t.kind or "D"
+   local sedV  = t.sedV or "@"
+   local isNum = t.isNum or false
    if (sedV:sub(1,1) ~= "@") then
       kind = "C"
    end
@@ -89,14 +90,14 @@ function M.init(self, t)
       if (value ~= "no") then
          value = "yes"
       end
-      T[name] = {value = value, kind = kind, default = defaultV}
+      T[name] = {value = value, kind = kind, isNum = isNum, default = defaultV}
       return
    end
 
    if (t.assignV ~= nil) then
       local defaultV = t.default 
       local value    = envV or t.assignV
-      T[name] = {value = value, kind = kind, default = defaultV}
+      T[name] = {value = value, kind = kind, isNum = isNum, default = defaultV}
       return
    end
 
@@ -113,7 +114,7 @@ function M.init(self, t)
       if (value:sub(1,1) == "@" or value == "<empty>") then
          value = defaultV
       end
-      T[name] = {value = value, kind = kind, default = defaultV}
+      T[name] = {value = value, kind = kind, isNum = isNum, default = defaultV}
       return
    end
 end
@@ -164,12 +165,15 @@ end
 
 function M.get(self, name, value)
    local t = self.__T[name] or {}
-   return t.value or value
+   local v = t.value or value
+   return (t.isNum) and tonumber(v) or v
 end
 
 function M.value(self,name)
    --io.stderr:write("value: name:", tostring(name),"\n")
-   return self.__T[name].value
+   local t = self.__T[name]
+   local v = t.value
+   return (t.isNum) and tonumber(v) or v
 end
 
 function M.default(self,name)

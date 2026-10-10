@@ -202,7 +202,7 @@ runLmod ()
 runLmodProtectedVars ()
 {
    runCoreBase "$@"
-   __LMOD_PROTECTED_LD_LIBRARY_PATH=/def/abc:/qrtst/def LD_LIBRAfRY_PATH= $LUA_EXEC $projectDir/src/lmod.in.lua shell --regression_testing --protected_vars "$@" > _stdout.$NUM 2>> _stderr.$NUM
+   __LMOD_PROTECTED_LD_LIBRARY_PATH=/def/abc:/qrtst/def LD_LIBRARY_PATH= $LUA_EXEC $projectDir/src/lmod.in.lua shell --regression_testing --protected_vars "$@" > _stdout.$NUM 2>> _stderr.$NUM
    eval "`cat _stdout.$NUM`"
 }
 
@@ -392,7 +392,7 @@ remove_generated_lmod_files ()
 {
   local cacheDir=$(userCacheDir)
 
-  rm -rf _stderr.* _stdout.* err.* out.* $cacheDir .cache .config .lmodrc.lua .modulerc.lua .modulerc .lmod.d results.csv
+  rm -rf _stderr.* _stdout.* err.* out.* $cacheDir .cache .config .lmodrc.lua .modulerc.lua .modulerc .lmod.d results.csv test.failed
   rm -rf "${@}"
 }
 

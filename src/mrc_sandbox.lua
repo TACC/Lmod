@@ -56,6 +56,7 @@ local mrc_sandbox_env = {
    loadfile        = loadfile,
    require         = require,
    module_alias    = module_alias,
+   module_virtual  = module_virtual,
    module_version  = module_version,
    forbid          = forbid,
    forbidRegex     = forbidRegex,

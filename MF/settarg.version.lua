@@ -60,7 +60,7 @@ if (define_prompt_cmd ~= "no") then
    end
 end
 if (myShellType() == "csh") then
-   execute{cmd='setenv LMOD_SETTARG_CMD :',modeA={"unload"}}
+   execute{cmd='setenv LMOD_SETTARG_CMD true',modeA={"unload"}}
 end
 
 

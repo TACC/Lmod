@@ -42,11 +42,27 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider inaccessible
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Unable\ to\ find:\ \"inaccessible\"."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load extend
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"extend\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"extend\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 8
@@ -56,6 +72,7 @@ MODULEPATH=ProjectDIR/rt/inaccessible/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf/Core",},systemBaseMPATH="ProjectDIR/rt/inaccessible/mf/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider software1

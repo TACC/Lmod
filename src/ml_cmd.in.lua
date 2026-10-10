@@ -188,6 +188,8 @@ function main()
       getdefault="getdefault", gd="getdefault",
       help="help",
       key="keyword", keyword="keyword",
+      ['last-error'] = "last-error",
+      ['last_error'] = "last-error",
       list="list",
       listdefault="listdefault", ld="listdefault",
       load="load", add="load",

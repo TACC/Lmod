@@ -166,4 +166,12 @@ export _ModuleTable_;
 step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load tcc
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ family\ names\ must\ be\ start\ with\ a\ letter\ or\ underscore\ followed\ letters,\ numbers\ and\ underscores\ \(Not:\ \"tcc-compiler\"\)"
+""
+"While\ processing\ the\ following\ module\(s\):"
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ tcc/1.0\ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/family/mf/Core/tcc/1.0.lua"
+";
+export __LMOD_LAST_ERROR;
 false

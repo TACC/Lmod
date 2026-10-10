@@ -745,11 +745,21 @@ export _ModuleTable_;
 step 24
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider dum
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Unable\ to\ find:\ \"dum\"."
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 25
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cluster
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Unable\ to\ parse:\ \"ProjectDIR/rt/modulerc/mf3/Core/cluster/.modulerc\".\ Aborting\!"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 26
@@ -763,6 +773,7 @@ export MODULEPATH;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mf4",},systemBaseMPATH="ProjectDIR/rt/modulerc/mf4",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 27
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
@@ -2139,6 +2150,17 @@ export _ModuleTable_;
 step 76
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B/1.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"B/1.0\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"B/1.0\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 77
@@ -2148,6 +2170,7 @@ MODULEPATH=ProjectDIR/rt/modulerc/mfC/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mfC/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfC/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 78
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
@@ -2178,11 +2201,18 @@ export _ModuleTable_;
 step 81
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Access\ to\ C/3.0\ is\ denied"
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 82
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cluster
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ You\ must\ pick\ a\ cluster\ "
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 83
@@ -2196,6 +2226,7 @@ _LMFILES_=ProjectDIR/rt/modulerc/mfD/Core/D/3.0.lua:ProjectDIR/rt/modulerc/mfD/C
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={D={fn="ProjectDIR/rt/modulerc/mfD/Core/D/3.0.lua",forbiddenT={after="YYYY-MM-DD",forbiddenState="nearly",},fullName="D/3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="D",wV="000000003.*zfinal",},H={fn="ProjectDIR/rt/modulerc/mfD/Core/H/1.0.lua",fullName="H/1.0",loadOrder=2,moduleKindT={kind="soft",},propT={},stackDepth=0,status="active",userName="H/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfD/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfD/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 84
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
@@ -2870,6 +2901,22 @@ export _ModuleTable_;
 step 99
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A/1.0
 ===========================
+__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"EESSI\""
+""
+"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
+"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
+"\ \ \$\ module\ --ignore_cache\ load\ \"EESSI\""
+""
+"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
+""
+"Executing\ this\ command\ requires\ loading\ \"EESSI\"\ which\ failed\ while\ processing\ the\ following\ module\(s\):"
+""
+"\ \ \ \ Module\ fullname\ \ Module\ Filename"
+"\ \ \ \\ \"
+"\ \ \ \ A/1.0\ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/modulerc/mfE/Core/A/1.0.lua"
+""
+";
+export __LMOD_LAST_ERROR;
 false
 ===========================
 step 100
@@ -2883,6 +2930,7 @@ _LMFILES_=ProjectDIR/rt/modulerc/mfE/Core/EESSI/1.0.lua:ProjectDIR/rt/modulerc/m
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={depT={depA={{sn="EESSI",version={kind="fixed",value="1.0",},},},},fn="ProjectDIR/rt/modulerc/mfE/Core/B/3.0.lua",fullName="B/3.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B/3.0",wV="000000003.*zfinal",},EESSI={fn="ProjectDIR/rt/modulerc/mfE/Core/EESSI/1.0.lua",fullName="EESSI/1.0",loadOrder=1,moduleKindT={kind="hidden",},propT={},ref_count=1,stackDepth=1,status="active",userName="EESSI/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfE/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfE/Core",}';
 export _ModuleTable_;
+unset __LMOD_LAST_ERROR;
 ===========================
 step 101
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load F/1.0
