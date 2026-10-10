@@ -454,7 +454,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/11 boost
 __LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"boost\""
 "\ \ \ Try:\ \"module\ spider\ boost\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
 "\ \ \ Or\ load\ any\ one\ of\ these\ options:"
-"\ \ \ \ \ \ module\ load\ gcc/10.0\ boost"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ boost/1.9"
 ""
 ""
 ";
@@ -555,8 +555,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load meta/10 gcc/11 CM
 __LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"CMake\""
 "\ \ \ Try:\ \"module\ spider\ CMake\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
 "\ \ \ Or\ load\ any\ one\ of\ these\ options:"
-"\ \ \ \ \ \ module\ load\ gcc/10.0\ CMake"
-"\ \ \ \ \ \ module\ load\ meta/10.0\ gcc/10.0\ CMake"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ CMake/3.29.3"
+"\ \ \ \ \ \ module\ load\ meta/10.0\ gcc/10.0\ CMake/3.29.3"
 ""
 ""
 ";
@@ -672,8 +672,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load meta/10 gcc/11 CM
 __LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"CMake\""
 "\ \ \ Try:\ \"module\ spider\ CMake\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
 "\ \ \ Or\ load\ any\ one\ of\ these\ options:"
-"\ \ \ \ \ \ module\ load\ gcc/10.0\ CMake"
-"\ \ \ \ \ \ module\ load\ meta/10.0\ gcc/10.0\ CMake"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ CMake/3.29.3"
+"\ \ \ \ \ \ module\ load\ meta/10.0\ gcc/10.0\ CMake/3.29.3"
 ""
 ""
 ";
