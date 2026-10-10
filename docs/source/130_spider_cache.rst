@@ -24,6 +24,13 @@ modulefile might have.  It does not save the contents of any
 modulefiles.  Lmod always reads and evaluate the actual modulefile
 when performing loads, shows and similar commands.
 
+Load-failure suggestions also read the spider cache. The cache records
+each modulefile's ``depends_on`` list, and the suggested command uses
+that list to choose versions. A cache built by an older Lmod does not
+have this data. After upgrading, rebuild the system spider cache with
+``update_lmod_system_cache_files``. Until that rebuild, a suggestion can
+name a module version that does not satisfy ``depends_on``.
+
 The reason that Lmod does not use the cache with ``module load`` is that
 if the spider cache is out-of-date, then Lmod will not be able to load
 a module. Either Lmod uses the spider cache or it walks the

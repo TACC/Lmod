@@ -1,6 +1,15 @@
 New Features in Lmod
 ====================
 
+**Load suggestions follow depends_on**
+  (Lmod 9.4.4+) When ``module load`` cannot load the requested modules,
+  the suggested command uses full names from the spider cache. A module
+  with a fixed ``depends_on`` is suggested at that version, and that
+  dependency is placed before the module that needs it. Sites that keep
+  a system spider cache must rebuild it with
+  ``update_lmod_system_cache_files`` after upgrading. See
+  :ref:`system-spider-cache-label`.
+
 **Bash tab completion treats module names as literal words**
   (Lmod 9.4+) Bash completion for ``module`` and ``ml`` no longer
   expands command substitution in module names, collection names, or
