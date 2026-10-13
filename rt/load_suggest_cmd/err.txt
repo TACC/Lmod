@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 9.2.2 2026-05-18 18:21 -05:00
+Modules based on Lua: Version 9.4.4 2026-10-13 10:36 +01:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -133,8 +133,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost
 Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost"
    Try: "module spider boost" to see how to load the module(s).
    Or load any one of these options:
-      module load gcc/10.0 boost
-      module load intel/21.0 boost
+      module load gcc/10.0 boost/1.75.0
+      module load intel/21.0 boost/1.75.0
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hdf5
@@ -142,7 +142,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hdf5
 Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "hdf5"
    Try: "module spider hdf5" to see how to load the module(s).
    Or load any one of these options:
-      module load gcc/10.0 hdf5
+      module load gcc/10.0 hdf5/1.12.0
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.75.0 netcdf/4.8.0

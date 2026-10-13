@@ -189,8 +189,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost
 __LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"boost\""
 "\ \ \ Try:\ \"module\ spider\ boost\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
 "\ \ \ Or\ load\ any\ one\ of\ these\ options:"
-"\ \ \ \ \ \ module\ load\ gcc/10.0\ boost"
-"\ \ \ \ \ \ module\ load\ intel/21.0\ boost"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ boost/1.75.0"
+"\ \ \ \ \ \ module\ load\ intel/21.0\ boost/1.75.0"
 ""
 ""
 ";
@@ -203,7 +203,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hdf5
 __LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"hdf5\""
 "\ \ \ Try:\ \"module\ spider\ hdf5\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
 "\ \ \ Or\ load\ any\ one\ of\ these\ options:"
-"\ \ \ \ \ \ module\ load\ gcc/10.0\ hdf5"
+"\ \ \ \ \ \ module\ load\ gcc/10.0\ hdf5/1.12.0"
 ""
 ""
 ";
