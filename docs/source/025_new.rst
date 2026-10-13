@@ -1,6 +1,12 @@
 New Features in Lmod
 ====================
 
+**Underscores inside inline code stay literal**
+  (Lmod 9.4.5+) Markdown help keeps underscores and asterisks inside
+  single-backtick spans. ``module help`` no longer treats those
+  characters as italic or bold markers. Emphasis outside the spans is
+  unchanged. See :ref:`markdown_help-label`.
+
 **Load suggestions follow depends_on**
   (Lmod 9.4.4+) When ``module load`` cannot load the requested modules,
   the suggested command uses full names from the spider cache. A module

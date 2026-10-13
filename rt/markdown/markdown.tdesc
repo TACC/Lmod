@@ -129,6 +129,18 @@ testdescript = {
      unset LMOD_COLORIZE
      unset TERM
 
+     # IS861: underscores inside inline code stay literal. Emphasis
+     # outside the spans (_note_, __strong__) still applies.
+     runLmod help inline_code_underscore/1.0  # 50
+     export LMOD_COLORIZE=YES
+     runLmod help inline_code_underscore/1.0  # 51
+     unset LMOD_COLORIZE
+     export TERM=xterm
+     export LMOD_COLORIZE=no
+     runLmod help inline_code_underscore/1.0  # 52
+     unset LMOD_COLORIZE
+     unset TERM
+
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

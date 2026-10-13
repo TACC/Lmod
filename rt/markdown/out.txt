@@ -392,3 +392,27 @@ MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help inline_code_underscore/1.0
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 51
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help inline_code_underscore/1.0
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 52
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help inline_code_underscore/1.0
+===========================
+MODULEPATH=ProjectDIR/rt/markdown/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/markdown/mf/Core",},systemBaseMPATH="ProjectDIR/rt/markdown/mf/Core",}';
+export _ModuleTable_;
