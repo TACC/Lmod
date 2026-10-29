@@ -119,6 +119,9 @@ end
 
 local s_removeA = {
    "^User shell.*",
+   "^__LMOD_LAST_ERROR=.*",
+   "^setenv __LMOD_LAST_ERROR.*",
+   "^Sys.setenv.*__LMOD_LAST_ERROR.*",
    "^Lua Version.*",
    "^ *Lmod [Vv]ersion.*",
    "^Lmod branch.*",
