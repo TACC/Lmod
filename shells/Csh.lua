@@ -91,8 +91,18 @@ function Csh.expandVar(self, k, v, vType)
    end
    local lineA       = {}
    local middle      = ' '
-   v                 = tostring(v):gsub("!","\\!")
+   v                 = tostring(v)
+   if (k == lastErrorVarName()) then
+      -- Keep the message's line breaks as "\n" escapes;
+      -- LastError() turns them back into newlines.
+      v              = v:gsub("\\","\\\\"):gsub("\n","\\n")
+   end
+   v                 = v:gsub("!","\\!")
    v                 = v:multiEscaped()
+   -- csh's eval `...` turns newlines into word breaks, which makes
+   -- setenv fail with "Too many arguments" (fatal in a csh script).
+   -- Collapse any remaining ones to escaped blanks.
+   v                 = v:gsub("\n","\\ ")
    lineA[#lineA + 1] = "setenv "
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = middle

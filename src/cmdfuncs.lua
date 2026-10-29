@@ -375,6 +375,10 @@ function LastError()
    local n   = lastErrorVarName()
    local msg = getenv(n)
    if (msg) then
+      if (_G.Shell:type() == "csh") then
+         -- Csh.expandVar() stores newlines as "\n" and "\" as "\\".
+         msg = msg:gsub("\\(.)", {n = "\n", ["\\"] = "\\"})
+      end
       io.stderr:write(msg)
    end
 end

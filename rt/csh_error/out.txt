@@ -1,0 +1,20 @@
+===========================
+step 1
+===========================
+setenv __LMOD_LAST_ERROR Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"does-not-exist\"\\n\\nPlease\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\"\\nIt\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:\\n\ \ \$\ module\ --ignore_cache\ load\ \"does-not-exist\"\\n\\nAlso\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module\\n\\n\\n;
+false
+===========================
+step 2
+===========================
+setenv __LMOD_REF_COUNT_MODULEPATH ProjectDIR/rt/csh_error/mf:1;
+setenv MODULEPATH ProjectDIR/rt/csh_error/mf;
+setenv _ModuleTable_ '_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/csh_error/mf",},systemBaseMPATH="ProjectDIR/rt/csh_error/mf",}';
+unsetenv __LMOD_LAST_ERROR;
+===========================
+step 3
+===========================
+setenv HELLO_LOADED yes;
+setenv LOADEDMODULES hello/1.0;
+setenv MODULEPATH ProjectDIR/rt/csh_error/mf;
+setenv _LMFILES_ ProjectDIR/rt/csh_error/mf/hello/1.0.lua;
+setenv _ModuleTable_ '_ModuleTable_={MTversion=3,depthT={},family={},mT={hello={fn="ProjectDIR/rt/csh_error/mf/hello/1.0.lua",fullName="hello/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="hello",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/csh_error/mf",},systemBaseMPATH="ProjectDIR/rt/csh_error/mf",}';

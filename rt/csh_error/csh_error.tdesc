@@ -1,0 +1,125 @@
+-- -*- lua -*-
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test that a failed module load in csh does not abort the script
+	 and that "module last-error" still reports the full message
+	 (Issue #867).
+   ]],
+   keywords = {"csh_error" },
+
+   active = 1,
+   testName = "csh_error",
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+
+     unsetMT
+     initStdEnvVars
+
+     cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
+
+     _histchars="@%"
+
+     CMD=lmod.in.lua
+
+
+cat > $(testName).csh << EOF
+#!/bin/tcsh -f
+
+     lua $(projectDir)/src/$CMD csh purge > _stdclr.00
+     eval \`cat _stdclr.00\`
+
+     lua $(projectDir)/src/clearLMOD_cmd.in.lua --shell csh --simple > _stdclr.01
+     eval \`cat _stdclr.01\`
+
+     setenv ORIG_HOME `(cd $HOME; /bin/pwd)`
+     setenv HOME      `pwd`
+
+     unsetenv MANPATH
+
+     setenv PATH $PATH
+     setenv MODULEPATH $(testDir)/mf
+     setenv LMOD_TERM_WIDTH 500
+
+
+     echo "==========================="
+     echo "step 1"
+     echo "==========================="
+
+     echo "===========================" >  _stdout.00
+     echo "step 1"                      >> _stdout.00
+     echo "===========================" >> _stdout.00
+
+     # A multi-line error used to emit a setenv that csh rejected,
+     # which aborted this script.
+     lua $(projectDir)/src/$CMD csh load does-not-exist > _stdout.01
+     eval \`cat _stdout.01\`
+     echo "status after failed load: \$status"
+
+     echo "==========================="
+     echo "step 2"
+     echo "==========================="
+
+     echo "===========================" >  _stdout.02
+     echo "step 2"                      >> _stdout.02
+     echo "===========================" >> _stdout.02
+
+     lua $(projectDir)/src/$CMD csh last-error > _stdout.03
+     eval \`cat _stdout.03\`
+
+     echo "==========================="
+     echo "step 3"
+     echo "==========================="
+
+     echo "===========================" >  _stdout.04
+     echo "step 3"                      >> _stdout.04
+     echo "===========================" >> _stdout.04
+
+     lua $(projectDir)/src/$CMD csh load hello > _stdout.05
+     eval \`cat _stdout.05\`
+     echo "HELLO_LOADED=\$HELLO_LOADED"
+     echo "csh script completed"
+
+
+     cat _stdout.0[0-9] > _stdout.orig
+
+     setenv HOME $ORIG_HOME
+EOF
+
+     remove_generated_lmod_files
+
+     unset SHELL_STARTUP_DEBUG
+     chmod +x $(testName).csh
+
+     ORIG_HOME=$HOME
+     HOME=$(outputDir)
+
+     ./$(testName).csh > _stderr.orig 2>&1
+     HOME=$ORIG_HOME
+
+     joinBase64Results -csh  _stdout.orig _stdout.new
+     cleanUp --csh _stdout.new  out.txt
+     cleanUp --csh _stderr.orig err.txt
+
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish --onFailure $(outputDir)/test.failed -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
