@@ -263,18 +263,6 @@ unset -f save_args 2> /dev/null || true;
 step 17
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load brokenSh/1.0
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Error\ found\ in\ sourcing\ script\ \"ProjectDIR/rt/sh_to_mf/broken.sh\":"
-"ProjectDIR/rt/sh_to_mf/broken.sh:\ line\ 3:\ fooBar:\ command\ not\ found"
-""
-"If\ this\ is\ a\ bash\ script\ please\ try:"
-"\ \ \$\ set\ -exv\;\ .\ ProjectDIR/rt/sh_to_mf/broken.sh"
-"See\ https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html\ for\ details."
-""
-"While\ processing\ the\ following\ module\(s\):"
-"\ \ \ \ Module\ fullname\ \ Module\ Filename"
-"\ \ \ \\ \"
-"\ \ \ \ brokenSh/1.0\ \ \ \ \ ProjectDIR/rt/sh_to_mf/mf/brokenSh/1.0.lua"
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================

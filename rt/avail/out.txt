@@ -202,10 +202,6 @@ export _ModuleTable_;
 step 21
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ module\ avail\ is\ not\ possible.\ MODULEPATH\ is\ not\ set\ or\ not\ set\ with\ valid\ paths."
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================

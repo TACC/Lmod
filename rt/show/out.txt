@@ -104,15 +104,6 @@ export _ModuleTable_;
 step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show nosuchmodule
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Failed\ to\ find\ the\ following\ module\(s\):\ \"nosuchmodule\"\ in\ your\ MODULEPATH"
-"Try:"
-""
-"\ \ \ \ \$\ module\ spider\ nosuchmodule"
-""
-"to\ see\ if\ the\ module\(s\)\ are\ available\ across\ all\ compilers\ and\ MPI\ implementations."
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================

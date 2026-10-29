@@ -217,11 +217,6 @@ export _ModuleTable_;
 step 14
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load __b
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ illegal:\ __b"
-"Lmod\ does\ not\ support\ modulefiles\ that\ start\ with\ two\ or\ more\ underscores"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -266,32 +261,12 @@ export _ModuleTable_;
 step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.33.0
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"boost/1.33.0\""
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
-"\ \ \$\ module\ --ignore_cache\ load\ \"boost/1.33.0\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.57.0
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"boost/1.57.0\""
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
-"\ \ \$\ module\ --ignore_cache\ load\ \"boost/1.57.0\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -423,16 +398,6 @@ export _ModuleTable_;
 step 31
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load DoesNotExist
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"DoesNotExist\""
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
-"\ \ \$\ module\ --ignore_cache\ load\ \"DoesNotExist\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -524,48 +489,18 @@ export _ModuleTable_;
 step 40
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bad_symlink
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"bad_symlink\""
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
-"\ \ \$\ module\ --ignore_cache\ load\ \"bad_symlink\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
 step 41
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load empty
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"empty\""
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
-"\ \ \$\ module\ --ignore_cache\ load\ \"empty\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
 step 42
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load version_only
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"version_only\""
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
-"\ \ \$\ module\ --ignore_cache\ load\ \"version_only\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -627,15 +562,6 @@ export _ModuleTable_;
 step 47
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Try/2.0
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Unable\ to\ load\ module\ because\ of\ error\ when\ evaluating\ modulefile:"
-"\ \ \ \ \ ProjectDIR/rt/load/mf/Core/Bad/1.0.lua:\ \[string\ \"setenv\(\"foo\",\"bar\"\)...\"\]:2:\ unexpected\ symbol\ near\ \'\#\'"
-"\ \ \ \ \ Please\ check\ the\ modulefile\ and\ especially\ if\ there\ is\ a\ line\ number\ specified\ in\ the\ above\ message\ "
-"While\ processing\ the\ following\ module\(s\):"
-"\ \ \ \ Module\ fullname\ \ Module\ Filename"
-"\ \ \ \\ \"
-"\ \ \ \ Bad/1.0\ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/load/mf/Core/Bad/1.0.lua"
-"\ \ \ \ Try/2.0\ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/load/mf/Core/Try/2.0.lua"
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -673,31 +599,12 @@ export moduleA;
 step 51
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load moduleB/1.0
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Your\ site\ prevents\ the\ automatic\ swapping\ of\ modules\ with\ same\ name.\ You\ must\ explicitly\ unload\ the\ loaded\ version\ of\ \"moduleA/1.0\"\ before\ you\ can\ load\ the\ new\ one.\ Use\ swap\ to\ do\ this:"
-""
-"\ \ \ \$\ module\ swap\ moduleA/1.0\ moduleA/2.0"
-""
-"Alternatively,\ you\ can\ set\ the\ environment\ variable\ LMOD_DISABLE_NAME_AUTOSWAP\ to\ \"no\"\ to\ re-enable\ same\ name\ autoswapping."
-""
-"While\ processing\ the\ following\ module\(s\):"
-"\ \ \ \ Module\ fullname\ \ Module\ Filename"
-"\ \ \ \\ \"
-"\ \ \ \ moduleB/1.0\ \ \ \ \ \ ProjectDIR/rt/load/mf/Core2/moduleB/1.0.lua"
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
 step 52
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load moduleA/2.0 moduleA/1.0
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Your\ site\ prevents\ the\ automatic\ swapping\ of\ modules\ with\ same\ name.\ You\ must\ explicitly\ unload\ the\ loaded\ version\ of\ \"moduleA/1.0\"\ before\ you\ can\ load\ the\ new\ one.\ Use\ swap\ to\ do\ this:"
-""
-"\ \ \ \$\ module\ swap\ moduleA/1.0\ moduleA/2.0"
-""
-"Alternatively,\ you\ can\ set\ the\ environment\ variable\ LMOD_DISABLE_NAME_AUTOSWAP\ to\ \"no\"\ to\ re-enable\ same\ name\ autoswapping."
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -814,16 +721,6 @@ export _ModuleTable_;
 step 60
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Module\ \"A\"\ must\ be\ loaded\ with\ the\ version\ specified,\ e.g.\ \"module\ load\ A/1.0\".\ Use"
-""
-"\ \ \ \$\ module\ spider\ A"
-""
-"for\ available\ versions.\ "
-"While\ processing\ the\ following\ module\(s\):"
-"\ \ \ \ Module\ fullname\ \ Module\ Filename"
-"\ \ \ \\ \"
-"\ \ \ \ A/1.0\ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/load/mf3/A/1.0.lua"
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -845,16 +742,6 @@ unset __LMOD_LAST_ERROR;
 step 62
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Module\ \"B\"\ must\ be\ loaded\ with\ the\ version\ specified,\ e.g.\ \"module\ load\ B/2.0\".\ Use"
-""
-"\ \ \ \$\ module\ spider\ B"
-""
-"for\ available\ versions.\ "
-"While\ processing\ the\ following\ module\(s\):"
-"\ \ \ \ Module\ fullname\ \ Module\ Filename"
-"\ \ \ \\ \"
-"\ \ \ \ B/2.0\ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/load/mf3/B/2.0"
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -1029,12 +916,6 @@ export value;
 step 74
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load dofile
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ dofile\(\)\ function\ is\ not\ supported.\ Use\ require\(\)\ or\ loadfile\(\)\ or\ loadstring\(\)\ "
-"While\ processing\ the\ following\ module\(s\):"
-"\ \ \ \ Module\ fullname\ \ Module\ Filename"
-"\ \ \ \\ \"
-"\ \ \ \ dofile/1.0\ \ \ \ \ \ \ ProjectDIR/rt/load/mf5/dofile/1.0.lua"
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================

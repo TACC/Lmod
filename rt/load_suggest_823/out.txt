@@ -6,15 +6,6 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CuPy
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"CuPy\""
-"\ \ \ Try:\ \"module\ spider\ CuPy\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
-"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
-"\ \ \ \ \ \ module\ load\ release/24.04\ GCC/14.2.0\ OpenMPI/4.1.6\ CuPy/13"
-"\ \ \ \ \ \ module\ load\ release/24.04\ GCC/14.2.0\ OpenMPI/5.6\ CuPy/13"
-"\ \ \ \ \ \ module\ load\ release/24.10\ GCC/13.2.0\ OpenMPI/4.1.6\ CuPy/13"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -46,17 +37,6 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CuPy
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"CuPy\""
-"\ \ \ Try:\ \"module\ spider\ CuPy\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
-"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
-"\ \ \ \ \ \ module\ load\ GCC/14.2.0\ OpenMPI/4.1.6\ CuPy/13"
-"\ \ \ \ \ \ module\ load\ GCC/14.2.0\ OpenMPI/5.6\ CuPy/13"
-"\ \ \ \ \ \ module\ load\ release/24.04\ GCC/14.2.0\ OpenMPI/4.1.6\ CuPy/13"
-"\ \ \ \ \ \ module\ load\ release/24.04\ GCC/14.2.0\ OpenMPI/5.6\ CuPy/13"
-"\ \ \ \ \ \ module\ load\ release/24.10\ GCC/13.2.0\ OpenMPI/4.1.6\ CuPy/13"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -90,16 +70,5 @@ export _ModuleTable_;
 step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CuPy
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ These\ module\(s\)\ or\ extension\(s\)\ exist\ but\ cannot\ be\ loaded\ as\ requested:\ \"CuPy\""
-"\ \ \ Try:\ \"module\ spider\ CuPy\"\ to\ see\ how\ to\ load\ the\ module\(s\)."
-"\ \ \ Or\ load\ any\ one\ of\ these\ options:"
-"\ \ \ \ \ \ module\ load\ OpenMPI/4.1.6\ CuPy/13"
-"\ \ \ \ \ \ module\ load\ OpenMPI/5.6\ CuPy/13"
-"\ \ \ \ \ \ module\ load\ release/24.04\ GCC/14.2.0\ OpenMPI/4.1.6\ CuPy/13"
-"\ \ \ \ \ \ module\ load\ release/24.04\ GCC/14.2.0\ OpenMPI/5.6\ CuPy/13"
-"\ \ \ \ \ \ module\ load\ release/24.10\ GCC/13.2.0\ OpenMPI/4.1.6\ CuPy/13"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
