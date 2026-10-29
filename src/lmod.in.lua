@@ -565,7 +565,7 @@ function main()
    varT[n]:set(mt:serializeTbl())
    
    -- Clear Lmod Last Error var if it had a previous value
-   n           = lastErrorVarName()
+   n              = lastErrorVarName()
    if (getenv(n)) then
       varT[n]  = Var:new(n)
       varT[n]:set(false)

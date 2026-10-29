@@ -372,10 +372,12 @@ end
 -- Report last error from env var: __LMOD_LAST_ERROR if it exists
 
 function LastError()
-   local n   = lastErrorVarName()
-   local msg = getenv(n)
-   if (msg) then
-      io.stderr:write(msg)
+   local n        = lastErrorVarName()
+   local b64_msg  = getenv(n)
+   if (b64_msg) then
+      local base64   = require("base64")
+      local decode64 = base64.decode64
+      io.stderr:write(decode64(b64_msg))
    end
 end
 
