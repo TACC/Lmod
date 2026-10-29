@@ -8,7 +8,6 @@ fileA=(
    Dbg.lua
    Optiks.lua
    Optiks_Option.lua
-   TermWidth.lua
    declare.lua
    deepcopy.lua
    fileOps.lua

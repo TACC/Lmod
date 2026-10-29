@@ -50,6 +50,7 @@ local hook      = require("Hook")
 local getenv    = os.getenv
 local i18n      = require("i18n")
 local min       = math.min
+local utsname   = require("posix.sys.utsname")
 
 ------------------------------------------------------------
 -- Standard version of site_name_hook:
@@ -88,7 +89,11 @@ hook.register("msgHook",l_msg)
 local function l_groupName(fn)
    local base  = removeExt(fn)
    local ext   = extname(fn)
+   local info  = utsname.uname()
    local sname = cosmic:value("LMOD_SYSTEM_NAME")
+
+   local osName   = info.sysname
+   local machName = info.machine
 
    if (sname) then
       sname = sname .."_"
@@ -100,9 +105,9 @@ local function l_groupName(fn)
    a[#a + 1]  = base
    a[#a + 1]  = "."
    a[#a + 1]  = sname
-   a[#a + 1]  = posix.uname("%m")
+   a[#a + 1]  = machName
    a[#a + 1]  = '_'
-   a[#a + 1]  = posix.uname("%s")
+   a[#a + 1]  = osName
    a[#a + 1]  = ext
    return concatTbl(a,"")
 end

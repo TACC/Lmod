@@ -54,9 +54,10 @@ require("modfuncs")
 require("string_utils")
 require("utils")
 require("declare")
-local lfs   = require("lfs")
-local dbg   = require("Dbg"):dbg()
-sandbox_run = false
+local dbg      = require("Dbg"):dbg()
+local lfs      = require("lfs")
+local realpath = require("posix.stdlib").realpath
+sandbox_run    = false
 
 local s_old_write    = nil
 local s_file_methods = nil
@@ -253,7 +254,7 @@ local sandbox_env = {
   posix = { uname = posix.uname, setenv = posix.setenv,
             hostid = posix.hostid, open = posix.open,
             openlog = posix.openlog, closelog = posix.closelog,
-            syslog = posix.syslog, stat = posix.stat},
+            syslog = posix.syslog},
 
   ------------------------------------------------------------
   -- Misc functions

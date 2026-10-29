@@ -119,7 +119,7 @@ function M.singleton(self, fnA)
    end
    if (not s_Epoch) then
       s_Epoch  = math.floor(epoch())
-      local tm = posix.localtime(s_Epoch)
+      local tm = posix.time.localtime(s_Epoch)
       s_Is_dst = tm.is_dst or (tm.tm_isdst and tm.tm_isdst ~= 0)
    end
 

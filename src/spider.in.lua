@@ -55,8 +55,9 @@ package.cpath  = sys_lua_cpath
 _G._DEBUG      = false
 local arg_0    = arg[0]
 local posix    = require("posix")
-local readlink = posix.readlink
-local stat     = posix.stat
+local readlink = require("posix.unistd").readlink
+local realpath = require("posix.stdlib").realpath
+local stat     = require("posix.sys.stat").stat
 local access   = posix.access
 local stderr   = io.stderr
 

@@ -37,10 +37,11 @@ local getenv    = os.getenv
 local TILDE     = getenv("HOME") or "~"
 local lfs       = require("lfs")
 local access    = posix.access
-local stat      = posix.stat
 local concatTbl = table.concat
 local dbg       = require("Dbg"):dbg()
-
+local stat      = require("posix.sys.stat")
+local readlink  = require("posix.unistd").readlink
+local realpath  = require("posix.stdlib").realpath
 
 local function l_argsPack(...)
    local argA = { n = select("#", ...), ...}
@@ -124,20 +125,21 @@ end
 -- Return true if path is a directory.  Note that a symlink to a
 -- directory is not a directory.
 -- @param d A file path
-function isDir(d)
-   if (d == nil) then return false end
-   local t = stat(d,"type")
-
-   -- If the file is a link then adding a '/' on the end
-   -- seems to tell stat to resolve the link to its final link.
-   if (t == "link") then
-      d = d .. '/'
-      t = stat(d,"type")
+function isDir(path)
+   if (path == nil) then return false end
+   local my_stat = stat.stat(path)
+   if (not my_stat) then
+      return false
    end
-
-   local result = (t == "directory")
-
-   return result
+   if (stat.S_ISDIR(my_stat.st_mode) ~= 0) then
+      return true
+   end
+   if (stat.S_ISLNK(my_stat.st_mode) ~= 0) then
+      path = path .. '/'
+      my_stat = stat.stat(path)
+      return stat.S_ISDIR(my_stat.st_mode) ~= 0
+   end
+   return false
 end
 
 --------------------------------------------------------------------------
@@ -145,23 +147,32 @@ end
 -- @param fn A file path
 function isFile(fn)
    if (fn == nil) then return false end
-   local t = posix.stat(fn,"type")
-
-   local result = t and t ~= "directory"
-   if (t == "link") then
-      result = realpath(fn)
+   local my_stat = stat.stat(fn)
+   if (not my_stat) then
+      return false
    end
-   return result
+   if (stat.S_ISDIR(my_stat.st_mode) ~= 0) then
+      return false
+   end
+   if (stat.S_ISREG(my_stat.st_mode) ~= 0) then
+      return true
+   end
+   if (stat.S_ISLNK(my_stat.st_mode) ~= 0) then
+      return realpath(fn)
+   end
+   return false
 end
 
-function exists(f)
-   if (f == nil) then return false end
-   local result = posix.stat(f,"type")
-
-   if (result == "link") then
-      result = realpath(f)
+function exists(fn)
+   if (fn == nil) then return false end
+   local my_stat = stat.stat(fn)
+   if (not my_stat) then
+      return false
    end
-   return result
+   if (stat.S_ISLNK(my_stat.st_mode) ~= 0) then
+      return realpath(fn)
+   end
+   return true
 end
 
 --------------------------------------------------------------------------
@@ -344,63 +355,6 @@ function mkdir_recursive(path)
          lfs.mkdir(d)
       end
    end
-end
-
---------------------------------------------------------------------------
--- find true path through symlinks.
--- @param path Input path
--- @param[opt] localDir If true then do not leave the current directory
--- when following symlinks
--- @return A absolute path.
-
-local function l_abspath (path, localDir)
-   if (path == nil) then return nil end
-
-   local cwd = lfs.currentdir()
-   path = path:trim()
-
-   if (path:sub(1,1) ~= '/') then
-      path = pathJoin(cwd,path)
-   end
-
-   local dir  = dirname(path)
-   local ival = lfs.chdir(dir)
-   if (not ival) then return nil end
-
-   local cdir   = lfs.currentdir()
-   if (cdir == nil) then
-      dbg.print{"lfs.currentdir(): is nil"}
-   end
-
-   dir  = cdir or dir
-   path = pathJoin(dir, barefilename(path))
-   local result = path
-
-   local attr = lfs.symlinkattributes(path)
-   if (attr == nil) then
-      lfs.chdir(cwd)
-      return nil
-   elseif (attr.mode == "link") then
-      local rl = posix.readlink(path)
-      if (not rl) then
-         lfs.chdir(cwd)
-         return nil
-      end
-      if (localDir and (rl:sub(1,1) == "/" or rl:sub(1,3) == "../")) then
-         lfs.chdir(cwd)
-         return result
-      end
-      result = l_abspath(rl, localDir)
-   end
-   lfs.chdir(cwd)
-   return result
-end
-
-function realpath(path, localDir)
-   if (localDir or not posix.realpath) then
-      return l_abspath(path, localDir)
-   end
-   return posix.realpath(path)
 end
 
 

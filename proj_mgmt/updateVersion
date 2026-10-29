@@ -10,7 +10,11 @@ require("declare")
 require("strict")
 require("string_utils")
 local Optiks      = require("Optiks")
+local stat        = require("posix.sys.stat")
+local stdlib      = require("posix.stdlib")
+local realpath    = stdlib.realpath
 local dbg         = require("Dbg"):dbg()
+local stat        = require ("posix.sys.stat").stat
 local s_optionTbl = {}
 local load        = (_VERSION == "Lua 5.1") and loadstring or load
 
@@ -122,11 +126,20 @@ end
 -- @param fn A file path
 function isFile(fn)
    if (fn == nil) then return false end
-   local t = posix.stat(fn,"type")
-
-   local result = ((t == "regular") or (t == "link"))
-
-   return result
+   local my_stat = stat.stat(fn)
+   if (not my_stat) then
+      return false
+   end
+   if (stat.S_ISDIR(my_stat.st_mode) ~= 0) then
+      return false
+   end
+   if (stat.S_ISREG(my_stat.st_mode) ~= 0) then
+      return true
+   end
+   if (stat.S_ISLNK(my_stat.st_mode) ~= 0) then
+      return realpath(fn)
+   end
+   return false
 end
 
 main()

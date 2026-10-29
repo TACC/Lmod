@@ -34,7 +34,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 
-_G._DEBUG          = false                       -- Required by luaposix 33
+_G._DEBUG        = false                       -- Required by luaposix 33
 local posix      = require("posix")
 local unistd     = posix.unistd or require("posix.unistd")
 local have_alarm = (not (not unistd.alarm))

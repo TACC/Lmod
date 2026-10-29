@@ -55,14 +55,17 @@ local decode64     = base64.decode64
 local encode64     = base64.encode64
 local floor        = math.floor
 local getenv       = os.getenv
+local getppid      = require("posix.unistd").getppid
+local gettimeofday = require("posix.sys.time").gettimeofday
 local hook         = require("Hook")
 local huge         = math.huge
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
 local min          = math.min
 local open         = io.open
-local readlink     = posix.readlink
+local readlink     = require("posix.unistd").readlink
+local realpath     = require("posix.stdlib").realpath
 local setenv_posix = posix.setenv
-local stat         = posix.stat
+local stat         = require("posix.sys.stat").stat
 local strfmt       = string.format
 local s_envT       = {}
 local s_clrEnvT    = {}
@@ -1124,13 +1127,12 @@ end
 
 local function l_build_epoch_function()
    if (posix.gettimeofday) then
-      local gettimeofday = posix.gettimeofday
       local x1, x2 = gettimeofday()
       if (x2 == nil) then
          epoch_type = "posix.gettimeofday() (1)"
          _G.epoch = function()
             local t = gettimeofday()
-            return t.sec + t.usec*1.0e-6
+            return t.tv_sec + t.tv_usec*1.0e-6
          end
       else
          epoch_type = "posix.gettimeofday() (2)"
@@ -1351,12 +1353,12 @@ function dynamic_shell(shellNm)
 
    ------------------------------------------------------------
    -- Dynamically find the shell from the parent process
-   local ppid  = posix.getpid("ppid")
+   local ppid  = getppid()
    local n     = shellNm
    local fn    = "/proc/"..ppid.."/exe"
    local found = false
    if (isFile(fn)) then
-      n = posix.readlink(fn)
+      n = readlink(fn)
       if (not n) then
          local cmd = "readlink "..fn
          n = capture(cmd):gsub("%s+$","")

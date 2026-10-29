@@ -38,7 +38,8 @@ local posix = require("posix")
 require("strict")
 require("capture")
 
-local getenv = os.getenv
+local getenv  = os.getenv
+local utsname = require("posix.sys.utsname")
 
 LMOD_LD_LIBRARY_PATH = "@sys_ld_lib_path@"
 if (LMOD_LD_LIBRARY_PATH:sub(1,1) == "@") then
@@ -73,9 +74,13 @@ function getUname()
 
    local optionTbl        = optionTbl()
    local machFullName     = nil
-   local osName           = posix.uname("%s")
-   local release          = posix.uname("%r")
-   local machName         = posix.uname("%m")
+   local info             = utsname.uname()
+
+   assert(type(info) == "table", "broken posix.sys.utsname")
+
+   local osName           = info.sysname
+   local release          = info.release
+   local machName         = info.machine
    local machFamilyName   = machName
    local machDescript     = machName
    osName                 = string.gsub(osName,"[ /]","_")
