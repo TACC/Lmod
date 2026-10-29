@@ -42,12 +42,6 @@ export _ModuleTable_;
 step 5
  OutputDIR/lmod/lmod/libexec/lmod load bad
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ ProjectDIR/rt/end2end/mf/Core/bad/9:\ \(bad/9\):\ invalid\ command\ name\ \"set2\""
-"While\ processing\ the\ following\ module\(s\):"
-"\ \ \ \ Module\ fullname\ \ Module\ Filename"
-"\ \ \ \\ \"
-"\ \ \ \ bad/9\ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/end2end/mf/Core/bad/9"
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -123,9 +117,5 @@ printErr TEST: 0
 step 13
  OutputDIR/lmod/lmod/libexec/lmod avail
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Unable\ to\ parse:\ \"OutputDIR/lmod/lmod/libexec/../../etc/rc\".\ Aborting\!"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
