@@ -1,8 +1,12 @@
 #!/usr/bin/env lua
 -- -*- lua -*-
 
-_G._DEBUG      = false
-local posix    = require("posix")
+_G._DEBUG        = false
+local posix      = require("posix")
+local posix_time = require("posix.time")
+local localtime  = posix_time.localtime
+local mktime     = posix_time.mktime
+local strptime   = posix_time.strptime
 
 require("strict")
 require("string_utils")
@@ -12,10 +16,15 @@ local s_Is_dst = nil
 
 function build_tStr(epoch, time_offset)
    local myTime = epoch + time_offset
-   local tm = posix.localtime(myTime)
-   s_Is_dst = tm.is_dst
-   return string.format("%d-%02d-%02dT%02d:%02d",tm.year,tm.month,tm.day,
-                        tm.hour, tm.min)
+   local lt     = localtime(myTime)
+   local year   = lt.tm_year + 1900;
+   local month  = lt.tm_mon+1;
+   local mday   = lt.tm_mday;
+   local hour   = lt.tm_hour;
+   local min    = lt.tm_min; 
+   local tStr   = string.format("%d-%02d-%02dT%02d:%02d",year, month,mday,
+                               hour, min)
+   return tStr
 end
 
 function main()
@@ -29,6 +38,7 @@ function main()
 
    epoch       = math.floor(tonumber(epoch))
    time_offset = tonumber(time_offset)
+
    local tStr  = build_tStr(epoch, time_offset)
 
    local a = {}

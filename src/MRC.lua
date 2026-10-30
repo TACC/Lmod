@@ -58,16 +58,19 @@ require("utils")
 require("mrc_load")
 require("deepcopy")
 
-local M         = {}
-local dbg       = require("Dbg"):dbg()
-local cosmic    = require("Cosmic"):singleton()
-local concatTbl = table.concat
-local getenv    = os.getenv
-local load      = (_VERSION == "Lua 5.1") and loadstring or load
-local s_MRC     = false
-local hook      = require("Hook")
-
-local pack      = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
+local M          = {}
+local dbg        = require("Dbg"):dbg()
+local cosmic     = require("Cosmic"):singleton()
+local concatTbl  = table.concat
+local getenv     = os.getenv
+local load       = (_VERSION == "Lua 5.1") and loadstring or load
+local posix_time = require("posix.time")
+local localtime  = posix_time.localtime
+local mktime     = posix_time.mktime
+local strptime   = posix_time.strptime
+local s_MRC      = false
+local hook       = require("Hook")
+local pack       = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
 
 ------------------------------------------------------------------------
 -- Local functions
@@ -119,7 +122,7 @@ function M.singleton(self, fnA)
    end
    if (not s_Epoch) then
       s_Epoch  = math.floor(epoch())
-      local tm = posix.time.localtime(s_Epoch)
+      local tm = localtime(s_Epoch)
       s_Is_dst = tm.is_dst or (tm.tm_isdst and tm.tm_isdst ~= 0)
    end
 
@@ -131,63 +134,23 @@ function M.singleton(self, fnA)
    return s_MRC
 end
 
-local s_tmTransT = {
-   tm_hour  = "hour",
-   tm_mday  = "monthday",
-   tm_min   = "min",
-   tm_mon   = "month",
-   tm_sec   = "sec",
-   tm_wday  = "weekday",
-   tm_yday  = "yearday",
-   tm_year  = "year",
-}
-   
-local function l_convertOldtm(tm)
-   local t = {}
-   if (tm.tm_mon) then
-      for k, v in pairs(tm) do
-         local key = s_tmTransT[k]
-         if (key) then
-            t[key] = v
-         end
-      end
-      t.year     = 1900 + t.year
-      t.month    = t.month + 1
-      t.is_dst   = tm.is_dst
-      t.tm_isdst = tm.is_dst and 1 or 0
-      t.day      = t.monthday
-      t.gmtoff   = 0
-   else
-      t = tm
-   end
-   return t
-end
-
 local function l_convertStr2TM(tStr, tm, is_dst)
    if (not tStr:find("T")) then
       tStr = tStr .. "T00:00"
    end
-   local d = posix.strptime(tStr,"%Y-%m-%dT%H:%M")
-   for k,v in pairs(d) do
-      tm[k] = v
-   end
-   tm.is_dst = is_dst
-   tm.tm_isdst = is_dst and 1 or 0
+   local tm = strptime(tStr,"%Y-%m-%dT%H:%M")
+   tm.tm_isdst = -1  --> tell mktime to figure out if daylight saving is on or not!!!
 end
 
 local function l_convertTimeStr_to_epoch(tStr)
-   if (posix.strptime == nil or posix.mktime == nil) then
-      LmodError{msg="e_Newer_posix_reqd"}
-   end
-
    local tm = {}
+   dbg.print{"tStr: ",tStr,"\n"}
    local ok, msg = pcall(l_convertStr2TM, tStr, tm, s_Is_dst)
    if (not ok) then
       LmodError{msg="e_Malformed_time",tStr = tStr}
    end
-   tm = l_convertOldtm(tm)
    dbg.printT("tm",tm)
-   return posix.mktime(tm)
+   return mktime(tm)
 end
 
 
@@ -777,13 +740,18 @@ local function l_check_time_range(resultT, nearlyDays)
    local T_after  = (resultT.after)  and l_convertTimeStr_to_epoch(resultT.after)  or T_start
 
    
-   local result = "notActive"
+   local diff    = 0
+   local meaning = "Keep"
+   local result  = "notActive"
    if (s_Epoch <= T_before and  s_Epoch >= T_after) then
-      result = "inRange"
+      result  = "inRange"
+      meaning = "ignore"
+      diff    = s_Epoch - T_after
    elseif (s_Epoch + nearlyDays * 86400 >= T_after) then
-      result = "nearly"
+      result  = "nearly"
+      meaning = result
    end
-   dbg.print{"result: ",result, ", T_before: ", T_before, ", s_Epoch: ", s_Epoch, ", T_after: ", T_after,"\n"}
+   dbg.print{"result: ",result,", meaning: ",meaning,", T_before: ", T_before, ", s_Epoch: ", s_Epoch, ", T_after: ", T_after,", diff: ", diff,"\n"}
    return result
 end
 

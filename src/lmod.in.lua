@@ -379,11 +379,15 @@ function main()
    end
 
    if (dbg.active()) then
+      local utsname = require("posix.sys.utsname")
+      local info    = utsname.uname()
+      assert(type(info) == "table", "broken posix.sys.utsname")
+
       dbg.start{"lmod(", concatTbl(arg," "),")"}
       dbg.print{"Date: ",os.date(),"\n"}
-      dbg.print{"Hostname: ",posix.uname("%n"),"\n"}
-      dbg.print{"System: ",posix.uname("%s")," ",posix.uname("%r"),"\n"}
-      dbg.print{"Version: ",posix.uname("%v"),"\n"}
+      dbg.print{"Hostname: ",info.nodename,"\n"}
+      dbg.print{"System: ",info.sysname," ",info.release,"\n"}
+      dbg.print{"Version: ",info.version,"\n"}
       dbg.print{"Lua Version: ", _VERSION:sub(5,-1),"\n"}
       dbg.print{"Lmod Version: ",Version.name(),"\n"}
       dbg.print{"package.path: ",package.path,"\n"}
