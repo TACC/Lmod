@@ -154,13 +154,10 @@ function isFile(fn)
    if (stat.S_ISDIR(my_stat.st_mode) ~= 0) then
       return false
    end
-   if (stat.S_ISREG(my_stat.st_mode) ~= 0) then
-      return true
-   end
    if (stat.S_ISLNK(my_stat.st_mode) ~= 0) then
       return realpath(fn)
    end
-   return false
+   return true
 end
 
 function exists(fn)
