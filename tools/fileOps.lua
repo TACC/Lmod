@@ -354,7 +354,6 @@ function mkdir_recursive(path)
    end
 end
 
-
 --------------------------------------------------------------------------
 -- Remove leading and trail spaces and extra slashes.
 -- @param value A path
