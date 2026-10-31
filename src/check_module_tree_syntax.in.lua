@@ -56,8 +56,8 @@ local arg_0    = arg[0]
 local posix    = require("posix")
 local access   = posix.access
 local getuid   = posix.getuid
-local readlink = posix.readlink
-local stat     = posix.stat
+local readlink = require("posix.unistd").readlink
+local stat     = require("posix.sys.stat").stat
 local stderr   = io.stderr
 
 local st       = stat(arg_0)

@@ -478,7 +478,7 @@ All nested formatting should be rendered correctly:
 • Italic text should appear italic
 • Code should appear with code formatting
 • Links (...) should be formatted as links
-If you see raw markdown syntax (like bold or italic) in the output, the nested formatting is not being processed correctly.
+If you see raw markdown syntax (like **bold** or *italic*) in the output, the nested formatting is not being processed correctly.
 ===========================
 step 38
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show nested_markdown_lists/1.0
@@ -638,7 +638,7 @@ All nested formatting should be rendered correctly:
 \\033[36m•\\033[0m \\033[3mItalic\\033[0m text should appear italic
 \\033[36m•\\033[0m \\033[2m\\033[36mCode\\033[0m should appear with code formatting
 \\033[36m•\\033[0m \\033[34m\\033[4mLinks\\033[0m (...) should be formatted as links
-If you see raw markdown syntax (like \\033[2m\\033[36m\\033[1mbold\\033[0m\\033[0m or \\033[2m\\033[36m\\033[3mitalic\\033[0m\\033[0m) in the output, the nested formatting is not being processed correctly.
+If you see raw markdown syntax (like \\033[2m\\033[36m**bold**\\033[0m or \\033[2m\\033[36m*italic*\\033[0m) in the output, the nested formatting is not being processed correctly.
 ===========================
 step 47
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing help markdown_content/2.0
@@ -712,4 +712,37 @@ All nested formatting should be rendered correctly:
 • Italic text should appear italic
 • Code should appear with code formatting
 • Links (...) should be formatted as links
-If you see raw markdown syntax (like bold or italic) in the output, the nested formatting is not being processed correctly.
+If you see raw markdown syntax (like **bold** or *italic*) in the output, the nested formatting is not being processed correctly.
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help inline_code_underscore/1.0
+===========================
+Module Specific Help for "inline_code_underscore/1.0"
+UNDERSCORES IN INLINE CODE
+Two spans on one line: input bids_input, and work bids_work, folders.
+One span with two underscores: foo_bar_baz.
+Outside code, note stays italic and strong stays bold.
+List
+• item bids_input and bids_work together
+===========================
+step 51
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help inline_code_underscore/1.0
+===========================
+Module Specific Help for "inline_code_underscore/1.0"
+\\033[1m\\033[36mUNDERSCORES IN INLINE CODE\\033[0m
+Two spans on one line: input \\033[2m\\033[36mbids_input\\033[0m, and work \\033[2m\\033[36mbids_work\\033[0m, folders.
+One span with two underscores: \\033[2m\\033[36mfoo_bar_baz\\033[0m.
+Outside code, \\033[3mnote\\033[0m stays italic and \\033[1mstrong\\033[0m stays bold.
+\\033[1mList\\033[0m
+\\033[36m•\\033[0m item \\033[2m\\033[36mbids_input\\033[0m and \\033[2m\\033[36mbids_work\\033[0m together
+===========================
+step 52
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help inline_code_underscore/1.0
+===========================
+Module Specific Help for "inline_code_underscore/1.0"
+UNDERSCORES IN INLINE CODE
+Two spans on one line: input bids_input, and work bids_work, folders.
+One span with two underscores: foo_bar_baz.
+Outside code, note stays italic and strong stays bold.
+List
+• item bids_input and bids_work together

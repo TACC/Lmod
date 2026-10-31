@@ -60,6 +60,7 @@ local cosmic       = require("Cosmic"):singleton()
 local dbg          = require('Dbg'):dbg()
 local getenv       = os.getenv
 local lfs          = require("lfs")
+local realpath     = require("posix.stdlib").realpath
 local M            = {}
 
 local s_configuration = false

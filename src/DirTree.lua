@@ -48,9 +48,9 @@ local open      = io.open
 local access    = posix.access
 local concatTbl = table.concat
 local cosmic    = require("Cosmic"):singleton()
-local readlink  = posix.readlink
+local readlink  = require("posix.unistd").readlink
 local sort      = table.sort
-local stat      = posix.stat
+local stat      = require("posix.sys.stat").stat
 local user_id   = 0
 local getuid    = posix.getuid
 if (getuid) then

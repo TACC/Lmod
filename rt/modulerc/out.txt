@@ -745,20 +745,12 @@ export _ModuleTable_;
 step 24
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider dum
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Unable\ to\ find:\ \"dum\"."
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
 step 25
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cluster
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Unable\ to\ parse:\ \"ProjectDIR/rt/modulerc/mf3/Core/cluster/.modulerc\".\ Aborting\!"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -2150,16 +2142,6 @@ export _ModuleTable_;
 step 76
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B/1.0
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"B/1.0\""
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
-"\ \ \$\ module\ --ignore_cache\ load\ \"B/1.0\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -2201,17 +2183,12 @@ export _ModuleTable_;
 step 81
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Access\ to\ C/3.0\ is\ denied"
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
 step 82
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cluster
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ You\ must\ pick\ a\ cluster\ "
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -2901,21 +2878,6 @@ export _ModuleTable_;
 step 99
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A/1.0
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"EESSI\""
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
-"\ \ \$\ module\ --ignore_cache\ load\ \"EESSI\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-"Executing\ this\ command\ requires\ loading\ \"EESSI\"\ which\ failed\ while\ processing\ the\ following\ module\(s\):"
-""
-"\ \ \ \ Module\ fullname\ \ Module\ Filename"
-"\ \ \ \\ \"
-"\ \ \ \ A/1.0\ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/modulerc/mfE/Core/A/1.0.lua"
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================

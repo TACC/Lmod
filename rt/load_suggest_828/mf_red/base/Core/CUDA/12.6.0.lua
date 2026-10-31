@@ -1,0 +1,1 @@
+setenv("EBVERSIONCUDA", "12.6.0")

@@ -42,6 +42,7 @@ require("myGlobals")
 require("colorize")
 require("string_utils")
 require("utils")
+require("parseVersion")
 
 Hub                    = require("Hub")
 
@@ -172,6 +173,347 @@ local function l_extract_sn(userName)
 end
 
 --------------------------------------------------------------------------
+-- True when userName is a short name with no version (e.g. "NCCL").
+local function l_is_unversioned(userName)
+   return userName == l_extract_sn(userName)
+end
+
+--------------------------------------------------------------------------
+-- True when entryPath is a prefix of path (element-wise).
+local function l_path_prefix_match(entryPath, path)
+   if (not entryPath or not path or #entryPath > #path) then
+      return false
+   end
+   for i = 1, #entryPath do
+      if (entryPath[i] ~= path[i]) then
+         return false
+      end
+   end
+   return true
+end
+
+--------------------------------------------------------------------------
+-- True when entryPath is a trailing sub-path (suffix) of path.
+local function l_path_suffix_match(entryPath, path)
+   if (not entryPath or not path or #entryPath > #path) then
+      return false
+   end
+   local off = #path - #entryPath
+   for i = 1, #entryPath do
+      if (entryPath[i] ~= path[off + i]) then
+         return false
+      end
+   end
+   return true
+end
+
+--------------------------------------------------------------------------
+-- Look up a spider dbT entry by module fullName.
+local function l_find_db_entry(fullName, dbT)
+   if (not fullName or not dbT) then return nil end
+   local sn = l_extract_sn(fullName)
+   local moduleData = dbT[sn]
+   if (not moduleData) then return nil end
+   for _, entry in pairs(moduleData) do
+      if (entry.fullName == fullName) then
+         return entry
+      end
+   end
+   return nil
+end
+
+--------------------------------------------------------------------------
+-- Resolve a fixed depends_on entry to a full module name, or nil.
+local function l_dep_fixed_fullName(depEntry)
+   if (not depEntry or not depEntry.version) then return nil end
+   if (depEntry.version.kind ~= "fixed") then return nil end
+   return pathJoin(depEntry.sn, depEntry.version.value)
+end
+
+--------------------------------------------------------------------------
+-- True when versionStr satisfies a between/atleast dep version descriptor.
+local function l_version_satisfies_between(versionStr, versionDesc)
+   if (not versionStr or not versionDesc or versionDesc.kind ~= "between") then
+      return false
+   end
+   local bounds = versionDesc.value
+   if (type(bounds) ~= "table") then return false end
+   local pV    = parseVersion(versionStr)
+   local lower = bounds[1] and parseVersion(bounds[1]) or " "
+   local upper = bounds[2] and parseVersion(bounds[2]) or "~"
+   return (pV >= lower) and (pV <= upper)
+end
+
+--------------------------------------------------------------------------
+-- Resolve a between/atleast dep to a concrete fullName from dbT (highest wV).
+local function l_dep_between_fullName(depEntry, dbT)
+   if (not depEntry or not depEntry.version or depEntry.version.kind ~= "between") then
+      return nil
+   end
+   if (not dbT) then return nil end
+   local moduleData = dbT[depEntry.sn]
+   if (not moduleData) then return nil end
+
+   local bestFn, bestWV = nil, nil
+   for _, entry in pairs(moduleData) do
+      local version = entry.Version or extractVersion(entry.fullName, depEntry.sn)
+      if (version and l_version_satisfies_between(version, depEntry.version)) then
+         local wV = entry.wV or entry.pV or ""
+         if (not bestWV or wV > bestWV) then
+            bestWV = wV
+            bestFn = entry.fullName
+         end
+      end
+   end
+   return bestFn
+end
+
+--------------------------------------------------------------------------
+-- Collect concrete fullNames from fixed depA and single-choice doaA groups.
+-- Between deps are resolved via dbT when provided.
+local function l_collect_resolvable_dep_fullNames(depT, dbT)
+   local fullNames = {}
+   if (not depT) then return fullNames end
+
+   local function l_add_from_entry(depEntry)
+      local fn = l_dep_fixed_fullName(depEntry)
+      if (not fn) then
+         fn = l_dep_between_fullName(depEntry, dbT)
+      end
+      if (fn) then
+         fullNames[#fullNames + 1] = fn
+      end
+   end
+
+   if (depT.depA) then
+      for i = 1, #depT.depA do
+         l_add_from_entry(depT.depA[i])
+      end
+   end
+   -- depends_on_any: use a group only when it is a single fixed/between choice.
+   if (depT.doaA) then
+      for i = 1, #depT.doaA do
+         local group = depT.doaA[i]
+         if (type(group) == "table" and #group == 1) then
+            l_add_from_entry(group[1])
+         end
+      end
+   end
+   return fullNames
+end
+
+--------------------------------------------------------------------------
+-- True when childFullName has depends_on(parentFullName) with fixed version.
+local function l_module_depends_on_fixed(dbT, childFullName, parentFullName)
+   local entry = l_find_db_entry(childFullName, dbT)
+   if (not entry or not entry.depT) then
+      return false
+   end
+   local depFns = l_collect_resolvable_dep_fullNames(entry.depT, dbT)
+   for i = 1, #depFns do
+      if (depFns[i] == parentFullName) then
+         return true
+      end
+   end
+   return false
+end
+
+--------------------------------------------------------------------------
+-- True when parentElem equals pathElem, or pathElem depends_on parentElem.
+-- Lets a spider parent under an inner toolchain match a suggestion path
+-- that names the outer module (Family vs Corelib, GCC vs GCCcore, ...).
+local function l_path_elems_compatible(parentElem, pathElem, dbT)
+   if (parentElem == pathElem) then
+      return true
+   end
+   return l_module_depends_on_fixed(dbT, pathElem, parentElem)
+end
+
+--------------------------------------------------------------------------
+-- Prefix match with depends_on compatibility (exact names still match).
+local function l_path_prefix_match_compat(entryPath, path, dbT)
+   if (not entryPath or not path or #entryPath > #path) then
+      return false
+   end
+   for i = 1, #entryPath do
+      if (not l_path_elems_compatible(entryPath[i], path[i], dbT)) then
+         return false
+      end
+   end
+   return true
+end
+
+--------------------------------------------------------------------------
+-- Suffix match with depends_on compatibility (exact names still match).
+local function l_path_suffix_match_compat(entryPath, path, dbT)
+   if (not entryPath or not path or #entryPath > #path) then
+      return false
+   end
+   local off = #path - #entryPath
+   for i = 1, #entryPath do
+      if (not l_path_elems_compatible(entryPath[i], path[off + i], dbT)) then
+         return false
+      end
+   end
+   return true
+end
+
+--------------------------------------------------------------------------
+-- True when userName is a fixed depends_on of a path element but wrong version.
+local function l_module_conflicts_with_path(userName, path, dbT)
+   if (not dbT) then return false end
+   for i = 1, #path do
+      local entry = l_find_db_entry(path[i], dbT)
+      if (entry and entry.depT) then
+         local userSn = l_extract_sn(userName)
+         local depFns = l_collect_resolvable_dep_fullNames(entry.depT, dbT)
+         for j = 1, #depFns do
+            local depFn = depFns[j]
+            if (l_extract_sn(depFn) == userSn and depFn ~= userName) then
+               return true
+            end
+         end
+      end
+   end
+   return false
+end
+
+--------------------------------------------------------------------------
+-- parentAA may include the module itself; keep prerequisite prefixes only.
+local function l_normalize_prereq_path(path, userName)
+   if (not path or #path == 0) then return path end
+   local sn = l_extract_sn(userName)
+   if (l_extract_sn(path[#path]) == sn) then
+      local stripped = {}
+      for i = 1, #path - 1 do
+         stripped[#stripped + 1] = path[i]
+      end
+      if (#stripped > 0) then return stripped end
+   end
+   return path
+end
+
+--------------------------------------------------------------------------
+-- dbT entry for userName best matching suggestion path (longest parent match,
+-- prefix or suffix).
+local function l_find_db_entry_for_request(userName, path, dbT)
+   if (not userName or not path or not dbT) then return nil end
+   local sn = l_extract_sn(userName)
+   local moduleData = dbT[sn]
+   if (not moduleData) then return nil end
+
+   local bestEntry = nil
+   local bestLen   = 0
+   local bestWV    = ""
+   for _, entry in pairs(moduleData) do
+      if (userName ~= sn and userName ~= entry.fullName) then
+         -- skip version-mismatched entries
+      elseif (entry.parentAA) then
+         for i = 1, #entry.parentAA do
+            local p = l_normalize_prereq_path(entry.parentAA[i], entry.fullName)
+            if (p and (l_path_prefix_match_compat(p, path, dbT) or
+                       l_path_suffix_match_compat(p, path, dbT))) then
+               local len = #p
+               local wV  = entry.wV or entry.pV or ""
+               -- Longest parent match wins; equal length prefers highest wV
+               -- so unversioned pins are deterministic (not pairs() order).
+               if (len > bestLen or (len == bestLen and wV > bestWV)) then
+                  bestLen   = len
+                  bestWV    = wV
+                  bestEntry = entry
+               end
+            end
+         end
+      end
+   end
+   return bestEntry
+end
+
+--------------------------------------------------------------------------
+-- Resolve userName to fullName for this path; honor fixed-depends_on constraints.
+local function l_resolve_suffix_module(userName, path, dbT, pinnedSnT)
+   if (not l_is_unversioned(userName)) then
+      return userName
+   end
+   local sn = l_extract_sn(userName)
+   if (pinnedSnT[sn]) then
+      return pinnedSnT[sn]
+   end
+   local entry = l_find_db_entry_for_request(userName, path, dbT)
+   if (entry) then
+      return entry.fullName
+   end
+   return userName
+end
+
+--------------------------------------------------------------------------
+-- True when sn appears in the user's original load request.
+local function l_sn_in_request(sn)
+   if (not sn or not s_allRequestedT) then return false end
+   for i = 1, #s_allRequestedT do
+      local entry = s_allRequestedT[i]
+      local reqSn = entry.mname:sn()
+      if (not reqSn) then
+         reqSn = l_extract_sn(entry.userName)
+      end
+      if (reqSn == sn) then
+         return true
+      end
+   end
+   return false
+end
+
+--------------------------------------------------------------------------
+-- True when path already satisfies a fixed depends_on (exact or via toolchain).
+local function l_path_satisfies_dep(path, depFn, dbT)
+   if (not depFn or not path) then return false end
+   local depSn = l_extract_sn(depFn)
+   for i = 1, #path do
+      if (path[i] == depFn) then return true end
+      if (l_extract_sn(path[i]) == depSn and path[i] == depFn) then return true end
+      if (l_module_depends_on_fixed(dbT, path[i], depFn)) then return true end
+   end
+   return false
+end
+
+--------------------------------------------------------------------------
+-- Pin unversioned suffix when a db entry exists (path-scoped fullName) or a
+-- resolvable co-requested dep already pinned it.
+local function l_should_pin_suffix(dbEntry, userName, failingSet, pinnedSnT)
+   if (not l_is_unversioned(userName)) then return false end
+   local sn = l_extract_sn(userName)
+   if (pinnedSnT[sn]) then return true end
+   if (dbEntry) then return true end
+   return false
+end
+
+local function l_path_key(path)
+   return concatTbl(path, "|")
+end
+
+--------------------------------------------------------------------------
+-- When two compatible paths tie on length, prefer the path whose element
+-- depends_on the other (outer toolchain over inner prerequisite).
+local function l_prefer_toolchain_path(pathA, pathB, dbT)
+   if (not pathB) then return pathA end
+   if (not pathA) then return pathB end
+   if (#pathB > #pathA) then return pathB end
+   if (#pathA > #pathB) then return pathA end
+   for i = 1, #pathA do
+      if (pathA[i] ~= pathB[i]) then
+         if (l_module_depends_on_fixed(dbT, pathA[i], pathB[i])) then
+            return pathA
+         end
+         if (l_module_depends_on_fixed(dbT, pathB[i], pathA[i])) then
+            return pathB
+         end
+         return pathB
+      end
+   end
+   return pathA
+end
+
+--------------------------------------------------------------------------
 -- Helper function to collect ALL parentAA entries for a module from dbT
 -- A module may exist in multiple hierarchy locations (e.g., gcc/boost and intel/boost)
 -- Each location has its own parentAA, so we collect all of them
@@ -184,6 +526,7 @@ local function l_collect_all_parentAA(userName, dbT)
    end
 
    local allParentAA = {}
+   local seen = {}
 
    -- Search through all entries for this short name
    for fn, entry in pairs(moduleData) do
@@ -199,7 +542,14 @@ local function l_collect_all_parentAA(userName, dbT)
       if (match and entry.parentAA) then
          -- Add all parent arrays from this entry
          for i = 1, #entry.parentAA do
-            allParentAA[#allParentAA + 1] = entry.parentAA[i]
+            local path = l_normalize_prereq_path(entry.parentAA[i], userName)
+            if (path and #path > 0) then
+               local key = l_path_key(path)
+               if (not seen[key]) then
+                  seen[key] = true
+                  allParentAA[#allParentAA + 1] = path
+               end
+            end
          end
       end
    end
@@ -211,23 +561,40 @@ local function l_collect_all_parentAA(userName, dbT)
 end
 
 --------------------------------------------------------------------------
--- Helper function to check if two dependency paths are compatible
--- Two paths are compatible if one is a prefix of the other
--- Returns the longer (more specific) path if compatible, nil otherwise
-local function l_paths_compatible(pathA, pathB)
+-- Helper function to check if two dependency paths are compatible.
+-- Compatible if one is a prefix or suffix of the other (or toolchain
+-- depends_on merge at the diverge point). Returns the longer path.
+local function l_paths_compatible(pathA, pathB, dbT)
    if (not pathA or not pathB) then return nil end
    local lenA, lenB = #pathA, #pathB
    local shorter, longer = pathA, pathB
    if (lenA > lenB) then
       shorter, longer = pathB, pathA
    end
-   -- Check if shorter is a prefix of longer
+   -- Prefix match (existing behavior)
+   local prefixOk = true
    for i = 1, #shorter do
       if (shorter[i] ~= longer[i]) then
-         return nil
+         if (dbT and i == #shorter and longer[i]) then
+            if (l_module_depends_on_fixed(dbT, longer[i], shorter[i])) then
+               return longer
+            end
+            if (l_module_depends_on_fixed(dbT, shorter[i], longer[i])) then
+               return shorter
+            end
+         end
+         prefixOk = false
+         break
       end
    end
-   return longer
+   if (prefixOk) then
+      return longer
+   end
+   -- Suffix match: e.g. {GCC} vs {release, GCC}
+   if (l_path_suffix_match(shorter, longer)) then
+      return longer
+   end
+   return nil
 end
 
 --------------------------------------------------------------------------
@@ -266,13 +633,10 @@ local function l_find_common_paths(failingUserNames, dbT)
          local foundCompatible = false
          local bestPath = candidatePath
          for k = 1, #otherPaths do
-            local compatible = l_paths_compatible(candidatePath, otherPaths[k])
+            local compatible = l_paths_compatible(candidatePath, otherPaths[k], dbT)
             if (compatible) then
                foundCompatible = true
-               -- Use the longer (more specific) path
-               if (#compatible > #bestPath) then
-                  bestPath = compatible
-               end
+               bestPath = l_prefer_toolchain_path(bestPath, compatible, dbT)
                break
             end
          end
@@ -321,31 +685,124 @@ end
 -- Failing modules are always included.  Non-conflicting modules (e.g.,
 -- python/3.9 when the path is gcc/10.0) are included to give the user
 -- a complete command.
+-- Multi-pass: collect co-requested inject deps first so they override a
+-- later path-default resolution (e.g. bare CUDA before NCCL).
 -- @param path       Array of dependency path entries (e.g., {"gcc/10.0"})
 -- @param failingSet Table of failing userNames (userName -> true)
 -- @return Array of module names to append after the dependency path
-local function l_build_modules_for_path(path, failingSet)
-   -- Build set of short names in the dependency path
+local function l_build_modules_for_path(path, failingSet, dbT)
    local pathSnSet = {}
    for i = 1, #path do
       pathSnSet[l_extract_sn(path[i])] = true
    end
 
    local modulesToInclude = {}
+   local seenSn           = {}
+   local listIdxT         = {}  -- sn -> index in modulesToInclude
+   for sn, _ in pairs(pathSnSet) do
+      seenSn[sn] = true
+   end
+
+   local pinnedSnT = {}
+
+   local function l_add_suffix(fullName, forceReplace)
+      if (not fullName) then return end
+      local sn = l_extract_sn(fullName)
+      if (pathSnSet[sn]) then return end
+      if (seenSn[sn]) then
+         local idx = listIdxT[sn]
+         if (idx) then
+            local cur = modulesToInclude[idx]
+            if (forceReplace or
+                (l_is_unversioned(cur) and not l_is_unversioned(fullName))) then
+               modulesToInclude[idx] = fullName
+               pinnedSnT[sn]         = fullName
+            end
+         end
+         return
+      end
+      seenSn[sn] = true
+      modulesToInclude[#modulesToInclude + 1] = fullName
+      listIdxT[sn]  = #modulesToInclude
+      pinnedSnT[sn] = fullName
+   end
+
+   -- Pass 1a: decide include + keep dbEntry
+   local includeA = {}
    for i = 1, #s_allRequestedT do
       local entry    = s_allRequestedT[i]
       local userName = entry.userName
-      local sn       = entry.mname:sn()
+      local sn       = entry.mname:sn() or l_extract_sn(userName)
 
+      local include = false
       if (failingSet[userName]) then
-         -- Failing modules are always included
-         modulesToInclude[#modulesToInclude + 1] = userName
-      elseif (not pathSnSet[sn]) then
-         -- Non-conflicting module: safe to include
-         modulesToInclude[#modulesToInclude + 1] = userName
+         include = true
+      elseif (not pathSnSet[sn] and
+              not l_module_conflicts_with_path(userName, path, dbT)) then
+         include = true
       end
-      -- Conflicting modules (same sn as dependency path) are excluded
+
+      if (include) then
+         includeA[#includeA + 1] = {
+            userName = userName,
+            dbEntry  = l_find_db_entry_for_request(userName, path, dbT),
+         }
+      end
    end
+
+   -- Pass 1b: collect co-requested inject deps into pinnedSnT first
+   for i = 1, #includeA do
+      local item    = includeA[i]
+      local dbEntry = item.dbEntry
+      local injectDeps = {}
+      if (dbEntry and dbEntry.depT) then
+         local depFns = l_collect_resolvable_dep_fullNames(dbEntry.depT, dbT)
+         for j = 1, #depFns do
+            local depFn = depFns[j]
+            if (depFn and not l_path_satisfies_dep(path, depFn, dbT) and
+                l_sn_in_request(l_extract_sn(depFn))) then
+               pinnedSnT[l_extract_sn(depFn)] = depFn
+               injectDeps[#injectDeps + 1] = depFn
+            end
+         end
+      end
+      item.injectDeps = injectDeps
+   end
+
+   -- Pass 1c: resolve fullNames with inject pins already known
+   for i = 1, #includeA do
+      local item     = includeA[i]
+      local userName = item.userName
+      local dbEntry  = item.dbEntry
+      local fullName = userName
+      if (l_should_pin_suffix(dbEntry, userName, failingSet, pinnedSnT)) then
+         fullName = l_resolve_suffix_module(userName, path, dbT, pinnedSnT)
+      elseif (pinnedSnT[l_extract_sn(userName)]) then
+         fullName = pinnedSnT[l_extract_sn(userName)]
+      end
+      item.fullName = fullName
+   end
+
+   -- Pass 2: emit inject deps before each module (upgrade/replace as needed)
+   for i = 1, #includeA do
+      local item = includeA[i]
+      for j = 1, #item.injectDeps do
+         l_add_suffix(item.injectDeps[j], true)
+      end
+      local fullName = item.fullName
+      local sn       = l_extract_sn(fullName)
+      if (pinnedSnT[sn] and l_is_unversioned(fullName)) then
+         fullName = pinnedSnT[sn]
+      elseif (pinnedSnT[sn] and pinnedSnT[sn] ~= fullName and
+              l_is_unversioned(item.userName)) then
+         -- Co-requested fixed dep wins over path-default resolution
+         fullName = pinnedSnT[sn]
+      end
+      if (not pathSnSet[l_extract_sn(fullName)]) then
+         l_add_suffix(fullName, false)
+      end
+   end
+
    return modulesToInclude
 end
 
@@ -627,7 +1084,7 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
       end
       local swapCount, swapDepth = l_path_swap_metrics(path, activeSet)
       local swapRequired = (swapCount > 0)
-      local modulesToInclude = l_build_modules_for_path(path, failingSet)
+      local modulesToInclude = l_build_modules_for_path(path, failingSet, dbT)
       local suffix = (#modulesToInclude > 0) and (" " .. concatTbl(modulesToInclude, " ")) or ""
       local explicitCmd = "module load " .. concatTbl(path, " ") .. suffix
       l_add_suggestion(explicitCmd, swapRequired, path, activeSet)
@@ -707,13 +1164,16 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
          if (#parentA >= maxPathLen) then
             if (filterCandidates) then
                local worksForAll = true
+               local upgraded = parentA
                for j = 1, #kB do
                   local otherAA = pathCountT[j].parentAA
                   if (otherAA and #otherAA > 0) then
                      local hasCompatible = false
                      for k = 1, #otherAA do
-                        if (l_paths_compatible(parentA, otherAA[k])) then
+                        local compatible = l_paths_compatible(upgraded, otherAA[k], dbT)
+                        if (compatible) then
                            hasCompatible = true
+                           upgraded = l_prefer_toolchain_path(upgraded, compatible, dbT)
                            break
                         end
                      end
@@ -725,10 +1185,12 @@ local function l_format_dependency_commands(kA, kB, dbT, loadedPathsAA, mt)
                end
                if (not worksForAll) then
                   parentA = nil
+               else
+                  parentA = upgraded
                end
             end
             if (parentA and #parentA > 0 and l_path_compatible_with_loaded(parentA, loadedPathsAA)) then
-               local modulesToInclude = l_build_modules_for_path(parentA, failingSet)
+               local modulesToInclude = l_build_modules_for_path(parentA, failingSet, dbT)
                local cmd = "module load " .. concatTbl(parentA, " ") .. " " .. concatTbl(modulesToInclude, " ")
                l_add_suggestion(cmd, false, parentA, activeSet)
             end

@@ -59,8 +59,8 @@ package.cpath  = sys_lua_cpath
 local arg_0    = arg[0]
 _G._DEBUG      = false
 local posix    = require("posix")
-local readlink = posix.readlink
-local stat     = posix.stat
+local readlink = require("posix.unistd").readlink
+local stat     = require("posix.sys.stat").stat
 
 local st       = stat(arg_0)
 while (st.type == "link") do
@@ -379,11 +379,15 @@ function main()
    end
 
    if (dbg.active()) then
+      local utsname = require("posix.sys.utsname")
+      local info    = utsname.uname()
+      assert(type(info) == "table", "broken posix.sys.utsname")
+
       dbg.start{"lmod(", concatTbl(arg," "),")"}
       dbg.print{"Date: ",os.date(),"\n"}
-      dbg.print{"Hostname: ",posix.uname("%n"),"\n"}
-      dbg.print{"System: ",posix.uname("%s")," ",posix.uname("%r"),"\n"}
-      dbg.print{"Version: ",posix.uname("%v"),"\n"}
+      dbg.print{"Hostname: ",info.nodename,"\n"}
+      dbg.print{"System: ",info.sysname," ",info.release,"\n"}
+      dbg.print{"Version: ",info.version,"\n"}
       dbg.print{"Lua Version: ", _VERSION:sub(5,-1),"\n"}
       dbg.print{"Lmod Version: ",Version.name(),"\n"}
       dbg.print{"package.path: ",package.path,"\n"}
@@ -565,7 +569,7 @@ function main()
    varT[n]:set(mt:serializeTbl())
    
    -- Clear Lmod Last Error var if it had a previous value
-   n           = lastErrorVarName()
+   n              = lastErrorVarName()
    if (getenv(n)) then
       varT[n]  = Var:new(n)
       varT[n]:set(false)
