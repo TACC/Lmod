@@ -245,7 +245,7 @@ function M.singleton(self, t)
       s_cache.buildFresh = t.buildFresh
    end
 
-   dbg.print{"s_cache.buildCache: ",self.buildCache,"\n"}
+   dbg.print{"s_cache.buildCache: ",self.buildCache or "nil","\n"}
 
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
@@ -449,9 +449,9 @@ local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spider
                      )
    local cTimer    = CTimer:singleton("Rebuilding cache, please wait ...",
                                        threshold, prtRbMsg, optionTbl.timeout)
-   dbg.print{"short:    ", short,  ", shortTime: ", shortTime,"\n", level=2}
-   dbg.print{"quiet:    ", quiet(),", initial:   ", optionTbl.initial,"\n"}
-   dbg.print{"prtRbMsg: ",prtRbMsg,", quiet:     ",self.quiet,"\n"}
+   dbg.print{"short:    ", short,           ", shortTime: ", shortTime,"\n", level=2}
+   dbg.print{"quiet:    ", quiet() or "nil",", initial:   ", optionTbl.initial,"\n"}
+   dbg.print{"prtRbMsg: ",prtRbMsg,", quiet:     ",self.quiet or "nil","\n"}
 
 
    local r = {dontWriteCache = false}
