@@ -138,7 +138,10 @@ local function l_convertStr2TM(tStr, tm, is_dst)
    if (not tStr:find("T")) then
       tStr = tStr .. "T00:00"
    end
-   local tm = strptime(tStr,"%Y-%m-%dT%H:%M")
+   local d  = strptime(tStr,"%Y-%m-%dT%H:%M")
+   for k,v in pairs(d) do
+      tm[k] = v
+   end
    tm.tm_isdst = -1  --> tell mktime to figure out if daylight saving is on or not!!!
 end
 
@@ -149,7 +152,7 @@ local function l_convertTimeStr_to_epoch(tStr)
    if (not ok) then
       LmodError{msg="e_Malformed_time",tStr = tStr}
    end
-   dbg.printT("tm",tm)
+   dbg.printT("l_convertTimeStr_to_epoch: tm",tm)
    return mktime(tm)
 end
 
@@ -432,7 +435,7 @@ function M.resolve(self, mpathA, name)
 end
 
 function M.search_mapT(self, tbl_kind, mpath, key)
-   dbg.start{"MRC:search_mapT(", tbl_kind,", mpath: ",mpath,", key: ",key,")"}
+   dbg.start{"MRC:search_mapT(", tbl_kind,", mpath: ",mpath or "nil",", key: ",key,")"}
    l_build_m2vT_f2aT(self, mpath)
    local ans = self["__"..tbl_kind][key] or self.__mpathT[mpath][tbl_kind][key]
    dbg.fini("MRC:search_mapT")
