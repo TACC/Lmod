@@ -393,7 +393,7 @@ function main()
       dbg.print{"package.path: ",package.path,"\n"}
       dbg.print{"package.cpath: ",package.cpath,"\n"}
       dbg.print{"lmodPath: ", cosmic:value("LMOD_PACKAGE_PATH"),"\n"}
-      dbg.print{"LOADEDMODULES: ",getenv("LOADEDMODULES"),"\n"}
+      dbg.print{"LOADEDMODULES: ",getenv("LOADEDMODULES") or "nil","\n"}
       dbg.print{"shellNm: ",shellNm,", Shell:name(): ",Shell:name(),"\n"}
    end
 
