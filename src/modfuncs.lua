@@ -1176,14 +1176,18 @@ end
 -- Write "false" to stdout and exit.
 function LmodErrorExit(msg)
    if (msg) then
-      local Var = require("Var")
+      local Var      = require("Var")
+      local base64   = require("base64")
+      local encode64 = base64.encode64
+      
+      local b64_msg  = encode64(msg)
       if (not quiet()) then
          io.stderr:write(msg)
       end
       local varT = {}
       local n    = lastErrorVarName()
       varT[n]    = Var:new(n)
-      varT[n]:set(msg)
+      varT[n]:set(b64_msg)
       Shell:expand(varT)
    end
    Shell:report_failure()
