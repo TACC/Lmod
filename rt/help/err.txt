@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 9.2.6 2026-07-13 17:55 -05:00
+Modules based on Lua: Version 9.4.5 2026-10-13 12:08 +01:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -111,7 +111,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 9.2.6 2026-07-13 17:55 -05:00
+Modules based on Lua: Version 9.4.5 2026-10-13 12:08 +01:00
     https://lmod.readthedocs.io
 ===========================
 step 3
@@ -220,7 +220,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 9.2.6 2026-07-13 17:55 -05:00
+Modules based on Lua: Version 9.4.5 2026-10-13 12:08 +01:00
     https://lmod.readthedocs.io
 ===========================
 step 4
@@ -240,7 +240,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 9.2.6 2026-07-13 17:55 -05:00
+Modules based on Lua: Version 9.4.5 2026-10-13 12:08 +01:00
     https://lmod.readthedocs.io
 Description                                                Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)               yes
@@ -306,7 +306,7 @@ Tmod prepend PATH Rule (LMOD_TMOD_PATH_RULE)               no
 Tracing (LMOD_TRACING)                                     no
 uname -a
 User Cache Directory                                       OutputDIR/.cache/lmod
-MODULEPATH:   ProjectDIR/rt/help/mf
+MODULEPATH:       ProjectDIR/rt/help/mf
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
 LMOD_USING_FAST_TCL_INTERP   Other      yes          no
@@ -424,9 +424,9 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 9.2.6 2026-07-13 17:55 -05:00
+Modules based on Lua: Version 9.4.5 2026-10-13 12:08 +01:00
     https://lmod.readthedocs.io
-MODULEPATH:   ProjectDIR/rt/help/mf
+MODULEPATH:       ProjectDIR/rt/help/mf
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
 LMOD_USING_FAST_TCL_INTERP   Other      yes          no

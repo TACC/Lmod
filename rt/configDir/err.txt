@@ -2,13 +2,13 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 9.2.10 2026-07-24 17:58 -06:00
+Modules based on Lua: Version 9.4.5 2026-10-13 12:08 +01:00
     https://lmod.readthedocs.io
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 9.2.10 2026-07-24 17:58 -06:00
+Modules based on Lua: Version 9.4.5 2026-10-13 12:08 +01:00
     https://lmod.readthedocs.io
 Description                                                Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)               yes
@@ -74,7 +74,7 @@ Tmod prepend PATH Rule (LMOD_TMOD_PATH_RULE)               no
 Tracing (LMOD_TRACING)                                     no
 uname -a
 User Cache Directory                                       OutputDIR/.cache/lmod
-MODULEPATH:   ProjectDIR/rt/configDir/mf
+MODULEPATH:       ProjectDIR/rt/configDir/mf
 LMOD_ANCIENT_TIME            StdPkg     86400        86401
 LMOD_CONFIG_DIR              E          /etc/lmod    ProjectDIR/rt/configDir/lmod_cfg_dir
 LMOD_CONFIG_LOCATION         StdPkg     no           ProjectDIR/rt/configDir/lmod_cfg_dir/lmod_config.lua
