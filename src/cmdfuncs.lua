@@ -63,6 +63,7 @@ local getenv       = os.getenv
 local hook         = require("Hook")
 local i18n         = require("i18n")
 local lfs          = require("lfs")
+local realpath     = require("posix.stdlib").realpath
 local sort         = table.sort
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
 local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack  -- luacheck: compat
@@ -372,10 +373,12 @@ end
 -- Report last error from env var: __LMOD_LAST_ERROR if it exists
 
 function LastError()
-   local n   = lastErrorVarName()
-   local msg = getenv(n)
-   if (msg) then
-      io.stderr:write(msg)
+   local n        = lastErrorVarName()
+   local b64_msg  = getenv(n)
+   if (b64_msg) then
+      local base64   = require("base64")
+      local decode64 = base64.decode64
+      io.stderr:write(decode64(b64_msg))
    end
 end
 
