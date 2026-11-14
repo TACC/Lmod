@@ -65,7 +65,6 @@ local open         = io.open
 local readlink     = require("posix.unistd").readlink
 local realpath     = require("posix.stdlib").realpath
 local setenv_posix = posix.setenv
-local stat         = require("posix.sys.stat").stat
 local strfmt       = string.format
 local s_envT       = {}
 local s_clrEnvT    = {}

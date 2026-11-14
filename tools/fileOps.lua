@@ -39,9 +39,9 @@ local lfs       = require("lfs")
 local access    = posix.access
 local concatTbl = table.concat
 local dbg       = require("Dbg"):dbg()
-local stat      = require("posix.sys.stat")
 local readlink  = require("posix.unistd").readlink
 local realpath  = require("posix.stdlib").realpath
+local stat      = require("posix.sys.stat")
 
 local function l_argsPack(...)
    local argA = { n = select("#", ...), ...}
