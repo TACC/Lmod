@@ -256,6 +256,7 @@ function M.new(self, name, value, nodup, delim)
       nodup = true
    end
    l_extract(o, nodup)
+   if (o.value and not value) then value = o.value end
    if (not value) then value = nil end
    setenv_posix(name, value, true)
    return o
