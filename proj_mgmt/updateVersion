@@ -14,7 +14,9 @@ local stat        = require("posix.sys.stat")
 local stdlib      = require("posix.stdlib")
 local realpath    = stdlib.realpath
 local dbg         = require("Dbg"):dbg()
-local stat        = require ("posix.sys.stat").stat
+local realpath    = stdlib.realpath
+local stat        = require("posix.sys.stat")
+local stdlib      = require("posix.stdlib")
 local s_optionTbl = {}
 local load        = (_VERSION == "Lua 5.1") and loadstring or load
 

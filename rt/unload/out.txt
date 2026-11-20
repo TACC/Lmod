@@ -52,6 +52,22 @@ spiderT = {
     },
   },
   ["ProjectDIR/rt/unload/mf/Core"] = {
+    ACME = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["ACME/1.0"] = {
+          Version = "1.0",
+          canonical = "1.0",
+          fn = "ProjectDIR/rt/unload/mf/Core/ACME/1.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/unload/mf/Core",
+          pV = "000000001.*zfinal",
+          wV = "000000001.*zfinal",
+        },
+      },
+    },
     B = {
       defaultA = {},
       defaultT = {},
@@ -93,6 +109,33 @@ spiderT = {
           Version = "1.0",
           canonical = "1.0",
           fn = "ProjectDIR/rt/unload/mf/Core/D/1.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/unload/mf/Core",
+          pV = "000000001.*zfinal",
+          wV = "000000001.*zfinal",
+        },
+      },
+    },
+    DEF = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["DEF/1.0"] = {
+          Version = "1.0",
+          canonical = "1.0",
+          depT = {
+            depA = {
+              {
+                sn = "ACME",
+                version = {
+                  kind = "bool",
+                  value = true,
+                },
+              },
+            },
+          },
+          fn = "ProjectDIR/rt/unload/mf/Core/DEF/1.0.lua",
           luaExt = 4,
           mpath = "ProjectDIR/rt/unload/mf/Core",
           pV = "000000001.*zfinal",
@@ -339,6 +382,42 @@ X=Y;
 export X;
 Z=X;
 export Z;
+_LMFILES_=ProjectDIR/rt/unload/mf/Core/D/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={D={fn="ProjectDIR/rt/unload/mf/Core/D/1.0.lua",fullName="D/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="D",wV="000000001.*zfinal",},mpich2={fn="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",fullName="mpich2/1.5.2",loadOrder=-1,propT={},stackDepth=0,status="inactive",userName="mpich2",wV="000000001.000000005.000000002.*zfinal",},petsc={fn="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",fullName="petsc/3.2",loadOrder=-2,propT={},stackDepth=0,status="inactive",userName="petsc",wV="000000003.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/unload/mf/Core",},systemBaseMPATH="ProjectDIR/rt/unload/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load DEF
+===========================
+ACME_DIR=/apps/ACME;
+export ACME_DIR;
+D2_DIR=FOO;
+export D2_DIR;
+D2_TEST=FOO;
+export D2_TEST;
+DUMMY_TEST=/apps/ACME;
+export DUMMY_TEST;
+LOADEDMODULES=D/1.0:ACME/1.0:DEF/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/unload/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/unload/mf/Core/D/1.0.lua:ProjectDIR/rt/unload/mf/Core/ACME/1.0.lua:ProjectDIR/rt/unload/mf/Core/DEF/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ACME={fn="ProjectDIR/rt/unload/mf/Core/ACME/1.0.lua",fullName="ACME/1.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="ACME",wV="000000001.*zfinal",},D={fn="ProjectDIR/rt/unload/mf/Core/D/1.0.lua",fullName="D/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="D",wV="000000001.*zfinal",},DEF={depT={depA={{sn="ACME",version={kind="bool",value=true,},},},},fn="ProjectDIR/rt/unload/mf/Core/DEF/1.0.lua",fullName="DEF/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="DEF",wV="000000001.*zfinal",},mpich2={fn="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",fullName="mpich2/1.5.2",loadOrder=-1,propT={},stackDepth=0,status="inactive",userName="mpich2",wV="000000001.000000005.000000002.*zfinal",},petsc={fn="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",fullName="petsc/3.2",loadOrder=-2,propT={},stackDepth=0,status="inactive",userName="petsc",wV="000000003.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/unload/mf/Core",},systemBaseMPATH="ProjectDIR/rt/unload/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload DEF
+===========================
+unset ACME_DIR;
+unset D2_DIR;
+unset D2_TEST;
+unset DUMMY_TEST;
+LOADEDMODULES=D/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/unload/mf/Core;
+export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/unload/mf/Core/D/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={D={fn="ProjectDIR/rt/unload/mf/Core/D/1.0.lua",fullName="D/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="D",wV="000000001.*zfinal",},mpich2={fn="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",fullName="mpich2/1.5.2",loadOrder=-1,propT={},stackDepth=0,status="inactive",userName="mpich2",wV="000000001.000000005.000000002.*zfinal",},petsc={fn="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",fullName="petsc/3.2",loadOrder=-2,propT={},stackDepth=0,status="inactive",userName="petsc",wV="000000003.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/unload/mf/Core",},systemBaseMPATH="ProjectDIR/rt/unload/mf/Core",}';

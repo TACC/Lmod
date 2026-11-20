@@ -50,7 +50,6 @@ local concatTbl = table.concat
 local cosmic    = require("Cosmic"):singleton()
 local readlink  = require("posix.unistd").readlink
 local sort      = table.sort
-local stat      = require("posix.sys.stat").stat
 local user_id   = 0
 local getuid    = posix.getuid
 if (getuid) then

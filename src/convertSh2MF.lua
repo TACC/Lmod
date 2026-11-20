@@ -1,3 +1,6 @@
+_G._DEBUG      = false
+local posix    = require("posix")
+
 require("strict")
 require("capture")
 require("fileOps")
@@ -7,6 +10,8 @@ local concatTbl    = table.concat
 local dbg          = require("Dbg"):dbg()
 local i18n         = require("i18n")
 local replaceStr   = require("replaceStr")
+local getenv_posix = posix.getenv
+local setenv_posix = posix.setenv
 
 local validShellT =
    {
@@ -81,7 +86,92 @@ local ignoreA = {
 }
 
 
-local function l_convertSh2MF(shellName, style, script)
+local function l_cleanPath(value)
+
+   local execT = {
+      gcc    = 'keep',
+      lua    = 'keep',
+      python = 'keep',
+      csh    = 'keep',
+      bash   = 'keep',
+   }
+
+   local pathT  = {}
+   local pathA  = {}
+
+   local idx = 0
+   for myPath in value:split(':') do
+      idx        = idx + 1
+      local path = path_regularize(myPath)
+      if (pathT[path] == nil) then
+         pathT[path]     = { idx = idx, keep = false }
+         pathA[#pathA+1] = path
+      end
+   end
+
+   local myPath = concatTbl(pathA,':')
+   pathA        = {}
+
+   for execName in pairs(execT) do
+      local cmd, found = findInPath(execName, myPath)
+      if (found) then
+         local dir = dirname(cmd):gsub("/+$","")
+         local p = path_regularize(dir)
+         if (p and pathT[p]) then
+            pathT[p].keep = true
+         end
+      end
+   end
+
+   for path in pairs(pathT) do
+      if (value:find('^/usr/')) then
+         pathT[path].keep = true
+      end
+   end
+
+   -- Step 1: Make a sparse array with path as values
+   local t = {}
+
+   for k, v in pairs(pathT) do
+      if (v.keep) then
+         t[v.idx] = k
+      end
+   end
+
+   -- Step 2: Use pairsByKeys to copy paths into pathA in correct order
+   local n = 0
+   for _, v in pairsByKeys(t) do
+      n = n + 1
+      pathA[n] = v
+   end
+
+   -- Step 3: rebuild path
+   return concatTbl(pathA,':')
+end
+
+function l_cleanEnv()
+   local keepT = {
+      ['HOME']            = 'keep',
+      ['USER']            = 'keep',
+      ['LD_LIBRARY_PATH'] = 'keep',
+      ['LUA_CPATH']       = 'keep',
+      ['LUA_PATH']        = 'keep',
+      ['PATH']            = 'neat',
+   }
+
+   local envT = getenv_posix()
+
+   for k, v in pairs(envT) do
+      local keep = keepT[k]
+      if (not keep) then
+         setenv_posix(k, nil, true)
+      elseif (keep == 'neat') then
+         setenv_posix(k, l_cleanPath(v), true)
+      end
+   end
+end
+
+local function l_convertSh2MF(shellName, style, makeCleanEnv, script)
    shellName = validShellT[shellName] or "bash"
 
    local shellT    = shellTemplateT[shellName]
@@ -93,6 +183,10 @@ local function l_convertSh2MF(shellName, style, script)
    local ignoreT = {}
    for i = 1, #ignoreA do
       ignoreT[ignoreA[i]] = true
+   end
+
+   if (makeCleanEnv) then
+      l_cleanEnv()
    end
 
    local sep    = "%__________blk_divider__________%"

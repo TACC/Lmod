@@ -56,18 +56,18 @@ local arg_0    = arg[0]
 _G._DEBUG      = false
 local posix    = require("posix")
 local readlink = require("posix.unistd").readlink
-local stat     = require("posix.sys.stat").stat
+local stat     = require("posix.sys.stat")
 local getenv   = posix.getenv
 
-local st       = stat(arg_0)
-while (st.type == "link") do
+local my_stat  = stat.stat(arg_0)
+while (stat.S_ISLNK(my_stat.st_mode) ~= 0) do
    local lnk = readlink(arg_0)
    if (arg_0:find("/") and (lnk:find("^/") == nil)) then
       local dir = arg_0:gsub("/[^/]*$","")
       lnk       = dir .. "/" .. lnk
    end
-   arg_0 = lnk
-   st    = stat(arg_0)
+   arg_0   = lnk
+   my_stat = stat.stat(arg_0)
 end
 
 local ia,ja = arg_0:find(".*/")

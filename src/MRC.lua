@@ -139,6 +139,8 @@ local function l_convertStr2TM(tStr, tm, is_dst)
       tStr = tStr .. "T00:00"
    end
    local d  = strptime(tStr,"%Y-%m-%dT%H:%M")
+   --> Must copy "d" back into tm.
+   --> Lua won't copy back into 'tm'
    for k,v in pairs(d) do
       tm[k] = v
    end
