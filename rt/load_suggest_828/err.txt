@@ -1,0 +1,282 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+Modules based on Lua: Version 9.4.5 2026-10-13 12:08 +01:00
+    https://lmod.readthedocs.io
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CuPy OpenMPI
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "CuPy", "OpenMPI"
+   Try: "module spider CuPy OpenMPI" to see how to load the module(s).
+   Or load any one of these options:
+      module load release/24.04 GCC/13.2.0 CuPy/14 OpenMPI/4.1.6
+      module load release/24.04 GCC/14.2.0 CuPy/13 OpenMPI/5.6
+      module load release/24.10 GCC/13.2.0 CuPy/13 OpenMPI/4.1.6
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04 GCCcore/13.2.0
+===========================
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CuPy OpenMPI
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "OpenMPI"
+   Try: "module spider OpenMPI" to see how to load the module(s).
+   Or load any one of these options:
+      module load GCC/13.2.0 CuPy/14 OpenMPI/4.1.6
+      module load GCC/14.2.0 CuPy/13 OpenMPI/5.6
+      module load release/24.04 GCC/13.2.0 CuPy/14 OpenMPI/4.1.6
+      module load release/24.04 GCC/14.2.0 CuPy/13 OpenMPI/5.6
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+  1) release/24.04
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04 GCC/14.2.0 CuPy OpenMPI/5.6
+===========================
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+  1) release/24.04
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load NCCL OpenMPI CUDA
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "NCCL", "OpenMPI"
+   Try: "module spider NCCL OpenMPI" to see how to load the module(s).
+   Or load any one of these options:
+      module load GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+      module load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+  1) release/24.04
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+===========================
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+  1) release/24.04
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+===========================
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+  1) release/24.04
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load NCCL CUDA
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "NCCL"
+   Try: "module spider NCCL" to see how to load the module(s).
+   Or load any one of these options:
+      module load GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0
+      module load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+  1) release/24.04
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0
+===========================
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+  1) release/24.04
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0
+===========================
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --force purge
+===========================
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load NCCL OpenMPI CUDA
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "CUDA", "NCCL", "OpenMPI"
+   Try: "module spider CUDA NCCL OpenMPI" to see how to load the module(s).
+   Or load any one of these options:
+      module load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --force purge
+===========================
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/25.06
+===========================
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load NCCL OpenMPI CUDA
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "NCCL", "OpenMPI"
+   Try: "module spider NCCL OpenMPI" to see how to load the module(s).
+   Or load any one of these options:
+      module load GCC/13.3.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+      module load release/25.06 GCC/13.3.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --force purge
+===========================
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load NCCL OpenMPI CUDA
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "NCCL", "OpenMPI"
+   Try: "module spider NCCL OpenMPI" to see how to load the module(s).
+   Or load any one of these options:
+      module load release/25.06b GCC/13.3.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --force purge
+===========================
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04
+===========================
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CUDA NCCL OpenMPI
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "NCCL", "OpenMPI"
+   Try: "module spider NCCL OpenMPI" to see how to load the module(s).
+   Or load any one of these options:
+      module load GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+      module load release/24.04 GCC/13.2.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --force purge
+===========================
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04
+===========================
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load NCCL OpenMPI
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "NCCL", "OpenMPI"
+   Try: "module spider NCCL OpenMPI" to see how to load the module(s).
+   Or load any one of these options:
+      module load GCC/13.2.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+      module load release/24.04 GCC/13.2.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --force purge
+===========================
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/24.04 CUDA/13.0.0
+===========================
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load NCCL OpenMPI
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "NCCL", "OpenMPI"
+   Try: "module spider NCCL OpenMPI" to see how to load the module(s).
+   Or load any one of these options:
+      module load GCC/13.2.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+      module load release/24.04 GCC/13.2.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --force purge
+===========================
+===========================
+step 37
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/25.06c
+===========================
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load NCCL OpenMPI CUDA
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "NCCL", "OpenMPI"
+   Try: "module spider NCCL OpenMPI" to see how to load the module(s).
+   Or load any one of these options:
+      module load GCC/13.3.0 CUDA/13.0.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+      module load release/25.06c GCC/13.3.0 CUDA/13.0.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/4.1.6
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --force purge
+===========================
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/25.06d
+===========================
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load NCCL OpenMPI CUDA
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "NCCL", "OpenMPI"
+   Try: "module spider NCCL OpenMPI" to see how to load the module(s).
+   Or load any one of these options:
+      module load GCC/13.3.0 CUDA/12.9.1 NCCL/2.27.7-CUDA-12.9.1 OpenMPI/4.1.6
+      module load release/25.06d GCC/13.3.0 CUDA/12.9.1 NCCL/2.27.7-CUDA-12.9.1 OpenMPI/4.1.6
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --force purge
+===========================
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/42
+===========================
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Pkg Comm Accel
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "Comm", "Pkg"
+   Try: "module spider Comm Pkg" to see how to load the module(s).
+   Or load any one of these options:
+      module load Family/9.0 Accel/1.0 Pkg/3.1-Accel-1.0 Comm/8.0
+      module load release/42 Family/9.0 Accel/1.0 Pkg/3.1-Accel-1.0 Comm/8.0
+===========================
+step 45
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --force purge
+===========================
+===========================
+step 46
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load release/25.06e
+===========================
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load NCCL OpenMPI CUDA
+===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "NCCL", "OpenMPI"
+   Try: "module spider NCCL OpenMPI" to see how to load the module(s).
+   Or load any one of these options:
+      module load GCC/13.3.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/5.0.3
+      module load release/25.06e GCC/13.3.0 CUDA/12.6.0 NCCL/2.22.3-CUDA-12.6.0 OpenMPI/5.0.3

@@ -60,6 +60,7 @@ local cosmic       = require("Cosmic"):singleton()
 local dbg          = require('Dbg'):dbg()
 local getenv       = os.getenv
 local lfs          = require("lfs")
+local realpath     = require("posix.stdlib").realpath
 local M            = {}
 
 local s_configuration = false
@@ -350,11 +351,15 @@ function M.report(self, t)
    if (isFile(print_os)) then
       os_name = capture(print_os)
    end
+   local posixVersion = posix.version or posix._VERSION
+   posixVersion       = posixVersion:gsub(".*luaposix ","")
 
-   b[#b+1] = "Lmod Version: " .. lmod_version
-   b[#b+1] = "Lua Version:  " .. _VERSION:gsub("Lua ","")
-   b[#b+1] = "MODULEPATH:   " .. (os.getenv("MODULEPATH") or "<unknown>")
-   b[#b+1] = "OS Name:      " .. os_name
+
+   b[#b+1] = "Lmod Version:     " .. lmod_version
+   b[#b+1] = "Lua Version:      " .. _VERSION:gsub("Lua ","")
+   b[#b+1] = "Luaposix Version: " .. posixVersion
+   b[#b+1] = "MODULEPATH:       " .. (os.getenv("MODULEPATH") or "<unknown>")
+   b[#b+1] = "OS Name:          " .. os_name
    b[#b+1] = "\n"
 
    b[#b+1] = "Changes from Default Configuration"

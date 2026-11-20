@@ -179,17 +179,6 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load none
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ depends_on_any\ function\ failed\ because\ it\ could\ not\ find\ any\ of\ the\ following\ modules\ :\ q,\ r,\ s"
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-"While\ processing\ the\ following\ module\(s\):"
-"\ \ \ \ Module\ fullname\ \ Module\ Filename"
-"\ \ \ \\ \"
-"\ \ \ \ none\ \ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/depends_on_any/mf/Core/none.lua"
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================

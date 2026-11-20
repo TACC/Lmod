@@ -1,0 +1,198 @@
+-- -*- lua -*-
+local testName = "avail_termwidth"
+
+testdescript = {
+   owner   = "mclay",
+   product = "modules",
+   description = [[
+        Dissect module avail duplication when a spidered modulefile
+        calls LmodWarning while TermWidth forks (GH-858, GH-859).
+        Each TWCASE line records name hits, warning lines, and stty/tput
+        probe count. Pager behavior is out of
+        scope: runLmod captures stderr, so less is not started.
+   ]],
+   keywords = { testName },
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export HIER_MIX=$(testDir)/mf/hier/mix
+     export TW_PROBE_LOG="$PWD/probe.log"
+     export CASE_LOG="$(outputDir)/case_summary.txt"
+     : > "$CASE_LOG"
+
+     mkdir -p _fakebin
+     cat > _fakebin/stty <<'FAKE'
+#!/bin/sh
+echo "stty $*" >> "$TW_PROBE_LOG"
+[ "$1" = "size" ] && { echo "24 100"; exit 0; }
+exit 0
+FAKE
+     cat > _fakebin/tput <<'FAKE'
+#!/bin/sh
+echo "tput $*" >> "$TW_PROBE_LOG"
+[ "$1" = "cols" ] && { echo "100"; exit 0; }
+exit 0
+FAKE
+     chmod +x _fakebin/stty _fakebin/tput
+     export PATH="$PWD/_fakebin:$PATH"
+
+     remove_generated_lmod_files
+
+     clear_case () {
+        rm -rf "$HOME/.cache" "$HOME/.lmod.d" "$HOME/.config"
+        unsetMT
+        unset LMOD_TERM_WIDTH
+        unset COLUMNS
+        export TERM=xterm
+        : > "$TW_PROBE_LOG"
+     }
+
+     record () {
+        local id="$1"
+        local needle="$2"
+        local errf="_stderr.$NUM"
+        local hits=0
+        local warns=0
+        local probes=0
+        if [ -f "$errf" ]; then
+           hits=`grep -c "$needle" "$errf" || true`
+           warns=`grep -c "Lmod Warning:" "$errf" || true`
+        fi
+        if [ -s "$TW_PROBE_LOG" ]; then
+           probes=`wc -l < "$TW_PROBE_LOG" | tr -d ' '`
+        fi
+        echo "TWCASE $id hits=$hits warns=$warns probes=$probes" >> "$CASE_LOG"
+     }
+
+     # S1: no warning. Probe may run after os.exit is restored.
+     clear_case
+     export MODULEPATH=$(testDir)/mf/plain/Core
+     SECONDS=0
+     runLmod --ignore_cache avail                                          # 1
+     record S1-plain-ignore-cache plain/1.0
+
+     # S2: 859 hierarchy, width probe allowed.
+     clear_case
+     export MODULEPATH=$(testDir)/mf/hier/Core
+     SECONDS=0
+     runLmod --ignore_cache avail                                          # 2
+     record S2-hier-warn-mixed fake-mixed/1.0
+     record S2-hier-warn-core fake-core/1.0
+     cp "_stderr.$NUM" "$(outputDir)/s2.err"
+
+     # S3: same tree, LMOD_TERM_WIDTH skips the fork.
+     clear_case
+     export LMOD_TERM_WIDTH=80
+     export MODULEPATH=$(testDir)/mf/hier/Core
+     SECONDS=0
+     runLmod --ignore_cache avail                                          # 3
+     record S3-hier-termwidth-mixed fake-mixed/1.0
+     record S3-hier-termwidth-core fake-core/1.0
+
+     # S4: COLUMNS set, LMOD_TERM_WIDTH unset.
+     clear_case
+     export COLUMNS=80
+     export MODULEPATH=$(testDir)/mf/hier/Core
+     SECONDS=0
+     runLmod --ignore_cache avail                                          # 4
+     record S4-hier-columns-mixed fake-mixed/1.0
+     record S4-hier-columns-core fake-core/1.0
+
+     # S5: LmodMessage is quiet in spider mode.
+     clear_case
+     export MODULEPATH=$(testDir)/mf/msgmod/Core
+     SECONDS=0
+     runLmod --ignore_cache avail                                          # 5
+     record S5-message msgmod/1.0
+
+     # S6: os.exit in a modulefile must not abort the scan.
+     clear_case
+     export MODULEPATH=$(testDir)/mf/exitmod/Core
+     SECONDS=0
+     runLmod --ignore_cache avail                                          # 6
+     record S6-os-exit exitmod/1.0
+
+     # S7: module show does not spider the tree.
+     clear_case
+     export MODULEPATH=$(testDir)/mf/hier/mix
+     SECONDS=0
+     runLmod show fake-mixed                                               # 7
+     record S7-show fake-mixed/1.0
+
+     # S8: cold avail, then a second avail with the cache left in place.
+     clear_case
+     export MODULEPATH=$(testDir)/mf/hier/Core
+     SECONDS=0
+     runLmod avail                                                         # 8
+     record S8-cold-mixed fake-mixed/1.0
+     record S8-cold-core fake-core/1.0
+     : > "$TW_PROBE_LOG"
+     SECONDS=0
+     runLmod avail                                                         # 9
+     record S8-warm-mixed fake-mixed/1.0
+     record S8-warm-core fake-core/1.0
+
+     # S9: terse listing, same scan.
+     clear_case
+     export MODULEPATH=$(testDir)/mf/hier/Core
+     SECONDS=0
+     runLmod -t --ignore_cache avail                                       # 10
+     record S9-terse-mixed fake-mixed/1.0
+     record S9-terse-core fake-core/1.0
+
+     # S10: filtered avail, 859's command.
+     clear_case
+     export MODULEPATH=$(testDir)/mf/hier/Core
+     SECONDS=0
+     runLmod --ignore_cache avail fake-core                                # 11
+     record S10-filtered-core fake-core/1.0
+     record S10-filtered-mixed fake-mixed/1.0
+
+     # S11: warning in the core module, no extra MODULEPATH.
+     clear_case
+     export MODULEPATH=$(testDir)/mf/warncore/Core
+     SECONDS=0
+     runLmod --ignore_cache avail                                          # 12
+     record S11-warncore warncore/1.0
+
+     # S12: flat warning, no hierarchy.
+     clear_case
+     export MODULEPATH=$(testDir)/mf/warnflat/Core
+     SECONDS=0
+     runLmod --ignore_cache avail                                          # 13
+     record S12-warnflat warnflat/1.0
+
+     cp "$CASE_LOG" _stdout.998
+
+     HOME=$ORIG_HOME
+
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results -bash _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish --onFailure $(outputDir)/failed.txt -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

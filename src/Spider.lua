@@ -637,6 +637,9 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
             t.parentAA    = parentT[mpath]
             t.mpath       = vv.mpath
             t.fullName    = fullName
+            if (vv.depT) then
+               t.depT = vv.depT
+            end
             local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, mpathA=mpathA, mpath = vv.mpath}
             t.hidden      = not resultT.isVisible
             kind          = resultT.moduleKindT.kind

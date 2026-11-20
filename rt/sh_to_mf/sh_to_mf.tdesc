@@ -24,11 +24,11 @@ testdescript = {
 
      unset -f fooBar > /dev/null 2> /dev/null
 
-     runLmod --version                                            # 1    
+     runLmod --version                                            # 1
      ORIG_LD=${LD_LIBRARY_PATH}
      export LD_LIBRARY_PATH="/df/gh${ORIG_LD:+:}${ORIG_LD}"
      export FOO_ESC='\['
-     export CI_RUNNER_TAGS = '["ansible", "yaml"]',
+     export CI_RUNNER_TAGS='["ansible", "yaml"]'
      runSh2MF             $(testDir)/tstScript.sh                 # 2
      runSh2MF  --to TCL   $(testDir)/tstScript.sh                 # 3 
      runSh2MF             $(testDir)/path_both_ends.sh            # 4        
@@ -50,6 +50,10 @@ testdescript = {
      runLmod  load   wrapperSh/1.0                                #18
      runLmod  save                                                #19
      runBase  export LD_LIBRARY_PATH="foo${ORIG_LD:+:}${ORIG_LD}" #20
+     unset SECOND
+     unset PTH
+     unset MY_NAME
+     unset TST_SCRIPT
      runLmod  restore                                             #21
      runLmod  --mt                                                #22
      runLmod  load   conda/24.3                                   #23

@@ -394,40 +394,12 @@ export _ModuleTable_;
 step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore stdenv
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ One\ or\ more\ modules\ in\ your\ stdenv\ collection\ have\ changed:\ \"gcc\"."
-"To\ see\ the\ contents\ of\ this\ collection\ execute:"
-"\ \ \$\ module\ describe\ stdenv"
-"To\ rebuild\ the\ collection,\ do\ a\ module\ reset,\ then\ load\ the\ modules\ you\ wish,\ then\ execute:"
-"\ \ \$\ module\ save\ stdenv"
-"If\ you\ no\ longer\ want\ this\ module\ collection\ execute:"
-"\ \ \$\ rm\ \~/.lmod.d/stdenv"
-""
-"For\ more\ information\ execute\ \'module\ help\'\ or\ see\ https://lmod.readthedocs.org/"
-"No\ change\ in\ modules\ loaded."
-""
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore stdenv
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ One\ or\ more\ modules\ in\ your\ stdenv\ collection\ have\ changed:\ \"StdEnv\",\ \"gcc\"."
-"To\ see\ the\ contents\ of\ this\ collection\ execute:"
-"\ \ \$\ module\ describe\ stdenv"
-"To\ rebuild\ the\ collection,\ do\ a\ module\ reset,\ then\ load\ the\ modules\ you\ wish,\ then\ execute:"
-"\ \ \$\ module\ save\ stdenv"
-"If\ you\ no\ longer\ want\ this\ module\ collection\ execute:"
-"\ \ \$\ rm\ \~/.lmod.d/stdenv"
-""
-"For\ more\ information\ execute\ \'module\ help\'\ or\ see\ https://lmod.readthedocs.org/"
-"No\ change\ in\ modules\ loaded."
-""
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================

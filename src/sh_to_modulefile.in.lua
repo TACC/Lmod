@@ -83,18 +83,18 @@ package.cpath  = sys_lua_cpath
 local arg_0    = arg[0]
 _G._DEBUG      = false
 local posix    = require("posix")
-local readlink = posix.readlink
-local stat     = posix.stat
+local readlink = require("posix.unistd").readlink
+local stat     = require("posix.sys.stat")
 
-local st       = stat(arg_0)
-while (st.type == "link") do
+local my_stat  = stat.stat(arg_0)
+while (stat.S_ISLNK(my_stat.st_mode) ~= 0) do
    local lnk = readlink(arg_0)
    if (arg_0:find("/") and (lnk:find("^/") == nil)) then
       local dir = arg_0:gsub("/[^/]*$","")
       lnk       = dir .. "/" .. lnk
    end
-   arg_0 = lnk
-   st    = stat(arg_0)
+   arg_0   = lnk
+   my_stat = stat.stat(arg_0)
 end
 
 local ia,ja = arg_0:find(".*/")
@@ -129,101 +129,12 @@ local Version      = "0.0"
 local dbg          = require("Dbg"):dbg()
 local Optiks       = require("Optiks")
 local concatTbl    = table.concat
-local getenv       = os.getenv
-local getenv_posix = posix.getenv
-local setenv_posix = posix.setenv
 local s_optionTbl  = {}
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
-envT               = false
-
-local keepT = {
-   ['HOME']            = 'keep',
-   ['USER']            = 'keep',
-   ['LD_LIBRARY_PATH'] = 'keep',
-   ['LUA_CPATH']       = 'keep',
-   ['LUA_PATH']        = 'keep',
-   ['PATH']            = 'neat',
-}
-
-local execT = {
-   gcc    = 'keep',
-   lua    = 'keep',
-   python = 'keep',
-   csh    = 'keep',
-   bash   = 'keep',
-}
 
 
 function optionTbl()
    return s_optionTbl
-end
-
-local function l_cleanPath(value)
-
-   local pathT  = {}
-   local pathA  = {}
-
-   local idx = 0
-   for myPath in value:split(':') do
-      idx        = idx + 1
-      local path = path_regularize(myPath)
-      if (pathT[path] == nil) then
-         pathT[path]     = { idx = idx, keep = false }
-         pathA[#pathA+1] = path
-      end
-   end
-
-   local myPath = concatTbl(pathA,':')
-   pathA        = {}
-
-   for execName in pairs(execT) do
-      local cmd, found = findInPath(execName, myPath)
-      if (found) then
-         local dir = dirname(cmd):gsub("/+$","")
-         local p = path_regularize(dir)
-         if (p and pathT[p]) then
-            pathT[p].keep = true
-         end
-      end
-   end
-
-   for path in pairs(pathT) do
-      if (value:find('^/usr/')) then
-         pathT[path].keep = true
-      end
-   end
-
-   -- Step 1: Make a sparse array with path as values
-   local t = {}
-
-   for k, v in pairs(pathT) do
-      if (v.keep) then
-         t[v.idx] = k
-      end
-   end
-
-   -- Step 2: Use pairsByKeys to copy paths into pathA in correct order
-   local n = 0
-   for _, v in pairsByKeys(t) do
-      n = n + 1
-      pathA[n] = v
-   end
-
-   -- Step 3: rebuild path
-   return concatTbl(pathA,':')
-end
-
-function l_cleanEnv()
-   local envT = getenv_posix()
-
-   for k, v in pairs(envT) do
-      local keep = keepT[k]
-      if (not keep) then
-         setenv_posix(k, nil, true)
-      elseif (keep == 'neat') then
-         setenv_posix(k, l_cleanPath(v), true)
-      end
-   end
 end
 
 function main()
@@ -240,13 +151,13 @@ function main()
    end
 
    initialize_lmod()
-   if (optionTbl.cleanEnv) then
-      l_cleanEnv()
-   end
+   --if (optionTbl.cleanEnv) then
+   --   l_cleanEnv()
+   --end
 
    local shellName = optionTbl.inStyle:lower()
 
-   local success, msg, a = convertSh2MF(shellName, optionTbl.style, script)
+   local success, msg, a = convertSh2MF(shellName, optionTbl.style, optionTbl.cleanEnv, script)
    if (not success) then
       io.stderr:write(msg,"\n")
       os.exit(1)

@@ -16,17 +16,6 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ load_any\ function\ failed\ because\ it\ could\ not\ find\ any\ of\ the\ following\ modules\ :\ Bar\ bar\ BAR"
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-"While\ processing\ the\ following\ module\(s\):"
-"\ \ \ \ Module\ fullname\ \ Module\ Filename"
-"\ \ \ \\ \"
-"\ \ \ \ B/1.0\ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/load_any/mf/B/1.0.lua"
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================

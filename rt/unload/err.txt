@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.61 2025-06-20 16:09 -05:00
+Modules based on Lua: Version 9.4.5 2026-10-13 12:08 +01:00
     https://lmod.readthedocs.io
 ===========================
 step 2
@@ -13,9 +13,11 @@ step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
+  ACME: ACME/1.0
   B: B/2.0
   C: C/1.0
   D: D/1.0
+  DEF: DEF/1.0
   gcc: gcc/4.7.2
   intel: intel/13.0
   mpich2: mpich2/1.5.2
@@ -43,7 +45,8 @@ ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5
 ProjectDIR/rt/unload/mf/Compiler/intel/13.0
    mpich2/1.5.2 (L)
 ProjectDIR/rt/unload/mf/Core
-   B/2.0    C/1.0    D/1.0    gcc/4.7.2    intel/13.0 (L)
+   ACME/1.0    C/1.0    DEF/1.0      intel/13.0 (L)
+   B/2.0       D/1.0    gcc/4.7.2
   Where:
    L:  Module is loaded
 If the avail list is too long consider trying:
@@ -82,4 +85,12 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C
 ===========================
 step 12
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload C
+===========================
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load DEF
+===========================
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload DEF
 ===========================

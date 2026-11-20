@@ -303,6 +303,49 @@ local function l_processImages(text)
 end
 
 --------------------------------------------------------------------------
+-- Hide inline code so emphasis cannot treat underscores or asterisks
+-- inside backticks as markers. Placeholders are restored before code,
+-- image, and link formatting.
+-- @param text Line that may contain `code` spans
+-- @return text with spans replaced, table of original spans
+local function l_shieldInlineCode(text)
+   local saved = {}
+   local n = 0
+   local shielded = text:gsub("`([^`]+)`", function(code)
+      n = n + 1
+      saved[n] = "`" .. code .. "`"
+      return "\001" .. tostring(n) .. "\001"
+   end)
+   return shielded, saved
+end
+
+--------------------------------------------------------------------------
+-- Put shielded inline-code spans back, including their backticks.
+-- @param text Text after emphasis
+-- @param saved Spans from l_shieldInlineCode
+-- @return text with original spans restored
+local function l_restoreShieldedCode(text, saved)
+   return (text:gsub("\001(%d+)\001", function(idx)
+      return saved[tonumber(idx)] or ""
+   end))
+end
+
+--------------------------------------------------------------------------
+-- Emphasis, then inline code, images, and links.
+-- Code spans are shielded so their contents are not emphasis markers.
+-- @param text The text to process
+-- @return text with inline markdown converted
+local function l_processInlineFormatting(text)
+   local shielded, saved = l_shieldInlineCode(text)
+   shielded = l_processEmphasis(shielded)
+   local restored = l_restoreShieldedCode(shielded, saved)
+   restored = l_processInlineCode(restored)
+   restored = l_processImages(restored)
+   restored = l_processLinks(restored)
+   return restored
+end
+
+--------------------------------------------------------------------------
 -- Process a list item
 -- @param line The line containing a list item
 -- @return formatted list item
@@ -313,12 +356,7 @@ local function l_processListItem(line)
       -- Unordered lists
       local indent, marker, content = line:match("^(%s*)([-*+])%s+(.+)$")
       if indent and marker and content then
-         -- Process inline formatting in the content
-         -- Process images before links to avoid pattern conflicts
-         content = l_processInlineCode(content)
-         content = l_processEmphasis(content)
-         content = l_processImages(content)
-         content = l_processLinks(content)
+         content = l_processInlineFormatting(content)
          
          local bullet = USE_COLOR and l_applyFormat("•", ANSI.CYAN) or "•"
          return indent .. bullet .. " " .. content
@@ -327,12 +365,7 @@ local function l_processListItem(line)
       -- Ordered lists  
       indent, marker, content = line:match("^(%s*)(%d+%.)%s+(.+)$")
       if indent and marker and content then
-         -- Process inline formatting in the content
-         -- Process images before links to avoid pattern conflicts
-         content = l_processInlineCode(content)
-         content = l_processEmphasis(content)
-         content = l_processImages(content)
-         content = l_processLinks(content)
+         content = l_processInlineFormatting(content)
          
          local numberedMarker = USE_COLOR and l_applyFormat(marker, ANSI.CYAN) or marker
          return indent .. numberedMarker .. " " .. content
@@ -436,12 +469,7 @@ function MarkdownProcessor._processInternal(markdownText)
          processedLine = l_processListItem(line)
       -- Regular text
       else
-         -- Apply inline formatting
-               -- Process images before links to avoid pattern conflicts
-         processedLine = l_processInlineCode(processedLine)
-         processedLine = l_processEmphasis(processedLine)
-         processedLine = l_processImages(processedLine)
-         processedLine = l_processLinks(processedLine)
+         processedLine = l_processInlineFormatting(processedLine)
       end
       
       table.insert(result, processedLine)

@@ -23,7 +23,7 @@ testdescript = {
      COUNT=0
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
-     cacheDir=`userCacheDir`
+     cacheDir=$HOME/.cache/lmod
  
      remove_generated_lmod_files myCacheDir fn spiderT.lua SitePackage.lua
 

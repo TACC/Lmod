@@ -165,16 +165,6 @@ export _ModuleTable_;
 step 17
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load vasp/does_not_exist
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"vasp/does_not_exist\""
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
-"\ \ \$\ module\ --ignore_cache\ load\ \"vasp/does_not_exist\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -352,32 +342,12 @@ export _ModuleTable_;
 step 34
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/2.0
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"foo/2.0\""
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
-"\ \ \$\ module\ --ignore_cache\ load\ \"foo/2.0\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
 step 35
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/variant/2.0
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"foo/variant/2.0\""
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
-"\ \ \$\ module\ --ignore_cache\ load\ \"foo/variant/2.0\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -397,16 +367,6 @@ unset __LMOD_LAST_ERROR;
 step 37
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/variantZ/1.0
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"foo/variantZ/1.0\""
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
-"\ \ \$\ module\ --ignore_cache\ load\ \"foo/variantZ/1.0\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -426,32 +386,12 @@ unset __LMOD_LAST_ERROR;
 step 39
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/variant/another/2.0
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"foo/variant/another/2.0\""
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
-"\ \ \$\ module\ --ignore_cache\ load\ \"foo/variant/another/2.0\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
 step 40
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/variant/anotherzzz/2.0
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ The\ following\ module\(s\)\ are\ unknown:\ \"foo/variant/anotherzzz/2.0\""
-""
-"Please\ check\ the\ spelling\ or\ version\ number.\ Also\ try\ \"module\ spider\ ...\""
-"It\ is\ also\ possible\ your\ cache\ file\ is\ out-of-date\;\ it\ may\ help\ to\ try:"
-"\ \ \$\ module\ --ignore_cache\ load\ \"foo/variant/anotherzzz/2.0\""
-""
-"Also\ make\ sure\ that\ all\ modulefiles\ written\ in\ TCL\ start\ with\ the\ string\ \#%Module"
-""
-""
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================

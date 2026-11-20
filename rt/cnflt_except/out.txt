@@ -24,12 +24,6 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Too\ many\ modules:\ only\ one\ is\ allowed\ "
-"While\ processing\ the\ following\ module\(s\):"
-"\ \ \ \ Module\ fullname\ \ Module\ Filename"
-"\ \ \ \\ \"
-"\ \ \ \ A/1.0\ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/cnflt_except/mf/Core/A/1.0.lua"
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================
@@ -63,12 +57,6 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 ===========================
-__LMOD_LAST_ERROR=Lmod\ has\ detected\ the\ following\ error:\ Expected\ miniconda\ \ got\ B/1.0\ \ instead\!\ "
-"While\ processing\ the\ following\ module\(s\):"
-"\ \ \ \ Module\ fullname\ \ Module\ Filename"
-"\ \ \ \\ \"
-"\ \ \ \ A/1.0\ \ \ \ \ \ \ \ \ \ \ \ ProjectDIR/rt/cnflt_except/mf/Core/A/1.0.lua"
-";
 export __LMOD_LAST_ERROR;
 false
 ===========================

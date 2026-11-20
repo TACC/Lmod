@@ -59,18 +59,18 @@ package.cpath  = sys_lua_cpath
 local arg_0    = arg[0]
 _G._DEBUG      = false
 local posix    = require("posix")
-local readlink = posix.readlink
-local stat     = posix.stat
+local readlink = require("posix.unistd").readlink
+local stat     = require("posix.sys.stat")
 
-local st       = stat(arg_0)
-while (st.type == "link") do
+local my_stat  = stat.stat(arg_0)
+while (stat.S_ISLNK(my_stat.st_mode) ~= 0) do
    local lnk = readlink(arg_0)
    if (arg_0:find("/") and (lnk:find("^/") == nil)) then
       local dir = arg_0:gsub("/[^/]*$","")
       lnk       = dir .. "/" .. lnk
    end
-   arg_0 = lnk
-   st    = stat(arg_0)
+   arg_0   = lnk
+   my_stat = stat.stat(arg_0)
 end
 
 local ia,ja = arg_0:find(".*/")
@@ -379,17 +379,21 @@ function main()
    end
 
    if (dbg.active()) then
+      local utsname = require("posix.sys.utsname")
+      local info    = utsname.uname()
+      assert(type(info) == "table", "broken posix.sys.utsname")
+
       dbg.start{"lmod(", concatTbl(arg," "),")"}
       dbg.print{"Date: ",os.date(),"\n"}
-      dbg.print{"Hostname: ",posix.uname("%n"),"\n"}
-      dbg.print{"System: ",posix.uname("%s")," ",posix.uname("%r"),"\n"}
-      dbg.print{"Version: ",posix.uname("%v"),"\n"}
+      dbg.print{"Hostname: ",info.nodename,"\n"}
+      dbg.print{"System: ",info.sysname," ",info.release,"\n"}
+      dbg.print{"Version: ",info.version,"\n"}
       dbg.print{"Lua Version: ", _VERSION:sub(5,-1),"\n"}
       dbg.print{"Lmod Version: ",Version.name(),"\n"}
       dbg.print{"package.path: ",package.path,"\n"}
       dbg.print{"package.cpath: ",package.cpath,"\n"}
       dbg.print{"lmodPath: ", cosmic:value("LMOD_PACKAGE_PATH"),"\n"}
-      dbg.print{"LOADEDMODULES: ",getenv("LOADEDMODULES"),"\n"}
+      dbg.print{"LOADEDMODULES: ",getenv("LOADEDMODULES") or "nil","\n"}
       dbg.print{"shellNm: ",shellNm,", Shell:name(): ",Shell:name(),"\n"}
    end
 
@@ -565,7 +569,7 @@ function main()
    varT[n]:set(mt:serializeTbl())
    
    -- Clear Lmod Last Error var if it had a previous value
-   n           = lastErrorVarName()
+   n              = lastErrorVarName()
    if (getenv(n)) then
       varT[n]  = Var:new(n)
       varT[n]:set(false)
