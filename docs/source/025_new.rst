@@ -1,6 +1,14 @@
 New Features in Lmod
 ====================
 
+**Luaposix 38 now supported**
+  (Lmod 9.5+) Luaposix 38 removed the old luaposix interface.  Lmod
+  9.5 has been updated to use the current interface.
+
+**setenv() and pushenv() are no longer unset inside the Lmod process on module unload**
+  (Lmod 9.5+) This feature now works in 9.5.  It was not correct with
+  the change in 9.2.6
+
 **Underscores inside inline code stay literal**
   (Lmod 9.4.5+) Markdown help keeps underscores and asterisks inside
   single-backtick spans. ``module help`` no longer treats those
