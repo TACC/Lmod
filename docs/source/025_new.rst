@@ -9,6 +9,10 @@ New Features in Lmod
   (Lmod 9.5+) This feature now works in 9.5.  It was not correct with
   the change in 9.2.6
 
+**module last-error now works correctly in t/csh** 
+  (Lmod 9.5+) This feature now works for t/csh users.
+  
+  
 **Underscores inside inline code stay literal**
   (Lmod 9.4.5+) Markdown help keeps underscores and asterisks inside
   single-backtick spans. ``module help`` no longer treats those
